@@ -4,7 +4,6 @@ import { navItems } from "@/data";
 import dynamic from "next/dynamic";
 
 import Hero from "@/components/Hero";
-import Grid from "@/components/Grid";
 import Footer from "@/components/Footer";
 import Approach from "@/components/Approach";
 import Experience from "@/components/Experience";
@@ -13,6 +12,12 @@ import RecentProjects from "@/components/RecentProjects";
 // Dynamic imports to prevent SSR issues
 const FloatingNav = dynamic(
   () => import("@/components/ui/FloatingNavbar").then((mod) => mod.FloatingNav),
+  { ssr: false }
+);
+
+// Grid uses Lottie which requires document
+const Grid = dynamic(
+  () => import("@/components/Grid"),
   { ssr: false }
 );
 
