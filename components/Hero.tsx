@@ -6,7 +6,7 @@ import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Hero = () => {
   return (
-    <div className="pb-20 sm:pt-36 pt-10 ">
+    <div className="pb-20 sm:pt-36 pt-10" id="home">
       {/**
        *  UI: Spotlights
        *  Link: https://ui.aceternity.com/components/spotlight
@@ -46,14 +46,14 @@ const Hero = () => {
             Dynamic Web Magic with Next.js
           </p>
 
-         
           <TextGenerateEffect
             words="Bridging Frontend Excellence with Backend Innovation"
             className="text-center text-[40px] md:text-5xl lg:text-6xl"
           />
 
           <p className="text-center md:tracking-wider sm:mb-4 mb-10 pt-10 text-sm md:text-lg lg:text-2xl">
-            Hi! I&apos;m Arun Acharya, a Frontend Developer passionate about full-stack solutions in science and technology.
+            Hi! I&apos;m Arun Acharya, a Frontend Developer passionate about
+            full-stack solutions in science and technology.
           </p>
 
           <a href="#about">
