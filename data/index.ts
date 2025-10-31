@@ -50,7 +50,8 @@ export const gridItems = [
 
   {
     id: 5,
-    title: "Currently Working with soundofmeme team to make a ai music platform",
+    title:
+      "Currently Working with soundofmeme team to make a ai music platform",
     description: "The Inside Scoop",
     className: "md:col-span-3 md:row-span-2",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
@@ -73,35 +74,35 @@ export const gridItems = [
 export const projects = [
   {
     id: 1,
-    title: "Think Bright Blog",
-    des: "A platform for students to get help with their studies and for teachers to help students with their studies.",
-    img: "/p1.svg",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/fm.svg"],
-    link: "https://think-bridge.vercel.app/",
+    title: "SoundOfMeme - AI Music Platform",
+    des: "Full-stack web app with AI-powered song generation, playlist management, Excel export, and deep search. Led frontend development & marketing campaigns including live Twitter sessions and college outreach.",
+    img: "/p2.svg",
+    iconLists: ["/re.svg", "/tail.svg", "/next.svg", "/ts.svg", "/fm.svg"],
+    link: "https://soundofmeme.com",
   },
   {
     id: 2,
-    title: "Sound of Meme AI Music Platform(Working for Persist ventures)",
-    des: "An innovative AI-powered music platform that transforms and generates unique audio experiences, combining cutting-edge technology with creative expression.",
-    img: "/p2.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
-    link: "https://soundofmeme.com/",
+    title: "Bump FM - Music Streaming Platform",
+    des: "Developed complete playlist feature with persistent storage, intuitive UI for playlist management, and seamless integration with the main streaming platform. Focused on user experience and performance.",
+    img: "/p1.svg",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/stream.svg", "/c.svg"],
+    link: "https://bump.fm",
   },
   {
     id: 3,
-    title: "Protfolio Website for an Advocate",
-    des: "A platform for an advocate to showcase their work and for clients to contact them.",
+    title: "Duck Race - Interactive Gaming UI",
+    des: "Designed and built engaging game interface with smooth animations, player layouts, and real-time interactions. Created immersive racing experience with responsive design and optimized performance.",
     img: "/p3.svg",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
-    link: "https://ashwani-acharya.vercel.app/",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
+    link: "https://race.devisai.com",
   },
   {
     id: 4,
-    title: "ANN Media Group(In Progress)",
-    des: "A platform for a media group to showcase their work and for clients to contact them.",
+    title: "Advocate Portfolio Website",
+    des: "Professional portfolio platform showcasing legal expertise with modern design, client testimonials, and contact integration. Built with performance and accessibility in mind.",
     img: "/p4.svg",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
-    link: "https://ann-media-group.vercel.app/",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/next.svg"],
+    link: "https://ashwani-acharya.vercel.app/",
   },
 ];
 
@@ -174,24 +175,31 @@ export const companies = [
 export const workExperience = [
   {
     id: 1,
-    title: "Frontend Engineer Intern at HackVeda",
-    desc: "Assisted in the development of a web-based platform using React.js, enhancing interactivity.",
+    title: "Frontend Developer & Marketing Lead at Persist Ventures",
+    desc: "Built SoundOfMeme platform, led weekly Twitter live sessions, created LinkedIn marketing videos, conducted college outreach programs. Implemented playlist features, Excel export, and server load testing for 1000+ songs.",
+    className: "md:col-span-2",
+    thumbnail: "/exp2.svg",
+  },
+  {
+    id: 2,
+    title: "Frontend Engineer at Bump FM",
+    desc: "Developed persistent playlist management system with CRUD operations, sidebar integration, and optimized UI/UX. Focused on performance optimization and seamless user experience.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
   },
   {
-    id: 2,
-    title: "Frontend Developer at Persist Ventures",
-    desc: "Designed and developed web app using React Js, Tailwind CSS, React Router, React Hook Form, React Icons, React Query, React Toastify, React Icons, Redux.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp2.svg",
+    id: 3,
+    title: "Frontend Developer - Gaming Projects",
+    desc: "Created interactive Duck Race game UI with advanced animations, player layouts, and real-time interactions. Delivered engaging gaming experiences with responsive design.",
+    className: "md:col-span-2",
+    thumbnail: "/exp3.svg",
   },
   {
-    id: 3,
-    title: "Freelance Project",
-    desc: "Led the dev of a Website for a client, from initial concept to deployment on Vercel.",
-    className: "md:col-span-2", // change to md:col-span-2
-    thumbnail: "/exp3.svg",
+    id: 4,
+    title: "Freelance Full-Stack Developer",
+    desc: "Developed multiple client projects including portfolio websites and web applications. Managed projects from concept to deployment on Vercel.",
+    className: "md:col-span-2",
+    thumbnail: "/exp4.svg",
   },
 ];
 
