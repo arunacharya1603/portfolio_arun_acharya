@@ -16,10 +16,7 @@ const FloatingNav = dynamic(
 );
 
 // Grid uses Lottie which requires document
-const Grid = dynamic(
-  () => import("@/components/Grid"),
-  { ssr: false }
-);
+const Grid = dynamic(() => import("@/components/Grid"), { ssr: false });
 
 const Home = () => {
   return (
