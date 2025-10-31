@@ -48,6 +48,10 @@ export const FloatingNav = ({
     link: string
   ) => {
     e.preventDefault();
+    
+    // Only run on client side
+    if (typeof window === "undefined") return;
+    
     const targetId = link.replace("#", "");
     const element = document.getElementById(targetId);
 
