@@ -235,7 +235,7 @@ export function WebGLRendererConfig() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
     gl.setPixelRatio(window.devicePixelRatio);
     gl.setSize(size.width, size.height);
     gl.setClearColor(0xffaaff, 0);
