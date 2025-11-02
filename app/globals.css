@@ -95,4 +95,46 @@ div[id] {
   .heading {
     @apply font-bold text-4xl md:text-5xl text-center;
   }
+
+  /* Infinite scroll animations for tech stack */
+  .scroll-up-infinite {
+    animation: scrollUp 25s linear infinite;
+    will-change: transform;
+  }
+
+  .scroll-down-infinite {
+    animation: scrollDown 25s linear infinite;
+    will-change: transform;
+    transform: translateY(-50%);
+  }
+
+  @keyframes scrollUp {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
+  }
+
+  @keyframes scrollDown {
+    0% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  /* Pause animation on hover for better UX */
+  .tech-stack-container:hover .scroll-up-infinite,
+  .tech-stack-container:hover .scroll-down-infinite {
+    animation-play-state: paused;
+  }
+
+  /* Smooth transition when pausing */
+  .scroll-up-infinite,
+  .scroll-down-infinite {
+    transition: animation-play-state 0.3s ease;
+  }
 }

@@ -86,17 +86,9 @@ export const FloatingNav = ({
             duration: 0.2,
           }}
           className={cn(
-            "flex max-w-fit fixed top-10 inset-x-0 mx-auto z-[5000] px-6 py-3 rounded-full border items-center justify-center gap-4 sm:gap-6",
+            "flex max-w-fit fixed bottom-10 inset-x-0 mx-auto z-[5000] px-3 sm:px-6 py-3 border items-center justify-center gap-3 sm:gap-6 bg-gradient-to-br from-purple-500 to-pink-500 backdrop-blur-xl hover:bg-gradient-to-br hover:from-sky-500 hover:to-purple-500 rounded-full",
             className
           )}
-          style={{
-            backdropFilter: "blur(16px) saturate(180%)",
-            backgroundColor: "rgba(17, 25, 40, 0.75)",
-            borderRadius: "50px",
-            border: "1px solid rgba(255, 255, 255, 0.125)",
-            boxShadow:
-              "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          }}
         >
           {navItems.map((navItem: any, idx: number) => (
             <Link
@@ -104,7 +96,7 @@ export const FloatingNav = ({
               href={navItem.link}
               onClick={(e) => handleClick(e, navItem.link)}
               className={cn(
-                "relative text-neutral-50 items-center flex space-x-1 hover:text-purple-400 transition-colors duration-200"
+                "relative text-neutral-50 items-center flex space-x-1 hover:text-black-100 transition-colors duration-200"
               )}
             >
               <span className="block sm:hidden">{navItem.icon}</span>
