@@ -90,11 +90,11 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Duck Race - Interactive Gaming UI",
-    des: "Designed and built engaging game interface with smooth animations, player layouts, and real-time interactions. Created immersive racing experience with responsive design and optimized performance.",
-    img: "/image/duckrace.png",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-    link: "https://race.devisai.com",
+    title: "E-Commerce Shopping Cart",
+    des: "Full-featured frontend e-commerce platform built with React and Tailwind CSS for plant pots and electronics. Implements Redux state management for shopping cart, add-to-cart functionality, advanced filter options, and seamless user experience.",
+    img: "/image/shop.png",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/redux.svg"],
+    link: "https://shoppingcart-pink-three.vercel.app",
   },
   {
     id: 4,
@@ -212,13 +212,7 @@ export const workExperience = [
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
   },
-  {
-    id: 3,
-    title: "Frontend Developer - Gaming Projects",
-    desc: "Created interactive Duck Race game UI with advanced animations, player layouts, and real-time interactions. Delivered engaging gaming experiences with responsive design.",
-    className: "md:col-span-2",
-    thumbnail: "/exp3.svg",
-  },
+
   {
     id: 4,
     title: "Freelance Full-Stack Developer",
