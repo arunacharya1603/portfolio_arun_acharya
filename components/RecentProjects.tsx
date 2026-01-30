@@ -16,8 +16,9 @@ const RecentProjects = () => {
       <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
         {projects.map((item) => (
           <div
-            className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
+            className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw] cursor-pointer"
             key={item.id}
+            onClick={() => window.open(item.link, "_blank")}
           >
             <PinContainer title={item.link} href={item.link}>
               <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
@@ -28,13 +29,16 @@ const RecentProjects = () => {
                   <Image
                     src="/bg.png"
                     fill
+                    sizes="(max-width: 640px) 80vw, 384px"
                     alt="bgimg"
                     className="object-cover"
+                    priority
                   />
                 </div>
                 <Image
                   src={item.img}
                   fill
+                  sizes="(max-width: 640px) 80vw, 384px"
                   alt="cover"
                   className="z-10 absolute object-cover"
                 />
@@ -76,13 +80,9 @@ const RecentProjects = () => {
                 </div>
 
                 <div className="flex justify-center items-center">
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    className="flex lg:text-xl md:text-xs text-sm text-purple"
-                  >
+                  <span className="flex lg:text-xl md:text-xs text-sm text-purple">
                     Check Live Site
-                  </a>
+                  </span>
                   <FaLocationArrow className="ms-3" color="#CBACF9" />
                 </div>
               </div>
