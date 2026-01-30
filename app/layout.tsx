@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       "Frontend Developer specializing in React, Next.js, and TypeScript. Building modern web applications. Available for freelance projects.",
     images: [
       {
-        url: "/og-image.png",
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Arun Acharya - Frontend Developer",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     description:
       "Frontend Developer specializing in React, Next.js & TypeScript. Available for freelance.",
     creator: "@143rhry112645",
-    images: ["/og-image.png"],
+    images: [`${siteUrl}/og-image.png`],
   },
   verification: {
     google: "k3NVUdMrzJH10e27pPETvifGnNxoZURWiEIUBvgRObQ",
