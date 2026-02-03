@@ -11,22 +11,59 @@ const siteUrl = "https://arunacharya1603.in"; // Update with your actual domain
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Arun Acharya | Frontend Developer & React Specialist",
+    default: "Arun Acharya | I Build Beautiful Websites You'll Actually Love",
     template: "%s | Arun Acharya",
   },
   description:
-    "Hire Arun Acharya - Frontend Developer specializing in React, Next.js, and TypeScript. Building modern web applications with 2+ years of experience. Available for freelance projects.",
+    "Hi, I'm Arun! I specialize in UI/UX improvement, static & dynamic website development at affordable prices. Need a modern website that works? Let's talk. Expert in React, Next.js & TypeScript.",
   keywords: [
+    // Core Developer Skills
     "Frontend Developer",
     "React Developer",
     "Next.js Developer",
     "TypeScript Developer",
-    "Freelance Web Developer",
     "Full Stack Developer",
     "JavaScript Developer",
-    "Web Developer India",
+    
+    // Agency & Services
+    "Web Design Agency",
+    "Website Development Agency",
+    "UI UX Design Agency",
+    "Professional Web Design Services",
+    "Custom Website Development",
+    
+    // Service Offerings
+    "UI UX Improvement",
+    "Website UI Redesign",
+    "Static Website Development",
+    "Dynamic Website Development",
+    "Responsive Web Design",
+    "Modern Website Design",
+    
+    // Pricing & Value Proposition
+    "Affordable Website Development",
+    "Budget Friendly Web Design",
+    "Low Cost Website Design",
+    "Cheap Website Development India",
+    "Website Development Services India",
+    
+    // Technical Expertise
+    "React Web Development",
+    "Tailwind CSS Developer",
+    "Next.js Web Design",
+    "Modern Web Applications",
+    
+    // Target Audience
     "Hire React Developer",
-    "Portfolio",
+    "Freelance Web Developer",
+    "Web Developer India",
+    "Remote Web Developer",
+    
+    // Specific Services
+    "Landing Page Design",
+    "Portfolio Website Design",
+    "Business Website Development",
+    "E-commerce Website Development",
   ],
   authors: [{ name: "Arun Acharya", url: siteUrl }],
   creator: "Arun Acharya",
@@ -46,24 +83,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Arun Acharya Portfolio",
-    title: "Arun Acharya | Frontend Developer & React Specialist",
+    siteName: "Arun Acharya - Portfolio",
+    title: "I Build Beautiful Websites You'll Love | UI/UX & Development",
     description:
-      "Frontend Developer specializing in React, Next.js, and TypeScript. Building modern web applications. Available for freelance projects.",
+      "Hi! I'm Arun — I specialize in UI/UX improvement and building static & dynamic websites at prices that make sense. Let's create something amazing together.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Arun Acharya - Frontend Developer",
+        alt: "Arun Acharya - Web Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arun Acharya | Frontend Developer",
+    title: "I Build Beautiful Websites | Affordable UI/UX & Development",
     description:
-      "Frontend Developer specializing in React, Next.js & TypeScript. Available for freelance.",
+      "Hi! I'm Arun — I help businesses with UI/UX improvement, static & dynamic websites. Quality work at affordable prices.",
     creator: "@143rhry112645",
     images: [`${siteUrl}/og-image.png`],
   },
@@ -77,23 +114,27 @@ export const metadata: Metadata = {
   },
 };
 
-// JSON-LD Structured Data for Person
+// JSON-LD Structured Data for Person & Services
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Arun Acharya",
+  "@type": "ProfessionalService",
+  name: "Arun Acharya - Web Developer",
   url: siteUrl,
   image: `${siteUrl}/favicon.png`,
-  jobTitle: "Frontend Developer",
-  worksFor: {
-    "@type": "Organization",
-    name: "Persist Ventures",
+  description: "I specialize in UI/UX improvement, static and dynamic website development at affordable prices. Expert in React, Next.js & modern web technologies.",
+  founder: {
+    "@type": "Person",
+    name: "Arun Acharya",
+    jobTitle: "Frontend Developer & Full-Stack Engineer",
+    url: siteUrl,
+    sameAs: [
+      "https://github.com/arunacharya1603",
+      "https://www.linkedin.com/in/arunacharya1603/",
+      "https://x.com/143rhry112645",
+    ],
   },
-  sameAs: [
-    "https://github.com/arunacharya1603",
-    "https://www.linkedin.com/in/arunacharya1603/",
-    "https://x.com/143rhry112645",
-  ],
+  priceRange: "$$",
+  areaServed: "IN",
   knowsAbout: [
     "React",
     "Next.js",
@@ -101,7 +142,43 @@ const jsonLd = {
     "JavaScript",
     "Frontend Development",
     "Web Development",
+    "UI/UX Design",
+    "UI/UX Improvement",
+    "Static Website Development",
+    "Dynamic Website Development",
+    "Responsive Web Design",
+    "Tailwind CSS",
   ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Web Design Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "UI/UX Improvement",
+          description: "Professional UI/UX redesign and improvement services for existing websites"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Static Website Development",
+          description: "Fast, affordable static website development for businesses and portfolios"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Dynamic Website Development",
+          description: "Feature-rich dynamic web applications with modern technologies"
+        }
+      }
+    ]
+  }
 };
 
 export default function RootLayout({

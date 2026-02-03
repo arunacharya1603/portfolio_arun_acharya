@@ -6,7 +6,7 @@ import { TextGenerateEffect } from "./ui/TextGenerateEffect";
 
 const Hero = () => {
   return (
-    <div className="pb-20 sm:pt-36 pt-10" id="home">
+    <div className="pb-2 pt-10" id="home">
       {/**
        *  UI: Spotlights
        *  Link: https://ui.aceternity.com/components/spotlight
@@ -44,13 +44,13 @@ const Hero = () => {
         <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
          
           <TextGenerateEffect
-            words="Bridging Frontend Excellence with Backend Innovation"
+            words="I Build Beautiful Websites That Actually Work — At Prices You'll Love"
             className="text-center text-[40px] md:text-5xl lg:text-6xl"
           />
 
           <p className="text-center md:tracking-wider sm:mb-4 mb-10 pt-10 text-sm md:text-lg lg:text-2xl">
-            Hi! I&apos;m Arun Acharya, a Frontend Developer passionate about
-            full-stack solutions in science and technology.
+            Hi! I&apos;m Arun — I specialize in UI/UX improvement, static & dynamic website development.
+            Looking for affordable, modern web solutions? You&apos;re in the right place.
           </p>
 
           <a href="#about">
