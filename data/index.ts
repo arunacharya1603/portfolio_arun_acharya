@@ -75,7 +75,7 @@ export const projects = [
   {
     id: 1,
     title: "SoundOfMeme - AI Music Platform",
-    des: "Full-stack web app with AI-powered song generation, playlist management, Excel export, and deep search. Led frontend development & marketing campaigns including live Twitter sessions and college outreach.",
+    des: "Designed and developed the complete frontend system for this AI-powered music platform. Key achievement: optimized bundle size from 6.5 MB to 2.4 MB (62% reduction), resulting in significantly faster load times and improved user experience.",
     img: "/image/soundofmeme.png",
     iconLists: ["/re.svg", "/tail.svg", "/next.svg", "/ts.svg", "/fm.svg"],
     link: "https://soundofmeme.com",
@@ -104,8 +104,16 @@ export const projects = [
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/next.svg"],
     link: "https://chat-app-f9s0.onrender.com/",
   },
-  {
+   {
     id: 5,
+    title: "AI Case Calculator - Legal Case Valuation",
+    des: "AI-powered legal case estimation tool that analyzes personal injury and accident claims. Built with advanced AI trained on thousands of legal precedents to provide instant, professional-grade case valuations for modern legal practice.",
+    img: "/image/aicasecalculator.png",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/next.svg"],
+    link: "https://aicasecalculator-iota.vercel.app/",
+  },
+  {
+    id: 6,
     title: "Modern Blog Application",
     des: "Beautifully designed frontend blog application with responsive UI, smooth animations, and exceptional user experience. Focus on modern design principles and accessibility standards.",
     img: "/image/blogfrontend.png",
@@ -114,20 +122,12 @@ export const projects = [
   },
 
   {
-    id: 6,
+    id: 7,
     title: "Think Bridge - University Blog Platform",
     des: "Full-stack blog platform for universities and students featuring admissions info, campus details, and fees. Built with React and Appwrite backend for authentication, database, and storage. Includes Press Kit and Affiliate Program pages.",
     img: "/image/thinkbridge.png",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/app.svg", "/c.svg"],
     link: "https://think-bridge.vercel.app/",
-  },
-  {
-    id: 7,
-    title: "Viator Clone Website",
-    des: "Pixel-perfect clone showcasing advanced HTML/CSS skills, responsive design, and attention to detail. Demonstrates ability to replicate complex layouts and implement modern web standards.",
-    img: "/image/viatorclone.png",
-    iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
-    link: "https://viator-clone.vercel.app/",
   },
 ];
 
