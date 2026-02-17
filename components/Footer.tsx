@@ -1,11 +1,15 @@
 import { FaLocationArrow } from "react-icons/fa6";
+import Image from "next/image";
+import Link from "next/link";
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
-import Image from "next/image";
+import { siteConfig } from "@/lib/site";
+
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="w-full pt-20 pb-10 scroll-mt-32" id="contact">
-      {/* background grid */}
       <div className="w-full absolute left-0 -bottom-72 min-h-96">
         <Image
           src="/footer-grid.svg"
@@ -22,20 +26,38 @@ const Footer = () => {
           presence to the next level?
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
-          Reach out today and let&apos;s discuss how I can help you
-          achieve your goals.
+          Reach out today and let&apos;s discuss how I can help you achieve your
+          goals.
         </p>
-        <a href="mailto:arunacharya1603@gmail.com">
+        <a href={`mailto:${siteConfig.email}`}>
           <MagicButton
             title="Let's get in touch"
             icon={<FaLocationArrow />}
             position="right"
           />
         </a>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-sm text-white-200">
+          <Link href="/services" className="hover:text-white">
+            Services
+          </Link>
+          <Link href="/pricing" className="hover:text-white">
+            Pricing
+          </Link>
+          <Link href="/locations" className="hover:text-white">
+            Locations
+          </Link>
+        </div>
+        <p className="mt-3 text-center text-xs text-white-200">
+          Freelance web developer available for global projects. Email:{" "}
+          <a href={`mailto:${siteConfig.email}`} className="underline">
+            {siteConfig.email}
+          </a>
+        </p>
       </div>
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
         <p className="md:text-base text-sm md:font-normal font-light">
-          Copyright © 2025 Arun Acharya
+          Copyright © {year} Arun Acharya
         </p>
 
         <div className="flex items-center md:gap-3 gap-6">

@@ -1,9 +1,0 @@
-# Allow all crawlers
-User-agent: *
-Allow: /
-
-# Sitemap location
-Sitemap: https://arunacharya1603.in/sitemap.xml
-
-# Disallow admin/api paths if any
-Disallow: /api/

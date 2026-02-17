@@ -3,71 +3,25 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
+import { siteConfig, topSeoKeywords } from "@/lib/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const siteUrl = "https://arunacharya1603.in"; // Update with your actual domain
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Arun Acharya | I Build Beautiful Websites You'll Actually Love",
+    default:
+      "Freelance Web Developer and UI/UX Designer | Arun Acharya Portfolio",
     template: "%s | Arun Acharya",
   },
   description:
-    "Hi, I'm Arun! I specialize in UI/UX improvement, static & dynamic website development at affordable prices. Need a modern website that works? Let's talk. Expert in React, Next.js & TypeScript.",
-  keywords: [
-    // Core Developer Skills
-    "Frontend Developer",
-    "React Developer",
-    "Next.js Developer",
-    "TypeScript Developer",
-    "Full Stack Developer",
-    "JavaScript Developer",
-    
-    // Agency & Services
-    "Web Design Agency",
-    "Website Development Agency",
-    "UI UX Design Agency",
-    "Professional Web Design Services",
-    "Custom Website Development",
-    
-    // Service Offerings
-    "UI UX Improvement",
-    "Website UI Redesign",
-    "Static Website Development",
-    "Dynamic Website Development",
-    "Responsive Web Design",
-    "Modern Website Design",
-    
-    // Pricing & Value Proposition
-    "Affordable Website Development",
-    "Budget Friendly Web Design",
-    "Low Cost Website Design",
-    "Cheap Website Development India",
-    "Website Development Services India",
-    
-    // Technical Expertise
-    "React Web Development",
-    "Tailwind CSS Developer",
-    "Next.js Web Design",
-    "Modern Web Applications",
-    
-    // Target Audience
-    "Hire React Developer",
-    "Freelance Web Developer",
-    "Web Developer India",
-    "Remote Web Developer",
-    
-    // Specific Services
-    "Landing Page Design",
-    "Portfolio Website Design",
-    "Business Website Development",
-    "E-commerce Website Development",
-  ],
-  authors: [{ name: "Arun Acharya", url: siteUrl }],
-  creator: "Arun Acharya",
-  publisher: "Arun Acharya",
+    "Hire Arun Acharya for frontend, full-stack, and UI/UX projects. I build fast, modern websites and web apps for startups, local businesses, and global clients.",
+  keywords: topSeoKeywords,
+  applicationName: siteConfig.siteName,
+  category: "technology",
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   robots: {
     index: true,
     follow: true,
@@ -81,104 +35,143 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: siteUrl,
-    siteName: "Arun Acharya - Portfolio",
-    title: "I Build Beautiful Websites You'll Love | UI/UX & Development",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.siteName,
+    title: "Freelance Web Developer and UI/UX Designer | Arun Acharya",
     description:
-      "Hi! I'm Arun — I specialize in UI/UX improvement and building static & dynamic websites at prices that make sense. Let's create something amazing together.",
+      "Frontend, full-stack, and UI/UX freelance services for landing pages, business websites, and custom web apps.",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
+        url: `${siteConfig.url}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Arun Acharya - Web Developer",
+        alt: "Arun Acharya freelance web developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "I Build Beautiful Websites | Affordable UI/UX & Development",
+    title: "Freelance Web Developer and UI/UX Designer | Arun Acharya",
     description:
-      "Hi! I'm Arun — I help businesses with UI/UX improvement, static & dynamic websites. Quality work at affordable prices.",
+      "Need a website or web app for your business? Hire Arun Acharya for frontend, full-stack, and UI/UX freelance projects.",
     creator: "@143rhry112645",
-    images: [`${siteUrl}/og-image.png`],
+    images: [`${siteConfig.url}/og-image.png`],
   },
   verification: {
     google: "k3NVUdMrzJH10e27pPETvifGnNxoZURWiEIUBvgRObQ",
-    // Add your verification codes when you have them
-    // google: "your-google-verification-code",
   },
   alternates: {
-    canonical: siteUrl,
+    canonical: siteConfig.url,
+    languages: {
+      "en-US": siteConfig.url,
+      "en-IN": siteConfig.url,
+    },
   },
 };
 
-// JSON-LD Structured Data for Person & Services
-const jsonLd = {
+const professionalServiceJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Arun Acharya - Web Developer",
-  url: siteUrl,
-  image: `${siteUrl}/favicon.png`,
-  description: "I specialize in UI/UX improvement, static and dynamic website development at affordable prices. Expert in React, Next.js & modern web technologies.",
+  name: "Arun Acharya Freelance Web Development",
+  url: siteConfig.url,
+  image: `${siteConfig.url}/og-image.png`,
+  description:
+    "Freelance frontend, full-stack, and UI/UX services for landing pages, business websites, and custom web apps.",
   founder: {
     "@type": "Person",
-    name: "Arun Acharya",
+    name: siteConfig.name,
     jobTitle: "Frontend Developer & Full-Stack Engineer",
-    url: siteUrl,
-    sameAs: [
-      "https://github.com/arunacharya1603",
-      "https://www.linkedin.com/in/arunacharya1603/",
-      "https://x.com/143rhry112645",
-    ],
+    url: siteConfig.url,
+    sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
   },
-  priceRange: "$$",
-  areaServed: "IN",
+  areaServed: [
+    "India",
+    "United States",
+    "United Kingdom",
+    "Canada",
+    "United Arab Emirates",
+    "Australia",
+  ],
+  availableLanguage: ["en"],
+  priceRange: "$100 - $2000+",
   knowsAbout: [
     "React",
     "Next.js",
     "TypeScript",
     "JavaScript",
     "Frontend Development",
-    "Web Development",
+    "Full-Stack Development",
     "UI/UX Design",
-    "UI/UX Improvement",
-    "Static Website Development",
-    "Dynamic Website Development",
-    "Responsive Web Design",
+    "Figma",
     "Tailwind CSS",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Web Design Services",
+    name: "Freelance Web Services",
     itemListElement: [
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "UI/UX Improvement",
-          description: "Professional UI/UX redesign and improvement services for existing websites"
-        }
+          name: "Landing Page Development",
+          description:
+            "Conversion-focused landing pages for founders and small businesses.",
+        },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Static Website Development",
-          description: "Fast, affordable static website development for businesses and portfolios"
-        }
+          name: "Business Website Development",
+          description:
+            "Custom websites for local and global businesses with technical SEO setup.",
+        },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Dynamic Website Development",
-          description: "Feature-rich dynamic web applications with modern technologies"
-        }
-      }
-    ]
-  }
+          name: "Full-Stack Web Application Development",
+          description:
+            "Custom web applications with modern frontend, backend, and deployment architecture.",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "UI/UX Design and Redesign",
+          description:
+            "UI/UX design in Figma and front-end implementation for better conversion and usability.",
+        },
+      },
+    ],
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  jobTitle: "Freelance Frontend and Full-Stack Developer",
+  sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
+  knowsAbout: [
+    "Frontend Development",
+    "Full-Stack Development",
+    "UI/UX Design",
+    "React",
+    "Next.js",
+    "TypeScript",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteConfig.siteName,
+  url: siteConfig.url,
 };
 
 export default function RootLayout({
@@ -196,7 +189,17 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(professionalServiceJsonLd),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className={inter.className}>
