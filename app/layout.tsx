@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import { siteConfig, topSeoKeywords } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -66,6 +74,9 @@ export const metadata: Metadata = {
     languages: {
       "en-US": siteConfig.url,
       "en-IN": siteConfig.url,
+      "en-GB": siteConfig.url,
+      "en-CA": siteConfig.url,
+      "en-AU": siteConfig.url,
     },
   },
 };
@@ -174,6 +185,8 @@ const websiteJsonLd = {
   url: siteConfig.url,
 };
 
+import { GlassCursor } from "@/components/ui/GlassCursor";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -186,7 +199,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#030712" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -202,13 +215,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased selection:bg-purple/30`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >
+          <GlassCursor />
           {children}
         </ThemeProvider>
       </body>

@@ -21,17 +21,13 @@ export const FloatingNav = ({
   className?: string;
 }) => {
   const { scrollYProgress } = useScroll();
-
-  // set true for the initial state so that nav bar is visible in the hero section
   const [visible, setVisible] = useState(true);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
     if (typeof current === "number") {
       let direction = current! - scrollYProgress.getPrevious()!;
 
       if (scrollYProgress.get() < 0.05) {
-        // also set true for the initial state
         setVisible(true);
       } else {
         if (direction < 0) {
@@ -48,13 +44,12 @@ export const FloatingNav = ({
     link: string
   ) => {
     e.preventDefault();
-    // Only run on client side
     if (typeof window === "undefined") return;
     const targetId = link.replace("#", "");
     const element = document.getElementById(targetId);
 
     if (element) {
-      const navbarHeight = 100; // Fixed navbar height + padding
+      const navbarHeight = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - navbarHeight;
@@ -69,43 +64,44 @@ export const FloatingNav = ({
   return (
     <AnimatePresence mode="wait">
       {visible && (
-        <motion.div
-          initial={{
-            opacity: 1,
-            y: -100,
-          }}
-          animate={{
-            y: visible ? 0 : -100,
-            opacity: visible ? 1 : 0,
-          }}
-          exit={{
-            y: -100,
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.2,
-          }}
-          className={cn(
-            "flex max-w-fit fixed bottom-10 inset-x-0 mx-auto z-[5000] px-3 sm:px-6 py-3 border items-center justify-center gap-3 sm:gap-6 bg-gradient-to-br from-purple-500 to-pink-500 backdrop-blur-xl hover:bg-gradient-to-br hover:from-sky-500 hover:to-purple-500 rounded-full",
-            className
-          )}
-        >
-          {navItems.map((navItem: any, idx: number) => (
-            <Link
-              key={`link=${idx}`}
-              href={navItem.link}
-              onClick={(e) => handleClick(e, navItem.link)}
-              className={cn(
-                "relative text-neutral-50 items-center flex space-x-1 hover:text-black-100 transition-colors duration-200"
-              )}
-            >
-              <span className="block sm:hidden">{navItem.icon}</span>
-              <span className="text-sm sm:text-base font-medium cursor-pointer whitespace-nowrap">
-                {navItem.name}
-              </span>
-            </Link>
-          ))}
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{
+              y: visible ? 0 : 50,
+              opacity: visible ? 1 : 0,
+              scale: 1
+            }}
+            exit={{ opacity: 0, y: 50, scale: 0.95 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className={cn(
+              "flex max-w-fit fixed bottom-10 inset-x-0 mx-auto z-[5000] px-10 py-5 border border-white/5 items-center justify-center gap-10 glass rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]",
+              className
+            )}
+          >
+            {/* Signature Edge Glint (Stitch Spec) */}
+            <div className="absolute top-0 left-1/4 right-1/4 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+            
+            {navItems.map((navItem: any, idx: number) => (
+              <Link
+                key={`link-${idx}`}
+                href={navItem.link}
+                onClick={(e) => handleClick(e, navItem.link)}
+                className={cn(
+                  "relative text-white-100/60 items-center flex space-x-1 hover:text-white transition-all duration-500 font-grotesk tracking-widest uppercase text-[10px]"
+                )}
+              >
+                <span className="block sm:hidden">{navItem.icon}</span>
+                <span className="hidden sm:block cursor-pointer whitespace-nowrap">
+                  {navItem.name}
+                </span>
+                {/* Active Indicator Hover Effect */}
+                <motion.div 
+                  className="absolute -bottom-2 left-0 right-0 h-[1px] bg-purple opacity-0 transition-opacity"
+                  whileHover={{ opacity: 0.4 }}
+                />
+              </Link>
+            ))}
+          </motion.div>
       )}
     </AnimatePresence>
   );

@@ -149,7 +149,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
   };
 
   useEffect(() => {
-    if (globeRef.current && globeData) {
+    if (globeRef.current && globeData && countries?.features) {
       globeRef.current
         .hexPolygonsData(countries.features)
         .hexPolygonResolution(3)
@@ -281,6 +281,7 @@ export function World(props: WorldProps) {
 }
 
 export function hexToRgb(hex: string) {
+  if (!hex) return { r: 0, g: 0, b: 0 };
   var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
   hex = hex.replace(shorthandRegex, function (m, r, g, b) {
     return r + r + g + g + b + b;
@@ -293,13 +294,18 @@ export function hexToRgb(hex: string) {
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
       }
-    : null;
+    : { r: 0, g: 0, b: 0 };
 }
 
 export function genRandomNumbers(min: number, max: number, count: number) {
-  const arr = [];
-  while (arr.length < count) {
-    const r = Math.floor(Math.random() * (max - min)) + min;
+  const arr: number[] = [];
+  const range = max - min;
+  const safeCount = Math.min(count, range);
+  
+  if (range <= 0) return arr;
+
+  while (arr.length < safeCount) {
+    const r = Math.floor(Math.random() * range) + min;
     if (arr.indexOf(r) === -1) arr.push(r);
   }
 

@@ -1,51 +1,49 @@
 "use client";
 
 import React from "react";
-
-import { companies, testimonials } from "@/data";
-import { InfiniteMovingCards } from "./ui/InfiniteCards";
+import { testimonials } from "@/data";
+import { motion } from "framer-motion";
 
 const Clients = () => {
   return (
-    <section id="testimonials" className="py-20">
-      <h1 className="heading">
-        Kind words from
-        <span className="text-purple"> satisfied clients</span>
-      </h1>
-
-      <div className="flex flex-col items-center max-lg:mt-10">
-        <div
-          // remove bg-white dark:bg-black dark:bg-grid-white/[0.05], h-[40rem] to 30rem , md:h-[30rem] are for the responsive design
-          className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden"
-        >
-          <InfiniteMovingCards
-            items={testimonials}
-            direction="right"
-            speed="slow"
-          />
+    <div className="w-full relative" id="testimonials">
+      <div className="flex flex-col gap-8 w-full max-w-2xl mx-auto pb-10">
+        <div className="px-4 mb-4">
+           <h2 className="text-[10px] font-grotesk font-bold uppercase tracking-[0.4em] text-white/30">Social Proof &bull; Endorsement Logs</h2>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-16 max-lg:mt-10">
-          {companies.map((company) => (
-            <React.Fragment key={company.id}>
-              <div className="flex md:max-w-60 max-w-32 gap-2">
-                <img
-                  src={company.img}
-                  alt={company.name}
-                  className="md:w-10 w-5"
-                />
-                <img
-                  src={company.nameImg}
-                  alt={company.name}
-                  width={company.id === 4 || company.id === 5 ? 100 : 150}
-                  className="md:w-24 w-20"
-                />
+        <div className="flex flex-col gap-6">
+          {testimonials.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className="social-glass rounded-3xl p-8 border border-white/10 relative group hover:border-white/20 transition-all shadow-xl"
+            >
+              <div className="flex items-start gap-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center shrink-0">
+                   <span className="text-white/40 font-bold font-grotesk text-xs">{item.name.charAt(0)}</span>
+                </div>
+                <div className="flex-1">
+                   <p className="text-sm text-white/70 italic font-sans leading-relaxed mb-4">
+                    "{item.quote}"
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold font-grotesk text-white">{item.name}</h4>
+                      <p className="text-[10px] text-white/30 uppercase tracking-widest font-bold">{item.title}</p>
+                    </div>
+                    <span className="text-[9px] font-grotesk uppercase tracking-widest text-indigo-500 font-bold">Endorsement</span>
+                  </div>
+                </div>
               </div>
-            </React.Fragment>
+            </motion.div>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

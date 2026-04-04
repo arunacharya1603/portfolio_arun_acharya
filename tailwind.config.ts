@@ -28,28 +28,26 @@ const config = {
     extend: {
       colors: {
         black: {
-          DEFAULT: "#000",
-          100: "#000319",
-          200: "rgba(17, 25, 40, 0.75)",
-          300: "rgba(255, 255, 255, 0.125)",
+          DEFAULT: "#0B0B0B", // Obsidian
+          100: "#131313", // Surface
+          200: "#1A1B26", // Deep Indigo / Primary Container
+          300: "#1C1B1B", // Surface Low
         },
         white: {
-          DEFAULT: "#FFF",
-          100: "#BEC1DD",
-          200: "#C1C2D3",
+          DEFAULT: "#E5E2E1", // On-Surface
+          100: "#C6C5D4", // Primary / Muted White
+          200: "#C8C5CC", // Secondary
         },
-        blue: {
-          "100": "#E4ECFF",
-        },
-        purple: "#CBACF9",
+        purple: "#A855F7",
+        indigo: "#6366F1",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#C6C5D4",
+          foreground: "#2F303B",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -75,6 +73,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        grotesk: ["var(--font-space-grotesk)", "sans-serif"],
+        sans: ["var(--font-inter)", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -2,139 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 120px; /* Offset for fixed navbar */
-}
-
-/* Ensure sections have proper spacing when navigating */
-section,
-footer,
-div[id] {
-  scroll-margin-top: 120px;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 10% 3.9%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-
-    --popover: 240 10% 3.9%;
+    --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-
     --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
-
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-
-    --accent: 240 3.7% 15.9%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+    --surface: 0 0% 0%;
+    --primary-pulse: 240 100% 50%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border !scroll-smooth;
+    @apply border-border;
   }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-foreground antialiased;
+    overflow-x: hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
-  button {
-    @apply active:outline-none;
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-grotesk tracking-tighter;
   }
 }
 
 @layer utilities {
-  .heading {
-    @apply font-bold text-4xl md:text-5xl text-center;
+  .social-glass {
+    @apply backdrop-blur-[60px] bg-black/40 border border-white/5;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
   }
 
-  /* Infinite scroll animations for tech stack */
-  .scroll-up-infinite {
-    animation: scrollUp 25s linear infinite;
-    will-change: transform;
+  .glass {
+    @apply bg-black-100/60 backdrop-blur-[40px] border-t border-white/10;
+  }
+  
+  .glass-card {
+    @apply bg-black-200/40 backdrop-blur-[24px] rounded-lg border border-white/5;
   }
 
-  .scroll-down-infinite {
-    animation: scrollDown 25s linear infinite;
-    will-change: transform;
-    transform: translateY(-50%);
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-br from-white to-white/50;
   }
 
-  @keyframes scrollUp {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(-50%);
-    }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
   }
 
-  @keyframes scrollDown {
-    0% {
-      transform: translateY(-50%);
-    }
-    100% {
-      transform: translateY(0);
-    }
+  .inertia-scrolling {
+    scroll-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
+}
 
-  /* Pause animation on hover for better UX */
-  .tech-stack-container:hover .scroll-up-infinite,
-  .tech-stack-container:hover .scroll-down-infinite {
-    animation-play-state: paused;
-  }
+/* Custom Scrollbar for Luxury Feel */
+::-webkit-scrollbar {
+  width: 6px;
+}
 
-  /* Smooth transition when pausing */
-  .scroll-up-infinite,
-  .scroll-down-infinite {
-    transition: animation-play-state 0.3s ease;
-  }
+::-webkit-scrollbar-track {
+  background: #0B0B0B;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A1B26;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C6C5D4;
+}
+
+/* Hide scrollbar for horizontal scroll strips (stories, etc.) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area padding for iOS home indicator */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Pulse animation for active status indicators */
+@keyframes pulse-active-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0); }
+}
+.pulse-active {
+  animation: pulse-active-ring 2s ease-in-out infinite;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
