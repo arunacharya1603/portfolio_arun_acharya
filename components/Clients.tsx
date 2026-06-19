@@ -28,7 +28,7 @@ const Clients = () => {
                 </div>
                 <div className="flex-1">
                    <p className="text-sm text-white/70 italic font-sans leading-relaxed mb-4">
-                    "{item.quote}"
+                    &quot;{item.quote}&quot;
                   </p>
                   <div className="flex items-center justify-between">
                     <div>

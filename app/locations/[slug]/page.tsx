@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import {
+  SeoPageShell,
+  seoCardClass,
+  seoMutedTextClass,
+} from "@/components/SeoPageShell";
 import { locationMarkets } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -37,7 +43,12 @@ export async function generateMetadata({
       title,
       description,
       url: canonical,
-      type: "article",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -77,67 +88,71 @@ export default async function LocationPage({ params }: LocationPageProps) {
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-5 py-16 text-white">
+    <SeoPageShell
+      eyebrow={`${location.city} freelance development`}
+      title={`Freelance Web Developer in ${location.city}, ${location.country}`}
+      description={`Need a website or web app in ${location.city}? Arun works with local and remote clients to design and build fast, modern, conversion-focused digital products.`}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
-      <h1 className="text-4xl font-bold sm:text-5xl">
-        Freelance Web Developer in {location.city}, {location.country}
-      </h1>
-      <p className="mt-6 text-lg text-white-200">
-        Need a website or web app in {location.city}? I work with local and
-        remote clients to design and build fast, modern, conversion-focused
-        digital products.
-      </p>
 
-      <section className="mt-10 rounded-xl border border-white/15 p-6">
-        <h2 className="text-2xl font-semibold">
-          Typical {location.city} Market Pricing
-        </h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-white-200">
-          <li>Landing page: {location.typicalLandingPageRange}</li>
-          <li>Business website: {location.typicalBusinessWebsiteRange}</li>
-          <li>Custom web app: {location.typicalWebAppRange}</li>
-          <li>My starting price: {location.myStartingPrice}</li>
-        </ul>
-      </section>
+      <div className="grid gap-5 md:grid-cols-2">
+        <section className={seoCardClass}>
+          <h2 className="font-grotesk text-2xl font-semibold">
+            Typical {location.city} Market Pricing
+          </h2>
+          <ul className={`mt-5 space-y-3 text-sm ${seoMutedTextClass}`}>
+            <li>Landing page: {location.typicalLandingPageRange}</li>
+            <li>Business website: {location.typicalBusinessWebsiteRange}</li>
+            <li>Custom web app: {location.typicalWebAppRange}</li>
+            <li className="font-semibold text-[#080809]">
+              My starting price: {location.myStartingPrice}
+            </li>
+          </ul>
+        </section>
 
-      <section className="mt-10 rounded-xl border border-white/15 p-6">
-        <h2 className="text-2xl font-semibold">
-          Services Offered for {location.city} Clients
-        </h2>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-white-200">
-          <li>Landing pages for lead generation and product launches</li>
-          <li>Small business websites with SEO-ready structure</li>
-          <li>UI/UX redesign using Figma and React implementation</li>
-          <li>Full-stack web application development and deployment</li>
-        </ul>
-      </section>
+        <section className={seoCardClass}>
+          <h2 className="font-grotesk text-2xl font-semibold">
+            Services Offered for {location.city} Clients
+          </h2>
+          <ul className={`mt-5 space-y-3 text-sm ${seoMutedTextClass}`}>
+            <li>Landing pages for lead generation and product launches</li>
+            <li>Small business websites with SEO-ready structure</li>
+            <li>UI/UX redesign using Figma and React implementation</li>
+            <li>Full-stack web application development and deployment</li>
+          </ul>
+        </section>
+      </div>
 
-      <section className="mt-10 rounded-xl border border-white/15 p-6">
-        <h2 className="text-2xl font-semibold">Start a Project</h2>
-        <p className="mt-2 text-white-200">
-          Send your requirements and target timeline. I will reply with scope,
-          pricing, and milestones.
-        </p>
-        <div className="mt-4 flex flex-wrap gap-4">
+      <section className="mt-10 flex flex-col gap-4 rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-6 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h2 className="font-grotesk text-2xl font-semibold">
+            Compare before you scope
+          </h2>
+          <p className={`mt-2 text-sm leading-7 ${seoMutedTextClass}`}>
+            Move between city pages, pricing, and services to understand budget
+            and delivery options.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
           <a
             href={`mailto:${siteConfig.email}?subject=Project%20in%20${encodeURIComponent(
               location.city
             )}`}
-            className="rounded-lg bg-purple px-4 py-2 text-sm font-semibold text-black"
+            className="rounded-full bg-[#080809] px-5 py-3 text-sm font-semibold text-[#fff7ec]"
           >
             Contact Arun
           </a>
           <Link
             href="/pricing"
-            className="rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold"
+            className="rounded-full border border-[#d8ccbb] px-5 py-3 text-sm font-semibold text-[#080809]"
           >
-            Compare Pricing
+            Compare pricing
           </Link>
         </div>
       </section>
-    </main>
+    </SeoPageShell>
   );
 }

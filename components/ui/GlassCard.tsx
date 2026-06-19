@@ -35,7 +35,7 @@ export const GlassCard = ({
             src={img}
             alt={title}
             fill
-            className="object-cover transition-all duration-[800ms] ease-in-out grayscale group-hover:grayscale-0 group-hover:scale-105"
+            className="object-cover transition-all duration-700 ease-in-out grayscale group-hover:grayscale-0 group-hover:scale-105"
           />
         </div>
 

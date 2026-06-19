@@ -12,6 +12,18 @@ export const siteConfig = {
 
 export const topSeoKeywords = [
   "freelance web developer",
+  "small business website developer",
+  "small website developer",
+  "medium business website developer",
+  "frontend revamp freelancer",
+  "website redesign freelancer",
+  "ui ux help for website",
+  "api development freelancer",
+  "full stack web app developer",
+  "full-stack developer",
+  "react developer",
+  "next.js developer",
+  "react next.js developer",
   "hire frontend developer",
   "next.js freelancer",
   "react developer for small business",
@@ -19,6 +31,7 @@ export const topSeoKeywords = [
   "ui ux designer freelancer",
   "full stack developer for startup",
   "landing page developer",
-  "website redesign freelancer",
   "web app developer",
+  "SaaS developer freelancer",
+  "dashboard developer",
 ];

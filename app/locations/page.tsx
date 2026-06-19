@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+
+import {
+  SeoPageShell,
+  seoCardClass,
+  seoMutedTextClass,
+} from "@/components/SeoPageShell";
 import { locationMarkets } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -10,36 +16,53 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${siteConfig.url}/locations`,
   },
+  openGraph: {
+    title: "Freelance Web Developer by Location | Arun Acharya",
+    description:
+      "Location-specific hiring pages for freelance website development, UI/UX, and full-stack web apps.",
+    url: `${siteConfig.url}/locations`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Freelance Web Developer by Location | Arun Acharya",
+    description:
+      "Browse location-specific pages for pricing context and freelance web development support.",
+  },
 };
 
 export default function LocationsPage() {
   return (
-    <main className="mx-auto max-w-5xl px-5 py-16 text-white">
-      <h1 className="text-4xl font-bold sm:text-5xl">
-        Freelance Web Development by Location
-      </h1>
-      <p className="mt-5 text-white-200">
-        Browse location-specific pages for pricing context and hiring details.
-      </p>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+    <SeoPageShell
+      eyebrow="Locations"
+      title="Freelance Web Development by Location"
+      description="Browse location-specific pages for pricing context, hiring details, and SEO-ready service information across India and global markets."
+    >
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {locationMarkets.map((location) => (
           <Link
             key={location.slug}
             href={`/locations/${location.slug}`}
-            className="rounded-xl border border-white/15 p-5 transition hover:border-white/40"
+            className={`${seoCardClass} group transition hover:-translate-y-0.5 hover:border-[#080809]`}
           >
-            <h2 className="text-xl font-semibold">
+            <p className="text-sm font-bold text-[#2457ff]">
+              {location.region}
+            </p>
+            <h2 className="mt-3 font-grotesk text-2xl font-semibold">
               {location.city}, {location.country}
             </h2>
-            <p className="mt-2 text-sm text-white-200">
+            <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
               Landing page range: {location.typicalLandingPageRange}
             </p>
-            <p className="text-sm text-white-200">
+            <p className="mt-3 text-sm font-semibold text-[#080809]">
               My starting price: {location.myStartingPrice}
             </p>
+            <span className="mt-5 inline-flex text-sm font-semibold text-[#2457ff]">
+              View city page
+            </span>
           </Link>
         ))}
       </div>
-    </main>
+    </SeoPageShell>
   );
 }
