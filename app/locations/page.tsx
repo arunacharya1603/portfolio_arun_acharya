@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -8,36 +7,54 @@ import {
 } from "@/components/SeoPageShell";
 import { locationMarkets } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Freelance Web Developer by Location",
-  description:
-    "Find location-specific website pricing and freelance web development support for cities in India and global markets.",
-  alternates: {
-    canonical: `${siteConfig.url}/locations`,
-  },
-  openGraph: {
+export function generateMetadata() {
+  return createPageMetadata({
     title: "Freelance Web Developer by Location | Arun Acharya",
     description:
-      "Location-specific hiring pages for freelance website development, UI/UX, and full-stack web apps.",
-    url: `${siteConfig.url}/locations`,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Freelance Web Developer by Location | Arun Acharya",
-    description:
-      "Browse location-specific pages for pricing context and freelance web development support.",
-  },
+      "Location-specific website, UI/UX, frontend development, landing page, and full-stack web app support from Arun Acharya for India and global markets.",
+    path: "/locations",
+    keywords: ["freelance web developer India", "UI UX developer India", "landing page developer India"],
+  });
+}
+
+const locationsItemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${siteConfig.url}/locations#itemlist`,
+  name: "Location pages for Arun Acharya freelance services",
+  itemListElement: locationMarkets.map((location, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: `${location.city}, ${location.country}`,
+    item: `${siteConfig.url}/locations/${location.slug}`,
+  })),
 };
 
 export default function LocationsPage() {
+  const schemas = [
+    locationsItemListJsonLd,
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Locations", path: "/locations" },
+    ]),
+  ];
+
   return (
     <SeoPageShell
       eyebrow="Locations"
       title="Freelance Web Development by Location"
       description="Browse location-specific pages for pricing context, hiring details, and SEO-ready service information across India and global markets."
     >
+      {schemas.map((schema, index) => (
+        <script
+          key={`locations-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {locationMarkets.map((location) => (
           <Link

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -9,6 +8,7 @@ import {
 } from "@/components/SeoPageShell";
 import { locationMarkets } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 type LocationPageProps = {
   params: { slug: string };
@@ -21,9 +21,7 @@ export async function generateStaticParams() {
   return locationMarkets.map((location) => ({ slug: location.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: LocationPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocationPageProps) {
   const { slug } = params;
   const location = getLocation(slug);
 
@@ -31,26 +29,16 @@ export async function generateMetadata({
     return {};
   }
 
-  const title = `Freelance Web Developer in ${location.city}, ${location.country}`;
-  const description = `Hire Arun Acharya for website and web app projects in ${location.city}. Pricing context, delivery scope, and project support for businesses.`;
-  const canonical = `${siteConfig.url}/locations/${location.slug}`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: {
-      title,
-      description,
-      url: canonical,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  };
+  return createPageMetadata({
+    title: `Freelance Web Developer in ${location.city}, ${location.country}`,
+    description: `Hire Arun Acharya for landing pages, UI/UX, frontend development, and web app projects in ${location.city}. Pricing context and delivery support for businesses.`,
+    path: `/locations/${location.slug}`,
+    keywords: [
+      `freelance web developer ${location.city}`,
+      `landing page developer ${location.city}`,
+      `UI UX developer ${location.city}`,
+    ],
+  });
 }
 
 export default async function LocationPage({ params }: LocationPageProps) {
@@ -64,12 +52,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": `${siteConfig.url}/locations/${location.slug}#service`,
     name: `Freelance Website Development in ${location.city}`,
-    provider: {
-      "@type": "Person",
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    provider: { "@id": siteConfig.personId },
     areaServed: {
       "@type": "Place",
       name: `${location.city}, ${location.country}`,
@@ -79,6 +64,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
       "Business Website Development",
       "Full-Stack Web App Development",
       "UI/UX Design",
+      "Frontend Development",
     ],
     offers: {
       "@type": "Offer",
@@ -86,6 +72,12 @@ export default async function LocationPage({ params }: LocationPageProps) {
       description: `Projects starting from ${location.myStartingPrice}`,
     },
   };
+
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Locations", path: "/locations" },
+    { name: location.city, path: `/locations/${location.slug}` },
+  ]);
 
   return (
     <SeoPageShell
@@ -96,6 +88,10 @@ export default async function LocationPage({ params }: LocationPageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <div className="grid gap-5 md:grid-cols-2">
@@ -121,6 +117,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <li>Landing pages for lead generation and product launches</li>
             <li>Small business websites with SEO-ready structure</li>
             <li>UI/UX redesign using Figma and React implementation</li>
+            <li>Frontend development with React, Next.js, and TypeScript</li>
             <li>Full-stack web application development and deployment</li>
           </ul>
         </section>
@@ -132,7 +129,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
             Compare before you scope
           </h2>
           <p className={`mt-2 text-sm leading-7 ${seoMutedTextClass}`}>
-            Move between city pages, pricing, and services to understand budget
+            Move between city pages, pricing, services, and work examples to understand budget
             and delivery options.
           </p>
         </div>
@@ -145,6 +142,12 @@ export default async function LocationPage({ params }: LocationPageProps) {
           >
             Contact Arun
           </a>
+          <Link
+            href="/services/frontend-development"
+            className="rounded-full border border-[#d8ccbb] px-5 py-3 text-sm font-semibold text-[#080809]"
+          >
+            Frontend service
+          </Link>
           <Link
             href="/pricing"
             className="rounded-full border border-[#d8ccbb] px-5 py-3 text-sm font-semibold text-[#080809]"

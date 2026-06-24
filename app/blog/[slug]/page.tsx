@@ -8,12 +8,18 @@ import {
   seoMutedTextClass,
 } from "@/components/SeoPageShell";
 import {
-  blogUrl,
   getSeoBlogPost,
   getSeoServicePage,
   seoBlogPosts,
 } from "@/data/seo-content";
+import { workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
+import {
+  articleJsonLd,
+  breadcrumbJsonLd,
+  createPageMetadata,
+  faqJsonLd,
+} from "@/lib/seo";
 
 type BlogPostPageProps = {
   params: { slug: string };
@@ -30,29 +36,15 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
     return {};
   }
 
-  const canonical = blogUrl(post.slug);
-
-  return {
+  return createPageMetadata({
     title: post.title,
     description: post.description,
+    path: `/blog/${post.slug}`,
     keywords: post.keywords,
-    authors: [{ name: siteConfig.name, url: siteConfig.url }],
-    alternates: { canonical },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      url: canonical,
-      type: "article",
-      publishedTime: post.datePublished,
-      modifiedTime: post.dateModified,
-      authors: [siteConfig.name],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.description,
-    },
-  };
+    type: "article",
+    publishedTime: post.datePublished,
+    modifiedTime: post.dateModified,
+  });
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
@@ -62,73 +54,20 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  const canonical = blogUrl(post.slug);
   const relatedServices = post.relatedServiceSlugs
     .map(getSeoServicePage)
     .filter(Boolean);
+  const relatedWork = workProjects.slice(0, 2);
 
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "@id": `${canonical}#article`,
-    headline: post.title,
-    description: post.description,
-    url: canonical,
-    datePublished: post.datePublished,
-    dateModified: post.dateModified,
-    author: {
-      "@type": "Person",
-      "@id": `${siteConfig.url}#person`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
-    },
-    publisher: {
-      "@type": "Person",
-      "@id": `${siteConfig.url}#person`,
-      name: siteConfig.name,
-    },
-    mainEntityOfPage: canonical,
-    about: post.keywords,
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: post.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Blog",
-        item: `${siteConfig.url}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: post.title,
-        item: canonical,
-      },
-    ],
-  };
+  const schemas = [
+    articleJsonLd(post),
+    faqJsonLd(post.faqs),
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+  ];
 
   return (
     <SeoPageShell
@@ -136,18 +75,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       title={post.title}
       description={post.description}
     >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      {schemas.map((schema, index) => (
+        <script
+          key={`post-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
 
       <article className="grid gap-8 lg:grid-cols-[0.72fr_0.28fr]">
         <div className={seoCardClass}>
@@ -197,10 +131,15 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Arun Acharya
             </h2>
             <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
-              Freelance full-stack developer and UI/UX-focused studio partner
-              building websites, revamps, web apps, dashboards, and API-backed
-              product experiences.
+              Freelance frontend developer, UI/UX developer, and Next.js freelancer
+              building landing pages, web apps, dashboards, APIs, and product experiences.
             </p>
+            <Link
+              href="/blog/author/arun-acharya"
+              className="mt-4 inline-flex text-sm font-semibold text-[#2457ff]"
+            >
+              View author entity page
+            </Link>
             <p className="mt-4 text-xs font-semibold text-[#716b60]">
               Published {post.datePublished}. Updated {post.dateModified}.
             </p>
@@ -220,6 +159,32 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                   {service!.navLabel}
                 </Link>
               ))}
+            </div>
+          </section>
+
+          <section className={seoCardClass}>
+            <h2 className="font-grotesk text-2xl font-semibold">
+              Related work
+            </h2>
+            <div className="mt-5 grid gap-3">
+              {relatedWork.map((project) => (
+                <Link
+                  key={project.slug}
+                  href={`/work/${project.slug}`}
+                  className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 transition hover:border-[#080809]"
+                >
+                  <span className="block font-semibold">{project.shortName}</span>
+                  <span className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}>
+                    {project.impact}
+                  </span>
+                </Link>
+              ))}
+              <Link
+                href="/work"
+                className="rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-4 text-sm font-semibold text-[#2457ff] transition hover:border-[#080809]"
+              >
+                See all case studies
+              </Link>
             </div>
           </section>
 

@@ -13,7 +13,14 @@ import {
   seoServicePages,
   serviceUrl,
 } from "@/data/seo-content";
+import { getWorkProjectBySlug, workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  faqJsonLd,
+  serviceJsonLd as createServiceJsonLd,
+} from "@/lib/seo";
 
 type ServicePageProps = {
   params: { slug: string };
@@ -30,25 +37,12 @@ export function generateMetadata({ params }: ServicePageProps): Metadata {
     return {};
   }
 
-  const canonical = serviceUrl(service.slug);
-
-  return {
+  return createPageMetadata({
     title: service.metaTitle,
     description: service.metaDescription,
+    path: `/services/${service.slug}`,
     keywords: [service.primaryIntent, ...service.secondaryIntents],
-    alternates: { canonical },
-    openGraph: {
-      title: `${service.metaTitle} | Arun Acharya`,
-      description: service.metaDescription,
-      url: canonical,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${service.metaTitle} | Arun Acharya`,
-      description: service.metaDescription,
-    },
-  };
+  });
 }
 
 export default function ServiceDetailPage({ params }: ServicePageProps) {
@@ -65,84 +59,17 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   const relatedPosts = service.relatedBlogSlugs
     .map(getSeoBlogPost)
     .filter(Boolean);
+  const relatedProjects = service.relatedWorkSlugs?.length
+    ? service.relatedWorkSlugs.map(getWorkProjectBySlug).filter(Boolean)
+    : workProjects.slice(0, 3);
 
-  const serviceJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": `${canonical}#service`,
-    name: service.metaTitle,
-    description: service.metaDescription,
-    url: canonical,
-    provider: {
-      "@type": "Person",
-      "@id": `${siteConfig.url}#person`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-      sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
-    },
-    serviceType: [service.primaryIntent, ...service.secondaryIntents],
-    areaServed: [
-      "India",
-      "United States",
-      "United Kingdom",
-      "Canada",
-      "United Arab Emirates",
-      "Australia",
-    ],
-    audience: {
-      "@type": "Audience",
-      audienceType: service.bestFor.join(" "),
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: service.navLabel,
-      itemListElement: service.includes.map((item) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: item,
-        },
-      })),
-    },
-  };
-
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: service.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: siteConfig.url,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Services",
-        item: `${siteConfig.url}/services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.navLabel,
-        item: canonical,
-      },
-    ],
-  };
+  const serviceSchemaJsonLd = createServiceJsonLd(service);
+  const faqSchemaJsonLd = faqJsonLd(service.faqs);
+  const breadcrumbSchemaJsonLd = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    { name: service.navLabel, path: `/services/${service.slug}` },
+  ]);
 
   return (
     <SeoPageShell
@@ -152,15 +79,17 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
     >
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchemaJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchemaJsonLd),
+        }}
       />
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
@@ -240,6 +169,43 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
       </section>
 
       <section className="mt-14">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-bold text-[#2457ff]">Real project references</p>
+            <h2 className="mt-2 font-grotesk text-3xl font-semibold">
+              Proof from Arun Acharya&apos;s showcased work
+            </h2>
+          </div>
+          <Link
+            href="/work"
+            className="w-fit rounded-full border border-[#d8ccbb] bg-[#fffaf2] px-4 py-2 text-sm font-semibold text-[#312d27] transition hover:border-[#080809]"
+          >
+            View all work
+          </Link>
+        </div>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {relatedProjects.map((project) => (
+            <Link
+              key={project!.slug}
+              href={`/work/${project!.slug}`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+            >
+              <p className="text-sm font-bold text-[#2457ff]">{project!.shortName}</p>
+              <h3 className="mt-3 font-grotesk text-2xl font-semibold">
+                {project!.name}
+              </h3>
+              <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
+                {project!.impact}
+              </p>
+              <span className="mt-5 inline-flex text-sm font-semibold text-[#2457ff]">
+                Read case study
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-14">
         <h2 className="font-grotesk text-3xl font-semibold">
           Questions clients ask before this work
         </h2>
@@ -303,6 +269,9 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             Send the current site, goal, timeline, and a few references. Arun
             can help decide whether this should be a lean build, revamp, or
             larger product scope.
+          </p>
+          <p className="mt-3 text-xs font-semibold text-[#716b60]">
+            Canonical: {canonical}
           </p>
         </div>
         <a

@@ -1,24 +1,29 @@
-import type { Metadata } from "next";
-
 import { ProcessPageContent } from "@/components/StudioPortfolio";
-import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Process and Tech Stack",
-  description:
-    "How Arun Acharya works across strategy, UI/UX design, precision engineering, launch, SEO, performance, and modern React/Next.js development.",
-  alternates: {
-    canonical: `${siteConfig.url}/process`,
-  },
-  openGraph: {
-    title: "Process and Tech Stack | Arun Acharya",
+export function generateMetadata() {
+  return createPageMetadata({
+    title: "Arun Acharya Process | UI/UX, Frontend, Next.js, Launch SEO",
     description:
-      "A clear build system for strategy, interface design, full-stack engineering, launch, and optimization.",
-    url: `${siteConfig.url}/process`,
-    type: "website",
-  },
-};
+      "How Arun Acharya works across strategy, UI/UX design, frontend development, Next.js engineering, launch checks, SEO structure, and performance optimization.",
+    path: "/process",
+    keywords: ["frontend development process", "UI UX process", "Next.js development process"],
+  });
+}
 
 export default function ProcessPage() {
-  return <ProcessPageContent />;
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Process", path: "/process" },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ProcessPageContent />
+    </>
+  );
 }

@@ -1,30 +1,56 @@
-import type { Metadata } from "next";
-
 import { PricingPageContent } from "@/components/StudioPortfolio";
+import { servicePackages } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Freelance Website Pricing",
-  description:
-    "Transparent premium pricing for landing pages, business websites, and custom full-stack web apps by Arun Acharya.",
-  alternates: {
-    canonical: `${siteConfig.url}/pricing`,
-  },
-  openGraph: {
-    title: "Freelance Website Pricing | Arun Acharya",
+export function generateMetadata() {
+  return createPageMetadata({
+    title: "Freelance Website, Landing Page, and Web App Pricing",
     description:
-      "Package starts for landing pages, business websites, and full-stack web apps with scope-dependent final quotes.",
-    url: `${siteConfig.url}/pricing`,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Freelance Website Pricing | Arun Acharya",
-    description:
-      "Premium package starts for landing pages, business websites, and full-stack web apps.",
-  },
+      "Transparent starting prices for Arun Acharya's landing pages, business websites, UI/UX, frontend development, Next.js builds, and custom full-stack web apps.",
+    path: "/pricing",
+    keywords: ["landing page pricing", "Next.js freelancer pricing", "frontend developer pricing"],
+  });
+}
+
+const pricingOfferCatalogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  "@id": `${siteConfig.url}/pricing#offers`,
+  name: "Arun Acharya pricing packages",
+  itemListElement: servicePackages.map((pkg) => ({
+    "@type": "Offer",
+    name: pkg.name,
+    price: pkg.startingPriceUSD,
+    priceCurrency: "USD",
+    description: `${pkg.bestFor} Delivery: ${pkg.delivery}`,
+    itemOffered: {
+      "@type": "Service",
+      name: pkg.name,
+      provider: { "@id": siteConfig.personId },
+    },
+  })),
 };
 
 export default function PricingPage() {
-  return <PricingPageContent />;
+  const schemas = [
+    pricingOfferCatalogJsonLd,
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Pricing", path: "/pricing" },
+    ]),
+  ];
+
+  return (
+    <>
+      {schemas.map((schema, index) => (
+        <script
+          key={`pricing-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      <PricingPageContent />
+    </>
+  );
 }

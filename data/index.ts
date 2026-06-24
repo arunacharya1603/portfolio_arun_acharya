@@ -112,14 +112,14 @@ export const projects = [
   },
   {
     id: 4,
-    title: "Samriddhi - Architectural Soul",
-    des: "An editorial interior-design portfolio that uses spatial hierarchy, project imagery, and refined content rhythm to make craft feel premium.",
+    title: "Samriddhi Interiors - Premium Client Website",
+    des: "A live freelance interiors website with premium positioning, 12 service categories, portfolio proof, client logos, testimonials, and an inquiry-led contact flow.",
     img: "/image/samriddhi.png",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/fm.svg"],
     link: "https://www.samriddhiinteriors.com/",
-    category: "Brand portfolio",
-    tags: ["React", "Visual Design", "Content", "Motion"],
-    outcome: "Premium service positioning",
+    category: "Freelance client website",
+    tags: ["Next.js", "TypeScript", "Motion", "Lead Gen"],
+    outcome: "Consultation-ready brand presence",
     year: "2025",
   },
   {
@@ -217,11 +217,11 @@ export const companies = [
 export const workExperience = [
   {
     id: 1,
-    title: "Frontend Developer & Marketing Lead at Persist Ventures",
+    title: "Lead Full Stack Developer Persist Ventures",
     desc: "Built and refined SoundOfMeme product surfaces, supported launch and community loops, produced LinkedIn marketing assets, led outreach programs, and shipped playlist, export, and load-testing improvements.",
     className: "md:col-span-2",
     thumbnail: "/exp2.svg",
-    period: "2022-2026",
+    period: "2024-2026",
     focus: "Product frontend, marketing systems, launch support",
   },
   {
@@ -230,7 +230,7 @@ export const workExperience = [
     desc: "Developed persistent playlist management, CRUD flows, sidebar integration, and interface optimizations for a smoother daily listening experience.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
-    period: "2022-2026",
+    period: "2024-2025",
     focus: "Social audio UX, frontend systems, performance",
   },
   {

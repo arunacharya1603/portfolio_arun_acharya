@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 
 import { WorkProjectPageContent } from "@/components/StudioPortfolio";
 import { getWorkProjectBySlug, workProjects } from "@/data/work-projects";
-import { siteConfig } from "@/lib/site";
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  softwareApplicationJsonLd,
+} from "@/lib/seo";
 
 type WorkProjectPageProps = {
   params: {
@@ -26,27 +30,29 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
     };
   }
 
-  return {
-    title: `${project.shortName} Case Study`,
-    description: project.description,
-    alternates: {
-      canonical: `${siteConfig.url}/work/${project.slug}`,
-    },
-    openGraph: {
-      title: `${project.name} | Arun Acharya`,
-      description: project.description,
-      url: `${siteConfig.url}/work/${project.slug}`,
-      type: "article",
-      images: [
-        {
-          url: project.image,
-          width: 1200,
-          height: 630,
-          alt: `${project.name} project preview`,
-        },
-      ],
-    },
-  };
+  const isChainReach = project.slug === "chainreach-ai";
+
+  return createPageMetadata({
+    title: isChainReach
+      ? "ChainReach.ai Frontend Developer Case Study | Arun Acharya"
+      : `${project.shortName} Case Study by Arun Acharya`,
+    description: isChainReach
+      ? "ChainReach.ai case study by Arun Acharya, covering the creator-brand campaign platform, frontend architecture, dashboards, AI-assisted campaign flows, negotiation screens, and outcomes."
+      : project.description,
+    path: `/work/${project.slug}`,
+    image: project.image,
+    type: "article",
+    keywords: [
+      project.name,
+      project.shortName,
+      `${project.shortName} developer`,
+      "Arun Acharya project",
+      ...project.stack,
+      ...(isChainReach
+        ? ["chainreach.ai", "chainreach.ai frontend developer", "chainreach developer", "ChainReach.ai case study"]
+        : []),
+    ],
+  });
 }
 
 export default function WorkProjectPage({ params }: WorkProjectPageProps) {
@@ -56,5 +62,25 @@ export default function WorkProjectPage({ params }: WorkProjectPageProps) {
     notFound();
   }
 
-  return <WorkProjectPageContent project={project} />;
+  const schemas = [
+    softwareApplicationJsonLd(project),
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Work", path: "/work" },
+      { name: project.shortName, path: `/work/${project.slug}` },
+    ]),
+  ];
+
+  return (
+    <>
+      {schemas.map((schema, index) => (
+        <script
+          key={`work-project-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      <WorkProjectPageContent project={project} />
+    </>
+  );
 }

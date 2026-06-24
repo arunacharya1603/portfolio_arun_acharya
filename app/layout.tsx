@@ -5,8 +5,13 @@ import "./globals.css";
 import { ThemeProvider } from "./provider";
 import { seoServicePages } from "@/data/seo-content";
 import { siteConfig, topSeoKeywords } from "@/lib/site";
+import {
+  personJsonLd,
+  professionalServiceJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
@@ -19,12 +24,11 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default:
-      "Full-Stack Architect and Freelance Web Developer | Arun Acharya",
+    default: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
     template: "%s | Arun Acharya",
   },
   description:
-    "Hire Arun Acharya to build high-performance websites, full-stack web apps, dashboards, UI/UX redesigns, APIs, MVPs, and conversion-focused digital products.",
+    "Official portfolio of Arun Acharya, frontend developer, UI/UX developer, and Next.js freelancer with credited frontend contributions to ChainReach.ai, landing pages, dashboards, and product interfaces.",
   keywords: topSeoKeywords,
   applicationName: siteConfig.siteName,
   category: "technology",
@@ -47,23 +51,23 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.siteName,
-    title: "Full-Stack Architect and Freelance Web Developer | Arun Acharya",
+    title: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
     description:
-      "Premium websites, full-stack web apps, dashboards, UI/UX redesigns, MVPs, APIs, SEO-ready builds, and Vercel deployments.",
+      "Official portfolio of Arun Acharya: frontend development, UI/UX, Next.js builds, landing pages, dashboards, and ChainReach.ai case-study attribution.",
     images: [
       {
         url: `${siteConfig.url}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Arun Acharya freelance web developer",
+        alt: "Arun Acharya developer portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Full-Stack Architect and Freelance Web Developer | Arun Acharya",
+    title: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
     description:
-      "Hire Arun Acharya for premium websites, full-stack apps, dashboards, UI/UX redesigns, APIs, MVPs, and conversion-focused frontend work.",
+      "Frontend developer, UI/UX developer, Next.js freelancer, and credited frontend contributor to ChainReach.ai and other showcased products.",
     creator: "@143rhry112645",
     images: [`${siteConfig.url}/og-image.png`],
   },
@@ -80,102 +84,9 @@ export const metadata: Metadata = {
       "en-AU": siteConfig.url,
     },
   },
-};
-
-const professionalServiceJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "@id": `${siteConfig.url}#studio`,
-  name: "Arun Acharya Freelance Web Development",
-  url: siteConfig.url,
-  image: `${siteConfig.url}/og-image.png`,
-  description:
-    "Premium full-stack development, frontend engineering, UI/UX redesign, dashboard, API, MVP, SEO-ready website, and Vercel deployment services.",
-  founder: {
-    "@type": "Person",
-    "@id": `${siteConfig.url}#person`,
-    name: siteConfig.name,
-    jobTitle: "Full-Stack Architect and UI/UX-Focused Product Builder",
-    url: siteConfig.url,
-    sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
-  },
-  areaServed: [
-    "India",
-    "United States",
-    "United Kingdom",
-    "Canada",
-    "United Arab Emirates",
-    "Australia",
-  ],
-  availableLanguage: ["en"],
-  priceRange: "$200 - $5000+",
-  knowsAbout: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "JavaScript",
-    "Frontend Development",
-    "Full-Stack Development",
-    "UI/UX Design",
-    "Figma",
-    "Tailwind CSS",
-    "Framer Motion",
-    "Node.js",
-    "Vercel Deployment",
-    "SEO",
-    "Performance Optimization",
-  ],
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Freelance Web Services",
-    itemListElement: seoServicePages.map((service) => ({
-      "@type": "Offer",
-      url: `${siteConfig.url}/services/${service.slug}`,
-      itemOffered: {
-        "@type": "Service",
-        name: service.navLabel,
-        description: service.metaDescription,
-      },
-    })),
-  },
-};
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "@id": `${siteConfig.url}#person`,
-  name: siteConfig.name,
-  url: siteConfig.url,
-  jobTitle: "Full-Stack Architect and Freelance Web Developer",
-  description:
-    "Full-stack developer and UI/UX-focused product builder for high-performance websites, web apps, dashboards, APIs, MVPs, and conversion-focused digital products.",
-  sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.x],
-  knowsAbout: [
-    "Frontend Development",
-    "Full-Stack Development",
-    "UI/UX Design",
-    "Small Business Websites",
-    "Frontend Revamps",
-    "API Development",
-    "SaaS Dashboards",
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Framer Motion",
-    "Node.js",
-    "Vercel",
-  ],
-  mainEntityOfPage: siteConfig.url,
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${siteConfig.url}#website`,
-  name: siteConfig.siteName,
-  url: siteConfig.url,
-  publisher: {
-    "@id": `${siteConfig.url}#person`,
+  other: {
+    "eeat:author": siteConfig.name,
+    "eeat:entity": "Arun Acharya developer entity",
   },
 };
 
@@ -184,6 +95,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const baseSchemas = [
+    professionalServiceJsonLd(seoServicePages),
+    personJsonLd(),
+    websiteJsonLd(),
+  ];
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -192,20 +109,19 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
         <meta name="theme-color" content="#0e0d0c" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(professionalServiceJsonLd),
-          }}
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="LLM-readable portfolio summary"
+          href="/llms.txt"
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
+        {baseSchemas.map((schema, index) => (
+          <script
+            key={`base-schema-${index}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]`}>
         <ThemeProvider

@@ -22,6 +22,7 @@ export type SeoServicePage = {
   faqs: SeoFaq[];
   relatedServiceSlugs: string[];
   relatedBlogSlugs: string[];
+  relatedWorkSlugs?: string[];
 };
 
 export type BlogSection = {
@@ -46,6 +47,130 @@ export type SeoBlogPost = {
 };
 
 export const seoServicePages: SeoServicePage[] = [
+  {
+    slug: "landing-pages",
+    navLabel: "Landing Pages",
+    metaTitle: "Landing Page Developer for High-Converting Product and Service Pages",
+    metaDescription:
+      "Hire Arun Acharya as a landing page developer for fast, SEO-ready, conversion-focused landing pages built with clear copy, UI/UX polish, and Next.js frontend quality.",
+    heroEyebrow: "Landing page design services",
+    heroTitle: "Landing pages that explain the offer fast and turn attention into action.",
+    heroDescription:
+      "For founders, creators, SaaS teams, and service businesses that need a focused page for one offer, campaign, waitlist, launch, or lead-generation goal. Arun combines message hierarchy, UI/UX, frontend development, performance, and SEO structure so the page can convert and be indexed cleanly.",
+    primaryIntent: "landing page developer",
+    secondaryIntents: [
+      "landing page design services",
+      "Next.js landing page developer",
+      "high converting landing page developer",
+      "freelance landing page developer",
+    ],
+    bestFor: [
+      "SaaS and product launches that need one persuasive page before a larger website.",
+      "Service businesses that need a focused lead-generation page for paid or organic traffic.",
+      "Founders validating a clear offer, waitlist, consultation, or demo request.",
+    ],
+    outcomes: [
+      "A crisp page narrative: problem, promise, proof, feature logic, objections, FAQ, and CTA.",
+      "Responsive Next.js or React implementation with fast loading and stable layout.",
+      "Metadata, headings, FAQ schema, internal links, and crawlable content for search visibility.",
+      "Visual polish grounded in real project references like HeyClo, Samriddhi Interiors, and ChainReach.ai.",
+    ],
+    includes: [
+      "Offer and audience clarification",
+      "Conversion-focused page structure",
+      "Hero, proof, benefits, process, FAQ, and CTA sections",
+      "Responsive UI/UX design",
+      "Next.js or React implementation",
+      "SEO metadata, schema, and launch checks",
+    ],
+    process: [
+      "Define the one action the page must create and the doubts it must answer.",
+      "Shape the message hierarchy around proof, service clarity, visual confidence, and mobile scanning.",
+      "Build, optimize, connect contact/demo paths, add schema, and verify the page is crawlable.",
+    ],
+    faqs: [
+      {
+        question: "What makes a landing page different from a full website?",
+        answer:
+          "A landing page is built around one offer and one primary action. A full website supports broader trust, multiple services, blog content, and deeper navigation.",
+      },
+      {
+        question: "Can Arun build the copy, UI, and frontend together?",
+        answer:
+          "Yes. Arun can shape the page story, UI hierarchy, responsive design, Next.js or React frontend, technical SEO, and launch checks in one focused scope.",
+      },
+      {
+        question: "Which projects show this kind of landing page work?",
+        answer:
+          "HeyClo / CLO AI and Samriddhi Interiors are strong landing-page references, while ChainReach.ai shows product and dashboard depth when the scope grows beyond a page.",
+      },
+    ],
+    relatedServiceSlugs: ["frontend-development", "ui-ux-design", "small-business-websites"],
+    relatedBlogSlugs: ["landing-page-vs-website-vs-web-app", "small-business-website-cost-and-scope"],
+    relatedWorkSlugs: ["heyclo-clo-ai", "samriddhi-interiors", "chainreach-ai"],
+  },
+  {
+    slug: "frontend-development",
+    navLabel: "Frontend Development",
+    metaTitle: "Frontend Developer Portfolio and Next.js Freelancer | Arun Acharya",
+    metaDescription:
+      "Hire Arun Acharya for frontend development, Next.js builds, React interfaces, UI implementation, dashboards, product pages, performance work, and SEO-ready web experiences.",
+    heroEyebrow: "Frontend developer portfolio",
+    heroTitle: "Frontend development for polished products, dashboards, and SEO-ready websites.",
+    heroDescription:
+      "Arun Acharya builds production frontend surfaces with React, Next.js, TypeScript, Tailwind CSS, responsive UI systems, performance awareness, and product judgment. This service is for teams that need code quality and interface quality to move together.",
+    primaryIntent: "frontend developer portfolio",
+    secondaryIntents: [
+      "Next.js freelancer",
+      "frontend developer India",
+      "React frontend developer",
+      "hire frontend developer",
+    ],
+    bestFor: [
+      "Founders and teams that need a production-ready frontend rather than static mockups.",
+      "SaaS dashboards, marketplaces, product pages, creator platforms, healthcare flows, and client websites.",
+      "Projects where UI/UX, API integration, responsiveness, and performance all affect launch quality.",
+    ],
+    outcomes: [
+      "Clean React or Next.js component architecture tied to real product workflows.",
+      "Responsive screens that hold up across mobile, tablet, desktop, and narrow content panes.",
+      "Performance-conscious images, lazy loading, semantic HTML, and SEO-safe route structure.",
+      "A stronger entity trail from Arun Acharya to ChainReach.ai, NursePhysioWala, Sound Of Meme, and other showcased builds.",
+    ],
+    includes: [
+      "React and Next.js frontend development",
+      "TypeScript component systems",
+      "Dashboard and workflow UI",
+      "API integration states",
+      "Responsive implementation",
+      "Performance, accessibility, and SEO checks",
+    ],
+    process: [
+      "Map the product screens, routes, states, data boundaries, and conversion or workflow goals.",
+      "Build reusable frontend patterns that match the design direction and product behavior.",
+      "Verify responsive behavior, metadata, schema, image loading, and deployment readiness before launch.",
+    ],
+    faqs: [
+      {
+        question: "Is Arun a Next.js freelancer or only a UI designer?",
+        answer:
+          "Arun works across frontend development and UI/UX. He builds React and Next.js interfaces, product workflows, landing pages, dashboards, and SEO-ready website routes.",
+      },
+      {
+        question: "Can Arun work with existing backend APIs?",
+        answer:
+          "Yes. Frontend development can include API integration, loading states, error states, role-aware views, forms, dashboards, and product workflows while preserving existing backend contracts.",
+      },
+      {
+        question: "Which projects prove frontend development experience?",
+        answer:
+          "ChainReach.ai, Sound Of Meme, NursePhysioWala, HeyClo / CLO AI, and Samriddhi Interiors show frontend work across SaaS, AI music, healthcare, animated landing pages, and client websites.",
+      },
+    ],
+    relatedServiceSlugs: ["ui-ux-design", "landing-pages", "web-apps-saas"],
+    relatedBlogSlugs: ["frontend-revamp-checklist", "api-development-for-startup-web-apps"],
+    relatedWorkSlugs: ["chainreach-ai", "sound-of-meme", "nursephysiowala"],
+  },
   {
     slug: "small-business-websites",
     navLabel: "Small Business Websites",
@@ -164,14 +289,14 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "ui-ux-design",
     navLabel: "UI/UX Help",
-    metaTitle: "UI/UX Design Help for Websites and Web Apps",
+    metaTitle: "UI UX Developer India for Websites, Landing Pages, and Web Apps",
     metaDescription:
-      "UI/UX support for founders and teams that need clearer product flows, Figma design, responsive screens, dashboard UX, and developer-ready interface systems.",
+      "Hire Arun Acharya as a UI UX developer in India for websites, landing pages, SaaS dashboards, Figma-to-React interfaces, responsive screens, and developer-ready product flows.",
     heroEyebrow: "UI/UX help for websites and products",
     heroTitle: "Make the product easier to understand before you spend more on development.",
     heroDescription:
       "Arun helps shape information architecture, page hierarchy, user flows, Figma screens, dashboard UX, and conversion paths so the build has a better chance of working.",
-    primaryIntent: "UI UX designer for web apps",
+    primaryIntent: "UI UX developer India",
     secondaryIntents: [
       "UI UX freelancer",
       "Figma to React developer",

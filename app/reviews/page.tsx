@@ -1,24 +1,29 @@
-import type { Metadata } from "next";
-
 import { ReviewsPageContent } from "@/components/StudioPortfolio";
-import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Reviews and Trust Signals",
-  description:
-    "Verified testimonial placeholder and delivery trust signals for Arun Acharya, including fast delivery, clean code, SEO-ready builds, responsive design, and Vercel deployment.",
-  alternates: {
-    canonical: `${siteConfig.url}/reviews`,
-  },
-  openGraph: {
-    title: "Reviews and Trust Signals | Arun Acharya",
+export function generateMetadata() {
+  return createPageMetadata({
+    title: "Arun Acharya Reviews and Trust Signals",
     description:
-      "Verified client testimonials will appear after approval. See delivery signals and trust badges for Arun Acharya.",
-    url: `${siteConfig.url}/reviews`,
-    type: "website",
-  },
-};
+      "Delivery trust signals for Arun Acharya including clean code, fast delivery, SEO-ready builds, responsive design, Vercel deployment, and verified testimonials when approved.",
+    path: "/reviews",
+    keywords: ["Arun Acharya reviews", "freelance developer reviews", "frontend developer trust signals"],
+  });
+}
 
 export default function ReviewsPage() {
-  return <ReviewsPageContent />;
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Reviews", path: "/reviews" },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ReviewsPageContent />
+    </>
+  );
 }

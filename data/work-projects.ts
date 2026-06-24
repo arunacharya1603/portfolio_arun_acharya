@@ -18,6 +18,8 @@ export type WorkProject = {
   features: string[];
   image: string;
   href: string;
+  externalUrl?: string;
+  applicationCategory?: string;
   overview: string;
   whatIDid: string[];
   howIDid: string[];
@@ -36,12 +38,14 @@ export const workProjects: WorkProject[] = [
     stack: ["Framer", "Lenis", "Responsive UI"],
     impact: "A fully animated product landing page with smooth scrolling and premium storytelling.",
     description:
-      "Developed an animated landing page experience for CLO AI with smooth scrolling, responsive layouts, polished interaction design, and a loading experience tested across devices.",
+      "Developed an animated landing page experience for HeyClo.com with smooth scrolling, responsive layouts, polished interaction design, and a loading experience tested across devices.",
     problem:
       "The product needed a premium animated landing experience that stayed smooth, responsive, and performance-conscious across screen sizes.",
     features: ["Animated landing page", "Smooth scrolling", "Responsive sections", "Loading experience", "Lighthouse checks"],
     image: "/image/clo.png",
     href: "/work/heyclo-clo-ai",
+    externalUrl: "https://heyclo.com/",
+    applicationCategory: "LifestyleApplication",
     overview:
       "HeyClo / CLO AI was built as a product landing page where motion, responsiveness, and page quality mattered as much as the visual direction. The work focused on turning the product story into screen-friendly sections with smooth scroll behavior and polished interaction design.",
     whatIDid: [
@@ -88,14 +92,14 @@ export const workProjects: WorkProject[] = [
   {
     slug: "chainreach-ai",
     name: "ChainReach.ai - Creator and Brand Campaign Platform",
-    shortName: "ChainReach.ai",
+    shortName: "Chainreach.ai",
     status: "Live Product",
     timeline: "Jan 2026 - Present",
     role: "Frontend Developer",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     impact: "A large-scale creator-brand platform with dashboards, campaign flows, negotiation, and AI-assisted creation.",
     description:
-      "Built frontend modules for a creator-brand platform with multi-role workflows for brands, creators, and admin users.",
+      "Developed frontend modules for a creator-brand platform with multi-role workflows for brands, creators, and admin users.",
     problem:
       "The platform needed clean frontend workflows for brands, creators, and admins while connecting campaign modules with backend APIs.",
     features: [
@@ -108,12 +112,14 @@ export const workProjects: WorkProject[] = [
     ],
     image: "/image/chainreach.png",
     href: "/work/chainreach-ai",
+    externalUrl: "https://chainreach.ai/",
+    applicationCategory: "BusinessApplication",
     overview:
       "ChainReach.ai is a creator and brand campaign platform with multi-role product surfaces. The frontend work covered dashboards, campaign creation, creator acceptance flows, negotiation screens, AI-assisted campaign generation, and global AI chat UI.",
     whatIDid: [
-      "Built frontend for brand, creator, and admin workflows.",
+      "Developed frontend for brand, creator, and admin workflows.",
       "Developed responsive dashboards and campaign creation flows.",
-      "Built creator campaign acceptance flows and negotiation screens.",
+      "Developed creator campaign acceptance flows and negotiation screens.",
       "Implemented AI-assisted campaign generation interfaces.",
       "Implemented global AI chat UI and connected frontend modules with backend APIs.",
     ],
@@ -149,7 +155,7 @@ export const workProjects: WorkProject[] = [
     outcomes: [
       "Delivered frontend surfaces for a live creator-brand platform.",
       "Supported brand, creator, and admin workflows.",
-      "Built AI-assisted generation, global chat, campaign flows, dashboards, and negotiation screens.",
+      "Developed AI-assisted generation, global chat, campaign flows, dashboards, and negotiation screens.",
     ],
   },
   {
@@ -175,6 +181,7 @@ export const workProjects: WorkProject[] = [
     ],
     image: "/image/soundofmeme.png",
     href: "/work/sound-of-meme",
+    applicationCategory: "MultimediaApplication",
     overview:
       "Sound Of Meme was an AI-powered music generation platform where I owned the frontend from scratch. The work covered scalable architecture, reusable components, custom hooks, maintainable UI flows, the core music player, AI song generation, SEO-focused frontend architecture, and production performance.",
     whatIDid: [
@@ -221,6 +228,79 @@ export const workProjects: WorkProject[] = [
     ],
   },
   {
+    slug: "samriddhi-interiors",
+    name: "Samriddhi Interiors - Premium Interior & Construction Website",
+    shortName: "Samriddhi Interiors",
+    status: "Live Freelance Project",
+    timeline: "2025",
+    role: "Freelance Frontend Developer",
+    stack: ["Next.js", "TypeScript", "Framer Motion", "Responsive UI"],
+    impact: "A live premium interiors website built to turn portfolio credibility into consultation inquiries.",
+    description:
+      "Built a polished business website for Samriddhi Interiors with a premium hero, service architecture, portfolio showcases, client proof, testimonials, and a direct inquiry flow.",
+    problem:
+      "The client needed a premium online presence that could explain a wide interior and construction service offering, showcase major projects, build trust, and convert visitors into consultation leads.",
+    features: [
+      "Premium hero section",
+      "Service architecture",
+      "Signature portfolio showcase",
+      "Client and partner proof",
+      "Process storytelling",
+      "Testimonials",
+      "Consultation inquiry flow",
+    ],
+    image: "/image/samriddhi.png",
+    href: "/work/samriddhi-interiors",
+    externalUrl: "https://www.samriddhiinteriors.com/",
+    applicationCategory: "BusinessApplication",
+    overview:
+      "Samriddhi Interiors is a live freelance client project for an interiors and construction brand. The website positions the business as a premium studio through a strong hero, founder-led credibility, 200+ project and 8+ years proof points, a detailed services system, signature portfolio work, client logos, process storytelling, testimonials, and a consultation-focused contact flow.",
+    whatIDid: [
+      "Built the live client-facing website for Samriddhi Interiors.",
+      "Created the premium landing structure around profile, projects, journal, about, services, and get-in-touch navigation.",
+      "Built sections for 12 service categories including space planning, civil work, electrical and plumbing, renovation, sourcing, modular kitchens, custom furniture, painting, ceilings, exterior work, and fabrication.",
+      "Structured portfolio and credibility sections around projects such as N.T.P.C Noida, Dabur India Limited, GTPL Hub, SK Enmove Gabriel, NIIT Center, Ease My Trip, Luxury Estate, and Serene Suite.",
+      "Added client proof, testimonials, founder details, email, phone, WhatsApp, studio address, and inquiry form flow for leads.",
+      "Reworked the project preview in this portfolio to use the actual live website screenshot.",
+    ],
+    howIDid: [
+      "Used a modern Next.js and TypeScript frontend foundation for a polished, maintainable client website.",
+      "Used motion and image-led sections to give the site a premium interior-studio feel without hiding the business information.",
+      "Organized the page as a conversion path: hero, story, services, portfolio, clients, process, testimonials, and contact.",
+      "Kept service information scannable even though the business covers a large interior and construction scope.",
+      "Balanced premium visual hierarchy with practical lead-generation actions such as consultation, inquiry, phone, and WhatsApp contact.",
+    ],
+    challenges: [
+      {
+        title: "Premium trust for an offline service business",
+        challenge:
+          "Interior and construction clients need confidence before they inquire, especially when the business sells high-value space transformations.",
+        tackle:
+          "I used credibility metrics, founder context, project showcases, client logos, testimonials, and a polished editorial layout to make the brand feel established and trustworthy.",
+      },
+      {
+        title: "Large service scope",
+        challenge:
+          "The business covers many services, from civil work and renovation to modular kitchens, ceilings, furniture, exterior work, and fabrication.",
+        tackle:
+          "I turned the services into a structured, scannable system so visitors can understand the full offering without reading a dense brochure-style page.",
+      },
+      {
+        title: "Portfolio and lead generation together",
+        challenge:
+          "The site had to feel premium and visual, but still push visitors toward a practical consultation or inquiry.",
+        tackle:
+          "I connected the visual storytelling with clear consultation CTAs, contact details, WhatsApp/phone paths, and an inquiry form near the end of the page.",
+      },
+    ],
+    outcomes: [
+      "Delivered a live freelance client website at samriddhiinteriors.com.",
+      "Showcased 12 interior and construction service categories.",
+      "Presented signature portfolio work, client logos, testimonials, and founder-led credibility.",
+      "Built a consultation-focused lead path with form, email, phone, WhatsApp, and address details.",
+    ],
+  },
+  {
     slug: "nursephysiowala",
     name: "NursePhysioWala - Healthcare Services Marketplace",
     shortName: "NursePhysioWala",
@@ -244,6 +324,8 @@ export const workProjects: WorkProject[] = [
     ],
     image: "/image/nurse.png",
     href: "/work/nursephysiowala",
+    externalUrl: "https://nursephysiowala.in/",
+    applicationCategory: "HealthApplication",
     overview:
       "NursePhysioWala is a live healthcare services marketplace for home physiotherapy and nursing services. I built it from scratch as the founder and frontend developer, covering patient workflows, physiotherapist workflows, admin operations, allocation logic, SEO pages, and production deployment.",
     whatIDid: [
@@ -289,68 +371,7 @@ export const workProjects: WorkProject[] = [
       "Implemented automated allocation with admin override.",
       "Created SEO-friendly service and city pages with optimized images.",
     ],
-  },
-  {
-    slug: "samriddhi-interiors",
-    name: "Samriddhi Interiors - Premium Interior Portfolio Website",
-    shortName: "Samriddhi Interiors",
-    status: "Live Product",
-    timeline: "Client Project",
-    role: "Freelance Frontend Developer",
-    stack: ["Next.js", "TypeScript", "Framer Motion"],
-    impact: "A client-facing interior and construction services website with animated sections and lead-generation flows.",
-    description:
-      "Developed a premium portfolio and business website for an interior and construction services brand with responsive animated sections, reusable components, and production deployment.",
-    problem:
-      "The client needed a website that could showcase services, project portfolio, brand credibility, and lead-generation flows with polished frontend quality.",
-    features: ["Animated sections", "Reusable components", "Optimized layout structure", "Service showcase", "Project portfolio", "Lead-generation flows"],
-    image: "/image/samriddhi.png",
-    href: "/work/samriddhi-interiors",
-    overview:
-      "Samriddhi Interiors was a client-facing portfolio and business website for an interior and construction services brand. The build focused on responsive animated sections, reusable components, optimized layout structure, clean frontend architecture, service presentation, portfolio presentation, brand credibility, and lead-generation flows.",
-    whatIDid: [
-      "Developed the client-facing portfolio and business website.",
-      "Created responsive animated sections with Framer Motion.",
-      "Built reusable components and optimized layout structure.",
-      "Built the site to showcase services, project portfolio, brand credibility, and lead-generation flows.",
-      "Delivered clean frontend architecture and production deployment.",
-    ],
-    howIDid: [
-      "Used Next.js and TypeScript for the frontend foundation.",
-      "Used Framer Motion for animated sections.",
-      "Structured the website around reusable components and optimized layouts.",
-      "Prioritized service clarity, project portfolio presentation, credibility, and lead-generation paths.",
-    ],
-    challenges: [
-      {
-        title: "Portfolio plus business website",
-        challenge:
-          "The site needed to show project work while also supporting service discovery and inquiries.",
-        tackle:
-          "I structured the website around services, project portfolio, credibility sections, and lead-generation flows.",
-      },
-      {
-        title: "Polished animated presentation",
-        challenge:
-          "The brand needed a premium interface without losing responsive quality.",
-        tackle:
-          "I created responsive animated sections with Framer Motion and kept the layout structure optimized across devices.",
-      },
-      {
-        title: "Clean frontend delivery",
-        challenge:
-          "The site needed to be maintainable after launch instead of a one-off page.",
-        tackle:
-          "I used reusable components, clean frontend architecture, and production deployment practices.",
-      },
-    ],
-    outcomes: [
-      "Delivered a live client-facing portfolio and business website.",
-      "Created animated responsive sections and reusable components.",
-      "Supported services, portfolio, brand credibility, and lead-generation flows.",
-    ],
-  },
-];
+  },];
 
 export function getWorkProjectBySlug(slug: string) {
   return workProjects.find((project) => project.slug === slug);

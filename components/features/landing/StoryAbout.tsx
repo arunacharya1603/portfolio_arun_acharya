@@ -38,11 +38,13 @@ const chapters = [
 ];
 
 const CHAPTER_COUNT = chapters.length;
+const DESKTOP_SCROLL_PER_CHAPTER_VH = 118;
 
 export default function StoryAbout() {
   const sectionRef = useRef<HTMLElement>(null);
   const progressFillRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -62,17 +64,22 @@ export default function StoryAbout() {
           id: "story-trigger",
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${CHAPTER_COUNT * 100}vh`,
+          end: `+=${CHAPTER_COUNT * DESKTOP_SCROLL_PER_CHAPTER_VH}vh`,
           pin: true,
           pinSpacing: true,
-          scrub: 0.5,
+          scrub: 0.55,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
           refreshPriority: 5, // Lower priority than CinematicHero (10), higher than ProjectShowcase (3)
           onUpdate: (self) => {
             const progress = self.progress;
             const rawIndex = Math.floor(progress * CHAPTER_COUNT);
             const newIndex = Math.min(rawIndex, CHAPTER_COUNT - 1);
             
-            setActiveIndex(newIndex);
+            if (activeIndexRef.current !== newIndex) {
+              activeIndexRef.current = newIndex;
+              setActiveIndex(newIndex);
+            }
 
             if (progressFillRef.current) {
               progressFillRef.current.style.height = `${progress * 100}%`;
@@ -91,7 +98,10 @@ export default function StoryAbout() {
             refreshPriority: 1,
             onToggle: (self) => {
               if (self.isActive) {
-                setActiveIndex(index);
+                if (activeIndexRef.current !== index) {
+                  activeIndexRef.current = index;
+                  setActiveIndex(index);
+                }
               }
             },
           });
@@ -104,9 +114,10 @@ export default function StoryAbout() {
 
   return (
     <section
+      id="story"
       ref={sectionRef}
-      className="relative min-h-screen bg-[#0e0d0c] overflow-hidden"
-      aria-label="About — The Story"
+      className="relative min-h-[100svh] bg-[#0e0d0c] overflow-hidden"
+      aria-label="About - The Story"
     >
       {/* Subtle warm gradient overlay */}
       <div
@@ -114,7 +125,7 @@ export default function StoryAbout() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col min-h-screen max-w-[1480px] mx-auto px-4 sm:px-6 py-32 lg:py-40">
+      <div className="relative z-10 flex flex-col min-h-[100svh] max-w-[1480px] mx-auto px-4 sm:px-6 py-28 sm:py-32 lg:py-40">
         {/* Eyebrow */}
         <span className="text-xs uppercase tracking-[0.24em] text-[#bfa17f] font-sans mb-16 lg:mb-24 block">
           The Story
@@ -124,7 +135,7 @@ export default function StoryAbout() {
         <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
           
           {/* Left Side: Chapters (65%) */}
-          <div className="w-full lg:w-[65%] flex flex-col justify-center relative min-h-[400px]">
+          <div className="w-full lg:w-[65%] flex flex-col justify-center relative min-h-[400px] lg:min-h-[min(660px,68vh)]">
             
             {/* Desktop Pinned Chapters (Crossfade) */}
             <div className="hidden lg:block absolute inset-0">
@@ -169,12 +180,12 @@ export default function StoryAbout() {
             </div>
 
             {/* Mobile Natural Scroll Chapters */}
-            <div className="lg:hidden flex flex-col gap-12">
+            <div className="lg:hidden flex flex-col gap-10 sm:gap-12">
               {chapters.map((chapter, index) => (
                 <div
                   key={chapter.num}
                   id={`story-chapter-mobile-${index}`}
-                  className="min-h-[40vh] flex flex-col justify-center py-12 border-b border-[#fbfbfa]/5 last:border-0"
+                  className="min-h-[52svh] sm:min-h-[48svh] flex flex-col justify-center py-14 sm:py-16 border-b border-[#fbfbfa]/5 last:border-0"
                 >
                   <span
                     className="block font-grotesk text-6xl font-semibold text-[#fbfbfa]/[0.05] leading-none select-none"
@@ -200,7 +211,7 @@ export default function StoryAbout() {
               <div className="flex gap-6">
                 
                 {/* Vertical progress line */}
-                <div className="relative w-px h-64 bg-[#fbfbfa]/[0.08]">
+                <div className="relative w-px h-72 bg-[#fbfbfa]/[0.08]">
                   <div
                     ref={progressFillRef}
                     className="absolute top-0 left-0 w-full bg-[#bfa17f]/60 transition-all duration-300 ease-out"
@@ -210,7 +221,7 @@ export default function StoryAbout() {
 
                 {/* Chapter list */}
                 <nav
-                  className="flex flex-col justify-between h-64 py-1"
+                  className="flex flex-col justify-between h-72 py-1"
                   aria-label="Story chapters"
                 >
                   {chapters.map((chapter, i) => (
@@ -219,7 +230,10 @@ export default function StoryAbout() {
                       onClick={() => {
                         const trigger = ScrollTrigger.getById("story-trigger");
                         if (trigger) {
-                          const scrollPos = trigger.start + i * window.innerHeight;
+                          const scrollDistance = trigger.end - trigger.start;
+                          const scrollPos =
+                            trigger.start +
+                            scrollDistance * ((i + 0.5) / CHAPTER_COUNT);
                           window.scrollTo({
                             top: scrollPos,
                             behavior: "smooth",

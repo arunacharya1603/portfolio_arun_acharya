@@ -1,24 +1,29 @@
-import type { Metadata } from "next";
-
 import { ExperiencePageContent } from "@/components/StudioPortfolio";
-import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Experience Logs",
-  description:
-    "Career highlights for Arun Acharya across frontend engineering, marketing systems, social audio, SoundOfMeme, Bump FM, and freelance full-stack delivery.",
-  alternates: {
-    canonical: `${siteConfig.url}/experience`,
-  },
-  openGraph: {
-    title: "Experience Logs | Arun Acharya",
+export function generateMetadata() {
+  return createPageMetadata({
+    title: "Arun Acharya Experience | Frontend, Product, Marketing, Freelance",
     description:
-      "Product, marketing, frontend, and freelance delivery experience from Arun Acharya.",
-    url: `${siteConfig.url}/experience`,
-    type: "website",
-  },
-};
+      "Experience highlights for Arun Acharya across frontend engineering, Sound Of Meme, Bump FM, product marketing, UI/UX, and freelance full-stack delivery.",
+    path: "/experience",
+    keywords: ["Arun Acharya experience", "frontend developer experience", "full-stack developer portfolio"],
+  });
+}
 
 export default function ExperiencePage() {
-  return <ExperiencePageContent />;
+  const breadcrumbSchema = breadcrumbJsonLd([
+    { name: "Home", path: "/" },
+    { name: "Experience", path: "/experience" },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <ExperiencePageContent />
+    </>
+  );
 }

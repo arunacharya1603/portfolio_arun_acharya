@@ -8,7 +8,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { workProjects } from "@/data/work-projects";
 
-const featured = workProjects.slice(0, 4);
+const featured = workProjects.slice(0, 5);
+const scrollDepth = `${Math.max(featured.length - 1, 1) * 100}%`;
 
 export default function ProjectShowcase() {
   const containerRef = useRef<HTMLElement>(null);
@@ -34,7 +35,7 @@ export default function ProjectShowcase() {
         scrollTrigger: {
           trigger: triggerRef.current,
           start: "top top",
-          end: "+=300%", // scroll depth
+          end: `+=${scrollDepth}`,
           pin: true,
           pinSpacing: true,
           scrub: 1,

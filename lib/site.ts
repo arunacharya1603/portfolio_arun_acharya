@@ -8,9 +8,31 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/arunacharya1603/",
   locale: "en_US",
   countryCode: "IN",
+  jobTitle: "Frontend Developer, UI/UX Developer, and Next.js Freelancer",
+  personId: "https://arunacharya1603.in#person",
+  websiteId: "https://arunacharya1603.in#website",
 };
 
+export const projectEntityLinks = [
+  "https://chainreach.ai/",
+  "https://heyclo.com/",
+  "https://nursephysiowala.in/",
+  "https://www.samriddhiinteriors.com/",
+];
+
+export const personSameAsLinks = [
+  siteConfig.github,
+  siteConfig.linkedin,
+  siteConfig.x,
+  ...projectEntityLinks,
+];
+
 export const topSeoKeywords = [
+  "Arun Acharya",
+  "Arun Acharya developer",
+  "Arun Acharya portfolio",
+  "chainreach.ai frontend developer",
+  "Arun Acharya ChainReach.ai frontend developer",
   "freelance web developer",
   "small business website developer",
   "small website developer",

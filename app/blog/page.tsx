@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -8,50 +7,45 @@ import {
 } from "@/components/SeoPageShell";
 import { blogUrl, seoBlogPosts } from "@/data/seo-content";
 import { siteConfig } from "@/lib/site";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Web Design and Development Blog",
-  description:
-    "Practical articles about small business websites, frontend revamps, UI/UX, API development, SaaS builds, and project scoping by Arun Acharya.",
-  alternates: {
-    canonical: `${siteConfig.url}/blog`,
-  },
-  openGraph: {
-    title: "Web Design and Development Blog | Arun Acharya",
+export function generateMetadata() {
+  return createPageMetadata({
+    title: "Web Design, Frontend, UI/UX, and Next.js Blog",
     description:
-      "Guides for founders and businesses planning websites, UI/UX redesigns, frontend revamps, APIs, and web apps.",
-    url: `${siteConfig.url}/blog`,
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Web Design and Development Blog | Arun Acharya",
-    description:
-      "Practical website, UI/UX, frontend, and full-stack build guidance for clients.",
-  },
-};
+      "Articles by Arun Acharya about landing pages, frontend development, UI/UX, Next.js, API planning, SaaS builds, SEO structure, and product scoping.",
+    path: "/blog",
+    keywords: ["Arun Acharya blog", "frontend development blog", "Next.js freelancer blog"],
+  });
+}
 
 export default function BlogPage() {
   const blogJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
+    "@id": `${siteConfig.url}/blog#blog`,
     name: "Arun Acharya Web Design and Development Blog",
     url: `${siteConfig.url}/blog`,
-    description: metadata.description,
-    author: {
-      "@type": "Person",
-      "@id": `${siteConfig.url}#person`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
+    description:
+      "Practical articles about small business websites, frontend revamps, UI/UX, API development, SaaS builds, and project scoping by Arun Acharya.",
+    author: { "@id": siteConfig.personId },
     blogPost: seoBlogPosts.map((post) => ({
       "@type": "BlogPosting",
       headline: post.title,
       url: blogUrl(post.slug),
       datePublished: post.datePublished,
       dateModified: post.dateModified,
+      author: { "@id": siteConfig.personId },
     })),
   };
+
+  const schemas = [
+    blogJsonLd,
+    breadcrumbJsonLd([
+      { name: "Home", path: "/" },
+      { name: "Blog", path: "/blog" },
+    ]),
+  ];
 
   return (
     <SeoPageShell
@@ -59,10 +53,24 @@ export default function BlogPage() {
       title="Practical SEO content for website, frontend, UI/UX, and full-stack project decisions."
       description="These articles are built for real client questions: what to build first, when to revamp the frontend, how UI/UX affects development, and how APIs fit into web app projects."
     >
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
-      />
+      {schemas.map((schema, index) => (
+        <script
+          key={`blog-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
+      <section className="mb-8 rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-5">
+        <p className={`text-sm leading-7 ${seoMutedTextClass}`}>
+          Written by{" "}
+          <Link href="/blog/author/arun-acharya" className="font-semibold text-[#2457ff]">
+            Arun Acharya
+          </Link>
+          , a frontend developer, UI/UX developer, and Next.js freelancer building landing pages,
+          dashboards, SaaS products, and SEO-ready websites.
+        </p>
+      </section>
 
       <section className="grid gap-5 md:grid-cols-2">
         {seoBlogPosts.map((post, index) => (

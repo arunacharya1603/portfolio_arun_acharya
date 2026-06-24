@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const baseRoutes = [
     "",
+    "/about",
     "/work",
     "/experience",
     "/services",
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/pricing",
     "/reviews",
     "/blog",
+    "/blog/author/arun-acharya",
     "/locations",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,

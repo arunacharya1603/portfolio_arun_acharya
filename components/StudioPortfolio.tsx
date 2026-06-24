@@ -103,6 +103,7 @@ type ExperienceItem = {
 
 const navItems = [
   { name: "Work", href: "/work" },
+  { name: "About", href: "/about" },
   { name: "Experience", href: "/experience" },
   { name: "Services", href: "/services" },
   { name: "Process", href: "/process" },
@@ -510,164 +511,188 @@ export function ReviewsPageContent() {
 
 export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
   const relatedProjects = projects.filter((item) => item.slug !== project.slug).slice(0, 3);
+  const projectFacts = [
+    { label: "Role", value: project.role },
+    { label: "Timeline", value: project.timeline },
+    { label: "Status", value: project.status },
+  ];
+  const narrativeSections = [
+    {
+      eyebrow: "01",
+      title: "What I delivered",
+      copy: "The work stayed focused on the real product surface: layout, motion, responsiveness, and launch quality.",
+      items: project.whatIDid,
+    },
+    {
+      eyebrow: "02",
+      title: "How it was built",
+      copy: "The implementation choices were shaped around clarity, controlled interaction, and a page that holds together across screen sizes.",
+      items: project.howIDid,
+    },
+  ];
 
   return (
     <PortfolioScaffold>
-      <section className="relative px-4 pb-14 pt-12 sm:px-6 lg:pb-20 lg:pt-16">
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(244,239,227,0.052)_1px,transparent_1px),linear-gradient(to_bottom,rgba(244,239,227,0.052)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_88%)]" />
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
-          <Reveal className="min-w-0 max-w-full">
-            <div className="min-w-0 max-w-full">
-              <Link
-                href="/work"
-                className="inline-flex items-center rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/6 px-4 py-2 text-sm font-semibold text-[#f4efe3]/80 transition hover:bg-[#f4efe3] hover:text-[#0d0c09] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
-              >
-                Back to work
-              </Link>
+      <section className="px-4 pb-10 pt-8 sm:px-6 lg:pb-14 lg:pt-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <Link
+            href="/work"
+            className="inline-flex items-center gap-2 rounded-full border border-[#f4efe3]/12 px-4 py-2 text-sm font-semibold text-[#f4efe3]/74 transition hover:border-[#f4efe3]/35 hover:bg-[#f4efe3] hover:text-[#0d0c09] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
+          >
+            <ArrowRight className="h-4 w-4 rotate-180" />
+            Back to work
+          </Link>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-[#f4efe3]/58">
-                <span className="rounded-full bg-[#f4efe3] px-3 py-1.5 text-[#0d0c09]">{project.status}</span>
-                <span>{project.timeline}</span>
-                <span>{project.role}</span>
-              </div>
-
-              <h1 className="mt-8 flex w-[calc(100vw-2rem)] max-w-full flex-wrap items-baseline gap-x-[0.18em] gap-y-1 font-grotesk text-3xl font-semibold uppercase leading-[0.9] text-[#f4efe3] sm:w-auto sm:max-w-5xl sm:text-6xl sm:leading-[0.88] lg:text-8xl">
-                {project.name.split(" ").map((word, index) => (
-                  <span key={`${word}-${index}`} className="inline-block max-w-full break-words [overflow-wrap:anywhere]">
-                    {word}
-                  </span>
-                ))}
+          <div className="mt-10 grid min-w-0 gap-9 lg:grid-cols-[minmax(0,0.68fr)_minmax(280px,0.32fr)] lg:items-end">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-[#d8c4a4]">{project.status}</p>
+              <h1 className="mt-4 max-w-full break-words [overflow-wrap:anywhere] [word-break:break-word] font-grotesk text-6xl font-semibold leading-[0.9] text-[#f4efe3] sm:text-7xl lg:text-8xl" style={{ maxWidth: "min(56rem, calc(100vw - 2rem))" }}>
+                {project.shortName}
               </h1>
-              <p className="mt-7 max-w-[calc(100vw-2rem)] text-base leading-8 text-[#f4efe3]/72 sm:max-w-3xl sm:text-lg">
-                {project.overview}
+              <p className="mt-5 max-w-full break-words [overflow-wrap:anywhere] [word-break:break-word] text-base font-semibold leading-7 text-[#f4efe3]/86 sm:text-xl sm:leading-8" style={{ maxWidth: "min(48rem, calc(100vw - 2rem))" }}>
+                {project.name}
               </p>
-
-              <div className="mt-8 flex max-w-[calc(100vw-2rem)] flex-col gap-3 sm:max-w-none sm:flex-row">
-                <MotionLink href="#case-study" variant="primary">
-                  Read Case Study
-                  <ArrowRight className="h-5 w-5" />
-                </MotionLink>
-                <MotionLink href="/#contact" variant="secondary">
-                  Start Similar Work
-                  <Send className="h-5 w-5" />
-                </MotionLink>
-              </div>
+              <p className="mt-6 max-w-full break-words [overflow-wrap:anywhere] [word-break:break-word] text-base leading-8 text-[#f4efe3]/72 sm:text-lg sm:leading-9" style={{ maxWidth: "min(48rem, calc(100vw - 2rem))" }}>
+                {project.description}
+              </p>
             </div>
-          </Reveal>
 
-          <Reveal delay={0.08} className="min-w-0">
-            <div className="overflow-hidden rounded-2xl border border-[#f4efe3]/12 bg-[#17130d] p-3">
-              <ProjectImage project={project} priority />
+            <aside className="max-w-full border-y border-[#f4efe3]/12 text-sm" style={{ maxWidth: "min(100%, calc(100vw - 2rem))" }}>
+              {projectFacts.map((fact) => (
+                <div key={fact.label} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 border-b border-[#f4efe3]/12 py-4 last:border-b-0">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/38">{fact.label}</p>
+                  <p className="font-semibold leading-6 text-[#f4efe3]">{fact.value}</p>
+                </div>
+              ))}
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-14 sm:px-6 lg:pb-20">
+        <div className="mx-auto w-full max-w-6xl">
+          <figure>
+            <div className="relative aspect-[16/11] overflow-hidden rounded-lg border border-[#f4efe3]/12 bg-[#15120d] sm:aspect-[16/9]">
+              <Image
+                src={project.image}
+                alt={`${project.name} preview`}
+                fill
+                priority
+                sizes="(min-width: 1280px) 72rem, 100vw"
+                className="object-cover"
+              />
             </div>
-          </Reveal>
+            <figcaption className="mt-5 grid gap-3 border-l border-[#d8c4a4]/50 pl-4 text-sm leading-7 text-[#f4efe3]/72 sm:grid-cols-[7rem_minmax(0,1fr)]">
+              <span className="font-bold uppercase tracking-[0.16em] text-[#d8c4a4]">Impact</span>
+              <span>{project.impact}</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section id="case-study" className="px-4 py-14 sm:px-6 lg:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
-          <Reveal>
-            <aside className="lg:sticky lg:top-28">
-              <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#f4efe3]/52">Project System</p>
-              <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.94] text-[#f4efe3] md:text-6xl">
-                What I did, how I did it, and what had to be solved.
-              </h2>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {project.stack.map((item) => (
-                  <span key={item} className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/6 px-3 py-1.5 text-xs font-semibold text-[#f4efe3]/72">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </aside>
-          </Reveal>
-
-          <div className="grid gap-5">
-            <ProjectDetailBlock
-              eyebrow="01 / What I did"
-              title="The concrete ownership"
-              items={project.whatIDid}
-            />
-            <ProjectDetailBlock
-              eyebrow="02 / How I did it"
-              title="The implementation approach"
-              items={project.howIDid}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-14 sm:px-6 lg:py-20">
-        <div className="mx-auto max-w-7xl border-y border-[#f4efe3]/12 py-12">
-          <Reveal>
-            <div className="grid gap-6 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-              <SectionIntro
-                eyebrow="Challenges"
-                title="Where the project could get messy, and how I handled it."
-                copy={project.problem}
-              />
-              <p className="max-w-2xl text-sm leading-7 text-[#f4efe3]/62 lg:justify-self-end">
-                Each point focuses on the real build scope: implementation pressure, performance, responsiveness, workflows, and launch quality.
-              </p>
+        <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
+          <aside className="lg:sticky lg:top-28">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Case study</p>
+            <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3]">
+              Clear scope. Real decisions. Finished work.
+            </h2>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {project.stack.map((item) => (
+                <span key={item} className="rounded-full border border-[#f4efe3]/12 px-3 py-1.5 text-xs font-semibold text-[#f4efe3]/70">
+                  {item}
+                </span>
+              ))}
             </div>
-          </Reveal>
+          </aside>
 
-          <div className="mt-10 border-t border-[#f4efe3]/12">
+          <div className="min-w-0">
+            <div className="grid gap-6 border-y border-[#f4efe3]/12 py-8 lg:grid-cols-2">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#d8c4a4]">Problem</p>
+                <p className="mt-4 text-base leading-8 text-[#f4efe3]/76">{project.problem}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#d8c4a4]">Project read</p>
+                <p className="mt-4 text-base leading-8 text-[#f4efe3]/76">{project.overview}</p>
+              </div>
+            </div>
+
+            <div className="divide-y divide-[#f4efe3]/12 border-b border-[#f4efe3]/12">
+              {narrativeSections.map((section) => (
+                <ProjectDetailBlock key={section.title} {...section} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="challenges" className="px-4 py-14 sm:px-6 lg:py-20">
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="grid gap-5 border-b border-[#f4efe3]/12 pb-8 lg:grid-cols-[0.38fr_0.62fr] lg:items-end">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Challenges</p>
+              <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3] sm:text-5xl">
+                The parts that needed judgment.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-[#f4efe3]/70 lg:justify-self-end">
+              These are the design and implementation decisions that kept the page useful, responsive, and polished instead of just animated.
+            </p>
+          </div>
+
+          <div className="divide-y divide-[#f4efe3]/12 border-b border-[#f4efe3]/12">
             {project.challenges.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.05}>
-                <article className="grid gap-5 border-b border-[#f4efe3]/12 py-7 lg:grid-cols-[0.16fr_0.84fr_1fr] lg:items-start">
-                  <span className="text-sm font-bold text-[#f4efe3]/38">0{index + 1}</span>
-                  <div>
-                    <h3 className="font-grotesk text-3xl font-semibold leading-none text-[#f4efe3]">
-                      {item.title}
-                    </h3>
-                    <p className="mt-4 text-sm font-bold uppercase tracking-[0.18em] text-[#f4efe3]/42">Challenge</p>
-                    <p className="mt-2 text-sm leading-7 text-[#f4efe3]/68">{item.challenge}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#f4efe3]/42">How I tackled it</p>
-                    <p className="mt-2 text-sm leading-7 text-[#f4efe3]/76">{item.tackle}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-14 sm:px-6 lg:py-20">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <Reveal>
-            <SectionIntro
-              eyebrow="Outcome"
-              title="What shipped from the work."
-              copy={project.impact}
-            />
-          </Reveal>
-
-          <div className="grid gap-3">
-            {project.outcomes.map((outcome, index) => (
-              <Reveal key={outcome} delay={index * 0.04}>
-                <div className="flex gap-4 rounded-xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-5">
-                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#f4efe3]" />
-                  <p className="text-sm leading-7 text-[#f4efe3]/78">{outcome}</p>
+              <article key={item.title} className="grid gap-5 py-8 lg:grid-cols-[5rem_minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
+                <p className="font-grotesk text-3xl font-semibold leading-none text-[#d8c4a4]">{String(index + 1).padStart(2, "0")}</p>
+                <div>
+                  <h3 className="font-grotesk text-3xl font-semibold leading-[0.98] text-[#f4efe3]">{item.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#f4efe3]/66">{item.challenge}</p>
                 </div>
-              </Reveal>
+                <div className="border-l border-[#f4efe3]/12 pl-5">
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/38">Response</p>
+                  <p className="mt-3 text-sm leading-7 text-[#f4efe3]/78">{item.tackle}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="outcome" className="px-4 py-14 sm:px-6 lg:py-20">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 border-y border-[#f4efe3]/12 py-10 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Outcome</p>
+            <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3] sm:text-5xl">
+              What the work left behind.
+            </h2>
+            <p className="mt-5 max-w-xl text-base leading-8 text-[#f4efe3]/70">{project.impact}</p>
+          </div>
+
+          <div className="divide-y divide-[#f4efe3]/12 border-t border-[#f4efe3]/12 lg:border-t-0">
+            {project.outcomes.map((outcome) => (
+              <div key={outcome} className="flex gap-4 py-5">
+                <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-[#d8c4a4]" />
+                <p className="text-sm leading-7 text-[#f4efe3]/80">{outcome}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       <section className="px-4 py-14 sm:px-6 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 border-y border-[#f4efe3]/12 py-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <SectionIntro
-              eyebrow="More Work"
-              title="Other selected builds."
-              copy="Move through the project pages as actual case studies instead of flat cards."
-            />
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="flex flex-col gap-5 border-b border-[#f4efe3]/12 pb-7 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">More work</p>
+              <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3]">
+                Other selected builds.
+              </h2>
+            </div>
             <Link
               href="/work"
-              className="group inline-flex w-fit items-center gap-2 rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] lg:justify-self-end"
+              className="group inline-flex w-fit items-center gap-2 rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
             >
               All Work
               <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -687,32 +712,35 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
 function ProjectDetailBlock({
   eyebrow,
   title,
+  copy,
   items,
 }: {
   eyebrow: string;
   title: string;
+  copy: string;
   items: string[];
 }) {
   return (
-    <Reveal>
-      <article className="rounded-2xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-6 md:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#f4efe3]/45">{eyebrow}</p>
-        <h3 className="mt-4 font-grotesk text-3xl font-semibold leading-[0.96] text-[#f4efe3] md:text-5xl">
+    <article className="grid gap-6 py-9 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#d8c4a4]">{eyebrow}</p>
+        <h3 className="mt-4 font-grotesk text-3xl font-semibold leading-[0.98] text-[#f4efe3] sm:text-4xl">
           {title}
         </h3>
-        <div className="mt-7 grid gap-3">
-          {items.map((item) => (
-            <div key={item} className="flex gap-4 border-t border-[#f4efe3]/12 pt-4">
-              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#f4efe3]" />
-              <p className="text-sm leading-7 text-[#f4efe3]/76">{item}</p>
-            </div>
-          ))}
-        </div>
-      </article>
-    </Reveal>
+        <p className="mt-4 max-w-xl text-sm leading-7 text-[#f4efe3]/66">{copy}</p>
+      </div>
+
+      <div className="divide-y divide-[#f4efe3]/12 border-t border-[#f4efe3]/12 lg:border-t-0">
+        {items.map((item) => (
+          <div key={item} className="flex gap-4 py-4 first:pt-0 lg:first:pt-0">
+            <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d8c4a4]" />
+            <p className="text-sm leading-7 text-[#f4efe3]/78">{item}</p>
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }
-
 function PortfolioScaffold({
   children,
   loading = false,
@@ -895,30 +923,66 @@ function LoadingScreen({ progress }: { progress: number }) {
 
 function StudioHeader() {
   const [open, setOpen] = useState(false);
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
+  const [isAwayFromTop, setIsAwayFromTop] = useState(false);
+  const { scrollY } = useScroll();
+  const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const shouldHideHeader =
+    !shouldReduceMotion && !open && isAwayFromTop && scrollDirection === "down";
+  const shouldCompactHeader = isAwayFromTop || open;
+
+  useMotionValueEvent(scrollY, "change", (current) => {
+    const previous = scrollY.getPrevious() ?? current;
+    const diff = current - previous;
+
+    setIsAwayFromTop(current > 72);
+
+    if (Math.abs(diff) < 6) return;
+    setScrollDirection(diff > 0 ? "down" : "up");
+  });
 
   return (
-    <header className={`studio-header z-50 px-4 pt-4 sm:px-6 transition-opacity duration-500 ${
-      isHome ? "fixed top-0 left-0 right-0" : "sticky top-0"
-    }`}>
-      <div className="mx-auto w-full max-w-[1480px] border-b border-[#f4efe3]/12 bg-[#0d0c09]/42 py-3 backdrop-blur-xl">
-        <nav className="flex min-w-0 items-center justify-between gap-4" aria-label="Primary navigation">
-          <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="Arun Acharya home">
-            <span className="grid h-10 w-10 shrink-0 place-items-center bg-[#f4efe3] font-grotesk text-sm font-semibold text-[#0d0c09]">
+    <motion.header
+      className={`studio-header z-50 px-3 pt-3 transition-opacity duration-500 sm:px-5 sm:pt-4 ${
+        isHome ? "fixed left-0 right-0 top-0" : "sticky top-0"
+      }`}
+      animate={{ y: shouldHideHeader ? -104 : 0 }}
+      transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div
+        className={`mx-auto w-full max-w-[1480px] overflow-hidden border backdrop-blur-2xl transition-[background,border-color,box-shadow,padding] duration-300 ${
+          shouldCompactHeader
+            ? "border-[#f4efe3]/16 bg-[#0d0c09]/78 shadow-[0_18px_70px_rgba(0,0,0,0.34)]"
+            : "border-[#f4efe3]/10 bg-[#0d0c09]/42 shadow-none"
+        } rounded-[8px]`}
+      >
+        <nav
+          className={`flex min-w-0 items-center justify-between gap-2 px-2.5 transition-[padding] duration-300 sm:gap-4 sm:px-4 ${
+            shouldCompactHeader ? "py-2" : "py-2.5 sm:py-3"
+          }`}
+          aria-label="Primary navigation"
+        >
+          <Link
+            href="/"
+            className="group flex min-w-0 items-center gap-2.5 rounded-[6px] pr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:gap-3"
+            aria-label="Arun Acharya home"
+          >
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[6px] border border-[#f4efe3]/16 bg-[#f4efe3] font-grotesk text-sm font-semibold text-[#0d0c09] shadow-[0_10px_30px_rgba(244,239,227,0.12)] transition group-hover:bg-[#fff8e8]">
               AA
             </span>
-            <span className="hidden leading-none sm:block">
-              <span className="block font-grotesk text-base font-semibold text-[#f4efe3]">
+            <span className="min-w-0 leading-none">
+              <span className="block truncate font-grotesk text-sm font-semibold text-[#f4efe3] sm:text-base">
                 Arun Acharya
               </span>
-              <span className="mt-1 block text-xs text-[#f4efe3]/55">
+              <span className="mt-1 block truncate text-[11px] text-[#f4efe3]/55 sm:text-xs">
                 Full-Stack Architect
               </span>
             </span>
           </Link>
 
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 rounded-[8px] border border-[#f4efe3]/10 bg-[#f4efe3]/[0.045] p-1 lg:flex">
             {navItems.map((item) => {
               const active = item.href !== "/#contact" && pathname === item.href;
 
@@ -926,8 +990,10 @@ function StudioHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`border-b px-2 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
-                    active ? "border-[#f4efe3] text-[#f4efe3]" : "border-transparent text-[#f4efe3]/58 hover:text-[#f4efe3]"
+                  className={`relative rounded-[6px] px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
+                    active
+                      ? "bg-[#f4efe3]/12 text-[#f4efe3]"
+                      : "text-[#f4efe3]/62 hover:bg-[#f4efe3]/8 hover:text-[#f4efe3]"
                   }`}
                 >
                   {item.name}
@@ -939,7 +1005,7 @@ function StudioHeader() {
           <div className="hidden items-center gap-2 md:flex">
             <Link
               href="/#contact"
-              className="group inline-flex items-center gap-2 border-b border-[#f4efe3] py-2 text-sm font-semibold text-[#f4efe3] transition hover:text-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
+              className="group inline-flex items-center gap-2 rounded-[6px] border border-[#f4efe3]/18 bg-[#f4efe3] px-3.5 py-2.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
             >
               Start Project
               <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -949,7 +1015,7 @@ function StudioHeader() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-[#f4efe3]/16 bg-[#f4efe3]/8 text-[#f4efe3] transition hover:bg-[#f4efe3]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] lg:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[6px] border border-[#f4efe3]/16 bg-[#f4efe3]/8 text-[#f4efe3] transition hover:bg-[#f4efe3]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -960,29 +1026,52 @@ function StudioHeader() {
         <AnimatePresence>
           {open ? (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
-              className="mt-3 border-t border-[#f4efe3]/12 bg-[#0d0c09]/94 py-3 lg:hidden"
+              initial={{ opacity: 0, height: 0, y: -8 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -8 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              className="border-t border-[#f4efe3]/12 bg-[#0d0c09]/92 lg:hidden"
             >
-              <div className="grid gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="border-b border-[#f4efe3]/10 px-1 py-3 text-base font-semibold text-[#f4efe3]/90 transition hover:text-[#f4efe3] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+              <div className="grid gap-1 p-2 sm:grid-cols-2 sm:p-3">
+                {navItems.map((item, index) => {
+                  const active = item.href !== "/#contact" && pathname === item.href;
+
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2, delay: index * 0.025 }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={`group flex min-h-[52px] items-center justify-between gap-4 rounded-[6px] border px-3.5 py-3 text-base font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
+                          active
+                            ? "border-[#f4efe3]/22 bg-[#f4efe3]/12 text-[#f4efe3]"
+                            : "border-[#f4efe3]/10 bg-[#f4efe3]/[0.035] text-[#f4efe3]/86 hover:border-[#f4efe3]/20 hover:bg-[#f4efe3]/8 hover:text-[#f4efe3]"
+                        }`}
+                      >
+                        <span>{item.name}</span>
+                        <ArrowUpRight className="h-4 w-4 text-[#f4efe3]/45 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f4efe3]" />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+                <Link
+                  href="/#contact"
+                  onClick={() => setOpen(false)}
+                  className="group mt-1 flex min-h-[52px] items-center justify-between rounded-[6px] bg-[#f4efe3] px-3.5 py-3 text-base font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:col-span-2"
+                >
+                  Start Project
+                  <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
               </div>
             </motion.div>
           ) : null}
         </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   );
 }
 
@@ -1016,7 +1105,7 @@ function PageHero({
           <h1 className="mt-5 max-w-5xl font-grotesk text-4xl font-semibold leading-tight text-white md:text-6xl lg:text-7xl">
             {title}
           </h1>
-          <p className="mt-6 max-w-3xl text-base leading-8 text-slate-300 md:text-xl">
+          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-xl">
             {copy}
           </p>
         </Reveal>
@@ -1055,9 +1144,9 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
 
         <div className="flex flex-1 flex-col p-5 md:p-6">
           <div className="flex items-start justify-between gap-5">
-            <div>
+            <div className="min-w-0">
               <p className="text-sm font-semibold text-[#f4efe3]/55">{project.role}</p>
-              <h2 className="mt-2 font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3] md:text-3xl">
+              <h2 className="mt-2 line-clamp-2 min-h-[3.75rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3] md:min-h-[4.75rem] md:text-3xl">
                 {project.name}
               </h2>
             </div>
@@ -1085,7 +1174,7 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
 
           <div className="mt-5 flex flex-wrap gap-2">
             {project.stack.map((item) => (
-              <span key={item} className="rounded-full bg-[#e9ff65]/10 px-3 py-1 text-xs font-semibold text-[#e9ff65]">
+              <span key={item} className="rounded-full bg-[#d8c4a4]/10 px-3 py-1 text-xs font-semibold text-[#d8c4a4]">
                 {item}
               </span>
             ))}
@@ -1095,7 +1184,7 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
             href={project.href}
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
-            className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#f4efe3] transition hover:text-[#e9ff65] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e9ff65]"
+            className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#f4efe3] transition hover:text-[#d8c4a4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c4a4]"
           >
             View Case Study
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -1111,12 +1200,12 @@ function ProjectPreviewCard({ project, index }: { project: ProjectItem; index: n
     <Reveal delay={index * 0.05}>
       <Link
         href={project.href}
-        className="group block h-full overflow-hidden rounded-xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e9ff65]"
+        className="group block h-full overflow-hidden rounded-xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c4a4]"
       >
         <ProjectImage project={project} priority={index === 0} compact />
         <div className="p-5">
-          <p className="text-sm font-semibold text-[#e9ff65]">{project.impact}</p>
-          <h3 className="mt-3 font-grotesk text-2xl font-semibold text-[#f4efe3]">{project.name}</h3>
+          <p className="line-clamp-2 min-h-12 text-sm font-semibold leading-6 text-[#d8c4a4]">{project.impact}</p>
+          <h3 className="mt-3 line-clamp-2 min-h-[3.75rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3]">{project.name}</h3>
           <p className="mt-3 text-sm leading-7 text-[#f4efe3]/62">{project.description}</p>
         </div>
       </Link>
