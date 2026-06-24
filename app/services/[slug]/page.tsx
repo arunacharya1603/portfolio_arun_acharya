@@ -94,7 +94,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#2457ff]">Primary search intent</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Primary search intent</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             {service.primaryIntent}
           </h2>
@@ -102,7 +102,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             {service.secondaryIntents.map((intent) => (
               <span
                 key={intent}
-                className="rounded-full border border-[#d8ccbb] bg-[#f8efe3] px-3 py-1 text-xs font-semibold text-[#4f4b43]"
+                className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-1 text-xs font-semibold text-[#f4efe3]/72"
               >
                 {intent}
               </span>
@@ -117,7 +117,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           <ul className={`mt-5 space-y-3 text-sm leading-7 ${seoMutedTextClass}`}>
             {service.bestFor.map((item) => (
               <li key={item} className="flex gap-3">
-                <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[#2457ff]" />
+                <span className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d8c4a4]" />
                 <span>{item}</span>
               </li>
             ))}
@@ -145,7 +145,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             {service.includes.map((item) => (
               <li
                 key={item}
-                className="rounded-lg border border-[#e2d4c2] bg-[#f8efe3] px-4 py-3"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-4 py-3"
               >
                 {item}
               </li>
@@ -154,13 +154,13 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         </article>
       </section>
 
-      <section className="mt-10 rounded-lg border border-[#080809] bg-[#fffaf2] shadow-[14px_14px_0_#e1d3c1]">
+      <section className="mt-10 rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
         {service.process.map((step, index) => (
           <article
             key={step}
-            className="grid gap-4 border-b border-[#d8ccbb] p-6 last:border-b-0 md:grid-cols-[96px_1fr]"
+            className="grid gap-4 border-b border-[#f4efe3]/12 p-6 last:border-b-0 md:grid-cols-[96px_1fr]"
           >
-            <span className="font-grotesk text-4xl font-semibold text-[#ff6f59]">
+            <span className="font-grotesk text-4xl font-semibold text-[#d8c4a4]">
               0{index + 1}
             </span>
             <p className={`text-base leading-8 ${seoMutedTextClass}`}>{step}</p>
@@ -171,14 +171,14 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
       <section className="mt-14">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm font-bold text-[#2457ff]">Real project references</p>
+            <p className="text-sm font-bold text-[#d8c4a4]">Real project references</p>
             <h2 className="mt-2 font-grotesk text-3xl font-semibold">
               Proof from Arun Acharya&apos;s showcased work
             </h2>
           </div>
           <Link
             href="/work"
-            className="w-fit rounded-full border border-[#d8ccbb] bg-[#fffaf2] px-4 py-2 text-sm font-semibold text-[#312d27] transition hover:border-[#080809]"
+            className="w-fit rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] px-4 py-2 text-sm font-semibold text-[#f4efe3] transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
           >
             View all work
           </Link>
@@ -188,16 +188,16 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             <Link
               key={project!.slug}
               href={`/work/${project!.slug}`}
-              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
             >
-              <p className="text-sm font-bold text-[#2457ff]">{project!.shortName}</p>
+              <p className="text-sm font-bold text-[#d8c4a4]">{project!.shortName}</p>
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">
                 {project!.name}
               </h3>
               <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
                 {project!.impact}
               </p>
-              <span className="mt-5 inline-flex text-sm font-semibold text-[#2457ff]">
+              <span className="mt-5 inline-flex text-sm font-semibold text-[#d8c4a4]">
                 Read case study
               </span>
             </Link>
@@ -231,7 +231,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               <Link
                 key={related!.slug}
                 href={`/services/${related!.slug}`}
-                className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 font-semibold transition hover:border-[#080809]"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 font-semibold transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
               >
                 {related!.navLabel}
               </Link>
@@ -248,7 +248,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               <Link
                 key={post!.slug}
                 href={`/blog/${post!.slug}`}
-                className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 transition hover:border-[#080809]"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
               >
                 <span className="block font-semibold">{post!.title}</span>
                 <span className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}>
@@ -260,7 +260,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         </article>
       </section>
 
-      <section className="mt-14 flex flex-col gap-4 rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-6 md:flex-row md:items-center md:justify-between">
+      <section className="mt-14 flex flex-col gap-4 rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 className="font-grotesk text-2xl font-semibold">
             Want to discuss this scope?
@@ -270,7 +270,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             can help decide whether this should be a lean build, revamp, or
             larger product scope.
           </p>
-          <p className="mt-3 text-xs font-semibold text-[#716b60]">
+          <p className="mt-3 text-xs font-semibold text-[#f4efe3]/45">
             Canonical: {canonical}
           </p>
         </div>
@@ -278,7 +278,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
           href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(
             service.navLabel
           )}%20Project`}
-          className="w-fit rounded-full bg-[#080809] px-5 py-3 text-sm font-semibold text-[#fff7ec]"
+          className="w-fit rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
         >
           Start this project
         </a>

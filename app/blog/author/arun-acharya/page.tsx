@@ -64,7 +64,7 @@ export default function AuthorPage() {
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#2457ff]">Author entity</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Author entity</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             Arun Acharya
           </h2>
@@ -74,26 +74,26 @@ export default function AuthorPage() {
             Sound Of Meme, NursePhysioWala, HeyClo / CLO AI, and client websites.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
-            <Link href="/about" className="rounded-full border border-[#d8ccbb] bg-[#f8efe3] px-3 py-2 text-xs font-semibold text-[#4f4b43]">
+            <Link href="/about" className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-2 text-xs font-semibold text-[#f4efe3]/72">
               About Arun
             </Link>
-            <Link href="/work" className="rounded-full border border-[#d8ccbb] bg-[#f8efe3] px-3 py-2 text-xs font-semibold text-[#4f4b43]">
+            <Link href="/work" className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-2 text-xs font-semibold text-[#f4efe3]/72">
               Selected work
             </Link>
-            <Link href="/services/frontend-development" className="rounded-full border border-[#d8ccbb] bg-[#f8efe3] px-3 py-2 text-xs font-semibold text-[#4f4b43]">
+            <Link href="/services/frontend-development" className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-2 text-xs font-semibold text-[#f4efe3]/72">
               Frontend service
             </Link>
           </div>
         </article>
 
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#2457ff]">Primary topics</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Primary topics</p>
           <div className="mt-4 grid gap-3">
             {featuredServices.map((service) => (
               <Link
                 key={service.slug}
                 href={`/services/${service.slug}`}
-                className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 transition hover:border-[#080809]"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
               >
                 <span className="block font-semibold">{service.navLabel}</span>
                 <span className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}>
@@ -112,9 +112,9 @@ export default function AuthorPage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
             >
-              <p className="text-sm font-bold text-[#2457ff]">{post.category}</p>
+              <p className="text-sm font-bold text-[#d8c4a4]">{post.category}</p>
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">{post.title}</h3>
               <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
                 {post.description}
@@ -131,9 +131,9 @@ export default function AuthorPage() {
             <Link
               key={project.slug}
               href={`/work/${project.slug}`}
-              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
             >
-              <p className="text-sm font-bold text-[#2457ff]">{project.shortName}</p>
+              <p className="text-sm font-bold text-[#d8c4a4]">{project.shortName}</p>
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">{project.role}</h3>
               <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>{project.impact}</p>
             </Link>

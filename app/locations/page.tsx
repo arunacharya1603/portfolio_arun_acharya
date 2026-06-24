@@ -60,9 +60,9 @@ export default function LocationsPage() {
           <Link
             key={location.slug}
             href={`/locations/${location.slug}`}
-            className={`${seoCardClass} group transition hover:-translate-y-0.5 hover:border-[#080809]`}
+            className={`${seoCardClass} group transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
           >
-            <p className="text-sm font-bold text-[#2457ff]">
+            <p className="text-sm font-bold text-[#d8c4a4]">
               {location.region}
             </p>
             <h2 className="mt-3 font-grotesk text-2xl font-semibold">
@@ -71,10 +71,10 @@ export default function LocationsPage() {
             <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
               Landing page range: {location.typicalLandingPageRange}
             </p>
-            <p className="mt-3 text-sm font-semibold text-[#080809]">
+            <p className="mt-3 text-sm font-semibold text-[#f4efe3]">
               My starting price: {location.myStartingPrice}
             </p>
-            <span className="mt-5 inline-flex text-sm font-semibold text-[#2457ff]">
+            <span className="mt-5 inline-flex text-sm font-semibold text-[#d8c4a4]">
               View city page
             </span>
           </Link>

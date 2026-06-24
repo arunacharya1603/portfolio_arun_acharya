@@ -85,9 +85,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className="grid gap-8 lg:grid-cols-[0.72fr_0.28fr]">
         <div className={seoCardClass}>
-          <div className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-5">
-            <p className="text-sm font-bold text-[#2457ff]">Short answer</p>
-            <p className="mt-3 text-lg leading-8 text-[#312d27]">
+          <div className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-5">
+            <p className="text-sm font-bold text-[#d8c4a4]">Short answer</p>
+            <p className="mt-3 text-lg leading-8 text-[#f4efe3]">
               {post.summary}
             </p>
           </div>
@@ -107,13 +107,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
 
-          <section className="mt-10 border-t border-[#d8ccbb] pt-8">
+          <section className="mt-10 border-t border-[#f4efe3]/12 pt-8">
             <h2 className="font-grotesk text-3xl font-semibold">
               Common questions
             </h2>
             <div className="mt-5 grid gap-4">
               {post.faqs.map((faq) => (
-                <article key={faq.question} className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-5">
+                <article key={faq.question} className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-5">
                   <h3 className="font-semibold">{faq.question}</h3>
                   <p className={`mt-2 text-sm leading-7 ${seoMutedTextClass}`}>
                     {faq.answer}
@@ -126,7 +126,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         <aside className="space-y-5">
           <section className={seoCardClass}>
-            <p className="text-sm font-bold text-[#2457ff]">Author and context</p>
+            <p className="text-sm font-bold text-[#d8c4a4]">Author and context</p>
             <h2 className="mt-3 font-grotesk text-2xl font-semibold">
               Arun Acharya
             </h2>
@@ -136,11 +136,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </p>
             <Link
               href="/blog/author/arun-acharya"
-              className="mt-4 inline-flex text-sm font-semibold text-[#2457ff]"
+              className="mt-4 inline-flex text-sm font-semibold text-[#d8c4a4]"
             >
               View author entity page
             </Link>
-            <p className="mt-4 text-xs font-semibold text-[#716b60]">
+            <p className="mt-4 text-xs font-semibold text-[#f4efe3]/45">
               Published {post.datePublished}. Updated {post.dateModified}.
             </p>
           </section>
@@ -154,7 +154,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={service!.slug}
                   href={`/services/${service!.slug}`}
-                  className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 font-semibold transition hover:border-[#080809]"
+                  className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 font-semibold transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
                 >
                   {service!.navLabel}
                 </Link>
@@ -171,7 +171,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
-                  className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 transition hover:border-[#080809]"
+                  className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
                 >
                   <span className="block font-semibold">{project.shortName}</span>
                   <span className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}>
@@ -181,7 +181,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               ))}
               <Link
                 href="/work"
-                className="rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-4 text-sm font-semibold text-[#2457ff] transition hover:border-[#080809]"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-4 text-sm font-semibold text-[#d8c4a4] transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
               >
                 See all case studies
               </Link>
@@ -200,7 +200,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(
                 post.title
               )}`}
-              className="mt-5 inline-flex rounded-full bg-[#080809] px-5 py-3 text-sm font-semibold text-[#fff7ec]"
+              className="mt-5 inline-flex rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
             >
               Ask about this
             </a>

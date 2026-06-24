@@ -103,7 +103,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <li>Landing page: {location.typicalLandingPageRange}</li>
             <li>Business website: {location.typicalBusinessWebsiteRange}</li>
             <li>Custom web app: {location.typicalWebAppRange}</li>
-            <li className="font-semibold text-[#080809]">
+            <li className="font-semibold text-[#f4efe3]">
               My starting price: {location.myStartingPrice}
             </li>
           </ul>
@@ -123,7 +123,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
         </section>
       </div>
 
-      <section className="mt-10 flex flex-col gap-4 rounded-lg border border-[#d8ccbb] bg-[#fffaf2] p-6 md:flex-row md:items-center md:justify-between">
+      <section className="mt-10 flex flex-col gap-4 rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <h2 className="font-grotesk text-2xl font-semibold">
             Compare before you scope
@@ -138,19 +138,19 @@ export default async function LocationPage({ params }: LocationPageProps) {
             href={`mailto:${siteConfig.email}?subject=Project%20in%20${encodeURIComponent(
               location.city
             )}`}
-            className="rounded-full bg-[#080809] px-5 py-3 text-sm font-semibold text-[#fff7ec]"
+            className="rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
           >
             Contact Arun
           </a>
           <Link
             href="/services/frontend-development"
-            className="rounded-full border border-[#d8ccbb] px-5 py-3 text-sm font-semibold text-[#080809]"
+            className="rounded-full border border-[#f4efe3]/12 px-5 py-3 text-sm font-semibold text-[#f4efe3]"
           >
             Frontend service
           </Link>
           <Link
             href="/pricing"
-            className="rounded-full border border-[#d8ccbb] px-5 py-3 text-sm font-semibold text-[#080809]"
+            className="rounded-full border border-[#f4efe3]/12 px-5 py-3 text-sm font-semibold text-[#f4efe3]"
           >
             Compare pricing
           </Link>

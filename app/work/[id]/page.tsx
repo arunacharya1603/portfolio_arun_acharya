@@ -30,15 +30,9 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
     };
   }
 
-  const isChainReach = project.slug === "chainreach-ai";
-
   return createPageMetadata({
-    title: isChainReach
-      ? "ChainReach.ai Frontend Developer Case Study | Arun Acharya"
-      : `${project.shortName} Case Study by Arun Acharya`,
-    description: isChainReach
-      ? "ChainReach.ai case study by Arun Acharya, covering the creator-brand campaign platform, frontend architecture, dashboards, AI-assisted campaign flows, negotiation screens, and outcomes."
-      : project.description,
+    title: `${project.shortName} ${project.role} Case Study | Arun Acharya`,
+    description: `${project.shortName} case study by Arun Acharya, credited as ${project.role}. Covers ${project.description}`,
     path: `/work/${project.slug}`,
     image: project.image,
     type: "article",
@@ -46,11 +40,13 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
       project.name,
       project.shortName,
       `${project.shortName} developer`,
+      `${project.shortName} ${project.role}`,
+      `${project.shortName} case study`,
+      `Arun Acharya ${project.shortName}`,
+      `Arun Acharya ${project.role}`,
       "Arun Acharya project",
       ...project.stack,
-      ...(isChainReach
-        ? ["chainreach.ai", "chainreach.ai frontend developer", "chainreach developer", "ChainReach.ai case study"]
-        : []),
+      ...project.features,
     ],
   });
 }

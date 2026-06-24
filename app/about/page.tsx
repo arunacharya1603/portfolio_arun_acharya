@@ -81,7 +81,7 @@ export default function AboutPage() {
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#2457ff]">Entity summary</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Entity summary</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             Arun Acharya developer entity
           </h2>
@@ -102,7 +102,7 @@ export default function AboutPage() {
             ].map((item) => (
               <span
                 key={item}
-                className="rounded-full border border-[#d8ccbb] bg-[#f8efe3] px-3 py-1 text-xs font-semibold text-[#4f4b43]"
+                className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-1 text-xs font-semibold text-[#f4efe3]/72"
               >
                 {item}
               </span>
@@ -111,7 +111,7 @@ export default function AboutPage() {
         </article>
 
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#2457ff]">Verified entity links</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Verified entity links</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             Profiles and project graph
           </h2>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               <Link
                 key={label}
                 href={href}
-                className="rounded-lg border border-[#d8ccbb] bg-[#f8efe3] p-4 font-semibold transition hover:border-[#080809]"
+                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 font-semibold transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
               >
                 {label}
               </Link>
@@ -145,9 +145,9 @@ export default function AboutPage() {
             <Link
               key={project.slug}
               href={`/work/${project.slug}`}
-              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
             >
-              <p className="text-sm font-bold text-[#2457ff]">{project.role}</p>
+              <p className="text-sm font-bold text-[#d8c4a4]">{project.role}</p>
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">
                 {project.name}
               </h3>
@@ -164,9 +164,9 @@ export default function AboutPage() {
           <Link
             key={service.slug}
             href={`/services/${service.slug}`}
-            className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#080809]`}
+            className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
           >
-            <p className="text-sm font-bold text-[#2457ff]">Service</p>
+            <p className="text-sm font-bold text-[#d8c4a4]">Service</p>
             <h3 className="mt-3 font-grotesk text-2xl font-semibold">
               {service.navLabel}
             </h3>
