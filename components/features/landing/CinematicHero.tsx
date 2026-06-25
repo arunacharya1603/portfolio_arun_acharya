@@ -14,6 +14,13 @@ const LOG_EVERY_N_FRAMES = 10;
 type FrameStatus = "idle" | "queued" | "loading" | "loaded" | "error";
 type FrameSet = "desktop" | "tablet" | "mobile";
 
+type FrameCache = {
+  images: (HTMLImageElement | null)[];
+  statuses: FrameStatus[];
+  loadedCount: number;
+  didSignalReady: boolean;
+};
+
 type CinematicHeroProps = {
   onLoadProgress?: (progress: number) => void;
   onInitialFramesReady?: () => void;
@@ -50,6 +57,30 @@ const buildPriorityPlan = () => {
 
 const PRIORITY_PLAN = buildPriorityPlan();
 const PRIORITY_PLAN_SET = new Set(PRIORITY_PLAN);
+const frameCaches = new Map<FrameSet, FrameCache>();
+
+const getFrameCache = (frameSet: FrameSet) => {
+  const cached = frameCaches.get(frameSet);
+  if (cached) return cached;
+
+  const nextCache: FrameCache = {
+    images: Array(FRAME_COUNT).fill(null),
+    statuses: Array(FRAME_COUNT).fill("idle"),
+    loadedCount: 0,
+    didSignalReady: false,
+  };
+
+  frameCaches.set(frameSet, nextCache);
+  return nextCache;
+};
+
+const resetStaleQueuedFrames = (cache: FrameCache) => {
+  for (let index = 0; index < cache.statuses.length; index += 1) {
+    if (cache.statuses[index] === "queued") {
+      cache.statuses[index] = "idle";
+    }
+  }
+};
 
 export default function CinematicHero({
   onLoadProgress,
@@ -62,8 +93,9 @@ export default function CinematicHero({
   const climaxRef = useRef<HTMLDivElement>(null);
 
   const frameSetRef = useRef<FrameSet>("desktop");
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(Array(FRAME_COUNT).fill(null));
-  const statusesRef = useRef<FrameStatus[]>(Array(FRAME_COUNT).fill("idle"));
+  const cacheRef = useRef(getFrameCache("desktop"));
+  const imagesRef = useRef<(HTMLImageElement | null)[]>(cacheRef.current.images);
+  const statusesRef = useRef<FrameStatus[]>(cacheRef.current.statuses);
   const queueRef = useRef<number[]>([]);
   const activeLoadsRef = useRef(0);
   const activeFrameRef = useRef(0);
@@ -119,6 +151,7 @@ export default function CinematicHero({
       starterLoaded >= READY_STARTER_COUNT
     ) {
       didSignalReadyRef.current = true;
+      cacheRef.current.didSignalReady = true;
       onInitialFramesReadyRef.current?.();
     }
   };
@@ -209,21 +242,27 @@ export default function CinematicHero({
       img.src = frameSrc(frameIndex, frameSetRef.current);
 
       const settle = async (status: "loaded" | "error") => {
-        if (!isMountedRef.current) return;
-
         if (status === "loaded") {
           try {
             await img.decode?.();
           } catch {
             // The image is still usable after onload even when decode() is unsupported or rejects.
           }
-          imagesRef.current[frameIndex] = img;
-          loadedImageCountRef.current += 1;
-          logLoadedImageCount();
+
+          if (statusesRef.current[frameIndex] !== "loaded") {
+            imagesRef.current[frameIndex] = img;
+            statusesRef.current[frameIndex] = "loaded";
+            cacheRef.current.loadedCount += 1;
+            loadedImageCountRef.current = cacheRef.current.loadedCount;
+            logLoadedImageCount();
+          }
+        } else if (statusesRef.current[frameIndex] !== "loaded") {
+          statusesRef.current[frameIndex] = "error";
         }
 
-        statusesRef.current[frameIndex] = status;
         activeLoadsRef.current = Math.max(0, activeLoadsRef.current - 1);
+
+        if (!isMountedRef.current) return;
 
         if (frameIndex === 0 || Math.abs(frameIndex - activeFrameRef.current) <= 2) {
           drawFrame(activeFrameRef.current);
@@ -274,9 +313,28 @@ export default function CinematicHero({
 
   useEffect(() => {
     isMountedRef.current = true;
-    frameSetRef.current = getResponsiveFrameSet();
+
+    const frameSet = getResponsiveFrameSet();
+    const cache = getFrameCache(frameSet);
+    resetStaleQueuedFrames(cache);
+
+    frameSetRef.current = frameSet;
+    cacheRef.current = cache;
+    imagesRef.current = cache.images;
+    statusesRef.current = cache.statuses;
+    loadedImageCountRef.current = cache.loadedCount;
+    didSignalReadyRef.current = cache.didSignalReady;
+
     resizeCanvas();
 
+    if (cache.didSignalReady) {
+      onLoadProgressRef.current?.(99);
+      onInitialFramesReadyRef.current?.();
+    } else if (cache.loadedCount > 0) {
+      reportPriorityProgress();
+    }
+
+    drawFrame(activeFrameRef.current);
     enqueueFrame(0, true);
 
     for (let i = 1; i < FIRST_SCROLL_FRAMES; i++) {

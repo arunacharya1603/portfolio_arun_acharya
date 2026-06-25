@@ -190,14 +190,14 @@ const packages: PackageItem[] = [
   {
     title: "Starter Landing Page",
     price: "Starts at USD 200 / INR 15,000",
-    delivery: "3-5 days",
+    delivery: "7 days",
     bestFor: "Best for founders, creators, and local businesses validating fast.",
     features: ["Single premium page", "Responsive build", "SEO basics", "Vercel deployment"],
   },
   {
     title: "Business Website",
     price: "Starts at USD 600 / INR 45,000",
-    delivery: "7-14 days",
+    delivery: "2-3 weeks",
     bestFor: "Best for small and medium businesses needing 4-8 professional pages.",
     features: ["Multi-page system", "Service content structure", "Lead capture", "Performance polish"],
     featured: true,
@@ -205,7 +205,7 @@ const packages: PackageItem[] = [
   {
     title: "Custom Full-Stack Web App",
     price: "Starts at USD 1500 / INR 1,10,000",
-    delivery: "3-8 weeks",
+    delivery: "Based on complexity, up to 4 weeks",
     bestFor: "Best for products needing auth, dashboards, APIs, and scalable architecture.",
     features: ["Auth and roles", "Dashboards", "APIs and database", "Scalable deployment"],
   },
@@ -373,6 +373,32 @@ const revealVariants: Variants = {
 const MIN_LOADER_MS = 2000;
 const TARGET_LOADER_MS = 2600;
 const MAX_LOADER_MS = 3200;
+const HOME_INTRO_STORAGE_KEY = "arun-portfolio-home-intro-seen";
+
+let hasPlayedHomeIntro = false;
+
+const hasHomeIntroPlayed = () => {
+  if (hasPlayedHomeIntro) return true;
+  if (typeof window === "undefined") return false;
+
+  try {
+    return window.sessionStorage.getItem(HOME_INTRO_STORAGE_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+const markHomeIntroPlayed = () => {
+  hasPlayedHomeIntro = true;
+
+  if (typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.setItem(HOME_INTRO_STORAGE_KEY, "1");
+  } catch {
+    // Session storage can be blocked in strict privacy modes; module memory still covers client navigation.
+  }
+};
 
 export default function StudioPortfolio() {
   const shouldReduceMotion = useReducedMotion();
@@ -388,14 +414,23 @@ export default function StudioPortfolio() {
     setMounted(true);
     heroProgressRef.current = 0;
     heroReadyRef.current = false;
-    setLoadProgress(0);
 
-    if (!isHome || shouldReduceMotion) {
+    if (!isHome) {
       setLoading(false);
       setLoadProgress(100);
       return;
     }
 
+    if (shouldReduceMotion || hasHomeIntroPlayed()) {
+      markHomeIntroPlayed();
+      heroProgressRef.current = 1;
+      heroReadyRef.current = true;
+      setLoadProgress(100);
+      setLoading(false);
+      return;
+    }
+
+    setLoadProgress(0);
     setLoading(true);
     const start = performance.now();
     let frame = 0;
@@ -404,6 +439,7 @@ export default function StudioPortfolio() {
     const finishLoader = () => {
       if (finished) return;
       finished = true;
+      markHomeIntroPlayed();
       setLoadProgress(100);
       window.setTimeout(() => setLoading(false), 180);
     };
@@ -1771,9 +1807,9 @@ function ContactForm() {
             defaultValue=""
           >
             <option value="" disabled>Select timeline</option>
-            <option>3-5 days</option>
-            <option>1-2 weeks</option>
-            <option>3-8 weeks</option>
+            <option>7 days</option>
+            <option>2-3 weeks</option>
+            <option>Based on complexity, up to 4 weeks</option>
             <option>Flexible</option>
           </select>
         </label>

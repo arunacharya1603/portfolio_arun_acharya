@@ -22,7 +22,7 @@ export type LocationMarket = {
 export const servicePackages: ServicePackage[] = [
   {
     name: "Starter Landing Page",
-    delivery: "3 to 5 days",
+    delivery: "7 days",
     startingPriceUSD: 200,
     startingPriceINR: 15000,
     bestFor: "Founders, creators, and local businesses validating ideas fast.",
@@ -36,7 +36,7 @@ export const servicePackages: ServicePackage[] = [
   },
   {
     name: "Business Website",
-    delivery: "7 to 14 days",
+    delivery: "2 to 3 weeks",
     startingPriceUSD: 600,
     startingPriceINR: 45000,
     bestFor: "Small and medium businesses that need 4 to 8 professional pages.",
@@ -50,7 +50,7 @@ export const servicePackages: ServicePackage[] = [
   },
   {
     name: "Custom Full-Stack Web App",
-    delivery: "3 to 8 weeks",
+    delivery: "Based on project complexity, up to 4 weeks",
     startingPriceUSD: 1500,
     startingPriceINR: 110000,
     bestFor: "Products needing auth, dashboards, APIs, and scalable architecture.",
