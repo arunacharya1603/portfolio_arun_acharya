@@ -370,6 +370,10 @@ const revealVariants: Variants = {
   visible: { opacity: 1, y: 0 },
 };
 
+const MIN_LOADER_MS = 2000;
+const TARGET_LOADER_MS = 2600;
+const MAX_LOADER_MS = 3200;
+
 export default function StudioPortfolio() {
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
@@ -377,48 +381,75 @@ export default function StudioPortfolio() {
   const [loadProgress, setLoadProgress] = useState(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const heroProgressRef = useRef(0);
+  const heroReadyRef = useRef(false);
 
   useEffect(() => {
     setMounted(true);
-    if (shouldReduceMotion || !isHome) {
-      // Mock loading for subpages or reduced motion
-      let prg = 0;
-      const interval = window.setInterval(() => {
-        prg = Math.min(100, prg + 10);
-        setLoadProgress(prg);
-        if (prg === 100) {
-          window.clearInterval(interval);
-          window.setTimeout(() => setLoading(false), 200);
-        }
-      }, 50);
-      return () => window.clearInterval(interval);
-    }
-  }, [shouldReduceMotion, isHome]);
+    heroProgressRef.current = 0;
+    heroReadyRef.current = false;
+    setLoadProgress(0);
 
-  useEffect(() => {
-    if (!loading) {
-      // Delay slightly to let the loading screen exit transition complete and layout settle
-      const timeout = window.setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 850);
-      return () => window.clearTimeout(timeout);
+    if (!isHome || shouldReduceMotion) {
+      setLoading(false);
+      setLoadProgress(100);
+      return;
     }
-  }, [loading]);
+
+    setLoading(true);
+    const start = performance.now();
+    let frame = 0;
+    let finished = false;
+
+    const finishLoader = () => {
+      if (finished) return;
+      finished = true;
+      setLoadProgress(100);
+      window.setTimeout(() => setLoading(false), 180);
+    };
+
+    const tick = () => {
+      const elapsed = performance.now() - start;
+      const timeProgress = Math.min(94, Math.round((elapsed / MAX_LOADER_MS) * 94));
+      const frameProgress = Math.min(94, Math.round(heroProgressRef.current * 0.94));
+      setLoadProgress((current) => Math.max(current, timeProgress, frameProgress));
+
+      const canExit = elapsed >= TARGET_LOADER_MS && heroReadyRef.current;
+      const mustExit = elapsed >= MAX_LOADER_MS;
+
+      if (canExit || mustExit) {
+        finishLoader();
+        return;
+      }
+
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
+
+    return () => {
+      finished = true;
+      window.cancelAnimationFrame(frame);
+    };
+  }, [isHome, shouldReduceMotion]);
+
+  const handleHeroLoadProgress = (progress: number) => {
+    heroProgressRef.current = Math.max(heroProgressRef.current, progress / 100);
+  };
+
+  const handleHeroInitialFramesReady = () => {
+    heroReadyRef.current = true;
+  };
 
   return (
-    <PortfolioScaffold loading={mounted && loading} loadProgress={loadProgress}>
-      <LandingHome onLoadProgress={(p) => {
-        if (isHome && !shouldReduceMotion) {
-          setLoadProgress(p);
-          if (p === 100) {
-            window.setTimeout(() => setLoading(false), 300);
-          }
-        }
-      }} />
+    <PortfolioScaffold loading={mounted && isHome && loading} loadProgress={loadProgress}>
+      <LandingHome
+        onLoadProgress={handleHeroLoadProgress}
+        onInitialFramesReady={handleHeroInitialFramesReady}
+      />
     </PortfolioScaffold>
   );
 }
-
 export function WorkPageContent() {
   return (
     <PortfolioScaffold>
@@ -1073,10 +1104,19 @@ function StudioHeader() {
   );
 }
 
-function LandingHome({ onLoadProgress }: { onLoadProgress?: (p: number) => void }) {
+function LandingHome({
+  onLoadProgress,
+  onInitialFramesReady,
+}: {
+  onLoadProgress?: (progress: number) => void;
+  onInitialFramesReady?: () => void;
+}) {
   return (
     <>
-      <CinematicHero onLoadProgress={onLoadProgress} />
+      <CinematicHero
+        onLoadProgress={onLoadProgress}
+        onInitialFramesReady={onInitialFramesReady}
+      />
       <StoryAbout />
       <ProjectShowcase />
       <ProcessJourney />
