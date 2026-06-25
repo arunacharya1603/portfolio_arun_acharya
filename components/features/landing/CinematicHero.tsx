@@ -12,15 +12,25 @@ const MAX_PARALLEL_LOADS = 5;
 const LOG_EVERY_N_FRAMES = 10;
 
 type FrameStatus = "idle" | "queued" | "loading" | "loaded" | "error";
+type FrameSet = "desktop" | "tablet" | "mobile";
 
 type CinematicHeroProps = {
   onLoadProgress?: (progress: number) => void;
   onInitialFramesReady?: () => void;
 };
 
-const frameSrc = (index: number) => {
+const getResponsiveFrameSet = (): FrameSet => {
+  if (typeof window === "undefined") return "desktop";
+
+  const width = window.innerWidth;
+  if (width < 640) return "mobile";
+  if (width < 1100) return "tablet";
+  return "desktop";
+};
+
+const frameSrc = (index: number, frameSet: FrameSet) => {
   const frameNumber = String(index + 1).padStart(3, "0");
-  return `/scrollstory/ezgif-frame-${frameNumber}.webp`;
+  return `/scrollstory/${frameSet}/ezgif-frame-${frameNumber}.webp`;
 };
 
 const buildPriorityPlan = () => {
@@ -51,6 +61,7 @@ export default function CinematicHero({
   const curtainRef = useRef<HTMLDivElement>(null);
   const climaxRef = useRef<HTMLDivElement>(null);
 
+  const frameSetRef = useRef<FrameSet>("desktop");
   const imagesRef = useRef<(HTMLImageElement | null)[]>(Array(FRAME_COUNT).fill(null));
   const statusesRef = useRef<FrameStatus[]>(Array(FRAME_COUNT).fill("idle"));
   const queueRef = useRef<number[]>([]);
@@ -195,7 +206,7 @@ export default function CinematicHero({
 
       const img = new Image();
       img.decoding = "async";
-      img.src = frameSrc(frameIndex);
+      img.src = frameSrc(frameIndex, frameSetRef.current);
 
       const settle = async (status: "loaded" | "error") => {
         if (!isMountedRef.current) return;
@@ -263,6 +274,7 @@ export default function CinematicHero({
 
   useEffect(() => {
     isMountedRef.current = true;
+    frameSetRef.current = getResponsiveFrameSet();
     resizeCanvas();
 
     enqueueFrame(0, true);
