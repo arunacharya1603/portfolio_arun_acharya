@@ -114,19 +114,19 @@ const navItems = [
 
 const stats: StatItem[] = [
   {
-    value: 11,
+    value: 10,
     suffix: "+",
     label: "Projects completed",
     note: "Websites, apps, dashboards",
   },
   {
-    value: 3,
+    value: 2,
     suffix: "y+",
     label: "Experience",
     note: "Frontend and full-stack delivery",
   },
   {
-    value: 15,
+    value: 10,
     suffix: "+",
     label: "Clients",
     note: "Founders, agencies, businesses",
@@ -138,8 +138,6 @@ const stats: StatItem[] = [
     note: "Clear execution and ownership",
   },
 ];
-
-const heroTech = ["React", "Next.js", "TypeScript", "Framer Motion", "Node.js"];
 
 const projects: ProjectItem[] = workProjects;
 

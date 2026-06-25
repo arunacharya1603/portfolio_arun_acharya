@@ -192,7 +192,7 @@ export default function CinematicHero({ onLoadProgress }: { onLoadProgress?: (p:
         {/* Cinematic Vignette & Shadow Overlay */}
         <div
           ref={overlayRef}
-          className="absolute inset-0 bg-gradient-to-b from-[#0e0d0c]/70 via-[#0e0d0c]/40 to-[#0e0d0c] opacity-55 z-10 pointer-events-none"
+          className="absolute inset-0  opacity-100 z-10 pointer-events-none"
         />
 
         {/* Curtain Blur Overlay (rises from bottom to top to blur the background under the climax text) */}
