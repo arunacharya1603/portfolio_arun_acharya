@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { siteConfig } from "@/lib/site";
@@ -22,11 +22,13 @@ export function SeoPageShell({
   title,
   description,
   children,
+  showFooterCta = true,
 }: {
   eyebrow: string;
   title: string;
   description: string;
   children: ReactNode;
+  showFooterCta?: boolean;
 }) {
   return (
     <main className="relative isolate min-h-screen w-full max-w-[100vw] overflow-x-clip bg-[#0d0c09] px-3 pb-12 text-[#f4efe3] [overflow-wrap:anywhere] sm:px-5">
@@ -112,6 +114,7 @@ export function SeoPageShell({
 
         <div className="min-w-0 pt-10">{children}</div>
 
+        {showFooterCta ? (
         <section className="mt-16 rounded-xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)] md:p-8">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d8c4a4]">
             Available for selected commissions
@@ -131,6 +134,7 @@ export function SeoPageShell({
             Start a project
           </a>
         </section>
+        ) : null}
       </div>
     </main>
   );

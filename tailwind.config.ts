@@ -75,8 +75,8 @@ const config = {
         },
       },
       fontFamily: {
-        grotesk: ["var(--font-space-grotesk)", "sans-serif"],
-        sans: ["var(--font-inter)", "sans-serif"],
+        grotesk: ["var(--font-plus-jakarta)", "sans-serif"],
+        sans: ["var(--font-manrope)", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

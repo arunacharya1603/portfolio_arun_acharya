@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site";
+﻿import { siteConfig } from "@/lib/site";
 
 export type SeoFaq = {
   question: string;
@@ -453,6 +453,130 @@ export const seoServicePages: SeoServicePage[] = [
     ],
     relatedServiceSlugs: ["api-development", "ui-ux-design", "frontend-revamp"],
     relatedBlogSlugs: ["api-development-for-startup-web-apps", "landing-page-vs-website-vs-web-app"],
+  },
+  {
+    slug: "performance-optimization",
+    navLabel: "Performance Optimization",
+    metaTitle: "Next.js and React Performance Optimization Service",
+    metaDescription:
+      "Performance optimization for slow React and Next.js websites, including Core Web Vitals, bundle size, image loading, layout stability, and production reliability.",
+    heroEyebrow: "React and Next.js performance help",
+    heroTitle: "Make the product feel faster, more stable, and easier to trust.",
+    heroDescription:
+      "For teams with a live site or product that loads slowly, shifts during rendering, ships too much JavaScript, or loses credibility on mobile. Arun measures the real bottlenecks, fixes the highest-impact issues, and shows what improved.",
+    primaryIntent: "Next.js performance optimization",
+    secondaryIntents: [
+      "React performance optimization",
+      "Core Web Vitals developer",
+      "frontend speed optimization",
+      "website performance audit",
+    ],
+    bestFor: [
+      "Live React or Next.js products with slow routes, heavy bundles, or unstable layouts.",
+      "Marketing sites where loading speed is weakening conversion and search performance.",
+      "Teams that need measured improvements without assuming a complete rewrite.",
+    ],
+    outcomes: [
+      "A prioritized diagnosis tied to real routes, devices, and user-facing delays.",
+      "Smaller and better-timed JavaScript, image, font, and data-loading work.",
+      "Improved layout stability, interaction readiness, and responsive behavior.",
+      "Clear before-and-after evidence with the remaining technical risks documented.",
+    ],
+    includes: [
+      "Core Web Vitals review",
+      "Bundle and rendering analysis",
+      "Image and font optimization",
+      "Layout stability fixes",
+      "Route-level performance work",
+      "Before-and-after verification",
+    ],
+    process: [
+      "Measure the live experience and identify the bottlenecks users actually feel.",
+      "Prioritize fixes by impact, effort, and regression risk, then implement the agreed scope.",
+      "Verify key routes again and document the improvement, trade-offs, and next priorities.",
+    ],
+    faqs: [
+      {
+        question: "Do you need to rebuild the whole site?",
+        answer:
+          "Usually not. The first step is measurement. Many meaningful gains come from focused work on bundles, images, fonts, rendering, data loading, and layout stability.",
+      },
+      {
+        question: "Can you guarantee a perfect Lighthouse score?",
+        answer:
+          "No responsible performance engagement should guarantee a fixed score before measuring the product. The goal is a faster real experience and measurable improvement on the routes that matter.",
+      },
+      {
+        question: "Can performance work help SEO?",
+        answer:
+          "Performance is one part of technical quality. Faster, stable pages can support user experience and search readiness, but content relevance, crawlability, authority, and intent still matter.",
+      },
+    ],
+    relatedServiceSlugs: ["frontend-revamp", "frontend-development", "landing-pages"],
+    relatedBlogSlugs: ["frontend-revamp-checklist", "landing-page-vs-website-vs-web-app"],
+    relatedWorkSlugs: ["sound-of-meme", "heyclo-clo-ai", "chainreach-ai"],
+  },
+  {
+    slug: "product-mvp-development",
+    navLabel: "Product MVP Development",
+    metaTitle: "Product MVP Developer for Founders and Early-Stage Startups",
+    metaDescription:
+      "Product MVP development for founders who need a focused, usable first release with clear scope, UI/UX, frontend, APIs, deployment, and a practical path to iteration.",
+    heroEyebrow: "MVP design and development",
+    heroTitle: "Build the smallest product that is still convincing enough to test.",
+    heroDescription:
+      "For founders who need more than a clickable concept but less than an overbuilt platform. Arun helps define the core workflow, design the interface, build the product, and launch a version that can support demos, early users, or the next funding conversation.",
+    primaryIntent: "product MVP developer",
+    secondaryIntents: [
+      "startup MVP development",
+      "MVP developer India",
+      "Next.js MVP developer",
+      "SaaS prototype development",
+    ],
+    bestFor: [
+      "Founders turning a validated problem into a usable first product.",
+      "Teams preparing an investor demo or early customer pilot.",
+      "Businesses testing an internal workflow before a larger platform investment.",
+    ],
+    outcomes: [
+      "A disciplined feature scope centered on one valuable user journey.",
+      "A polished product surface that feels credible in demos and early use.",
+      "Working frontend, data, APIs, and deployment where the MVP requires them.",
+      "A practical post-launch roadmap based on what should be learned next.",
+    ],
+    includes: [
+      "MVP scope and prioritization",
+      "Core journey and screen design",
+      "Responsive frontend development",
+      "API and database integration",
+      "Basic admin or operational tools",
+      "Deployment and launch support",
+    ],
+    process: [
+      "Define the user, the core problem, the proof the MVP must create, and what can wait.",
+      "Design and build the smallest complete workflow with realistic states and data.",
+      "Launch the product, document the operating path, and plan the next iteration from evidence.",
+    ],
+    faqs: [
+      {
+        question: "How small should the first MVP be?",
+        answer:
+          "Small enough to launch and learn, but complete enough that a real user can finish the primary journey without a presentation explaining the missing product.",
+      },
+      {
+        question: "Can the MVP grow into a larger SaaS product?",
+        answer:
+          "Yes. The first build can establish reusable frontend, data, and workflow foundations, but growth architecture should be chosen only where the roadmap justifies it.",
+      },
+      {
+        question: "Do you help decide what not to build?",
+        answer:
+          "Yes. Scope discipline is one of the most valuable parts of an MVP engagement. Features that do not improve the main proof are moved to a later phase.",
+      },
+    ],
+    relatedServiceSlugs: ["web-apps-saas", "ui-ux-design", "api-development"],
+    relatedBlogSlugs: ["api-development-for-startup-web-apps", "landing-page-vs-website-vs-web-app"],
+    relatedWorkSlugs: ["chainreach-ai", "nursephysiowala", "sound-of-meme"],
   },
 ];
 

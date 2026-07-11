@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -78,6 +78,7 @@ type StatItem = {
 type ProjectItem = WorkProject;
 
 type ServiceItem = {
+  slug: string;
   title: string;
   icon: LucideIcon;
   for: string;
@@ -86,6 +87,7 @@ type ServiceItem = {
 };
 
 type PackageItem = {
+  slug: string;
   title: string;
   price: string;
   delivery: string;
@@ -143,6 +145,7 @@ const projects: ProjectItem[] = workProjects;
 
 const services: ServiceItem[] = [
   {
+    slug: "landing-pages",
     title: "Landing Pages",
     icon: Rocket,
     for: "Founders, creators, and businesses validating ideas quickly.",
@@ -150,6 +153,7 @@ const services: ServiceItem[] = [
     outcome: "A fast first impression that makes the offer easy to understand and act on.",
   },
   {
+    slug: "small-business-websites",
     title: "Business Websites",
     icon: Globe2,
     for: "Small and medium businesses that need 4-8 professional pages.",
@@ -157,6 +161,7 @@ const services: ServiceItem[] = [
     outcome: "A credible web presence that supports trust, discovery, and inbound leads.",
   },
   {
+    slug: "ui-ux-design",
     title: "UI/UX Redesign",
     icon: Wand2,
     for: "Teams with an existing website or product that needs sharper usability.",
@@ -164,6 +169,7 @@ const services: ServiceItem[] = [
     outcome: "Clearer hierarchy, smoother journeys, and a product that feels more premium.",
   },
   {
+    slug: "web-apps-saas",
     title: "Full-Stack Web Apps",
     icon: ServerCog,
     for: "Products needing auth, dashboards, APIs, databases, and admin panels.",
@@ -171,6 +177,7 @@ const services: ServiceItem[] = [
     outcome: "A usable product foundation that can grow beyond the first version.",
   },
   {
+    slug: "performance-optimization",
     title: "Performance Optimization",
     icon: Gauge,
     for: "Sites and apps that feel slow, messy, or hard to trust on mobile.",
@@ -178,6 +185,7 @@ const services: ServiceItem[] = [
     outcome: "A faster, more stable product that users can move through without friction.",
   },
   {
+    slug: "product-mvp-development",
     title: "Product MVP Development",
     icon: Blocks,
     for: "Founders who need to turn a concept into a launch-ready MVP.",
@@ -188,23 +196,26 @@ const services: ServiceItem[] = [
 
 const packages: PackageItem[] = [
   {
+    slug: "landing-pages",
     title: "Starter Landing Page",
-    price: "Starts at USD 200 / INR 15,000",
+    price: "Starts at USD 250 / INR 20,000",
     delivery: "7 days",
     bestFor: "Best for founders, creators, and local businesses validating fast.",
     features: ["Single premium page", "Responsive build", "SEO basics", "Vercel deployment"],
   },
   {
+    slug: "small-business-websites",
     title: "Business Website",
-    price: "Starts at USD 600 / INR 45,000",
+    price: "Starts at USD 650 / INR 55,000",
     delivery: "2-3 weeks",
     bestFor: "Best for small and medium businesses needing 4-8 professional pages.",
     features: ["Multi-page system", "Service content structure", "Lead capture", "Performance polish"],
     featured: true,
   },
   {
+    slug: "web-apps-saas",
     title: "Custom Full-Stack Web App",
-    price: "Starts at USD 1500 / INR 1,10,000",
+    price: "Starts at USD 1,500 / INR 1,20,000",
     delivery: "Based on complexity, up to 4 weeks",
     bestFor: "Best for products needing auth, dashboards, APIs, and scalable architecture.",
     features: ["Auth and roles", "Dashboards", "APIs and database", "Scalable deployment"],
@@ -1408,7 +1419,7 @@ function ServicesGrid() {
                 <InfoLine label="What Arun delivers" value={service.deliver} />
                 <InfoLine label="Expected outcome" value={service.outcome} />
                 <Link
-                  href="/#contact"
+                  href={`/services/${service.slug}`}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                 >
                   Request Proposal
@@ -1494,7 +1505,7 @@ function PricingGrid() {
                   ))}
                 </div>
                 <Link
-                  href="/#contact"
+                  href={`/services/${pkg.slug}#pricing`}
                   className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white px-5 py-3 text-sm font-semibold text-[#05070d] transition hover:bg-cyan-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
                 >
                   Request Proposal

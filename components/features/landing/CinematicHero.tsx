@@ -472,7 +472,7 @@ export default function CinematicHero({
       className="relative w-full min-h-screen bg-[#0e0d0c] overflow-hidden"
       aria-label="Cinematic canvas hero"
     >
-      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-[100svh] min-h-[560px] w-full flex items-center justify-center overflow-hidden">
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full object-cover scale-100"
@@ -481,36 +481,60 @@ export default function CinematicHero({
 
         <div
           ref={overlayRef}
-          className="absolute inset-0 opacity-100 z-10 pointer-events-none"
+          className="absolute inset-0 z-10 bg-[#0e0d0c]/20 opacity-100 pointer-events-none"
         />
 
         <div
           ref={curtainRef}
-          className="absolute inset-0 bg-[#0e0d0c]/65 backdrop-blur-xl z-15 pointer-events-none"
+          className="absolute inset-0 z-[15] bg-[#0e0d0c]/64 backdrop-blur-[10px] pointer-events-none"
           style={{ clipPath: "inset(100% 0% 0% 0%)", willChange: "clip-path" }}
         />
 
-        <div className="relative z-20 w-full max-w-[1480px] mx-auto px-4 sm:px-6 h-full flex items-center justify-center">
+        <div className="relative z-20 h-full w-full">
           <div
             ref={climaxRef}
-            className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center opacity-0 translate-y-6"
+            className="absolute inset-0 opacity-0 translate-y-6"
           >
-            <span className="text-xs uppercase tracking-[0.3em] text-[#bfa17f] mb-4 font-sans font-semibold">
-              Arun Acharya
-            </span>
-            <h1 className="font-grotesk text-[clamp(2.5rem,8vw,7.5rem)] font-semibold uppercase leading-[0.85] text-[#fbfbfa] tracking-tighter max-w-5xl">
-              I Build Products<br />That People Remember.
-            </h1>
-            <p className="mt-8 text-base md:text-lg text-[#fbfbfa]/60 max-w-2xl font-sans font-light leading-relaxed">
-              Frontend Developer & Product Builder. Scoping, designing, and engineering high-impact digital experiences that deploy, perform, and endure.
-            </p>
+            <div className="mx-auto flex h-full w-full max-w-[1380px] flex-col px-5 pb-6 pt-6 sm:px-8 sm:pb-8 sm:pt-8 lg:px-12 lg:pb-10 lg:pt-10">
+              <div className="flex items-center gap-4 sm:gap-6">
+                <span className="shrink-0 font-sans text-xs font-semibold text-[#d6b992] sm:text-sm">
+                  Arun Acharya
+                </span>
+                <span className="h-px flex-1 bg-[#fbfbfa]/16" aria-hidden="true" />
+              </div>
 
-            <div className="absolute bottom-10 flex flex-col items-center gap-2 pointer-events-none" aria-hidden="true">
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#fbfbfa]/40 font-sans">
-                Scroll to explore work
-              </span>
-              <div className="w-px h-8 bg-[#fbfbfa]/15 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full bg-[#bfa17f]/50 animate-scroll-indicator" />
+              <div className="grid flex-1 content-center gap-8 py-10 sm:gap-10 sm:py-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.55fr)] lg:items-end lg:gap-16 lg:py-16">
+                <h1
+                  aria-label="I build products that people remember."
+                  className="font-grotesk text-[2.25rem] font-semibold leading-[1.02] text-[#fbfbfa] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.75rem] xl:text-[5.5rem] 2xl:text-[6.25rem]"
+                >
+                  <span className="block sm:hidden" aria-hidden="true">
+                    <span className="block">I build</span>
+                    <span className="block">products that</span>
+                    <span className="block">people</span>
+                    <span className="block text-[#d6b992]">remember.</span>
+                  </span>
+                  <span className="hidden sm:block" aria-hidden="true">
+                    <span className="block whitespace-nowrap">I build products</span>
+                    <span className="block whitespace-nowrap">that people</span>
+                    <span className="block whitespace-nowrap text-[#d6b992]">remember.</span>
+                  </span>
+                </h1>
+
+                <div className="max-w-xl border-t border-[#fbfbfa]/18 pt-5 lg:mb-3 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+                  <p className="font-sans text-sm font-normal leading-7 text-[#fbfbfa]/76 sm:text-base sm:leading-8">
+                    Frontend Developer & Product Builder. Scoping, designing, and engineering high-impact digital experiences that deploy, perform, and endure.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between gap-6 border-t border-[#fbfbfa]/14 pt-4 sm:pt-5" aria-hidden="true">
+                <span className="font-sans text-[10px] font-medium text-[#fbfbfa]/52 sm:text-xs">
+                  Scroll to explore work
+                </span>
+                <div className="relative h-px w-16 overflow-hidden bg-[#fbfbfa]/16 sm:w-24">
+                  <div className="absolute inset-0 bg-[#d6b992]/70 animate-scroll-indicator" />
+                </div>
               </div>
             </div>
           </div>
@@ -519,8 +543,8 @@ export default function CinematicHero({
 
       <style jsx>{`
         @keyframes scroll-down {
-          0% { transform: translateY(-100%); }
-          80%, 100% { transform: translateY(100%); }
+          0% { transform: translateX(-100%); }
+          80%, 100% { transform: translateX(100%); }
         }
         .animate-scroll-indicator {
           animation: scroll-down 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;

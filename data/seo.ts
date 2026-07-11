@@ -1,4 +1,4 @@
-export type ServicePackage = {
+﻿export type ServicePackage = {
   name: string;
   delivery: string;
   startingPriceUSD: number;
@@ -23,8 +23,8 @@ export const servicePackages: ServicePackage[] = [
   {
     name: "Starter Landing Page",
     delivery: "7 days",
-    startingPriceUSD: 200,
-    startingPriceINR: 15000,
+    startingPriceUSD: 250,
+    startingPriceINR: 20000,
     bestFor: "Founders, creators, and local businesses validating ideas fast.",
     features: [
       "1 high-converting page",
@@ -37,8 +37,8 @@ export const servicePackages: ServicePackage[] = [
   {
     name: "Business Website",
     delivery: "2 to 3 weeks",
-    startingPriceUSD: 600,
-    startingPriceINR: 45000,
+    startingPriceUSD: 650,
+    startingPriceINR: 55000,
     bestFor: "Small and medium businesses that need 4 to 8 professional pages.",
     features: [
       "Custom UI design",
@@ -52,7 +52,7 @@ export const servicePackages: ServicePackage[] = [
     name: "Custom Full-Stack Web App",
     delivery: "Based on project complexity, up to 4 weeks",
     startingPriceUSD: 1500,
-    startingPriceINR: 110000,
+    startingPriceINR: 120000,
     bestFor: "Products needing auth, dashboards, APIs, and scalable architecture.",
     features: [
       "Frontend + backend architecture",

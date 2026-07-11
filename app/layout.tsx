@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
@@ -11,14 +11,14 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-manrope",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-plus-jakarta",
 });
 
 export const metadata: Metadata = {
@@ -124,7 +124,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]`}>
+      <body className={`${manrope.variable} ${plusJakartaSans.variable} font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
