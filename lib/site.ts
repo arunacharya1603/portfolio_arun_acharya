@@ -1,7 +1,8 @@
 export const siteConfig = {
   name: "Arun Acharya",
   siteName: "Arun Acharya Portfolio",
-  url: "https://arunacharya1603.in",
+  host: "www.arunacharya1603.in",
+  url: "https://www.arunacharya1603.in",
   email: "arunacharya1603@gmail.com",
   x: "https://x.com/143rhry112645",
   github: "https://github.com/arunacharya1603",
@@ -9,8 +10,8 @@ export const siteConfig = {
   locale: "en_US",
   countryCode: "IN",
   jobTitle: "Frontend Developer, UI/UX Developer, and Next.js Freelancer",
-  personId: "https://arunacharya1603.in#person",
-  websiteId: "https://arunacharya1603.in#website",
+  personId: "https://www.arunacharya1603.in#person",
+  websiteId: "https://www.arunacharya1603.in#website",
 };
 
 export const projectEntityLinks = [
