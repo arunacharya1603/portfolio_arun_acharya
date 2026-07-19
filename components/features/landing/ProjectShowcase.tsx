@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { workProjects } from "@/data/work-projects";
 
 const featured = workProjects.slice(0, 5);
@@ -82,7 +82,7 @@ export default function ProjectShowcase() {
             <span className="block text-xs uppercase tracking-[0.24em] text-[#bfa17f] font-sans mb-2">
               Selected Work
             </span>
-            <h2 className="font-grotesk text-4xl xl:text-5xl font-semibold uppercase leading-none text-[#fbfbfa]">
+            <h2 className="font-heading text-4xl uppercase leading-none text-[#fbfbfa] xl:text-5xl">
               Products I&apos;ve Shipped
             </h2>
           </div>
@@ -130,13 +130,28 @@ export default function ProjectShowcase() {
                         </span>
                       ))}
                     </div>
-                    <Link
-                      href={project.href}
-                      className="inline-flex items-center gap-2 text-[#bfa17f] font-semibold font-sans text-sm group mt-2"
-                    >
-                      View Case Study
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
+                    <div className="mt-2 flex flex-wrap items-center gap-3">
+                      <Link
+                        href={project.href}
+                        aria-label={`View case study for ${project.shortName}`}
+                        className="group inline-flex items-center gap-2 font-sans text-sm font-semibold text-[#bfa17f]"
+                      >
+                        View Case Study
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
+                      {project.externalUrl ? (
+                        <a
+                          href={project.externalUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit live site for ${project.shortName} (opens in a new tab)`}
+                          className="group inline-flex items-center gap-2 rounded-full border border-[#fbfbfa]/15 px-4 py-2 font-sans text-sm font-semibold text-[#fbfbfa]/80 transition-colors hover:border-[#bfa17f]/55 hover:text-[#fbfbfa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bfa17f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0c]"
+                        >
+                          Visit Live Site
+                          <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </a>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               );
@@ -152,7 +167,7 @@ export default function ProjectShowcase() {
           <span className="block text-xs uppercase tracking-[0.24em] text-[#bfa17f] font-sans mb-3">
             Selected Work
           </span>
-          <h2 className="font-grotesk text-3xl font-semibold uppercase leading-none text-[#fbfbfa]">
+          <h2 className="font-heading text-3xl uppercase leading-none text-[#fbfbfa]">
             Products I&apos;ve Shipped
           </h2>
         </div>
@@ -191,13 +206,28 @@ export default function ProjectShowcase() {
                       </span>
                     ))}
                   </div>
-                  <Link
-                    href={project.href}
-                    className="inline-flex items-center gap-2 text-[#bfa17f] font-semibold font-sans text-sm group w-fit mt-2"
-                  >
-                    View Case Study
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </Link>
+                  <div className="mt-2 flex flex-wrap items-center gap-3">
+                    <Link
+                      href={project.href}
+                      aria-label={`View case study for ${project.shortName}`}
+                      className="group inline-flex w-fit items-center gap-2 font-sans text-sm font-semibold text-[#bfa17f]"
+                    >
+                      View Case Study
+                      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                    {project.externalUrl ? (
+                      <a
+                        href={project.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit live site for ${project.shortName} (opens in a new tab)`}
+                        className="group inline-flex w-fit items-center gap-2 rounded-full border border-[#fbfbfa]/15 px-4 py-2 font-sans text-sm font-semibold text-[#fbfbfa]/80 transition-colors hover:border-[#bfa17f]/55 hover:text-[#fbfbfa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bfa17f] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0d0c]"
+                      >
+                        Visit Live Site
+                        <ExternalLink className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             );

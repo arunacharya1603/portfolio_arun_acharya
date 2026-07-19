@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
 
+import "@fontsource/fredoka/latin.css";
+import "@fontsource/nothing-you-could-do/latin.css";
+import "@fontsource/poetsen-one/latin.css";
+import "@fontsource/varela-round/latin.css";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import { seoServicePages } from "@/data/seo-content";
@@ -10,16 +13,6 @@ import {
   professionalServiceJsonLd,
   websiteJsonLd,
 } from "@/lib/seo";
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -124,7 +117,7 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className={`${manrope.variable} ${plusJakartaSans.variable} font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]`}>
+      <body className="font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

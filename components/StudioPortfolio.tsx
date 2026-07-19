@@ -8,7 +8,6 @@ import {
   animate as animateValue,
   motion,
   useInView,
-  useMotionValueEvent,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -33,7 +32,6 @@ import {
   Globe2,
   Layers3,
   Linkedin,
-  Menu,
   MessageSquareText,
   Rocket,
   Search,
@@ -42,7 +40,6 @@ import {
   ShieldCheck,
   Timer,
   Wand2,
-  X,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -67,6 +64,8 @@ import {
 } from "./features/landing";
 import { workProjects, type WorkProject } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
+import { SiteActionBar } from "./SiteActionBar";
+import { SiteHeader } from "./SiteHeader";
 
 type StatItem = {
   value: number;
@@ -575,9 +574,9 @@ export function ReviewsPageContent() {
   return (
     <PortfolioScaffold>
       <PageHero
-        eyebrow="Reviews"
-        title="Trust signals now. Verified testimonials only after approval."
-        copy="No fake repeated quotes or placeholder names. The proof surface is ready for real client testimonials when they are verified."
+        eyebrow="Proof"
+        title="Proof lives in shipped work, clear outcomes, and verified client feedback."
+        copy="Explore selected builds and delivery standards now. Client testimonials appear only when permission and attribution are confirmed."
       />
       <ProofSection />
       <PageCta />
@@ -609,7 +608,7 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
 
   return (
     <PortfolioScaffold>
-      <section className="px-4 pb-10 pt-8 sm:px-6 lg:pb-14 lg:pt-12">
+      <section className="font-hero px-4 pb-10 pt-8 sm:px-6 lg:pb-14 lg:pt-12">
         <div className="mx-auto w-full max-w-6xl">
           <Link
             href="/work"
@@ -636,7 +635,7 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
             <aside className="max-w-full border-y border-[#f4efe3]/12 text-sm" style={{ maxWidth: "min(100%, calc(100vw - 2rem))" }}>
               {projectFacts.map((fact) => (
                 <div key={fact.label} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4 border-b border-[#f4efe3]/12 py-4 last:border-b-0">
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/38">{fact.label}</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/62">{fact.label}</p>
                   <p className="font-semibold leading-6 text-[#f4efe3]">{fact.value}</p>
                 </div>
               ))}
@@ -669,8 +668,8 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
       <section id="case-study" className="px-4 py-14 sm:px-6 lg:py-20">
         <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[280px_minmax(0,1fr)] lg:items-start">
           <aside className="lg:sticky lg:top-28">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Case study</p>
-            <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3]">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/62">Case study</p>
+            <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-[#f4efe3]">
               Clear scope. Real decisions. Finished work.
             </h2>
             <div className="mt-7 flex flex-wrap gap-2">
@@ -708,8 +707,8 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
         <div className="mx-auto w-full max-w-6xl">
           <div className="grid gap-5 border-b border-[#f4efe3]/12 pb-8 lg:grid-cols-[0.38fr_0.62fr] lg:items-end">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Challenges</p>
-              <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3] sm:text-5xl">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/62">Challenges</p>
+              <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-[#f4efe3] sm:text-5xl">
                 The parts that needed judgment.
               </h2>
             </div>
@@ -724,10 +723,10 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
                 <p className="font-grotesk text-3xl font-semibold leading-none text-[#d8c4a4]">{String(index + 1).padStart(2, "0")}</p>
                 <div>
                   <h3 className="font-grotesk text-3xl font-semibold leading-[0.98] text-[#f4efe3]">{item.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[#f4efe3]/66">{item.challenge}</p>
+                  <p className="mt-4 text-sm leading-7 text-[#f4efe3]/78">{item.challenge}</p>
                 </div>
                 <div className="border-l border-[#f4efe3]/12 pl-5">
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/38">Response</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f4efe3]/62">Response</p>
                   <p className="mt-3 text-sm leading-7 text-[#f4efe3]/78">{item.tackle}</p>
                 </div>
               </article>
@@ -739,8 +738,8 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
       <section id="outcome" className="px-4 py-14 sm:px-6 lg:py-20">
         <div className="mx-auto grid w-full max-w-6xl gap-8 border-y border-[#f4efe3]/12 py-10 lg:grid-cols-[0.38fr_0.62fr] lg:items-start">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Outcome</p>
-            <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3] sm:text-5xl">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/62">Outcome</p>
+            <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-[#f4efe3] sm:text-5xl">
               What the work left behind.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-8 text-[#f4efe3]/70">{project.impact}</p>
@@ -761,8 +760,8 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
         <div className="mx-auto w-full max-w-6xl">
           <div className="flex flex-col gap-5 border-b border-[#f4efe3]/12 pb-7 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">More work</p>
-              <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-[0.96] text-[#f4efe3]">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/62">More work</p>
+              <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-[#f4efe3]">
                 Other selected builds.
               </h2>
             </div>
@@ -803,7 +802,7 @@ function ProjectDetailBlock({
         <h3 className="mt-4 font-grotesk text-3xl font-semibold leading-[0.98] text-[#f4efe3] sm:text-4xl">
           {title}
         </h3>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-[#f4efe3]/66">{copy}</p>
+        <p className="mt-4 max-w-xl text-sm leading-7 text-[#f4efe3]/78">{copy}</p>
       </div>
 
       <div className="divide-y divide-[#f4efe3]/12 border-t border-[#f4efe3]/12 lg:border-t-0">
@@ -827,7 +826,15 @@ function PortfolioScaffold({
   loadProgress?: number;
 }) {
   return (
-    <main className="relative isolate min-h-screen w-full max-w-[100vw] overflow-x-clip bg-[#0d0c09] text-[#f4efe3]">
+    <main className="relative isolate min-h-screen w-full max-w-[100vw] overflow-x-clip bg-[#0d0c09] pb-24 text-[#f4efe3] md:pb-0">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 -z-10 bg-[linear-gradient(90deg,rgba(244,239,227,0.025)_1px,transparent_1px),linear-gradient(rgba(244,239,227,0.02)_1px,transparent_1px)] bg-[size:96px_96px] opacity-45"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-80 bg-gradient-to-b from-[#f4efe3]/[0.055] to-transparent"
+      />
       <SmoothScroll />
       <ScrollProgress />
       <PointerSignal />
@@ -998,157 +1005,7 @@ function LoadingScreen({ progress }: { progress: number }) {
 }
 
 function StudioHeader() {
-  const [open, setOpen] = useState(false);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
-  const [isAwayFromTop, setIsAwayFromTop] = useState(false);
-  const { scrollY } = useScroll();
-  const shouldReduceMotion = useReducedMotion();
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  const shouldHideHeader =
-    !shouldReduceMotion && !open && isAwayFromTop && scrollDirection === "down";
-  const shouldCompactHeader = isAwayFromTop || open;
-
-  useMotionValueEvent(scrollY, "change", (current) => {
-    const previous = scrollY.getPrevious() ?? current;
-    const diff = current - previous;
-
-    setIsAwayFromTop(current > 72);
-
-    if (Math.abs(diff) < 6) return;
-    setScrollDirection(diff > 0 ? "down" : "up");
-  });
-
-  return (
-    <motion.header
-      className={`studio-header z-50 px-3 pt-3 transition-opacity duration-500 sm:px-5 sm:pt-4 ${
-        isHome ? "fixed left-0 right-0 top-0" : "sticky top-0"
-      }`}
-      animate={{ y: shouldHideHeader ? -104 : 0 }}
-      transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div
-        className={`mx-auto w-full max-w-[1480px] overflow-hidden border backdrop-blur-2xl transition-[background,border-color,box-shadow,padding] duration-300 ${
-          shouldCompactHeader
-            ? "border-[#f4efe3]/16 bg-[#0d0c09]/78 shadow-[0_18px_70px_rgba(0,0,0,0.34)]"
-            : "border-[#f4efe3]/10 bg-[#0d0c09]/42 shadow-none"
-        } rounded-[8px]`}
-      >
-        <nav
-          className={`flex min-w-0 items-center justify-between gap-2 px-2.5 transition-[padding] duration-300 sm:gap-4 sm:px-4 ${
-            shouldCompactHeader ? "py-2" : "py-2.5 sm:py-3"
-          }`}
-          aria-label="Primary navigation"
-        >
-          <Link
-            href="/"
-            className="group flex min-w-0 items-center gap-2.5 rounded-[6px] pr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:gap-3"
-            aria-label="Arun Acharya home"
-          >
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[6px] border border-[#f4efe3]/16 bg-[#f4efe3] font-grotesk text-sm font-semibold text-[#0d0c09] shadow-[0_10px_30px_rgba(244,239,227,0.12)] transition group-hover:bg-[#fff8e8]">
-              AA
-            </span>
-            <span className="min-w-0 leading-none">
-              <span className="block truncate font-grotesk text-sm font-semibold text-[#f4efe3] sm:text-base">
-                Arun Acharya
-              </span>
-              <span className="mt-1 block truncate text-[11px] text-[#f4efe3]/55 sm:text-xs">
-                Full-Stack Architect
-              </span>
-            </span>
-          </Link>
-
-          <div className="hidden items-center gap-1 rounded-[8px] border border-[#f4efe3]/10 bg-[#f4efe3]/[0.045] p-1 lg:flex">
-            {navItems.map((item) => {
-              const active = item.href !== "/#contact" && pathname === item.href;
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`relative rounded-[6px] px-3 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
-                    active
-                      ? "bg-[#f4efe3]/12 text-[#f4efe3]"
-                      : "text-[#f4efe3]/62 hover:bg-[#f4efe3]/8 hover:text-[#f4efe3]"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="hidden items-center gap-2 md:flex">
-            <Link
-              href="/#contact"
-              className="group inline-flex items-center gap-2 rounded-[6px] border border-[#f4efe3]/18 bg-[#f4efe3] px-3.5 py-2.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
-            >
-              Start Project
-              <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[6px] border border-[#f4efe3]/16 bg-[#f4efe3]/8 text-[#f4efe3] transition hover:bg-[#f4efe3]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] lg:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        <AnimatePresence>
-          {open ? (
-            <motion.div
-              initial={{ opacity: 0, height: 0, y: -8 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -8 }}
-              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-              className="border-t border-[#f4efe3]/12 bg-[#0d0c09]/92 lg:hidden"
-            >
-              <div className="grid gap-1 p-2 sm:grid-cols-2 sm:p-3">
-                {navItems.map((item, index) => {
-                  const active = item.href !== "/#contact" && pathname === item.href;
-
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2, delay: index * 0.025 }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        className={`group flex min-h-[52px] items-center justify-between gap-4 rounded-[6px] border px-3.5 py-3 text-base font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
-                          active
-                            ? "border-[#f4efe3]/22 bg-[#f4efe3]/12 text-[#f4efe3]"
-                            : "border-[#f4efe3]/10 bg-[#f4efe3]/[0.035] text-[#f4efe3]/86 hover:border-[#f4efe3]/20 hover:bg-[#f4efe3]/8 hover:text-[#f4efe3]"
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        <ArrowUpRight className="h-4 w-4 text-[#f4efe3]/45 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f4efe3]" />
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-                <Link
-                  href="/#contact"
-                  onClick={() => setOpen(false)}
-                  className="group mt-1 flex min-h-[52px] items-center justify-between rounded-[6px] bg-[#f4efe3] px-3.5 py-3 text-base font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:col-span-2"
-                >
-                  Start Project
-                  <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
-    </motion.header>
-  );
+  return <SiteHeader />;
 }
 
 function LandingHome({
@@ -1183,14 +1040,14 @@ function PageHero({
   copy: string;
 }) {
   return (
-    <section className="px-4 pb-12 pt-14 sm:px-6 lg:pb-16 lg:pt-20">
-      <div className="mx-auto max-w-7xl border-b border-white/10 pb-12">
+    <section className="font-hero px-4 pb-10 pt-10 sm:px-6 sm:pb-12 sm:pt-14 lg:pb-14 lg:pt-16">
+      <div className="mx-auto max-w-7xl border-b border-white/12 pb-10 sm:pb-12">
         <Reveal>
           <p className="text-sm font-bold text-cyan-200">{eyebrow}</p>
-          <h1 className="mt-5 max-w-5xl font-grotesk text-4xl font-semibold leading-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="mt-4 max-w-5xl font-grotesk text-[clamp(2.35rem,9vw,4.5rem)] font-semibold leading-[1.02] text-white">
             {title}
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-xl">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 md:text-lg md:leading-8">
             {copy}
           </p>
         </Reveal>
@@ -1230,26 +1087,26 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
         <div className="flex flex-1 flex-col p-5 md:p-6">
           <div className="flex items-start justify-between gap-5">
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-[#f4efe3]/55">{project.role}</p>
-              <h2 className="mt-2 line-clamp-2 min-h-[3.75rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3] md:min-h-[4.75rem] md:text-3xl">
+              <p className="text-sm font-semibold text-[#f4efe3]/72">{project.role}</p>
+              <h2 className="mt-2 line-clamp-3 min-h-[4.5rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3] md:min-h-[5.75rem] md:text-3xl">
                 {project.name}
               </h2>
             </div>
             <ProjectAction href={project.href} label={`View case study for ${project.name}`} />
           </div>
 
-          <p className="mt-4 text-sm leading-7 text-[#f4efe3]/72">{project.description}</p>
+          <p className="mt-4 text-[15px] leading-7 text-[#f4efe3]/82">{project.description}</p>
 
           <div className="mt-5 grid gap-4 border-t border-[#f4efe3]/12 pt-5 lg:grid-cols-2">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Problem solved</p>
-              <p className="mt-2 text-sm leading-6 text-[#f4efe3]/70">{project.problem}</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-[#f4efe3]/76">Problem solved</p>
+              <p className="mt-2 text-[15px] leading-7 text-[#f4efe3]/78">{project.problem}</p>
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#f4efe3]/40">Key features</p>
+              <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-[#f4efe3]/76">Key features</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {project.features.map((feature) => (
-                  <span key={feature} className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/6 px-3 py-1 text-xs font-semibold text-[#f4efe3]/70">
+                  <span key={feature} className="rounded-full border border-[#f4efe3]/14 bg-[#f4efe3]/6 px-3 py-1 text-[13px] font-semibold text-[#f4efe3]/80">
                     {feature}
                   </span>
                 ))}
@@ -1290,8 +1147,8 @@ function ProjectPreviewCard({ project, index }: { project: ProjectItem; index: n
         <ProjectImage project={project} priority={index === 0} compact />
         <div className="p-5">
           <p className="line-clamp-2 min-h-12 text-sm font-semibold leading-6 text-[#d8c4a4]">{project.impact}</p>
-          <h3 className="mt-3 line-clamp-2 min-h-[3.75rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3]">{project.name}</h3>
-          <p className="mt-3 text-sm leading-7 text-[#f4efe3]/62">{project.description}</p>
+          <h3 className="mt-3 line-clamp-3 min-h-[4.5rem] font-grotesk text-2xl font-semibold leading-tight text-[#f4efe3]">{project.name}</h3>
+          <p className="mt-3 text-[15px] leading-7 text-[#f4efe3]/78">{project.description}</p>
         </div>
       </Link>
     </Reveal>
@@ -1386,11 +1243,11 @@ function ExperienceTimeline() {
                         {item.title}
                       </h2>
                     </div>
-                    <span className="w-fit rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1 text-xs font-bold text-emerald-200">
+                    <span className="w-fit rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1 text-[13px] font-bold text-emerald-100">
                       {item.focus}
                     </span>
                   </div>
-                  <p className="mt-4 text-sm leading-7 text-slate-300">{item.details}</p>
+                  <p className="mt-4 text-base leading-7 text-slate-200">{item.details}</p>
                 </article>
               </Reveal>
             ))}
@@ -1463,7 +1320,7 @@ function ProcessBlueprint() {
                     <span className="font-grotesk text-2xl font-semibold text-white">{step.step}</span>
                   </div>
                   <h2 className="mt-6 font-grotesk text-2xl font-semibold text-white">{step.title}</h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{step.copy}</p>
+                  <p className="mt-3 text-base leading-7 text-slate-200">{step.copy}</p>
                 </article>
               </Reveal>
             );
@@ -1495,10 +1352,10 @@ function PricingGrid() {
                   <Timer className="h-4 w-4" />
                   Delivery: {pkg.delivery}
                 </p>
-                <p className="mt-4 text-sm leading-7 text-slate-300">{pkg.bestFor}</p>
+                <p className="mt-4 text-base leading-7 text-slate-200">{pkg.bestFor}</p>
                 <div className="mt-6 space-y-3">
                   {pkg.features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-3 text-sm text-slate-300">
+                    <div key={feature} className="flex items-center gap-3 text-[15px] text-slate-200">
                       <CheckCircle2 className="h-4 w-4 shrink-0 text-cyan-200" />
                       {feature}
                     </div>
@@ -1516,7 +1373,7 @@ function PricingGrid() {
           ))}
         </div>
 
-        <p className="mt-6 rounded-lg border border-white/10 bg-white/[0.035] p-4 text-sm leading-7 text-slate-300">
+        <p className="mt-6 rounded-lg border border-white/12 bg-white/[0.035] p-4 text-base leading-7 text-slate-200">
           Final quote depends on scope, timeline, integrations, and content.
         </p>
       </div>
@@ -1525,28 +1382,30 @@ function PricingGrid() {
 }
 
 function ProofSection() {
+  const featuredProof = projects.slice(0, 3);
+
   return (
     <section className="px-4 py-12 sm:px-6 lg:py-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <SectionIntro
-            eyebrow="Social Proof"
-            title="Credibility without fake names."
-            copy="The site keeps the proof section honest while still showing delivery signals that clients care about."
+            eyebrow="Delivery Proof"
+            title="Shipped work first. Verified words only."
+            copy="The strongest trust signal is visible product work: the problem, the implementation, and the outcome. Client words are added only with clear permission and attribution."
           />
 
           <Reveal>
-            <div className="rounded-lg border border-white/10 bg-white/[0.045] p-6">
+            <div className="rounded-xl border border-violet-300/20 bg-violet-300/[0.07] p-6 sm:p-7">
               <div className="flex items-start gap-4">
-                <div className="grid h-12 w-12 place-items-center rounded-lg border border-violet-300/25 bg-violet-300/10 text-violet-100">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg border border-violet-300/25 bg-violet-300/10 text-violet-100">
                   <MessageSquareText className="h-6 w-6" />
                 </div>
                 <div>
-                  <h2 className="font-grotesk text-2xl font-semibold text-white">
-                    Client testimonials will appear here after verification.
-                  </h2>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">
-                    Until published client permission is available, this section uses trust badges instead of invented endorsements.
+                  <p className="font-review text-3xl leading-tight text-white sm:text-4xl">
+                    Verified words, never invented ones.
+                  </p>
+                  <p className="mt-4 text-base leading-7 text-slate-200">
+                    Testimonials stay unpublished until the client approves the wording and attribution. Until then, the work below carries the proof.
                   </p>
                 </div>
               </div>
@@ -1554,11 +1413,34 @@ function ProofSection() {
           </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          {featuredProof.map((project, index) => (
+            <Reveal key={project.name} delay={index * 0.04}>
+              <article className="flex h-full flex-col rounded-xl border border-white/12 bg-white/[0.045] p-5 sm:p-6">
+                <p className="text-sm font-semibold text-[#d8c4a4]">{project.role}</p>
+                <h3 className="mt-3 font-grotesk text-2xl font-semibold leading-tight text-white">
+                  {project.name}
+                </h3>
+                <p className="mt-4 flex-1 text-[15px] leading-7 text-slate-200">
+                  {project.description}
+                </p>
+                <Link
+                  href={project.href}
+                  className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-cyan-100 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                >
+                  Inspect the case study
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {trustBadges.map((badge, index) => (
-            <Reveal key={badge} delay={index * 0.04}>
-              <div className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-4 text-sm font-semibold text-slate-200">
-                <ShieldCheck className="h-5 w-5 text-emerald-200" />
+            <Reveal key={badge} delay={index * 0.035}>
+              <div className="flex min-h-14 items-center gap-3 rounded-lg border border-white/12 bg-white/[0.035] p-4 text-[15px] font-semibold text-slate-100">
+                <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-200" />
                 {badge}
               </div>
             </Reveal>
@@ -1611,12 +1493,12 @@ function AboutSection() {
       <div className="mx-auto grid max-w-7xl gap-10 rounded-lg border border-white/10 bg-white/[0.035] p-6 md:p-8 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <p className="text-sm font-bold text-cyan-200">About Arun</p>
-          <h2 className="mt-4 font-grotesk text-4xl font-semibold leading-tight text-white md:text-6xl">
+          <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-white md:text-6xl">
             Design taste meets full-stack execution.
           </h2>
         </div>
         <div>
-          <p className="text-lg leading-9 text-slate-300">
+          <p className="text-lg leading-9 text-slate-200">
             I am Arun Acharya, a full-stack developer who loves building digital products that look beautiful, feel smooth, and solve real business problems. I combine frontend engineering, UI/UX thinking, performance optimization, and practical product strategy to help clients launch websites and apps that feel premium from the first click.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
@@ -1647,17 +1529,17 @@ function LocationSeoSection() {
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
           <div>
             <p className="text-sm font-bold text-cyan-200">Remote-friendly development</p>
-            <h2 className="mt-3 font-grotesk text-3xl font-semibold text-white">
+            <h2 className="mt-3 font-heading text-3xl leading-tight text-white">
               Website design and full-stack development for startups, creators, local businesses, and agencies.
             </h2>
           </div>
           <div>
-            <p className="text-sm leading-7 text-slate-300">
+            <p className="text-base leading-7 text-slate-200">
               Serving India-focused clients in Bengaluru, Mumbai, and Delhi NCR, plus international clients in Dubai, London, New York, Toronto, and Sydney.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               {locations.map((location) => (
-                <span key={location} className="rounded-full border border-white/10 bg-white/7 px-3 py-1 text-xs font-semibold text-slate-300">
+                <span key={location} className="rounded-full border border-white/12 bg-white/7 px-3 py-1 text-[13px] font-semibold text-slate-200">
                   {location}
                 </span>
               ))}
@@ -1674,11 +1556,11 @@ function ContactSection() {
     <section id="contact" className="px-4 py-16 sm:px-6 lg:py-28">
       <div className="mx-auto grid max-w-[1480px] gap-12 lg:grid-cols-[0.88fr_0.92fr] lg:items-start">
         <div className="lg:sticky lg:top-28">
-          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#f4efe3]/50">Contact</p>
-          <h2 className="mt-5 max-w-[10ch] font-grotesk text-[clamp(4rem,9vw,9rem)] font-semibold uppercase leading-[0.76] text-[#f4efe3]">
+          <p className="text-xs font-bold uppercase tracking-[0.24em] text-[#f4efe3]/68">Contact</p>
+          <h2 className="mt-5 max-w-[11ch] font-heading text-[clamp(3.5rem,8vw,7rem)] uppercase leading-[0.84] text-[#f4efe3]">
             Start the next build.
           </h2>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#f4efe3]/72">
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#f4efe3]/82">
             Send the brief, the rough idea, or the broken current site. I will turn the signal into a practical next step.
           </p>
 
@@ -1706,7 +1588,7 @@ function ContactSection() {
             </a>
           </div>
 
-          <div className="mt-10 grid gap-4 text-sm leading-7 text-[#f4efe3]/62">
+          <div className="mt-10 grid gap-4 text-sm leading-7 text-[#f4efe3]/76">
             <p>01 / Landing pages with a strong opening moment.</p>
             <p>02 / Dashboards and MVPs with actual product logic.</p>
             <p>03 / Responsive interfaces that keep their composition under pressure.</p>
@@ -1754,7 +1636,7 @@ function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <p className="font-grotesk text-3xl font-semibold text-[#f4efe3]">Project intake</p>
-        <p className="mt-2 text-sm leading-7 text-[#f4efe3]/64">
+        <p className="mt-2 text-sm leading-7 text-[#f4efe3]/76">
           Share the signal. I will reply with the next practical step.
         </p>
       </div>
@@ -1787,7 +1669,7 @@ function ContactForm() {
             className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
               projectType === type
                 ? "border-[#f4efe3] bg-[#f4efe3] text-[#0d0c09]"
-                : "border-[#f4efe3]/12 bg-[#f4efe3]/6 text-[#f4efe3]/64 hover:bg-[#f4efe3]/10"
+                : "border-[#f4efe3]/12 bg-[#f4efe3]/6 text-[#f4efe3]/76 hover:bg-[#f4efe3]/10"
             }`}
           >
             {type}
@@ -1832,7 +1714,7 @@ function ContactForm() {
           name="message"
           rows={5}
           placeholder="Tell me what you want to launch."
-          className="mt-2 w-full resize-none rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/35 focus:border-[#f4efe3]"
+          className="mt-2 w-full resize-none rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/55 focus:border-[#f4efe3]"
           required
         />
       </label>
@@ -1853,11 +1735,11 @@ function PageCta() {
     <section className="px-4 py-14 sm:px-6 lg:py-20">
       <div className="mx-auto flex max-w-7xl flex-col gap-5 rounded-xl border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-6 md:flex-row md:items-center md:justify-between md:p-8">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#f4efe3]/52">Next step</p>
-          <h2 className="mt-2 font-grotesk text-3xl font-semibold text-[#f4efe3]">
+          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#f4efe3]/68">Next step</p>
+          <h2 className="mt-2 font-heading text-3xl leading-tight text-[#f4efe3]">
             Have a similar project in mind?
           </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-[#f4efe3]/72">
+          <p className="mt-2 max-w-2xl text-base leading-7 text-[#f4efe3]/80">
             Send the brief, rough idea, or current website. Arun will help shape the next practical move.
           </p>
         </div>
@@ -1887,8 +1769,8 @@ function StudioFooter() {
               </span>
               <div>
                 <p className="font-grotesk text-xl font-semibold text-[#f4efe3]">Arun Acharya</p>
-                <p className="mt-1 text-sm text-[#f4efe3]/55">
-                  Full-Stack Architect for premium websites, apps, dashboards, and MVPs.
+                <p className="mt-1 text-sm text-[#f4efe3]/72">
+                  Full-Stack Product Engineer for premium websites, apps, dashboards, and MVPs.
                 </p>
               </div>
             </div>
@@ -1920,7 +1802,7 @@ function StudioFooter() {
                 );
               })}
             </div>
-            <p className="text-sm text-[#f4efe3]/45">Copyright {currentYear}. Arun Acharya.</p>
+            <p className="text-sm text-[#f4efe3]/62">Copyright {currentYear}. Arun Acharya.</p>
           </div>
         </div>
       </div>
@@ -1929,26 +1811,7 @@ function StudioFooter() {
 }
 
 function MobileActionBar() {
-  return (
-    <div className="fixed inset-x-3 bottom-3 z-40 md:hidden">
-      <div className="grid grid-cols-2 gap-2 rounded-full border border-[#f4efe3]/12 bg-[#0d0c09] p-2 shadow-[0_20px_70px_rgba(0,0,0,0.35)]">
-        <Link
-          href="/work"
-          className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold text-[#f4efe3]/85"
-        >
-          Work
-          <Layers3 className="h-4 w-4" />
-        </Link>
-        <Link
-          href="/#contact"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-4 py-3 text-sm font-semibold text-[#0d0c09]"
-        >
-          Contact
-          <Send className="h-4 w-4" />
-        </Link>
-      </div>
-    </div>
-  );
+  return <SiteActionBar />;
 }
 
 function StatCard({ stat }: { stat: StatItem }) {
@@ -1958,7 +1821,7 @@ function StatCard({ stat }: { stat: StatItem }) {
         <AnimatedNumber value={stat.value} suffix={stat.suffix} />
       </div>
       <div className="mt-1 text-sm font-semibold text-[#f4efe3]/90">{stat.label}</div>
-      <div className="mt-2 text-xs leading-5 text-[#f4efe3]/45">{stat.note}</div>
+      <div className="mt-2 text-xs leading-5 text-[#f4efe3]/62">{stat.note}</div>
     </div>
   );
 }
@@ -2003,11 +1866,11 @@ function SectionIntro({
 }) {
   return (
     <div className="max-w-4xl">
-      <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#f4efe3]/52">{eyebrow}</p>
-      <h2 className="mt-4 font-grotesk text-5xl font-semibold leading-[0.94] text-[#f4efe3] md:text-7xl">
+      <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#f4efe3]/68">{eyebrow}</p>
+      <h2 className="mt-4 font-heading text-4xl leading-[1.02] text-[#f4efe3] sm:text-5xl md:text-6xl">
         {title}
       </h2>
-      <p className="mt-5 max-w-2xl text-base leading-8 text-[#f4efe3]/72 md:text-lg">
+      <p className="mt-5 max-w-2xl text-base leading-8 text-[#f4efe3]/80 md:text-lg">
         {copy}
       </p>
     </div>
@@ -2068,8 +1931,8 @@ function MotionLink({
 function InfoLine({ label, value }: { label: string; value: string }) {
   return (
     <div className="mt-5 border-t border-white/10 pt-4">
-      <p className="text-xs font-bold text-slate-500">{label}</p>
-      <p className="mt-2 text-sm leading-7 text-slate-300">{value}</p>
+      <p className="text-[13px] font-bold uppercase tracking-[0.12em] text-slate-400">{label}</p>
+      <p className="mt-2 text-base leading-7 text-slate-200">{value}</p>
     </div>
   );
 }
@@ -2095,7 +1958,7 @@ function Field({
         type={type}
         placeholder={placeholder}
         required={required}
-        className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/35 focus:border-[#f4efe3]"
+        className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/55 focus:border-[#f4efe3]"
       />
     </label>
   );

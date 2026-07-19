@@ -41,17 +41,28 @@
   }
 
   body {
-    @apply bg-[#0e0d0c] text-[#fbfbfa] antialiased;
+    @apply bg-[#0e0d0c] font-sans text-[#fbfbfa] antialiased;
     overflow-x: hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-grotesk;
+  body:has(#site-mobile-navigation) [aria-label="Quick actions"] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1rem);
   }
 }
 
 @layer utilities {
+  .font-hero,
+  .font-hero * {
+    font-family: "Varela Round", "Arial Rounded MT Bold", sans-serif !important;
+  }
+
+  .font-review {
+    font-family: "Nothing You Could Do", "Comic Sans MS", cursive !important;
+  }
+
   .social-glass {
     @apply backdrop-blur-[60px] bg-black/40 border border-white/5;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);

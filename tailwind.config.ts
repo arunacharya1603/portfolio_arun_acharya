@@ -75,8 +75,11 @@ const config = {
         },
       },
       fontFamily: {
-        grotesk: ["var(--font-plus-jakarta)", "sans-serif"],
-        sans: ["var(--font-manrope)", "sans-serif"],
+        sans: ["Fredoka", "Arial Rounded MT Bold", "sans-serif"],
+        grotesk: ["Fredoka", "Arial Rounded MT Bold", "sans-serif"],
+        heading: ["Poetsen One", "Arial Rounded MT Bold", "sans-serif"],
+        hero: ["Varela Round", "Arial Rounded MT Bold", "sans-serif"],
+        review: ["Nothing You Could Do", "Comic Sans MS", "cursive"],
       },
       borderRadius: {
         lg: "var(--radius)",

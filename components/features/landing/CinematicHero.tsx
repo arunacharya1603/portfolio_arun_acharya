@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { proofMetrics } from "./proofMetricsData";
 
 const FRAME_COUNT = 301;
 const FIRST_SCROLL_FRAMES = 60;
@@ -402,12 +403,9 @@ export default function CinematicHero({
       if (prefersReducedMotion) {
         gsap.set(climaxRef.current, { opacity: 1, y: 0 });
         gsap.set(curtainRef.current, { clipPath: "inset(0% 0% 0% 0%)" });
-        gsap.set(".studio-header", { opacity: 1, pointerEvents: "auto" });
         enqueueFrame(FRAME_COUNT - 1, true);
         return;
       }
-
-      gsap.set(".studio-header", { opacity: 0, pointerEvents: "none" });
 
       const frameObj = { frame: 0 };
       const tl = gsap.timeline({
@@ -450,17 +448,11 @@ export default function CinematicHero({
           },
           "-=0.6"
         )
-        .to(climaxRef.current, { opacity: 1, y: 0, duration: 1.5 }, "-=1.1")
-        .to(
-          ".studio-header",
-          { opacity: 1, pointerEvents: "auto", duration: 0.8 },
-          "-=0.8"
-        );
+        .to(climaxRef.current, { opacity: 1, y: 0, duration: 1.5 }, "-=1.1");
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      gsap.set(".studio-header", { opacity: 1, pointerEvents: "auto" });
     };
     // ScrollTrigger is created once for this pinned section; refs keep frame drawing current.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -469,7 +461,7 @@ export default function CinematicHero({
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#0e0d0c] overflow-hidden"
+      className="font-hero relative w-full min-h-screen bg-[#0e0d0c] overflow-hidden"
       aria-label="Cinematic canvas hero"
     >
       <div className="sticky top-0 h-[100svh] min-h-[560px] w-full flex items-center justify-center overflow-hidden">
@@ -486,27 +478,20 @@ export default function CinematicHero({
 
         <div
           ref={curtainRef}
-          className="absolute inset-0 z-[15] bg-[#0e0d0c]/64 backdrop-blur-[10px] pointer-events-none"
+          className="absolute inset-0 z-[15] bg-[#0e0d0c]/75 backdrop-blur-[10px] pointer-events-none"
           style={{ clipPath: "inset(100% 0% 0% 0%)", willChange: "clip-path" }}
         />
 
         <div className="relative z-20 h-full w-full">
           <div
             ref={climaxRef}
-            className="absolute inset-0 opacity-0 translate-y-6"
+            className="absolute inset-0 translate-y-6 opacity-0"
           >
             <div className="mx-auto flex h-full w-full max-w-[1380px] flex-col px-5 pb-6 pt-6 sm:px-8 sm:pb-8 sm:pt-8 lg:px-12 lg:pb-10 lg:pt-10">
-              <div className="flex items-center gap-4 sm:gap-6">
-                <span className="shrink-0 font-sans text-xs font-semibold text-[#d6b992] sm:text-sm">
-                  Arun Acharya
-                </span>
-                <span className="h-px flex-1 bg-[#fbfbfa]/16" aria-hidden="true" />
-              </div>
-
-              <div className="grid flex-1 content-center gap-8 py-10 sm:gap-10 sm:py-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.55fr)] lg:items-end lg:gap-16 lg:py-16">
+              <div className="grid flex-1 content-center gap-7 py-8 sm:gap-9 sm:py-10 lg:grid-cols-[minmax(0,1.28fr)_minmax(380px,0.72fr)] lg:items-end lg:gap-12 lg:py-14">
                 <h1
                   aria-label="I build products that people remember."
-                  className="font-grotesk text-[2.25rem] font-semibold leading-[1.02] text-[#fbfbfa] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.75rem] xl:text-[5.5rem] 2xl:text-[6.25rem]"
+                  className="font-grotesk text-[2.25rem] font-semibold leading-[1.02] text-[#fffdf8] [text-shadow:0_3px_28px_rgba(0,0,0,0.72)] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[4.75rem] xl:text-[5.5rem] 2xl:text-[6.25rem]"
                 >
                   <span className="block sm:hidden" aria-hidden="true">
                     <span className="block">I build</span>
@@ -521,18 +506,33 @@ export default function CinematicHero({
                   </span>
                 </h1>
 
-                <div className="max-w-xl border-t border-[#fbfbfa]/18 pt-5 lg:mb-3 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
-                  <p className="font-sans text-sm font-normal leading-7 text-[#fbfbfa]/76 sm:text-base sm:leading-8">
-                    Frontend Developer & Product Builder. Scoping, designing, and engineering high-impact digital experiences that deploy, perform, and endure.
+                <aside
+                  className="max-w-xl border-t border-[#fbfbfa]/30 pt-5 lg:mb-2 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0"
+                  aria-label="Selected proof metrics"
+                >
+                  <p className="font-sans text-sm font-medium leading-7 text-[#fffdf8]/90 [text-shadow:0_2px_16px_rgba(0,0,0,0.78)] sm:text-base sm:leading-8">
+                    Full-Stack Product Engineer. Scoping, designing, and engineering high-impact digital experiences that deploy, perform, and endure.
                   </p>
-                </div>
+                  <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-[10px] border border-[#fffdf8]/20 bg-[#fffdf8]/20" role="list">
+                    {proofMetrics.map((metric) => (
+                      <div key={metric.label} className="bg-[#11100e]/90 px-3 py-3 sm:px-4" role="listitem">
+                        <span className="block font-hero text-2xl leading-none text-[#fffdf8] tabular-nums sm:text-3xl">
+                          {metric.value}<span className="text-[#d6b992]">{metric.suffix}</span>
+                        </span>
+                        <span className="mt-1.5 block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-[#fffdf8]/70 sm:text-xs">
+                          {metric.shortLabel}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </aside>
               </div>
 
-              <div className="flex items-center justify-between gap-6 border-t border-[#fbfbfa]/14 pt-4 sm:pt-5" aria-hidden="true">
-                <span className="font-sans text-[10px] font-medium text-[#fbfbfa]/52 sm:text-xs">
+              <div className="flex items-center justify-between gap-6 border-t border-[#fbfbfa]/30 pt-4 sm:pt-5" aria-hidden="true">
+                <span className="font-sans text-[10px] font-semibold text-[#fffdf8]/80 [text-shadow:0_2px_12px_rgba(0,0,0,0.75)] sm:text-xs">
                   Scroll to explore work
                 </span>
-                <div className="relative h-px w-16 overflow-hidden bg-[#fbfbfa]/16 sm:w-24">
+                <div className="relative h-px w-16 overflow-hidden bg-[#fbfbfa]/30 sm:w-24">
                   <div className="absolute inset-0 bg-[#d6b992]/70 animate-scroll-indicator" />
                 </div>
               </div>

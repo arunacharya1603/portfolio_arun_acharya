@@ -10,6 +10,10 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
+    "@fontsource/fredoka": "^5.2.10",
+    "@fontsource/nothing-you-could-do": "^5.2.7",
+    "@fontsource/poetsen-one": "^5.2.7",
+    "@fontsource/varela-round": "^5.2.8",
     "@react-three/drei": "^9.105.4",
     "@react-three/fiber": "^8.16.2",
     "@sentry/nextjs": "^7.105.0",

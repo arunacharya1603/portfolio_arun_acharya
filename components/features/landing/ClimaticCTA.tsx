@@ -144,7 +144,7 @@ export default function ClimaticCTA() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-svh bg-[#0e0d0c] py-32 lg:py-40 flex flex-col items-center justify-center"
+      className="relative flex min-h-svh flex-col items-center justify-center bg-[#0e0d0c] py-32 lg:py-40"
       aria-label="Get in touch"
     >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 w-full">
@@ -162,7 +162,7 @@ export default function ClimaticCTA() {
         {/* ---- Headline — word by word reveal ---- */}
         <h2
           ref={headlineRef}
-          className="font-grotesk text-[clamp(2.5rem,7vw,7rem)] font-semibold uppercase leading-[0.82] text-[#fbfbfa] text-center flex flex-wrap justify-center gap-x-[0.3em] gap-y-2"
+          className="flex flex-wrap justify-center gap-x-[0.3em] gap-y-2 text-center font-heading text-[clamp(2.5rem,7vw,7rem)] uppercase leading-[0.86] text-[#fbfbfa]"
         >
           {headlineWords.map((word, i) => (
             <span key={i} className="inline-block overflow-hidden">
@@ -220,12 +220,13 @@ export default function ClimaticCTA() {
 
         {/* ---- Contact Form ---- */}
         <motion.form
+          id="contact"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
           onSubmit={handleSubmit}
-          className="max-w-2xl mx-auto mt-16 space-y-6"
+          className="mx-auto mt-16 max-w-2xl space-y-6"
           aria-label="Contact form"
         >
           {/* Name & Email */}

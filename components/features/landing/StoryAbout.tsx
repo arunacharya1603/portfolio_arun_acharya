@@ -3,42 +3,55 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BookOpen, Handshake, Lightbulb, Rocket, Search, Wrench } from "lucide-react";
 
 const chapters = [
   {
     num: "01",
     title: "Curiosity",
+    signal: "Questions before answers",
+    icon: Search,
     text: "Started by breaking things apart and wondering how they worked. Every website was a puzzle to reverse-engineer.",
   },
   {
     num: "02",
     title: "Learning",
+    signal: "Self-taught foundation",
+    icon: BookOpen,
     text: "Dove into React, TypeScript, and the modern web stack. Built projects that nobody asked for, just to understand the craft.",
   },
   {
     num: "03",
     title: "Building",
+    signal: "Ideas into interfaces",
+    icon: Wrench,
     text: "Shipped products for startups, agencies, and personal ideas. Each build taught something no tutorial could.",
   },
   {
     num: "04",
     title: "Freelancing",
+    signal: "Ownership with clients",
+    icon: Handshake,
     text: "Turned skills into a service. Started delivering real business value for clients with tight timelines and high expectations.",
   },
   {
     num: "05",
     title: "Shipping",
+    signal: "11+ launches and counting",
+    icon: Rocket,
     text: "11+ products launched. Landing pages, dashboards, marketplaces, MVPs. Each one pushed the standard higher.",
   },
   {
     num: "06",
     title: "Solving",
+    signal: "Business-first execution",
+    icon: Lightbulb,
     text: "Now I solve business problems through clean architecture, beautiful interfaces, and code that performs.",
   },
 ];
 
 const CHAPTER_COUNT = chapters.length;
-const DESKTOP_SCROLL_PER_CHAPTER_VH = 118;
+const DESKTOP_SCROLL_PER_CHAPTER = 1.35;
 
 export default function StoryAbout() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -64,10 +77,11 @@ export default function StoryAbout() {
           id: "story-trigger",
           trigger: sectionRef.current,
           start: "top top",
-          end: `+=${CHAPTER_COUNT * DESKTOP_SCROLL_PER_CHAPTER_VH}vh`,
+          // ScrollTrigger treats relative unit strings inconsistently; calculate real pixels.
+          end: () => `+=${window.innerHeight * CHAPTER_COUNT * DESKTOP_SCROLL_PER_CHAPTER}`,
           pin: true,
           pinSpacing: true,
-          scrub: 0.55,
+          scrub: 0.9,
           anticipatePin: 1,
           invalidateOnRefresh: true,
           refreshPriority: 5, // Lower priority than CinematicHero (10), higher than ProjectShowcase (3)
@@ -125,53 +139,68 @@ export default function StoryAbout() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col min-h-[100svh] max-w-[1480px] mx-auto px-4 sm:px-6 py-28 sm:py-32 lg:py-40">
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1480px] flex-col px-4 py-20 sm:px-6 sm:py-24 lg:py-24 xl:py-28">
         {/* Eyebrow */}
-        <span className="text-xs uppercase tracking-[0.24em] text-[#bfa17f] font-sans mb-16 lg:mb-24 block">
+        <span className="mb-10 block font-sans text-xs uppercase tracking-[0.24em] text-[#bfa17f] lg:mb-8">
           The Story
         </span>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col lg:flex-row gap-12 lg:gap-20">
+        <div className="grid flex-1 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.6fr)] lg:gap-16">
           
           {/* Left Side: Chapters (65%) */}
-          <div className="w-full lg:w-[65%] flex flex-col justify-center relative min-h-[400px] lg:min-h-[min(660px,68vh)]">
+          <div className="relative flex min-h-[420px] w-full flex-col justify-center lg:min-h-[min(620px,72vh)]">
             
             {/* Desktop Pinned Chapters (Crossfade) */}
             <div className="hidden lg:block absolute inset-0">
               {chapters.map((chapter, index) => {
                 const isActive = index === activeIndex;
                 const isPast = index < activeIndex;
+                const ChapterIcon = chapter.icon;
                 return (
                   <div
                     key={chapter.num}
-                    className="absolute inset-y-0 left-0 w-full flex flex-col justify-center transition-all duration-700"
+                    className="absolute inset-y-0 left-0 flex w-full flex-col justify-center transition-all duration-1000"
                     style={{
                       opacity: isActive ? 1 : 0,
+                      filter: isActive ? "blur(0px)" : "blur(8px)",
                       transform: isActive
                         ? "translateY(0px) scale(1)"
                         : isPast
-                        ? "translateY(-30px) scale(0.95)"
-                        : "translateY(30px) scale(0.95)",
+                        ? "translateY(-40px) scale(0.98)"
+                        : "translateY(40px) scale(0.98)",
                       pointerEvents: isActive ? "auto" : "none",
                       transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
                     }}
                   >
+                    {/* Chapter context */}
+                    <div className="mb-6 flex max-w-2xl items-center gap-3">
+                      <span className="grid h-11 w-11 place-items-center rounded-[10px] border border-[#bfa17f]/30 bg-[#bfa17f]/10 text-[#d6b992]">
+                        <ChapterIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <span className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-[#fbfbfa]/60">
+                        {chapter.signal}
+                      </span>
+                      <span className="ml-auto font-sans text-xs tabular-nums text-[#fbfbfa]/40">
+                        {chapter.num} / {String(CHAPTER_COUNT).padStart(2, "0")}
+                      </span>
+                    </div>
+
                     {/* Chapter number */}
                     <span
-                      className="block font-grotesk text-[clamp(6rem,15vw,12rem)] font-semibold text-[#fbfbfa]/[0.05] leading-none select-none"
+                      className="block select-none font-grotesk text-[clamp(5rem,11vw,9rem)] font-semibold leading-none text-[#fbfbfa]/[0.06]"
                       aria-hidden="true"
                     >
                       {chapter.num}
                     </span>
 
                     {/* Chapter title */}
-                    <h3 className="font-grotesk text-[clamp(2.5rem,6vw,5rem)] font-semibold uppercase leading-[0.82] text-[#fbfbfa] -mt-6 lg:-mt-12">
+                    <h3 className="-mt-5 font-heading text-[clamp(2.75rem,5.5vw,5.25rem)] uppercase leading-[0.9] text-[#fbfbfa] lg:-mt-9">
                       {chapter.title}
                     </h3>
 
                     {/* Chapter text */}
-                    <p className="mt-8 text-lg leading-8 text-[#fbfbfa]/[0.68] font-sans max-w-xl">
+                    <p className="mt-7 max-w-2xl font-sans text-lg leading-8 text-[#fbfbfa]/75 xl:text-xl xl:leading-9">
                       {chapter.text}
                     </p>
                   </div>
@@ -181,37 +210,52 @@ export default function StoryAbout() {
 
             {/* Mobile Natural Scroll Chapters */}
             <div className="lg:hidden flex flex-col gap-10 sm:gap-12">
-              {chapters.map((chapter, index) => (
-                <div
-                  key={chapter.num}
-                  id={`story-chapter-mobile-${index}`}
-                  className="min-h-[52svh] sm:min-h-[48svh] flex flex-col justify-center py-14 sm:py-16 border-b border-[#fbfbfa]/5 last:border-0"
-                >
-                  <span
-                    className="block font-grotesk text-6xl font-semibold text-[#fbfbfa]/[0.05] leading-none select-none"
-                    aria-hidden="true"
+              {chapters.map((chapter, index) => {
+                const ChapterIcon = chapter.icon;
+
+                return (
+                  <article
+                    key={chapter.num}
+                    id={`story-chapter-mobile-${index}`}
+                    className="flex min-h-[66svh] flex-col justify-center border-b border-[#fbfbfa]/10 py-14 last:border-0 sm:min-h-[60svh] sm:py-16"
                   >
-                    {chapter.num}
-                  </span>
-                  <h3 className="font-grotesk text-3xl font-semibold uppercase leading-none text-[#fbfbfa] mt-2">
-                    {chapter.title}
-                  </h3>
-                  <p className="mt-6 text-base leading-relaxed text-[#fbfbfa]/[0.68] font-sans">
-                    {chapter.text}
-                  </p>
-                </div>
-              ))}
+                    <div className="mb-7 flex items-center gap-3">
+                      <span className="grid h-10 w-10 place-items-center rounded-[10px] border border-[#bfa17f]/30 bg-[#bfa17f]/10 text-[#d6b992]">
+                        <ChapterIcon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#fbfbfa]/60">
+                        {chapter.signal}
+                      </span>
+                      <span className="ml-auto font-sans text-[10px] tabular-nums text-[#fbfbfa]/40">
+                        {chapter.num} / {String(CHAPTER_COUNT).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <span
+                      className="block select-none font-grotesk text-6xl font-semibold leading-none text-[#fbfbfa]/[0.06]"
+                      aria-hidden="true"
+                    >
+                      {chapter.num}
+                    </span>
+                    <h3 className="-mt-1 font-heading text-4xl uppercase leading-none text-[#fbfbfa] sm:text-5xl">
+                      {chapter.title}
+                    </h3>
+                    <p className="mt-6 max-w-xl font-sans text-base leading-7 text-[#fbfbfa]/75 sm:text-lg sm:leading-8">
+                      {chapter.text}
+                    </p>
+                  </article>
+                );
+              })}
             </div>
 
           </div>
 
           {/* Right Side: Progress indicator list (35%) */}
-          <div className="hidden lg:block lg:w-[35%]">
+          <div className="hidden lg:block">
             <div className="h-full flex items-center justify-end">
-              <div className="flex gap-6">
+              <div className="flex w-full gap-5 rounded-[16px] border border-[#fbfbfa]/10 bg-[#fbfbfa]/[0.025] p-5 xl:p-6">
                 
                 {/* Vertical progress line */}
-                <div className="relative w-px h-72 bg-[#fbfbfa]/[0.08]">
+                <div className="relative h-80 w-px bg-[#fbfbfa]/10">
                   <div
                     ref={progressFillRef}
                     className="absolute top-0 left-0 w-full bg-[#bfa17f]/60 transition-all duration-300 ease-out"
@@ -221,7 +265,7 @@ export default function StoryAbout() {
 
                 {/* Chapter list */}
                 <nav
-                  className="flex flex-col justify-between h-72 py-1"
+                  className="flex h-80 flex-1 flex-col justify-between"
                   aria-label="Story chapters"
                 >
                   {chapters.map((chapter, i) => (
@@ -243,15 +287,15 @@ export default function StoryAbout() {
                           el?.scrollIntoView({ behavior: "smooth" });
                         }
                       }}
-                      className={`text-left text-sm font-sans uppercase tracking-[0.12em] transition-colors duration-300 ${
+                      className={`min-h-12 rounded-[8px] px-3 text-left font-sans text-sm uppercase tracking-[0.12em] transition-all duration-300 ${
                         i === activeIndex
-                          ? "text-[#bfa17f]"
-                          : "text-[#fbfbfa]/30 hover:text-[#fbfbfa]/60"
+                          ? "bg-[#bfa17f]/10 text-[#d6b992]"
+                          : "text-[#fbfbfa]/40 hover:bg-[#fbfbfa]/5 hover:text-[#fbfbfa]/75"
                       }`}
                       aria-label={`Chapter ${chapter.num}: ${chapter.title}`}
                       aria-current={i === activeIndex ? "step" : undefined}
                     >
-                      <span className="mr-3 text-[10px] text-[#fbfbfa]/20">
+                      <span className="mr-3 text-[10px] text-[#fbfbfa]/40">
                         {chapter.num}
                       </span>
                       {chapter.title}

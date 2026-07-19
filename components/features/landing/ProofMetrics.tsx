@@ -2,44 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate as animateValue } from "framer-motion";
-
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
-
-interface Metric {
-  value: number;
-  suffix: string;
-  label: string;
-  detail: string;
-}
-
-const metrics: Metric[] = [
-  {
-    value: 11,
-    suffix: "+",
-    label: "Products Shipped",
-    detail: "Landing pages, dashboards, marketplaces, MVPs",
-  },
-  {
-    value: 3,
-    suffix: "y+",
-    label: "Frontend Ownership",
-    detail: "React, Next.js, TypeScript, Tailwind, Motion",
-  },
-  {
-    value: 15,
-    suffix: "+",
-    label: "Clients Served",
-    detail: "Founders, agencies, startups, businesses",
-  },
-  {
-    value: 100,
-    suffix: "%",
-    label: "Delivery Rate",
-    detail: "Clear execution, ownership, and post-launch support",
-  },
-];
+import { proofMetrics, type ProofMetric } from "./proofMetricsData";
 
 const trustBadges: string[] = [
   "Fast Delivery",
@@ -90,7 +53,7 @@ function useCounter(target: number, inView: boolean): number {
 /*  Metric Card sub-component                                          */
 /* ------------------------------------------------------------------ */
 
-function MetricCard({ metric }: { metric: Metric }) {
+function MetricCard({ metric }: { metric: ProofMetric }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const count = useCounter(metric.value, inView);
@@ -172,13 +135,13 @@ export default function ProofMetrics() {
         <p className="text-xs uppercase tracking-[0.24em] text-[#bfa17f] mb-6">
           Proof
         </p>
-        <h2 className="font-grotesk text-[clamp(3rem,8vw,7rem)] font-semibold uppercase leading-[0.82] text-[#fbfbfa]">
+        <h2 className="font-heading text-[clamp(3rem,8vw,7rem)] uppercase leading-[0.86] text-[#fbfbfa]">
           Numbers That Speak
         </h2>
 
         {/* ---- Metrics Grid ---- */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mt-20">
-          {metrics.map((m) => (
+          {proofMetrics.map((m) => (
             <MetricCard key={m.label} metric={m} />
           ))}
         </div>

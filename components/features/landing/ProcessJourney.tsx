@@ -147,7 +147,7 @@ export default function ProcessJourney() {
         <p className="text-xs uppercase tracking-[0.24em] text-[#bfa17f] mb-6">
           The Process
         </p>
-        <h2 className="font-grotesk text-[clamp(3rem,8vw,7rem)] font-semibold uppercase leading-[0.82] text-[#fbfbfa]">
+        <h2 className="font-heading text-[clamp(3rem,8vw,7rem)] uppercase leading-[0.86] text-[#fbfbfa]">
           How I Work
         </h2>
       </div>

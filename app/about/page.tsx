@@ -68,8 +68,8 @@ export default function AboutPage() {
   return (
     <SeoPageShell
       eyebrow="About Arun Acharya"
-      title="Arun Acharya is a frontend developer, UI/UX developer, and Next.js freelancer building polished digital products."
-      description="This page reinforces the personal entity behind the portfolio: Arun's role, project history, service focus, and the relationship between his name, the showcased products, and the services clients hire him for."
+      title="Arun Acharya is a full-stack product engineer focused on frontend systems, UI/UX, and Next.js delivery."
+      description="Explore Arun's role, shipped product work, service focus, and the relationship between his name, the showcased projects, and the outcomes clients hire him to deliver."
     >
       {schemas.map((schema, index) => (
         <script
@@ -102,7 +102,7 @@ export default function AboutPage() {
             ].map((item) => (
               <span
                 key={item}
-                className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-1 text-xs font-semibold text-[#f4efe3]/72"
+                className="rounded-full border border-[#f4efe3]/14 bg-[#f4efe3]/[0.06] px-3 py-1 text-[13px] font-semibold text-[#f4efe3]/80"
               >
                 {item}
               </span>
@@ -137,7 +137,7 @@ export default function AboutPage() {
       </section>
 
       <section className="mt-14">
-        <h2 className="font-grotesk text-3xl font-semibold">
+        <h2 className="font-heading text-4xl leading-tight">
           Projects Arun Acharya is connected to
         </h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -151,7 +151,7 @@ export default function AboutPage() {
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">
                 {project.name}
               </h3>
-              <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
+              <p className={`mt-3 text-base leading-7 ${seoMutedTextClass}`}>
                 {project.description}
               </p>
             </Link>
