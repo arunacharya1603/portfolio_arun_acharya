@@ -64,6 +64,7 @@ import {
 } from "./features/landing";
 import { workProjects, type WorkProject } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
+import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
 import { SiteActionBar } from "./SiteActionBar";
 import { SiteHeader } from "./SiteHeader";
 
@@ -654,7 +655,7 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
                 fill
                 priority
                 sizes="(min-width: 1280px) 72rem, 100vw"
-                className="object-cover"
+                className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
               />
             </div>
             <figcaption className="mt-5 grid gap-3 border-l border-[#d8c4a4]/50 pl-4 text-sm leading-7 text-[#f4efe3]/72 sm:grid-cols-[7rem_minmax(0,1fr)]">
@@ -1172,7 +1173,9 @@ function ProjectImage({
         fill
         priority={priority}
         sizes="(min-width: 1280px) 44vw, (min-width: 768px) 50vw, 100vw"
-        className="object-cover opacity-90 transition duration-700 group-hover:scale-[1.035]"
+        className={`opacity-90 transition duration-700 group-hover:scale-[1.035] ${
+          project.imageFit === "contain" ? "object-contain" : "object-cover"
+        }`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c09] via-[#0d0c09]/10 to-transparent" />
       <span className="absolute inset-y-0 left-0 w-px origin-top scale-y-0 bg-[#f4efe3] transition duration-700 group-hover:scale-y-100" />
@@ -1613,23 +1616,32 @@ function ContactForm() {
     "MVP",
   ];
   const [projectType, setProjectType] = useState(projectTypes[0]);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const body = [
-      `Name: ${data.get("name") ?? ""}`,
-      `Email: ${data.get("email") ?? ""}`,
-      `Project type: ${data.get("projectType") ?? projectType}`,
-      `Budget range: ${data.get("budget") ?? ""}`,
-      `Timeline: ${data.get("timeline") ?? ""}`,
-      "",
-      `Message: ${data.get("message") ?? ""}`,
-    ].join("\n");
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setSubmitStatus("submitting");
 
-    window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
-      "Project inquiry from portfolio"
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      await submitProjectInquiry({
+        source: "portfolio-contact",
+        name: String(data.get("name") ?? ""),
+        email: String(data.get("email") ?? ""),
+        projectType: String(data.get("projectType") ?? projectType),
+        budget: String(data.get("budget") ?? "Not specified"),
+        timeline: String(data.get("timeline") ?? "Not specified"),
+        message: String(data.get("message") ?? ""),
+      });
+      form.reset();
+      setProjectType(projectTypes[0]);
+      setSubmitStatus("success");
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -1719,13 +1731,32 @@ function ContactForm() {
         />
       </label>
 
-      <button
-        type="submit"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-6 py-4 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
-      >
-        Send Message
-        <Send className="h-4 w-4" />
-      </button>
+      <div className="space-y-3">
+        <p
+          aria-live="polite"
+          className={`text-sm ${
+            submitStatus === "error"
+              ? "text-red-300"
+              : submitStatus === "success"
+                ? "text-emerald-300"
+                : "text-[#f4efe3]/58"
+          }`}
+        >
+          {submitStatus === "success"
+            ? "Message saved. I’ll get back to you soon."
+            : submitStatus === "error"
+              ? "Couldn’t save your message. Please try again."
+              : "Your project details are saved for follow-up."}
+        </p>
+        <button
+          type="submit"
+          disabled={submitStatus === "submitting"}
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-6 py-4 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] disabled:cursor-wait disabled:opacity-60"
+        >
+          {submitStatus === "submitting" ? "Saving..." : "Send Message"}
+          <Send className="h-4 w-4" />
+        </button>
+      </div>
     </form>
   );
 }

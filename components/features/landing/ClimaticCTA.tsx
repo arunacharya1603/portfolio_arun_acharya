@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight, AtSign, Github, Linkedin, Send } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -70,6 +71,9 @@ export default function ClimaticCTA() {
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
   /* ---- GSAP word reveal ---- */
   useLayoutEffect(() => {
@@ -116,25 +120,24 @@ export default function ClimaticCTA() {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitStatus("submitting");
 
-    const subject = encodeURIComponent(
-      `Project Inquiry: ${formData.projectType || "General"}`
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${formData.name}`,
-        `Email: ${formData.email}`,
-        `Project Type: ${formData.projectType || "Not specified"}`,
-        `Budget: ${formData.budget || "Not specified"}`,
-        "",
-        `Message:`,
-        formData.message,
-      ].join("\n")
-    );
-
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
+    try {
+      await submitProjectInquiry({
+        source: "homepage-contact",
+        name: formData.name,
+        email: formData.email,
+        projectType: formData.projectType || "Not specified",
+        budget: formData.budget || "Not specified",
+        message: formData.message,
+      });
+      setFormData(initialFormData);
+      setSubmitStatus("success");
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   /* ---- Shared input styles ---- */
@@ -295,12 +298,29 @@ export default function ClimaticCTA() {
           />
 
           {/* Submit */}
-          <div className="flex justify-end">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p
+              aria-live="polite"
+              className={`text-sm ${
+                submitStatus === "error"
+                  ? "text-red-300"
+                  : submitStatus === "success"
+                    ? "text-emerald-300"
+                    : "text-[#fbfbfa]/45"
+              }`}
+            >
+              {submitStatus === "success"
+                ? "Message saved. I’ll get back to you soon."
+                : submitStatus === "error"
+                  ? "Couldn’t save your message. Please try again."
+                  : "Your details are saved securely for follow-up."}
+            </p>
             <button
               type="submit"
-              className="inline-flex items-center gap-2.5 bg-[#fbfbfa] text-[#0e0d0c] rounded-full px-7 py-4 text-sm font-semibold hover:bg-[#bfa17f] transition-colors"
+              disabled={submitStatus === "submitting"}
+              className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#fbfbfa] px-7 py-4 text-sm font-semibold text-[#0e0d0c] transition-colors hover:bg-[#bfa17f] disabled:cursor-wait disabled:opacity-60"
             >
-              Send Message
+              {submitStatus === "submitting" ? "Saving..." : "Send Message"}
               <Send className="w-4 h-4" />
             </button>
           </div>

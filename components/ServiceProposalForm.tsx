@@ -6,6 +6,7 @@ import { useState, type FormEvent } from "react";
 import type { ServiceProposal } from "@/data/service-proposals";
 import type { SeoServicePage } from "@/data/seo-content";
 import { siteConfig } from "@/lib/site";
+import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
 
 const inputClass =
   "mt-2 w-full rounded-[7px] border border-[#f4efe3]/14 bg-[#090806] px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/34 focus:border-[#d8c4a4]/75 focus:ring-2 focus:ring-[#d8c4a4]/10";
@@ -47,37 +48,49 @@ export function ServiceProposalForm({
   const [selectedPackage, setSelectedPackage] = useState(
     proposal.packages.find((item) => item.recommended)?.name ?? proposal.packages[0].name
   );
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject = `${service.navLabel} proposal request from ${data.get("name") || "a new client"}`;
-    const body = [
-      `Service: ${service.navLabel}`,
-      `Preferred engagement: ${data.get("package") || selectedPackage}`,
-      "",
-      `Name: ${data.get("name") || ""}`,
-      `Email: ${data.get("email") || ""}`,
-      `Company / product: ${data.get("company") || "Not provided"}`,
-      `Current website: ${data.get("website") || "Not provided"}`,
-      `Project stage: ${data.get("stage") || ""}`,
-      `Budget: ${data.get("budget") || ""}`,
-      `Timeline: ${data.get("timeline") || ""}`,
-      `Preferred connection: ${data.get("connection") || ""}`,
-      "",
-      "Primary goal:",
-      `${data.get("goal") || ""}`,
-      "",
-      "Requirements / current blockers:",
-      `${data.get("requirements") || ""}`,
-      "",
-      "References:",
-      `${data.get("references") || "Not provided"}`,
-    ].join("\n");
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const goal = String(data.get("goal") || "");
+    const requirements = String(data.get("requirements") || "");
+    const references = String(data.get("references") || "Not provided");
+    setSubmitStatus("submitting");
 
-    window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    try {
+      await submitProjectInquiry({
+        source: `service-proposal:${service.slug}`,
+        service: service.navLabel,
+        package: String(data.get("package") || selectedPackage),
+        name: String(data.get("name") || ""),
+        email: String(data.get("email") || ""),
+        company: String(data.get("company") || "Not provided"),
+        website: String(data.get("website") || "Not provided"),
+        stage: String(data.get("stage") || "Not provided"),
+        budget: String(data.get("budget") || "Not provided"),
+        timeline: String(data.get("timeline") || "Not provided"),
+        connection: String(data.get("connection") || "Email"),
+        goal,
+        requirements,
+        references,
+        message: [
+          goal,
+          `Requirements / blockers: ${requirements}`,
+          `References: ${references}`,
+        ].join("\n\n"),
+      });
+      form.reset();
+      setSelectedPackage(
+        proposal.packages.find((item) => item.recommended)?.name ?? proposal.packages[0].name
+      );
+      setSubmitStatus("success");
+    } catch {
+      setSubmitStatus("error");
+    }
   };
 
   return (
@@ -198,14 +211,28 @@ export function ServiceProposalForm({
       </label>
 
       <div className="flex flex-col gap-3 border-t border-[#f4efe3]/12 pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-md text-xs leading-5 text-[#f4efe3]/48">
-          Submitting opens your email app with this brief already structured. Nothing is sent until you review and send it.
+        <p
+          aria-live="polite"
+          className={`max-w-md text-xs leading-5 ${
+            submitStatus === "error"
+              ? "text-red-300"
+              : submitStatus === "success"
+                ? "text-emerald-300"
+                : "text-[#f4efe3]/48"
+          }`}
+        >
+          {submitStatus === "success"
+            ? "Proposal saved. I’ll review it and reply with the next step."
+            : submitStatus === "error"
+              ? "Couldn’t save the proposal. Please try again."
+              : "Submitting saves this brief so it can be reviewed and followed up."}
         </p>
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 rounded-[7px] bg-[#f4efe3] px-5 py-3.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
+          disabled={submitStatus === "submitting"}
+          className="inline-flex items-center justify-center gap-2 rounded-[7px] bg-[#f4efe3] px-5 py-3.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] disabled:cursor-wait disabled:opacity-60"
         >
-          Request a scoped proposal
+          {submitStatus === "submitting" ? "Saving..." : "Request a scoped proposal"}
           <Send className="h-4 w-4" />
         </button>
       </div>

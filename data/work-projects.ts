@@ -17,6 +17,7 @@ export type WorkProject = {
   problem: string;
   features: string[];
   image: string;
+  imageFit?: "cover" | "contain";
   href: string;
   externalUrl?: string;
   applicationCategory?: string;
@@ -28,6 +29,151 @@ export type WorkProject = {
 };
 
 export const workProjects: WorkProject[] = [
+  {
+    slug: "chainreach-ai",
+    name: "ChainReach.ai - Creator and Brand Campaign Platform",
+    shortName: "Chainreach.ai",
+    status: "Live Product",
+    timeline: "Jan 2026 - Present",
+    role: "Frontend Developer",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    impact: "A large-scale creator-brand platform with dashboards, campaign flows, negotiation, and AI-assisted creation.",
+    description:
+      "Developed frontend modules for a creator-brand platform with multi-role workflows for brands, creators, and admin users.",
+    problem:
+      "The platform needed clean frontend workflows for brands, creators, and admins while connecting campaign modules with backend APIs.",
+    features: [
+      "Brand dashboards",
+      "Creator workflows",
+      "Campaign creation",
+      "Negotiation screens",
+      "AI-assisted campaign generation",
+      "Global AI chat UI",
+    ],
+    image: "/image/chainreach-thumbnail.png",
+    imageFit: "contain",
+    href: "/work/chainreach-ai",
+    externalUrl: "https://chainreach.ai/",
+    applicationCategory: "BusinessApplication",
+    overview:
+      "ChainReach.ai is a creator and brand campaign platform with multi-role product surfaces. The frontend work covered dashboards, campaign creation, creator acceptance flows, negotiation screens, AI-assisted campaign generation, and global AI chat UI.",
+    whatIDid: [
+      "Developed frontend for brand, creator, and admin workflows.",
+      "Developed responsive dashboards and campaign creation flows.",
+      "Developed creator campaign acceptance flows and negotiation screens.",
+      "Implemented AI-assisted campaign generation interfaces.",
+      "Implemented global AI chat UI and connected frontend modules with backend APIs.",
+    ],
+    howIDid: [
+      "Used Next.js, TypeScript, and Tailwind CSS for a reusable component-based frontend architecture.",
+      "Connected frontend modules with backend APIs while keeping the UI system clean and maintainable.",
+      "Used reusable UI systems, custom components, code splitting, Git workflows, and feedback-based product iteration.",
+      "Handled the platform as a multi-role workflow system instead of a set of isolated pages.",
+    ],
+    challenges: [
+      {
+        title: "Multi-role product complexity",
+        challenge:
+          "Brands, creators, and admins each needed separate workflows inside one platform.",
+        tackle:
+          "I structured the frontend around reusable components and workflow-specific surfaces so each role could move through the product clearly.",
+      },
+      {
+        title: "Campaign and negotiation depth",
+        challenge:
+          "The platform needed campaign creation, acceptance, and negotiation screens without becoming messy.",
+        tackle:
+          "I built dedicated campaign flows and negotiation interfaces, then iterated with product feedback to keep the UI practical.",
+      },
+      {
+        title: "AI modules inside product UI",
+        challenge:
+          "AI-assisted campaign generation and global AI chat needed to feel integrated, not bolted on.",
+        tackle:
+          "I connected the AI interfaces with backend APIs and kept them inside the same reusable frontend system as the rest of the product.",
+      },
+    ],
+    outcomes: [
+      "Delivered frontend surfaces for a live creator-brand platform.",
+      "Supported brand, creator, and admin workflows.",
+      "Developed AI-assisted generation, global chat, campaign flows, dashboards, and negotiation screens.",
+    ],
+  },
+  {
+    slug: "pivotal-physiocare",
+    name: "Pivotal Physiocare - Home Physiotherapy Website",
+    shortName: "Pivotal Physiocare",
+    status: "Live Product",
+    timeline: "2026",
+    role: "Frontend / Full-Stack Developer",
+    stack: ["Next.js", "Responsive UI", "Local SEO"],
+    impact: "A conversion-focused home physiotherapy website combining local discovery, clinical trust, and direct booking.",
+    description:
+      "Built a responsive healthcare website for Pivotal Physiocare, presenting home physiotherapy across Greater Noida and Noida through expert-led care, patient recovery stories, service pages, and direct home-visit booking.",
+    problem:
+      "The practice needed a trustworthy digital experience that explained its care clearly and helped patients or families move from local discovery to a confident home-visit enquiry.",
+    features: [
+      "Home-visit booking flow",
+      "Care and service discovery",
+      "Expert physiotherapist profiles",
+      "Real treatment gallery",
+      "Patient recovery stories",
+      "Location-focused pages",
+      "Call and contact actions",
+    ],
+    image: "/image/pivotal-physiocare-thumbnail.png",
+    imageFit: "contain",
+    href: "/work/pivotal-physiocare",
+    externalUrl: "https://www.pivotalphysiocare.com/",
+    applicationCategory: "HealthApplication",
+    overview:
+      "Pivotal Physiocare is a live patient-enquiry website for personal home physiotherapy in Greater Noida and Noida. The experience combines expert-led credibility, real treatment moments, patient recovery journeys, care information, location coverage, and direct home-visit actions in one responsive flow.",
+    whatIDid: [
+      "Built the responsive public website and its patient-focused content hierarchy.",
+      "Created a conversion-led hero with direct home-visit planning and call actions.",
+      "Structured care, expert, location, resource, and contact paths for fast discovery.",
+      "Presented 4.9-rated proof, 5,000+ patients supported, and a consistent two-expert care team.",
+      "Built real-care gallery and patient-story sections around ten recovery journeys.",
+      "Connected local service discovery with direct phone, contact, and booking paths.",
+    ],
+    howIDid: [
+      "Used Next.js for a component-based, responsive website foundation.",
+      "Designed the flow around a clear patient journey: trust, care options, proof, recovery stories, and enquiry.",
+      "Balanced clinical credibility with calm, human photography and accessible language.",
+      "Used service and location architecture to support discovery across Greater Noida and Noida.",
+      "Kept high-intent actions visible through home-visit, call, and contact controls across screen sizes.",
+    ],
+    challenges: [
+      {
+        title: "Healthcare trust without a clinical feel",
+        challenge:
+          "The website needed to communicate professional expertise while still feeling calm, personal, and reassuring to patients and families.",
+        tackle:
+          "I combined named expert care, real treatment imagery, patient outcomes, clear proof points, and approachable language throughout the journey.",
+      },
+      {
+        title: "Many recovery needs, one clear journey",
+        challenge:
+          "Visitors arrive with different needs including orthopedic, neurological, post-surgery, geriatric, pediatric, cardiopulmonary, and pain-management care.",
+        tackle:
+          "I organized the service architecture around scannable care paths while keeping home-visit planning as the consistent next action.",
+      },
+      {
+        title: "Local discovery into direct enquiry",
+        challenge:
+          "The product needed to support local search intent and quickly convert it into a phone call or home-visit request.",
+        tackle:
+          "I connected Greater Noida and Noida coverage, location pages, service pages, persistent contact controls, and direct booking actions.",
+      },
+    ],
+    outcomes: [
+      "Delivered a live responsive website at pivotalphysiocare.com.",
+      "Created direct home-visit planning, phone, and contact conversion paths.",
+      "Presented 5,000+ patients supported, 4.9-rated care, and two expert physiotherapists.",
+      "Showcased ten patient recovery journeys and real treatment moments.",
+      "Supported local service discovery across Greater Noida and Noida.",
+    ],
+  },
   {
     slug: "heyclo-clo-ai",
     name: "HeyClo / CLO AI - Animated Product Landing Page",
@@ -87,75 +233,6 @@ export const workProjects: WorkProject[] = [
       "Delivered a live animated product landing page.",
       "Created a smooth scrolling product storytelling experience.",
       "Improved responsiveness, animation behavior, loading quality, and Lighthouse checks.",
-    ],
-  },
-  {
-    slug: "chainreach-ai",
-    name: "ChainReach.ai - Creator and Brand Campaign Platform",
-    shortName: "Chainreach.ai",
-    status: "Live Product",
-    timeline: "Jan 2026 - Present",
-    role: "Frontend Developer",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    impact: "A large-scale creator-brand platform with dashboards, campaign flows, negotiation, and AI-assisted creation.",
-    description:
-      "Developed frontend modules for a creator-brand platform with multi-role workflows for brands, creators, and admin users.",
-    problem:
-      "The platform needed clean frontend workflows for brands, creators, and admins while connecting campaign modules with backend APIs.",
-    features: [
-      "Brand dashboards",
-      "Creator workflows",
-      "Campaign creation",
-      "Negotiation screens",
-      "AI-assisted campaign generation",
-      "Global AI chat UI",
-    ],
-    image: "/image/chainreach.png",
-    href: "/work/chainreach-ai",
-    externalUrl: "https://chainreach.ai/",
-    applicationCategory: "BusinessApplication",
-    overview:
-      "ChainReach.ai is a creator and brand campaign platform with multi-role product surfaces. The frontend work covered dashboards, campaign creation, creator acceptance flows, negotiation screens, AI-assisted campaign generation, and global AI chat UI.",
-    whatIDid: [
-      "Developed frontend for brand, creator, and admin workflows.",
-      "Developed responsive dashboards and campaign creation flows.",
-      "Developed creator campaign acceptance flows and negotiation screens.",
-      "Implemented AI-assisted campaign generation interfaces.",
-      "Implemented global AI chat UI and connected frontend modules with backend APIs.",
-    ],
-    howIDid: [
-      "Used Next.js, TypeScript, and Tailwind CSS for a reusable component-based frontend architecture.",
-      "Connected frontend modules with backend APIs while keeping the UI system clean and maintainable.",
-      "Used reusable UI systems, custom components, code splitting, Git workflows, and feedback-based product iteration.",
-      "Handled the platform as a multi-role workflow system instead of a set of isolated pages.",
-    ],
-    challenges: [
-      {
-        title: "Multi-role product complexity",
-        challenge:
-          "Brands, creators, and admins each needed separate workflows inside one platform.",
-        tackle:
-          "I structured the frontend around reusable components and workflow-specific surfaces so each role could move through the product clearly.",
-      },
-      {
-        title: "Campaign and negotiation depth",
-        challenge:
-          "The platform needed campaign creation, acceptance, and negotiation screens without becoming messy.",
-        tackle:
-          "I built dedicated campaign flows and negotiation interfaces, then iterated with product feedback to keep the UI practical.",
-      },
-      {
-        title: "AI modules inside product UI",
-        challenge:
-          "AI-assisted campaign generation and global AI chat needed to feel integrated, not bolted on.",
-        tackle:
-          "I connected the AI interfaces with backend APIs and kept them inside the same reusable frontend system as the rest of the product.",
-      },
-    ],
-    outcomes: [
-      "Delivered frontend surfaces for a live creator-brand platform.",
-      "Supported brand, creator, and admin workflows.",
-      "Developed AI-assisted generation, global chat, campaign flows, dashboards, and negotiation screens.",
     ],
   },
   {

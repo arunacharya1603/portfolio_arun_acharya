@@ -103,7 +103,7 @@ export default function ProjectShowcase() {
                       src={project.image}
                       alt={`${project.name} preview`}
                       fill
-                      className="object-cover"
+                      className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
                       sizes="50vw"
                       priority={i === 0}
                     />
@@ -182,7 +182,7 @@ export default function ProjectShowcase() {
                     src={project.image}
                     alt={project.name}
                     fill
-                    className="object-cover"
+                    className={project.imageFit === "contain" ? "object-contain" : "object-cover"}
                     sizes="100vw"
                   />
                 </div>
