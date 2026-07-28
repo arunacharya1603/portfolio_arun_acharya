@@ -97,12 +97,16 @@ type PackageItem = {
 };
 
 type ExperienceItem = {
-  title: string;
+  company: string;
+  product: string;
+  context: string;
+  role: string;
   period: string;
-  focus: string;
-  details: string;
+  location: string;
+  stack: string[];
+  summary: string;
+  highlights: string[];
 };
-
 const navItems = [
   { name: "Work", href: "/work" },
   { name: "About", href: "/about" },
@@ -251,28 +255,54 @@ const processSteps = [
 
 const experience: ExperienceItem[] = [
   {
-    title: "Frontend Developer & Marketing Lead at Persist Ventures",
-    period: "2022-2026",
-    focus: "Product frontend, marketing systems, launch support",
-    details:
-      "Built SoundOfMeme platform surfaces, led weekly Twitter live sessions, created LinkedIn marketing videos, conducted college outreach, implemented playlist features, Excel export, and server load testing for 1000+ songs.",
+    company: "Persist Ventures",
+    product: "Sound Of Meme",
+    context: "AI Music Generation Platform",
+    role: "Lead Frontend Developer",
+    period: "Nov 2024 - Dec 2025",
+    location: "Remote",
+    stack: ["React.js", "Redux", "Tailwind CSS"],
+    summary:
+      "Led frontend development from scratch for an AI-powered music generation product, establishing reusable architecture and production-ready user flows.",
+    highlights: [
+      "Built the core music player and user-facing AI song generation experience with responsive layouts and smooth interactions.",
+      "Reduced the production bundle from approximately 8 MB to 2 MB through lazy loading, route-level code splitting, shared components, and rendering optimization.",
+      "Implemented SEO-focused architecture, structured content, and more than 25 blog pages to strengthen organic visibility.",
+    ],
   },
   {
-    title: "Frontend Engineer at Bump FM",
-    period: "2022-2026",
-    focus: "Social audio UX, playlist systems, performance",
-    details:
-      "Developed persistent playlist management with CRUD operations, sidebar integration, optimized UI/UX, and performance improvements for repeat listening flows.",
+    company: "Persist Ventures",
+    product: "ChainReach.ai",
+    context: "Creator and Brand Campaign Platform",
+    role: "Frontend Developer",
+    period: "Jan 2026 - Present",
+    location: "Remote",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    summary:
+      "Builds the frontend for a large-scale creator-brand platform with connected workflows for brands, creators, and administrators.",
+    highlights: [
+      "Developed responsive dashboards, campaign creation, creator acceptance, negotiation, and AI-assisted campaign generation flows.",
+      "Implemented a global AI chat interface and integrated frontend modules with backend APIs.",
+      "Maintains reusable component systems, code-splitting practices, Git workflows, and feedback-led product iteration.",
+    ],
   },
   {
-    title: "Freelance Full-Stack Developer",
-    period: "2022-2026",
-    focus: "Strategy, UI/UX, full-stack delivery, Vercel deployment",
-    details:
-      "Built portfolio websites and web applications for clients, managed projects from concept to deployment, and shipped products with practical end-to-end ownership.",
+    company: "Persist Ventures",
+    product: "HeyClo / CLO AI",
+    context: "Animated Product Landing Page",
+    role: "Frontend / Framer Developer",
+    period: "Mar 2026 - Present",
+    location: "Remote",
+    stack: ["Framer", "Lenis", "Responsive UI"],
+    summary:
+      "Develops a fully animated product landing page with smooth scrolling, responsive layouts, and polished product storytelling.",
+    highlights: [
+      "Created fluid motion and screen-friendly sections with Framer and Lenis across desktop and mobile devices.",
+      "Refined loading, responsiveness, and interaction behavior for a premium browsing experience.",
+      "Improved key Lighthouse quality checks into the 80-90+ range through ongoing performance testing and iteration.",
+    ],
   },
 ];
-
 const techStack = [
   "React",
   "Next.js",
@@ -523,8 +553,8 @@ export function ExperiencePageContent() {
     <PortfolioScaffold>
       <PageHero
         eyebrow="Experience"
-        title="Career highlights across product, frontend, marketing, and client delivery."
-        copy="The timeline shows Arun as more than a coder: product thinking, marketing loops, user experience, performance, and end-to-end ownership."
+        title="Frontend engineering across AI music, creator-brand workflows, and animated products."
+        copy="Since November 2024, Arun has built production interfaces at Persist Ventures with ownership across React architecture, Next.js product workflows, performance, API integration, motion, and responsive delivery."
       />
       <ExperienceTimeline />
       <PageCta />
@@ -1274,27 +1304,77 @@ function ExperienceTimeline() {
   return (
     <section className="px-4 py-12 sm:px-6 lg:py-16">
       <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex flex-col gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-200">
+              Professional experience
+            </p>
+            <h2 className="mt-3 font-grotesk text-3xl font-semibold text-white sm:text-4xl">
+              Persist Ventures
+            </h2>
+          </div>
+          <div className="text-sm leading-6 text-slate-400 sm:text-right">
+            <p>Frontend Engineer / Lead Frontend Developer</p>
+            <p>Remote | Nov 2024 - Present</p>
+          </div>
+        </div>
+
         <div className="relative">
           <div className="absolute left-5 top-4 hidden h-[calc(100%-2rem)] w-px bg-white/12 md:block" />
-          <div className="space-y-5">
+          <div className="space-y-6">
             {experience.map((item, index) => (
-              <Reveal key={item.title} delay={index * 0.08}>
-                <article className="relative rounded-lg border border-white/10 bg-white/[0.045] p-5 md:ml-14 md:p-6">
-                  <span className="absolute -left-[3.25rem] top-6 hidden h-10 w-10 items-center justify-center rounded-full border border-cyan-300/25 bg-[#07101d] text-sm font-bold text-cyan-100 md:flex">
-                    {index + 1}
+              <Reveal key={item.product} delay={index * 0.08}>
+                <article className="relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.045] p-5 transition hover:border-cyan-300/25 md:ml-14 md:p-7">
+                  <span className="absolute -left-[3.25rem] top-7 hidden h-10 w-10 items-center justify-center rounded-full border border-cyan-300/25 bg-[#07101d] text-sm font-bold text-cyan-100 md:flex">
+                    {String(index + 1).padStart(2, "0")}
                   </span>
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div>
-                      <p className="text-sm font-semibold text-cyan-200">{item.period}</p>
-                      <h2 className="mt-2 font-grotesk text-2xl font-semibold text-white">
-                        {item.title}
-                      </h2>
+
+                  <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="max-w-3xl">
+                      <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-cyan-200">
+                        <span>{item.period}</span>
+                        <span className="text-white/20">/</span>
+                        <span className="text-slate-400">{item.location}</span>
+                      </div>
+                      <p className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+                        {item.company}
+                      </p>
+                      <h3 className="mt-2 font-grotesk text-2xl font-semibold text-white sm:text-3xl">
+                        {item.product}
+                      </h3>
+                      <p className="mt-1 text-sm font-medium text-slate-400">{item.context}</p>
                     </div>
-                    <span className="w-fit rounded-full border border-emerald-300/25 bg-emerald-300/10 px-3 py-1 text-[13px] font-bold text-emerald-100">
-                      {item.focus}
+                    <span className="w-fit rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs font-bold text-emerald-100">
+                      {item.role}
                     </span>
                   </div>
-                  <p className="mt-4 text-base leading-7 text-slate-200">{item.details}</p>
+
+                  <p className="mt-6 max-w-4xl text-base leading-7 text-slate-200">
+                    {item.summary}
+                  </p>
+
+                  <ul className="mt-6 grid gap-3 lg:grid-cols-3">
+                    {item.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex gap-3 rounded-lg border border-white/8 bg-black/10 p-4 text-sm leading-6 text-slate-300"
+                      >
+                        <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-cyan-200" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {item.stack.map((technology) => (
+                      <span
+                        key={technology}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-slate-300"
+                      >
+                        {technology}
+                      </span>
+                    ))}
+                  </div>
                 </article>
               </Reveal>
             ))}
@@ -1304,7 +1384,6 @@ function ExperienceTimeline() {
     </section>
   );
 }
-
 function ServicesGrid() {
   return (
     <section className="px-4 py-12 sm:px-6 lg:py-16">
