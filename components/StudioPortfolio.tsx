@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -385,6 +385,7 @@ const MIN_LOADER_MS = 2000;
 const TARGET_LOADER_MS = 2600;
 const MAX_LOADER_MS = 3200;
 const HOME_INTRO_STORAGE_KEY = "arun-portfolio-home-intro-seen";
+const MOBILE_NATIVE_SCROLL_MEDIA = "(max-width: 1023px), (pointer: coarse)";
 
 let hasPlayedHomeIntro = false;
 
@@ -411,6 +412,11 @@ const markHomeIntroPlayed = () => {
   }
 };
 
+const shouldUseMobileNativeExperience = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia(MOBILE_NATIVE_SCROLL_MEDIA).matches;
+};
+
 export default function StudioPortfolio() {
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
@@ -432,7 +438,7 @@ export default function StudioPortfolio() {
       return;
     }
 
-    if (shouldReduceMotion || hasHomeIntroPlayed()) {
+    if (shouldReduceMotion || shouldUseMobileNativeExperience() || hasHomeIntroPlayed()) {
       markHomeIntroPlayed();
       heroProgressRef.current = 1;
       heroReadyRef.current = true;
@@ -631,6 +637,18 @@ export function WorkProjectPageContent({ project }: { project: ProjectItem }) {
               <p className="mt-6 max-w-full break-words [overflow-wrap:anywhere] [word-break:break-word] text-base leading-8 text-[#f4efe3]/72 sm:text-lg sm:leading-9" style={{ maxWidth: "min(48rem, calc(100vw - 2rem))" }}>
                 {project.description}
               </p>
+              {project.externalUrl ? (
+                <a
+                  href={project.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open the live ${project.shortName} website in a new tab`}
+                  className="group mt-7 inline-flex min-h-12 items-center justify-center gap-2.5 rounded-full bg-[#f4efe3] px-6 py-3 text-sm font-bold text-[#0d0c09] shadow-[0_12px_32px_rgba(216,196,164,0.14)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#d8c4a4] hover:shadow-[0_16px_38px_rgba(216,196,164,0.22)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0d0c09]"
+                >
+                  View Live Site
+                  <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              ) : null}
             </div>
 
             <aside className="max-w-full border-y border-[#f4efe3]/12 text-sm" style={{ maxWidth: "min(100%, calc(100vw - 2rem))" }}>
@@ -852,7 +870,7 @@ function SmoothScroll() {
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion || shouldUseMobileNativeExperience()) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -894,7 +912,7 @@ function ScrollProgress() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed left-0 top-0 z-[90] h-px w-full origin-left bg-[#f4efe3]"
+      className="fixed left-0 top-0 z-[90] hidden h-px w-full origin-left bg-[#f4efe3] lg:block"
       style={{ scaleX }}
     />
   );
@@ -1093,7 +1111,14 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
                 {project.name}
               </h2>
             </div>
-            <ProjectAction href={project.href} label={`View case study for ${project.name}`} />
+            <ProjectAction
+              href={project.externalUrl ?? project.href}
+              label={
+                project.externalUrl
+                  ? `Open the live ${project.shortName} website in a new tab`
+                  : `View case study for ${project.name}`
+              }
+            />
           </div>
 
           <p className="mt-4 text-[15px] leading-7 text-[#f4efe3]/82">{project.description}</p>
@@ -1123,15 +1148,34 @@ function ProjectCard({ project, index }: { project: ProjectItem; index: number }
             ))}
           </div>
 
-          <Link
-            href={project.href}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noopener noreferrer" : undefined}
-            className="mt-6 inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#f4efe3] transition hover:text-[#d8c4a4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c4a4]"
-          >
-            View Case Study
-            <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-          </Link>
+          <div className={`mt-6 grid gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-3 ${project.externalUrl ? "grid-cols-2" : "grid-cols-1"}`}>
+            {project.externalUrl ? (
+              <a
+                href={project.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open the live ${project.shortName} website in a new tab`}
+                className="group/live inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-3 py-2.5 text-sm font-bold text-[#0d0c09] transition duration-300 hover:-translate-y-0.5 hover:bg-[#d8c4a4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0c09] sm:w-auto sm:px-5"
+              >
+                View Live Site
+                <ExternalLink className="h-4 w-4 transition-transform duration-300 group-hover/live:-translate-y-0.5 group-hover/live:translate-x-0.5" />
+              </a>
+            ) : null}
+            <Link
+              href={project.href}
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              className={`group/case inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-3 py-2.5 text-sm font-semibold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c4a4] sm:w-auto sm:px-5 ${
+                project.externalUrl
+                  ? "border border-[#f4efe3]/16 text-[#f4efe3] hover:border-[#d8c4a4]/55 hover:bg-[#d8c4a4]/10 hover:text-[#d8c4a4]"
+                  : "bg-[#f4efe3] text-[#0d0c09] hover:-translate-y-0.5 hover:bg-[#d8c4a4]"
+              }`}
+            >
+              <span className="sm:hidden">Case Study</span>
+              <span className="hidden sm:inline">View Case Study</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/case:translate-x-1" />
+            </Link>
+          </div>
         </div>
       </article>
     </Reveal>

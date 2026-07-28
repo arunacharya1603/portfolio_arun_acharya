@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
+import NextImage from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { proofMetrics } from "./proofMetricsData";
@@ -11,6 +12,7 @@ const KEYFRAME_STEP = 6;
 const READY_STARTER_COUNT = 36;
 const MAX_PARALLEL_LOADS = 5;
 const LOG_EVERY_N_FRAMES = 10;
+const LIGHTWEIGHT_HERO_MEDIA = "(max-width: 1023px)";
 
 type FrameStatus = "idle" | "queued" | "loading" | "loaded" | "error";
 type FrameSet = "desktop" | "tablet" | "mobile";
@@ -83,10 +85,16 @@ const resetStaleQueuedFrames = (cache: FrameCache) => {
   }
 };
 
+const isLightweightHeroViewport = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia(LIGHTWEIGHT_HERO_MEDIA).matches;
+};
+
 export default function CinematicHero({
   onLoadProgress,
   onInitialFramesReady,
 }: CinematicHeroProps) {
+  const [isLightweightHero, setIsLightweightHero] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -114,6 +122,21 @@ export default function CinematicHero({
   useEffect(() => {
     onInitialFramesReadyRef.current = onInitialFramesReady;
   }, [onInitialFramesReady]);
+
+  useLayoutEffect(() => {
+    const media = window.matchMedia(LIGHTWEIGHT_HERO_MEDIA);
+    const syncHeroMode = () => setIsLightweightHero(media.matches);
+
+    syncHeroMode();
+
+    if (media.addEventListener) {
+      media.addEventListener("change", syncHeroMode);
+      return () => media.removeEventListener("change", syncHeroMode);
+    }
+
+    media.addListener(syncHeroMode);
+    return () => media.removeListener(syncHeroMode);
+  }, []);
 
   const logLoadedImageCount = () => {
     if (process.env.NODE_ENV === "production") return;
@@ -313,6 +336,12 @@ export default function CinematicHero({
   };
 
   useEffect(() => {
+    if (isLightweightHeroViewport()) {
+      onLoadProgressRef.current?.(99);
+      onInitialFramesReadyRef.current?.();
+      return;
+    }
+
     isMountedRef.current = true;
 
     const frameSet = getResponsiveFrameSet();
@@ -393,6 +422,8 @@ export default function CinematicHero({
   }, []);
 
   useLayoutEffect(() => {
+    if (isLightweightHeroViewport()) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const prefersReducedMotion = window.matchMedia(
@@ -457,6 +488,10 @@ export default function CinematicHero({
     // ScrollTrigger is created once for this pinned section; refs keep frame drawing current.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLightweightHero) {
+    return <MobileCinematicHero />;
+  }
 
   return (
     <section
@@ -548,6 +583,118 @@ export default function CinematicHero({
         }
         .animate-scroll-indicator {
           animation: scroll-down 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function MobileCinematicHero() {
+  return (
+    <section
+      className="font-hero relative min-h-[92svh] overflow-hidden bg-[#0e0d0c] px-4 pb-5 pt-28 sm:px-6 sm:pt-32"
+      aria-label="Mobile portfolio hero"
+    >
+      <div className="absolute inset-0" aria-hidden="true">
+        <NextImage
+          src="/scrollstory/mobile/ezgif-frame-001.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="mobile-hero-frame object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(14,13,12,0.38)_0%,rgba(14,13,12,0.18)_34%,rgba(14,13,12,0.78)_76%,rgba(14,13,12,0.96)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-[#0e0d0c]/80 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex min-h-[calc(92svh-8.25rem)] max-w-xl flex-col justify-end">
+        <p className="mb-4 font-sans text-[11px] font-semibold uppercase tracking-[0.24em] text-[#d6b992]">
+          Full-stack product engineer
+        </p>
+
+        <h1
+          aria-label="I build products that people remember."
+          className="font-grotesk text-[3.12rem] font-semibold leading-[0.98] text-[#fffdf8] [text-shadow:0_3px_24px_rgba(0,0,0,0.72)] min-[390px]:text-[3.45rem] sm:text-[4.15rem]"
+        >
+          <span className="block">I build</span>
+          <span className="block">products</span>
+          <span className="block">people</span>
+          <span className="block text-[#d6b992]">remember.</span>
+        </h1>
+
+        <p className="mt-5 max-w-[21rem] font-sans text-sm font-medium leading-7 text-[#fffdf8]/88 [text-shadow:0_2px_16px_rgba(0,0,0,0.72)] sm:max-w-md sm:text-base">
+          Scoping, designing, and engineering high-impact digital experiences that deploy, perform, and endure.
+        </p>
+
+        <div
+          className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-[10px] border border-[#fffdf8]/16 bg-[#fffdf8]/16"
+          role="list"
+          aria-label="Selected proof metrics"
+        >
+          {proofMetrics.map((metric) => (
+            <div
+              key={metric.label}
+              className="bg-[#11100e]/88 px-3 py-3"
+              role="listitem"
+            >
+              <span className="block font-grotesk text-2xl font-semibold leading-none text-[#fffdf8] tabular-nums">
+                {metric.value}
+                <span className="text-[#d6b992]">{metric.suffix}</span>
+              </span>
+              <span className="mt-1.5 block font-sans text-[10px] font-semibold uppercase tracking-[0.12em] text-[#fffdf8]/66">
+                {metric.shortLabel}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-between gap-6 border-t border-[#fbfbfa]/22 pt-4" aria-hidden="true">
+          <span className="font-sans text-[10px] font-semibold text-[#fffdf8]/76">
+            Scroll to explore work
+          </span>
+          <div className="relative h-px w-16 overflow-hidden bg-[#fbfbfa]/25">
+            <div className="mobile-scroll-indicator absolute inset-0 bg-[#d6b992]/80" />
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .mobile-hero-frame {
+          transform: scale(1.045) translate3d(-1%, 0.75%, 0);
+          transform-origin: 58% 56%;
+          animation: mobile-hero-drift 14s cubic-bezier(0.16, 1, 0.3, 1) both;
+          will-change: transform;
+        }
+
+        .mobile-scroll-indicator {
+          animation: mobile-scroll-line 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+        }
+
+        @keyframes mobile-hero-drift {
+          from {
+            transform: scale(1.055) translate3d(-1.6%, 1.1%, 0);
+          }
+          to {
+            transform: scale(1.02) translate3d(0%, 0%, 0);
+          }
+        }
+
+        @keyframes mobile-scroll-line {
+          0% {
+            transform: translateX(-100%);
+          }
+          80%,
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-hero-frame,
+          .mobile-scroll-indicator {
+            animation: none;
+          }
         }
       `}</style>
     </section>

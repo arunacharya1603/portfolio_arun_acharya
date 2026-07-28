@@ -18,6 +18,6 @@ export async function submitProjectInquiry(inquiry: ProjectInquiry) {
   const result = (await response.json()) as { error?: string };
 
   if (!response.ok) {
-    throw new Error(result.error || "Your message could not be saved.");
+    throw new Error(result.error || "Your message could not be sent.");
   }
 }

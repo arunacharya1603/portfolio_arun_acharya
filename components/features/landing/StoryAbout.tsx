@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -55,6 +56,7 @@ const DESKTOP_SCROLL_PER_CHAPTER = 1.35;
 
 export default function StoryAbout() {
   const sectionRef = useRef<HTMLElement>(null);
+  const storyVisualRef = useRef<HTMLDivElement>(null);
   const progressFillRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
@@ -120,6 +122,24 @@ export default function StoryAbout() {
             },
           });
         });
+
+        const finalChapter = document.getElementById(
+          `story-chapter-mobile-${CHAPTER_COUNT - 1}`
+        );
+
+        if (storyVisualRef.current && finalChapter) {
+          gsap.to(storyVisualRef.current, {
+            yPercent: -115,
+            ease: "none",
+            scrollTrigger: {
+              trigger: finalChapter,
+              start: "top 72%",
+              end: "top 28%",
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
       });
     }, sectionRef);
 
@@ -130,7 +150,7 @@ export default function StoryAbout() {
     <section
       id="story"
       ref={sectionRef}
-      className="relative min-h-[100svh] bg-[#0e0d0c] overflow-hidden"
+      className="relative min-h-[100svh] overflow-x-clip bg-[#0e0d0c]"
       aria-label="About - The Story"
     >
       {/* Subtle warm gradient overlay */}
@@ -139,6 +159,22 @@ export default function StoryAbout() {
         aria-hidden="true"
       />
 
+      <div
+        className="pointer-events-none sticky top-14 z-[1] mb-[calc(0px_-_min(94vw,24rem))] ml-auto h-[min(94vw,24rem)] w-[min(94vw,24rem)] sm:top-16 sm:mb-[-34rem] sm:h-[34rem] sm:w-[34rem] lg:absolute lg:right-[18%] lg:top-1/2 lg:mb-0 lg:ml-0 lg:h-auto lg:w-[min(48vw,46rem)] lg:-translate-y-1/2 xl:right-[20%]"
+        ref={storyVisualRef}
+        aria-hidden="true"
+      >
+        <div className="relative aspect-square w-full translate-x-[20%] opacity-40 sm:translate-x-[12%] lg:translate-x-0 lg:opacity-55">
+          <Image
+            src="/image/story-layered-product-transparent.webp"
+            alt=""
+            fill
+            sizes="(max-width: 639px) 94vw, (max-width: 1023px) 544px, 48vw"
+            className="object-contain"
+          />
+        </div>
+      </div>
+
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1480px] flex-col px-4 py-20 sm:px-6 sm:py-24 lg:py-24 xl:py-28">
         {/* Eyebrow */}
         <span className="mb-10 block font-sans text-xs uppercase tracking-[0.24em] text-[#bfa17f] lg:mb-8">
@@ -146,7 +182,7 @@ export default function StoryAbout() {
         </span>
 
         {/* Main Content Area */}
-        <div className="grid flex-1 gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.6fr)] lg:gap-16">
+        <div className="grid flex-1 gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(320px,0.55fr)] lg:gap-14 xl:gap-20">
           
           {/* Left Side: Chapters (65%) */}
           <div className="relative flex min-h-[420px] w-full flex-col justify-center lg:min-h-[min(620px,72vh)]">
@@ -249,7 +285,7 @@ export default function StoryAbout() {
 
           </div>
 
-          {/* Right Side: Progress indicator list (35%) */}
+          {/* Right Side: Progress indicator list */}
           <div className="hidden lg:block">
             <div className="h-full flex items-center justify-end">
               <div className="flex w-full gap-5 rounded-[16px] border border-[#fbfbfa]/10 bg-[#fbfbfa]/[0.025] p-5 xl:p-6">

@@ -30,6 +30,7 @@ interface FormData {
   projectType: ProjectType | "";
   budget: string;
   message: string;
+  companyFax: string;
 }
 
 const initialFormData: FormData = {
@@ -38,6 +39,7 @@ const initialFormData: FormData = {
   projectType: "",
   budget: "",
   message: "",
+  companyFax: "",
 };
 
 /* ------------------------------------------------------------------ */
@@ -132,6 +134,7 @@ export default function ClimaticCTA() {
         projectType: formData.projectType || "Not specified",
         budget: formData.budget || "Not specified",
         message: formData.message,
+        companyFax: formData.companyFax,
       });
       setFormData(initialFormData);
       setSubmitStatus("success");
@@ -194,31 +197,33 @@ export default function ClimaticCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.45 }}
-          className="flex items-center justify-center gap-4 mt-16"
+          className="mx-auto mt-12 flex w-full max-w-sm flex-col items-center gap-4 sm:mt-16 sm:max-w-none sm:flex-row sm:justify-center"
         >
           {/* Email link */}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="inline-flex items-center gap-2 border border-[#fbfbfa]/[0.16] rounded-full px-5 py-3 text-sm text-[#fbfbfa]/80 hover:text-[#fbfbfa] hover:border-[#bfa17f]/40 transition-colors"
+            className="inline-flex min-h-12 w-full min-w-0 items-center justify-center gap-2 rounded-full border border-[#fbfbfa]/[0.16] bg-[#fbfbfa]/[0.025] px-4 py-3 text-[13px] text-[#fbfbfa]/80 transition-colors hover:border-[#bfa17f]/40 hover:text-[#fbfbfa] sm:min-h-0 sm:w-auto sm:bg-transparent sm:px-5 sm:text-sm"
             aria-label={`Email ${siteConfig.email}`}
           >
-            <AtSign className="w-4 h-4" />
-            <span>{siteConfig.email}</span>
+            <AtSign className="h-4 w-4 shrink-0" />
+            <span className="min-w-0 truncate">{siteConfig.email}</span>
           </a>
 
           {/* Social icons */}
-          {socials.map(({ label, href, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="flex items-center justify-center w-11 h-11 rounded-full border border-[#fbfbfa]/[0.16] text-[#fbfbfa]/60 hover:text-[#fbfbfa] hover:border-[#bfa17f]/40 transition-colors"
-            >
-              <Icon />
-            </a>
-          ))}
+          <div className="flex items-center justify-center gap-3">
+            {socials.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#fbfbfa]/[0.16] text-[#fbfbfa]/60 transition-colors hover:border-[#bfa17f]/40 hover:text-[#fbfbfa]"
+              >
+                <Icon />
+              </a>
+            ))}
+          </div>
         </motion.div>
 
         {/* ---- Contact Form ---- */}
@@ -297,6 +302,16 @@ export default function ClimaticCTA() {
             aria-label="Project message"
           />
 
+          <input
+            type="text"
+            name="companyFax"
+            value={formData.companyFax}
+            onChange={(e) => updateField("companyFax", e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            className="absolute -left-[9999px] h-px w-px opacity-0"
+            aria-hidden="true"
+          />
           {/* Submit */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p
@@ -310,17 +325,17 @@ export default function ClimaticCTA() {
               }`}
             >
               {submitStatus === "success"
-                ? "Message saved. I’ll get back to you soon."
+                ? "Message sent. I’ll get back to you soon."
                 : submitStatus === "error"
-                  ? "Couldn’t save your message. Please try again."
-                  : "Your details are saved securely for follow-up."}
+                  ? "Couldn’t send your message. Please try again."
+                  : "Your message will be delivered directly to my inbox."}
             </p>
             <button
               type="submit"
               disabled={submitStatus === "submitting"}
               className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#fbfbfa] px-7 py-4 text-sm font-semibold text-[#0e0d0c] transition-colors hover:bg-[#bfa17f] disabled:cursor-wait disabled:opacity-60"
             >
-              {submitStatus === "submitting" ? "Saving..." : "Send Message"}
+              {submitStatus === "submitting" ? "Sending..." : "Send Message"}
               <Send className="w-4 h-4" />
             </button>
           </div>
