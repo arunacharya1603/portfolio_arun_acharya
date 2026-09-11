@@ -5,9 +5,9 @@ import { siteConfig } from "@/lib/site";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Selected Work and Case Studies by Arun Acharya",
+    title: "Arun Acharya: Selected Work and Case Studies",
     description:
-      "Case studies by Arun Acharya across ChainReach.ai, HeyClo, Sound Of Meme, NursePhysioWala, Samriddhi Interiors, dashboards, landing pages, and product interfaces.",
+      "Read Arun Acharya's credited case studies for ChainReach.ai, HeyClo, Sound Of Meme, NursePhysioWala, Pivotal Physiocare, and client websites.",
     path: "/work",
     keywords: [
       "Arun Acharya work",

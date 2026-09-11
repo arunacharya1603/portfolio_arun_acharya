@@ -11,7 +11,7 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Freelance Web Developer by Location | Arun Acharya",
+    title: "Freelance Web Developer for Global Clients",
     description:
       "Location-specific website, UI/UX, frontend development, landing page, and full-stack web app support from Arun Acharya for India and global markets.",
     path: "/locations",

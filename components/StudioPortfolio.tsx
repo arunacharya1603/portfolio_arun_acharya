@@ -63,6 +63,7 @@ import {
   ClimaticCTA,
 } from "./features/landing";
 import { workProjects, type WorkProject } from "@/data/work-projects";
+import { servicePackages } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
 import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
 import { SiteActionBar } from "./SiteActionBar";
@@ -86,16 +87,6 @@ type ServiceItem = {
   outcome: string;
 };
 
-type PackageItem = {
-  slug: string;
-  title: string;
-  price: string;
-  delivery: string;
-  bestFor: string;
-  features: string[];
-  featured?: boolean;
-};
-
 type ExperienceItem = {
   company: string;
   product: string;
@@ -114,6 +105,7 @@ const navItems = [
   { name: "Services", href: "/services" },
   { name: "Process", href: "/process" },
   { name: "Pricing", href: "/pricing" },
+  { name: "FAQ", href: "/faq" },
   { name: "Reviews", href: "/reviews" },
   { name: "Contact", href: "/#contact" },
 ];
@@ -195,34 +187,6 @@ const services: ServiceItem[] = [
     for: "Founders who need to turn a concept into a launch-ready MVP.",
     deliver: "Strategy, interface design, product flows, engineering, and Vercel deployment.",
     outcome: "A real product surface ready for users, demos, investors, or early customers.",
-  },
-];
-
-const packages: PackageItem[] = [
-  {
-    slug: "landing-pages",
-    title: "Starter Landing Page",
-    price: "Starts at USD 250 / INR 20,000",
-    delivery: "7 days",
-    bestFor: "Best for founders, creators, and local businesses validating fast.",
-    features: ["Single premium page", "Responsive build", "SEO basics", "Vercel deployment"],
-  },
-  {
-    slug: "small-business-websites",
-    title: "Business Website",
-    price: "Starts at USD 650 / INR 55,000",
-    delivery: "2-3 weeks",
-    bestFor: "Best for small and medium businesses needing 4-8 professional pages.",
-    features: ["Multi-page system", "Service content structure", "Lead capture", "Performance polish"],
-    featured: true,
-  },
-  {
-    slug: "web-apps-saas",
-    title: "Custom Full-Stack Web App",
-    price: "Starts at USD 1,500 / INR 1,20,000",
-    delivery: "Based on complexity, up to 4 weeks",
-    bestFor: "Best for products needing auth, dashboards, APIs, and scalable architecture.",
-    features: ["Auth and roles", "Dashboards", "APIs and database", "Scalable deployment"],
   },
 ];
 
@@ -1462,18 +1426,20 @@ function PricingGrid() {
     <section className="px-4 py-12 sm:px-6 lg:py-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-5 lg:grid-cols-3">
-          {packages.map((pkg, index) => (
-            <Reveal key={pkg.title} delay={index * 0.06}>
-              <article className={`h-full rounded-lg border p-6 ${pkg.featured ? "border-cyan-300/35 bg-cyan-300/10" : "border-white/10 bg-white/[0.045]"}`}>
+          {servicePackages.map((pkg, index) => (
+            <Reveal key={pkg.name} delay={index * 0.06}>
+              <article className={`h-full rounded-lg border p-6 ${index === 1 ? "border-cyan-300/35 bg-cyan-300/10" : "border-white/10 bg-white/[0.045]"}`}>
                 <div className="flex items-center justify-between gap-4">
-                  <h2 className="font-grotesk text-2xl font-semibold text-white">{pkg.title}</h2>
-                  {pkg.featured ? (
+                  <h2 className="font-grotesk text-2xl font-semibold text-white">{pkg.name}</h2>
+                  {index === 1 ? (
                     <span className="rounded-full bg-cyan-300 px-3 py-1 text-xs font-bold text-[#06111d]">
                       Popular
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-5 font-grotesk text-3xl font-semibold text-white">{pkg.price}</p>
+                <p className="mt-5 font-grotesk text-3xl font-semibold text-white">
+                  Starts at USD {pkg.startingPriceUSD.toLocaleString("en-US")} / INR {pkg.startingPriceINR.toLocaleString("en-IN")}
+                </p>
                 <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200">
                   <Timer className="h-4 w-4" />
                   Delivery: {pkg.delivery}

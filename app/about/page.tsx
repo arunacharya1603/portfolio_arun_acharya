@@ -12,14 +12,13 @@ import {
   absoluteUrl,
   breadcrumbJsonLd,
   createPageMetadata,
-  personJsonLd,
 } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "About Arun Acharya | Frontend Developer, UI/UX, Next.js Freelancer",
+    title: "About Arun Acharya: Frontend & Next.js Developer",
     description:
-      "About Arun Acharya, frontend developer, UI/UX developer, and Next.js freelancer with credited roles and frontend contributions across ChainReach.ai, Sound Of Meme, NursePhysioWala, HeyClo, and client websites.",
+      "Meet Arun Acharya, a frontend and Next.js developer whose portfolio covers UI/UX, dashboards, landing pages, and credited product work.",
     path: "/about",
     keywords: [
       "Arun Acharya",
@@ -57,7 +56,6 @@ export default function AboutPage() {
   );
   const featuredWork = workProjects.slice(0, 5);
   const schemas = [
-    personJsonLd(),
     aboutPageJsonLd,
     breadcrumbJsonLd([
       { name: "Home", path: "/" },

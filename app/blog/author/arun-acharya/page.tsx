@@ -8,13 +8,13 @@ import {
 import { seoBlogPosts, seoServicePages } from "@/data/seo-content";
 import { workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
-import { breadcrumbJsonLd, createPageMetadata, personJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya Author Page | Frontend, UI/UX, Next.js Articles",
+    title: "Arun Acharya: Frontend and Next.js Articles",
     description:
-      "Author page for Arun Acharya, frontend developer, UI/UX developer, Next.js freelancer, and writer on landing pages, frontend revamps, UI/UX, APIs, and SaaS builds.",
+      "Articles by Arun Acharya on landing pages, frontend revamps, UI/UX, Next.js, APIs, SaaS products, performance, and website strategy.",
     path: "/blog/author/arun-acharya",
     keywords: [
       "Arun Acharya author",
@@ -39,7 +39,6 @@ export default function AuthorPage() {
     ["landing-pages", "frontend-development", "ui-ux-design"].includes(service.slug)
   );
   const schemas = [
-    personJsonLd(),
     authorPageJsonLd,
     breadcrumbJsonLd([
       { name: "Home", path: "/" },

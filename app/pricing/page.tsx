@@ -7,7 +7,7 @@ export function generateMetadata() {
   return createPageMetadata({
     title: "Freelance Website, Landing Page, and Web App Pricing",
     description:
-      "Transparent starting prices for Arun Acharya's landing pages, business websites, UI/UX, frontend development, Next.js builds, and custom full-stack web apps.",
+      "Compare Arun Acharya's starting prices for landing pages, business websites, UI/UX, Next.js frontend work, and custom full-stack web apps.",
     path: "/pricing",
     keywords: ["landing page pricing", "Next.js freelancer pricing", "frontend developer pricing"],
   });

@@ -17,11 +17,10 @@ import {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
+    default: siteConfig.defaultTitle,
     template: "%s | Arun Acharya",
   },
-  description:
-    "Official portfolio of Arun Acharya, frontend developer, UI/UX developer, and Next.js freelancer with credited frontend contributions to ChainReach.ai, landing pages, dashboards, and product interfaces.",
+  description: siteConfig.description,
   keywords: topSeoKeywords,
   applicationName: siteConfig.siteName,
   category: "technology",
@@ -44,9 +43,8 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.siteName,
-    title: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
-    description:
-      "Official portfolio of Arun Acharya: frontend development, UI/UX, Next.js builds, landing pages, dashboards, and ChainReach.ai case-study attribution.",
+    title: siteConfig.defaultTitle,
+    description: siteConfig.description,
     images: [
       {
         url: `${siteConfig.url}/og-image.png`,
@@ -58,9 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arun Acharya Developer Portfolio | Next.js, Frontend, UI/UX",
-    description:
-      "Frontend developer, UI/UX developer, Next.js freelancer, and credited frontend contributor to ChainReach.ai and other showcased products.",
+    title: siteConfig.defaultTitle,
+    description: siteConfig.description,
     creator: "@143rhry112645",
     images: [`${siteConfig.url}/og-image.png`],
   },
@@ -69,17 +66,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: siteConfig.url,
-    languages: {
-      "en-US": siteConfig.url,
-      "en-IN": siteConfig.url,
-      "en-GB": siteConfig.url,
-      "en-CA": siteConfig.url,
-      "en-AU": siteConfig.url,
-    },
-  },
-  other: {
-    "eeat:author": siteConfig.name,
-    "eeat:entity": "Arun Acharya developer entity",
   },
 };
 

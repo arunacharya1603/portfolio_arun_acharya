@@ -3,9 +3,9 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya Reviews and Trust Signals",
+    title: "Arun Acharya: Client Proof and Reviews",
     description:
-      "Delivery trust signals for Arun Acharya including clean code, fast delivery, SEO-ready builds, responsive design, Vercel deployment, and verified testimonials when approved.",
+      "Review Arun Acharya's shipped work, delivery standards, responsive builds, performance care, deployment support, and approved client feedback.",
     path: "/reviews",
     keywords: ["Arun Acharya reviews", "freelance developer reviews", "frontend developer trust signals"],
   });

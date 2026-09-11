@@ -3,7 +3,7 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya Process | UI/UX, Frontend, Next.js, Launch SEO",
+    title: "Arun Acharya's Web Development Process",
     description:
       "How Arun Acharya works across strategy, UI/UX design, frontend development, Next.js engineering, launch checks, SEO structure, and performance optimization.",
     path: "/process",

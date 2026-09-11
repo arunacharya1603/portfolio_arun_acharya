@@ -38,7 +38,7 @@ export function createPageMetadata({
   const mergedKeywords = Array.from(new Set([...keywords, ...topSeoKeywords.slice(0, 8)]));
 
   return {
-    title,
+    title: { absolute: title },
     description,
     keywords: mergedKeywords,
     authors: [{ name: siteConfig.name, url: siteConfig.url }],
@@ -53,7 +53,7 @@ export function createPageMetadata({
         }
       : undefined,
     openGraph: {
-      title: `${title} | ${siteConfig.name}`,
+      title,
       description,
       url: canonical,
       type,
@@ -77,16 +77,10 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${siteConfig.name}`,
+      title,
       description,
       creator: "@143rhry112645",
       images: [imageUrl],
-    },
-    other: {
-      "eeat:author": siteConfig.name,
-      "eeat:expertise":
-        "Frontend development, UI/UX design, Next.js development, landing pages, SaaS dashboards, performance optimization",
-      "eeat:entity": "Arun Acharya developer entity",
     },
   };
 }
@@ -135,11 +129,6 @@ export function websiteJsonLd() {
     url: siteConfig.url,
     inLanguage: "en",
     publisher: { "@id": siteConfig.personId },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteConfig.url}/blog?query={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -163,7 +152,7 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
       "Australia",
     ],
     availableLanguage: ["en"],
-    priceRange: "$200 - $5000+",
+    priceRange: "$250+",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Freelance Web Development Services",
@@ -279,6 +268,8 @@ export function articleJsonLd(post: SeoBlogPost) {
     author: { "@id": siteConfig.personId },
     publisher: { "@id": siteConfig.personId },
     mainEntityOfPage: canonical,
+    image: absoluteUrl("/og-image.png"),
+    inLanguage: "en",
     about: post.keywords,
   };
 }

@@ -31,8 +31,10 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
   }
 
   return createPageMetadata({
-    title: `${project.shortName} ${project.role} Case Study | Arun Acharya`,
-    description: `${project.shortName} case study by Arun Acharya, credited as ${project.role}. Covers ${project.description}`,
+    title: `${project.shortName} Case Study by Arun Acharya`,
+    description: `${project.shortName} case study: Arun Acharya's credited work as ${project.role}, including ${project.features
+      .slice(0, 2)
+      .join(", ")}.`,
     path: `/work/${project.slug}`,
     image: project.image,
     type: "article",

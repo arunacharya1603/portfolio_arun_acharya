@@ -50,9 +50,9 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "landing-pages",
     navLabel: "Landing Pages",
-    metaTitle: "Landing Page Developer for High-Converting Product and Service Pages",
+    metaTitle: "Landing Page Developer for Product and Service Pages",
     metaDescription:
-      "Hire Arun Acharya as a landing page developer for fast, SEO-ready, conversion-focused landing pages built with clear copy, UI/UX polish, and Next.js frontend quality.",
+      "Hire Arun Acharya for fast, SEO-ready landing pages with clear copy, polished UI/UX, responsive Next.js code, and conversion-focused structure.",
     heroEyebrow: "Landing page design services",
     heroTitle: "Landing pages that explain the offer fast and turn attention into action.",
     heroDescription:
@@ -112,9 +112,9 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "frontend-development",
     navLabel: "Frontend Development",
-    metaTitle: "Frontend Developer Portfolio and Next.js Freelancer | Arun Acharya",
+    metaTitle: "Frontend Developer and Next.js Freelancer",
     metaDescription:
-      "Hire Arun Acharya for frontend development, Next.js builds, React interfaces, UI implementation, dashboards, product pages, performance work, and SEO-ready web experiences.",
+      "Hire Arun Acharya for React and Next.js frontend development, responsive interfaces, dashboards, API integrations, performance, and SEO-ready builds.",
     heroEyebrow: "Frontend developer portfolio",
     heroTitle: "Frontend development for polished products, dashboards, and SEO-ready websites.",
     heroDescription:
@@ -235,7 +235,7 @@ export const seoServicePages: SeoServicePage[] = [
     navLabel: "Frontend Revamp",
     metaTitle: "Frontend Revamp and Website Redesign Freelancer",
     metaDescription:
-      "Frontend revamp services for websites and web apps that need better UI, speed, responsive behavior, conversion flow, and cleaner React or Next.js implementation.",
+      "Frontend revamps for websites and web apps that need clearer UI, faster loading, responsive layouts, stronger conversion paths, and cleaner Next.js code.",
     heroEyebrow: "Frontend revamp and conversion cleanup",
     heroTitle: "Revamp the frontend without losing what already works.",
     heroDescription:
@@ -289,9 +289,9 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "ui-ux-design",
     navLabel: "UI/UX Help",
-    metaTitle: "UI UX Developer India for Websites, Landing Pages, and Web Apps",
+    metaTitle: "UI/UX Developer in India for Websites and Web Apps",
     metaDescription:
-      "Hire Arun Acharya as a UI UX developer in India for websites, landing pages, SaaS dashboards, Figma-to-React interfaces, responsive screens, and developer-ready product flows.",
+      "Hire Arun Acharya for UI/UX design, SaaS dashboards, Figma-to-React interfaces, responsive screens, and developer-ready product flows.",
     heroEyebrow: "UI/UX help for websites and products",
     heroTitle: "Make the product easier to understand before you spend more on development.",
     heroDescription:
@@ -457,9 +457,9 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "performance-optimization",
     navLabel: "Performance Optimization",
-    metaTitle: "Next.js and React Performance Optimization Service",
+    metaTitle: "Next.js and React Performance Optimization",
     metaDescription:
-      "Performance optimization for slow React and Next.js websites, including Core Web Vitals, bundle size, image loading, layout stability, and production reliability.",
+      "Performance optimization for React and Next.js sites, covering Core Web Vitals, bundles, images, layout stability, and production reliability.",
     heroEyebrow: "React and Next.js performance help",
     heroTitle: "Make the product feel faster, more stable, and easier to trust.",
     heroDescription:
@@ -519,9 +519,9 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "product-mvp-development",
     navLabel: "Product MVP Development",
-    metaTitle: "Product MVP Developer for Founders and Early-Stage Startups",
+    metaTitle: "MVP Developer for Founders and Startups",
     metaDescription:
-      "Product MVP development for founders who need a focused, usable first release with clear scope, UI/UX, frontend, APIs, deployment, and a practical path to iteration.",
+      "MVP development for founders who need focused scope, polished UI/UX, frontend, APIs, deployment, and a practical path to user feedback.",
     heroEyebrow: "MVP design and development",
     heroTitle: "Build the smallest product that is still convincing enough to test.",
     heroDescription:
@@ -638,11 +638,11 @@ export const seoBlogPosts: SeoBlogPost[] = [
   },
   {
     slug: "frontend-revamp-checklist",
-    title: "Frontend Revamp Checklist for Websites, SaaS Products, and Dashboards",
+    title: "Frontend Revamp Checklist for Websites and SaaS",
     description:
       "A practical frontend revamp checklist covering UI hierarchy, responsive behavior, speed, accessibility, SEO preservation, and conversion paths.",
     datePublished: "2026-05-24",
-    dateModified: "2026-05-24",
+    dateModified: "2026-09-11",
     readingTime: "6 min read",
     category: "Frontend Revamp",
     keywords: [
@@ -693,11 +693,11 @@ export const seoBlogPosts: SeoBlogPost[] = [
   },
   {
     slug: "ui-ux-before-rebuild",
-    title: "Why UI/UX Work Should Happen Before a Website or Web App Rebuild",
+    title: "Why UI/UX Should Come Before a Website Rebuild",
     description:
       "How UI/UX planning reduces rebuild waste by clarifying flows, content hierarchy, responsive behavior, and conversion paths before development.",
     datePublished: "2026-05-24",
-    dateModified: "2026-05-24",
+    dateModified: "2026-09-11",
     readingTime: "4 min read",
     category: "UI/UX",
     keywords: [
@@ -748,11 +748,11 @@ export const seoBlogPosts: SeoBlogPost[] = [
   },
   {
     slug: "api-development-for-startup-web-apps",
-    title: "API Development for Startup Web Apps: What to Plan Before Building",
+    title: "API Planning for Startup Web Apps",
     description:
       "A founder-friendly guide to planning APIs, auth, data models, integrations, and frontend states for SaaS and web app projects.",
     datePublished: "2026-05-24",
-    dateModified: "2026-05-24",
+    dateModified: "2026-09-11",
     readingTime: "6 min read",
     category: "Full-Stack Development",
     keywords: [
@@ -803,11 +803,11 @@ export const seoBlogPosts: SeoBlogPost[] = [
   },
   {
     slug: "landing-page-vs-website-vs-web-app",
-    title: "Landing Page vs Website vs Web App: Which One Should You Build?",
+    title: "Landing Page vs Website vs Web App",
     description:
       "A simple guide to choosing between a landing page, a small business website, and a full web app based on goal, budget, timeline, and features.",
     datePublished: "2026-05-24",
-    dateModified: "2026-05-24",
+    dateModified: "2026-09-11",
     readingTime: "5 min read",
     category: "Project Scope",
     keywords: [

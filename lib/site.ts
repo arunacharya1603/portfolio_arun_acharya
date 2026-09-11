@@ -1,6 +1,9 @@
 export const siteConfig = {
   name: "Arun Acharya",
   siteName: "Arun Acharya Portfolio",
+  defaultTitle: "Arun Acharya | Frontend & Next.js Developer",
+  description:
+    "Arun Acharya's portfolio: frontend, UI/UX, Next.js, dashboards, landing pages, and credited product work including ChainReach.ai.",
   host: "www.arunacharya1603.in",
   url: "https://www.arunacharya1603.in",
   email: "arunacharya1603@gmail.com",
@@ -14,18 +17,10 @@ export const siteConfig = {
   websiteId: "https://www.arunacharya1603.in#website",
 };
 
-export const projectEntityLinks = [
-  "https://chainreach.ai/",
-  "https://heyclo.com/",
-  "https://nursephysiowala.in/",
-  "https://www.samriddhiinteriors.com/",
-];
-
 export const personSameAsLinks = [
   siteConfig.github,
   siteConfig.linkedin,
   siteConfig.x,
-  ...projectEntityLinks,
 ];
 
 export const topSeoKeywords = [

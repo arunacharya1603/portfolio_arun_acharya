@@ -6,15 +6,12 @@ import {
   absoluteUrl,
   breadcrumbJsonLd,
   createPageMetadata,
-  personJsonLd,
-  websiteJsonLd,
 } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya Developer Portfolio | Frontend, UI/UX, Next.js",
-    description:
-      "Official portfolio of Arun Acharya, frontend developer, UI/UX developer, and Next.js freelancer with credited frontend contributions to ChainReach.ai, product dashboards, landing pages, and SEO-ready websites.",
+    title: siteConfig.defaultTitle,
+    description: siteConfig.description,
     path: "/",
     keywords: [
       "Arun Acharya",
@@ -34,8 +31,7 @@ const profilePageJsonLd = {
   "@id": `${siteConfig.url}/#profile-page`,
   url: siteConfig.url,
   name: "Arun Acharya Developer Portfolio",
-  description:
-    "Arun Acharya's official portfolio connecting his developer entity to ChainReach.ai, showcased software projects, frontend development, UI/UX, Next.js, and landing page services.",
+  description: siteConfig.description,
   mainEntity: { "@id": siteConfig.personId },
   about: [
     "Arun Acharya",
@@ -75,8 +71,6 @@ const homeWorkItemListJsonLd = {
 
 export default function Home() {
   const schemas = [
-    personJsonLd(),
-    websiteJsonLd(),
     profilePageJsonLd,
     homeServicesItemListJsonLd,
     homeWorkItemListJsonLd,

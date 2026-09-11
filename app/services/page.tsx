@@ -1,14 +1,13 @@
 import { ServicesPageContent } from "@/components/StudioPortfolio";
-import { seoFaqs } from "@/data/seo";
 import { seoServicePages } from "@/data/seo-content";
 import { siteConfig } from "@/lib/site";
-import { breadcrumbJsonLd, createPageMetadata, faqJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
     title: "Frontend, UI/UX, Next.js, and Landing Page Services",
     description:
-      "Freelance services by Arun Acharya for landing pages, UI/UX design, frontend development, Next.js builds, business websites, APIs, dashboards, MVPs, and SaaS products.",
+      "Hire Arun Acharya for landing pages, UI/UX, React and Next.js frontend development, business websites, APIs, dashboards, MVPs, and SaaS products.",
     path: "/services",
     keywords: [
       "landing page developer",
@@ -35,7 +34,6 @@ const servicesItemListJsonLd = {
 
 export default function ServicesPage() {
   const schemas = [
-    faqJsonLd(seoFaqs),
     servicesItemListJsonLd,
     breadcrumbJsonLd([
       { name: "Home", path: "/" },

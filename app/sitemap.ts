@@ -5,7 +5,6 @@ import { workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const baseRoutes = [
     "",
     "/about",
@@ -14,27 +13,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/process",
     "/pricing",
+    "/faq",
     "/reviews",
     "/blog",
     "/blog/author/arun-acharya",
     "/locations",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
-    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.8,
   }));
 
   const locationRoutes = locationMarkets.map((location) => ({
     url: `${siteConfig.url}/locations/${location.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
   const serviceRoutes = seoServicePages.map((service) => ({
     url: `${siteConfig.url}/services/${service.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.75,
   }));
@@ -48,7 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const workRoutes = workProjects.map((project) => ({
     url: `${siteConfig.url}/work/${project.slug}`,
-    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.78,
   }));
