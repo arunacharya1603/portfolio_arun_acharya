@@ -5,7 +5,7 @@ import {
   seoCardClass,
   seoMutedTextClass,
 } from "@/components/SeoPageShell";
-import { locationMarkets } from "@/data/seo";
+import { locationMarkets, servicePackages } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
@@ -45,7 +45,7 @@ export default function LocationsPage() {
     <SeoPageShell
       eyebrow="Locations"
       title="Freelance Web Development by Location"
-      description="Browse location-specific pages for pricing context, hiring details, and SEO-ready service information across India and global markets."
+      description="India-based freelance development for remote clients. Compare my published starting prices and agree on scope, meeting times and delivery before a project begins."
     >
       {schemas.map((schema, index) => (
         <script
@@ -69,10 +69,10 @@ export default function LocationsPage() {
               {location.city}, {location.country}
             </h2>
             <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
-              Landing page range: {location.typicalLandingPageRange}
+              Remote website and product development
             </p>
             <p className="mt-3 text-sm font-semibold text-[#f4efe3]">
-              My starting price: {location.myStartingPrice}
+              Landing pages from {location.currency} {(location.currency === "INR" ? servicePackages[0].startingPriceINR : servicePackages[0].startingPriceUSD).toLocaleString(location.currency === "INR" ? "en-IN" : "en-US")}
             </p>
             <span className="mt-5 inline-flex text-sm font-semibold text-[#d8c4a4]">
               View city page

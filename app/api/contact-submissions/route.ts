@@ -27,7 +27,7 @@ function cleanText(value: unknown, maxLength = 4000) {
 }
 
 function appendSubmission(submission: Record<string, string>) {
-  writeQueue = writeQueue.then(async () => {
+  writeQueue = writeQueue.catch(() => {}).then(async () => {
     let existing: unknown = [];
 
     try {
@@ -79,7 +79,10 @@ function isRateLimited(ip: string) {
 
 export async function POST(request: Request) {
   try {
-    const payload = (await request.json()) as SubmissionPayload;
+    const payload = (await request.json().catch(() => null)) as SubmissionPayload | null;
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      return NextResponse.json({ error: "Please provide a valid inquiry." }, { status: 400 });
+    }
     const name = cleanText(payload.name, 120);
     const email = cleanText(payload.email, 180).toLowerCase();
     const message = cleanText(payload.message);
@@ -114,16 +117,17 @@ export async function POST(request: Request) {
         .map(([key, value]) => [key, cleanText(value)])
     );
     const storedSubmission = {
+      ...submission,
       id: randomUUID(),
       submittedAt: new Date().toISOString(),
-      ...submission,
       name,
       email,
       message,
     };
 
     try {
-      await appendSubmission(storedSubmission);
+      // Vercel's runtime filesystem is not a durable lead store. Email is the delivery channel.
+      if (!process.env.VERCEL) await appendSubmission(storedSubmission);
     } catch (error) {
       console.error("Contact submission backup failed.", error);
     }

@@ -6,7 +6,7 @@ import {
   seoCardClass,
   seoMutedTextClass,
 } from "@/components/SeoPageShell";
-import { locationMarkets } from "@/data/seo";
+import { locationMarkets, servicePackages } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: LocationPageProps) {
   }
 
   return createPageMetadata({
-    title: `Freelance Web Developer in ${location.city}, ${location.country}`,
-    description: `Hire Arun Acharya for landing pages, UI/UX, frontend development, and web app projects in ${location.city}. Pricing context and delivery support for businesses.`,
+    title: `Remote Web Developer for ${location.city} Businesses`,
+    description: `Work remotely with Arun Acharya on a website, React frontend or web app for your ${location.city} business. See published starting prices and project examples.`,
     path: `/locations/${location.slug}`,
     keywords: [
       `freelance web developer ${location.city}`,
@@ -53,7 +53,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${siteConfig.url}/locations/${location.slug}#service`,
-    name: `Freelance Website Development in ${location.city}`,
+    name: `Remote Website Development for ${location.city}`,
     provider: { "@id": siteConfig.personId },
     areaServed: {
       "@type": "Place",
@@ -69,7 +69,8 @@ export default async function LocationPage({ params }: LocationPageProps) {
     offers: {
       "@type": "Offer",
       priceCurrency: location.currency,
-      description: `Projects starting from ${location.myStartingPrice}`,
+      price: location.currency === "INR" ? servicePackages[0].startingPriceINR : servicePackages[0].startingPriceUSD,
+      description: "Starter landing page; final quote depends on agreed scope.",
     },
   };
 
@@ -81,9 +82,9 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
   return (
     <SeoPageShell
-      eyebrow={`${location.city} freelance development`}
-      title={`Freelance Web Developer in ${location.city}, ${location.country}`}
-      description={`Need a website or web app in ${location.city}? Arun works with local and remote clients to design and build fast, modern, conversion-focused digital products.`}
+      eyebrow={`Remote collaboration / ${location.city}`}
+      title={`Web development for ${location.city} businesses`}
+      description={`Work directly with Arun, an India-based freelance developer, on your website or product. Delivery is remote, with scope, meeting times and handover agreed before work begins.`}
     >
       <script
         type="application/ld+json"
@@ -97,16 +98,12 @@ export default async function LocationPage({ params }: LocationPageProps) {
       <div className="grid gap-5 md:grid-cols-2">
         <section className={seoCardClass}>
           <h2 className="font-grotesk text-2xl font-semibold">
-            Typical {location.city} Market Pricing
+            Published starting prices
           </h2>
           <ul className={`mt-5 space-y-3 text-sm ${seoMutedTextClass}`}>
-            <li>Landing page: {location.typicalLandingPageRange}</li>
-            <li>Business website: {location.typicalBusinessWebsiteRange}</li>
-            <li>Custom web app: {location.typicalWebAppRange}</li>
-            <li className="font-semibold text-[#f4efe3]">
-              My starting price: {location.myStartingPrice}
-            </li>
+            {servicePackages.map((pkg) => <li key={pkg.slug}><Link className="underline underline-offset-4" href={`/services/${pkg.slug}`}>{pkg.name}</Link>: {location.currency} {(location.currency === "INR" ? pkg.startingPriceINR : pkg.startingPriceUSD).toLocaleString(location.currency === "INR" ? "en-IN" : "en-US")}</li>)}
           </ul>
+          <p className={`mt-5 text-sm leading-7 ${seoMutedTextClass}`}>These are my package starting prices, shared across locations. Final scope, payment currency, taxes and third-party costs are confirmed in a written proposal.</p>
         </section>
 
         <section className={seoCardClass}>
@@ -129,19 +126,17 @@ export default async function LocationPage({ params }: LocationPageProps) {
             Compare before you scope
           </h2>
           <p className={`mt-2 text-sm leading-7 ${seoMutedTextClass}`}>
-            Move between city pages, pricing, services, and work examples to understand budget
-            and delivery options.
+            Use the planner to compare included scope and timelines, then discuss your
+            business goals and remote collaboration needs.
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <a
-            href={`mailto:${siteConfig.email}?subject=Project%20in%20${encodeURIComponent(
-              location.city
-            )}`}
+          <Link
+            href="/contact"
             className="rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
           >
             Contact Arun
-          </a>
+          </Link>
           <Link
             href="/services/frontend-development"
             className="rounded-full border border-[#f4efe3]/12 px-5 py-3 text-sm font-semibold text-[#f4efe3]"
@@ -149,10 +144,10 @@ export default async function LocationPage({ params }: LocationPageProps) {
             Frontend service
           </Link>
           <Link
-            href="/pricing"
+            href="/tools/website-cost-planner"
             className="rounded-full border border-[#f4efe3]/12 px-5 py-3 text-sm font-semibold text-[#f4efe3]"
           >
-            Compare pricing
+            Plan your scope
           </Link>
         </div>
       </section>

@@ -64,6 +64,7 @@ export function ServiceProposalForm({
     try {
       await submitProjectInquiry({
         source: `service-proposal:${service.slug}`,
+        companyFax: String(data.get("companyFax") ?? ""),
         service: service.navLabel,
         package: String(data.get("package") || selectedPackage),
         name: String(data.get("name") || ""),
@@ -192,12 +193,11 @@ export function ServiceProposalForm({
       </label>
 
       <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">Requirements or current blockers</span>
+        <span className="text-sm font-semibold text-[#f4efe3]">Requirements or current blockers (optional)</span>
         <textarea
           className={`${inputClass} min-h-36 resize-y`}
           name="requirements"
           placeholder="Share the features, pages, integrations, constraints, or problems already known."
-          required
         />
       </label>
 
@@ -222,21 +222,23 @@ export function ServiceProposalForm({
           }`}
         >
           {submitStatus === "success"
-            ? "Proposal saved. I’ll review it and reply with the next step."
+            ? "Proposal sent. I’ll review it and reply with the next step."
             : submitStatus === "error"
-              ? "Couldn’t save the proposal. Please try again."
-              : "Submitting saves this brief so it can be reviewed and followed up."}
+              ? "Couldn’t email the proposal. Your details are still here. Retry or use the email link below."
+              : "Your brief, entry page and referral source are emailed to Arun for follow-up."}
         </p>
         <button
           type="submit"
           disabled={submitStatus === "submitting"}
           className="inline-flex items-center justify-center gap-2 rounded-[7px] bg-[#f4efe3] px-5 py-3.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] disabled:cursor-wait disabled:opacity-60"
         >
-          {submitStatus === "submitting" ? "Saving..." : "Request a scoped proposal"}
+          {submitStatus === "submitting" ? "Sending..." : "Request a scoped proposal"}
           <Send className="h-4 w-4" />
         </button>
       </div>
 
+      <div className="hidden" aria-hidden="true"><label>Leave this empty<input name="companyFax" tabIndex={-1} autoComplete="off" /></label></div>
+      <a className="block break-all text-sm text-[#d8c4a4] underline underline-offset-4" href={`mailto:${siteConfig.email}`}>Email Arun directly: {siteConfig.email}</a>
       <a
         href={siteConfig.linkedin}
         target="_blank"

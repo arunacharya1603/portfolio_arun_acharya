@@ -7,7 +7,7 @@ import { ArrowDownRight, ArrowRight, Check, CheckCircle2, Clock3, Mail, ShieldCh
 import { SeoPageShell, seoMutedTextClass } from "@/components/SeoPageShell";
 import { ServiceProposalForm } from "@/components/ServiceProposalForm";
 import { getServiceProposal } from "@/data/service-proposals";
-import { getSeoBlogPost, getSeoServicePage, seoServicePages } from "@/data/seo-content";
+import { getSeoServicePage, seoBlogPosts, seoServicePages } from "@/data/seo-content";
 import { getWorkProjectBySlug, workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, createPageMetadata, faqJsonLd, serviceJsonLd as createServiceJsonLd } from "@/lib/seo";
@@ -36,7 +36,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   if (!service || !proposal) notFound();
 
   const relatedServices = service.relatedServiceSlugs.map(getSeoServicePage).filter(Boolean);
-  const relatedPosts = service.relatedBlogSlugs.map(getSeoBlogPost).filter(Boolean);
+  const relatedPosts = seoBlogPosts.filter((post) => post.relatedServiceSlugs.includes(service.slug) || service.relatedBlogSlugs.includes(post.slug)).slice(0, 4);
   const relatedProjects = service.relatedWorkSlugs?.length
     ? service.relatedWorkSlugs.map(getWorkProjectBySlug).filter(Boolean)
     : workProjects.slice(0, 3);

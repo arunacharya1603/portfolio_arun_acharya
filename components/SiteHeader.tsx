@@ -15,7 +15,7 @@ const navigation = [
   { name: "Pricing", href: "/pricing" },
   { name: "FAQ", href: "/faq" },
   { name: "Proof", href: "/reviews" },
-  { name: "Blog", href: "/blog" },
+  { name: "Resources", href: "/resources" },
 ];
 
 function isActivePath(pathname: string, href: string) {
@@ -118,7 +118,7 @@ export function SiteHeader() {
           </div>
 
           <Link
-            href="/#contact"
+            href="/contact"
             className="group hidden items-center gap-2 rounded-[7px] bg-[#f4efe3] px-3.5 py-2.5 text-sm font-semibold text-[#0d0c09] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] md:inline-flex"
           >
             Start Project
@@ -174,7 +174,7 @@ export function SiteHeader() {
                   );
                 })}
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="group mt-1 flex min-h-[52px] items-center justify-between rounded-[6px] bg-[#f4efe3] px-3.5 py-3 text-base font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:col-span-2"
                 >
                   Start Project

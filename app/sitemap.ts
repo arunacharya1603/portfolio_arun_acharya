@@ -18,6 +18,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/blog/author/arun-acharya",
     "/locations",
+    "/resources",
+    "/tools/website-cost-planner",
+    "/contact",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
     changeFrequency: "weekly" as const,

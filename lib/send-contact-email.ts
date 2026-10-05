@@ -20,6 +20,12 @@ const fieldLabels: Record<string, string> = {
   goal: "Goal",
   requirements: "Requirements",
   references: "References",
+  landingPage: "First page visited",
+  inquiryPage: "Inquiry page",
+  referrer: "Referral site",
+  utm_source: "Campaign source",
+  utm_medium: "Campaign medium",
+  utm_campaign: "Campaign name",
 };
 
 const hiddenFields = new Set([
@@ -123,6 +129,9 @@ export async function sendContactEmail(submission: ContactSubmission) {
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000,
     auth: {
       user,
       pass: appPassword,
@@ -233,7 +242,7 @@ export async function sendContactEmail(submission: ContactSubmission) {
                             Received ${escapeHtml(submittedAt)}
                           </td>
                           <td align="right" style="color:#8d8478;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;">
-                            arunacharya.com
+                            ${escapeHtml(siteConfig.host)}
                           </td>
                         </tr>
                       </table>

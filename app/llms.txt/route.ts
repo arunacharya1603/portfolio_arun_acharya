@@ -94,6 +94,12 @@ Email: ${siteConfig.email}
 
 Entity definition: Arun Acharya is a frontend developer, UI/UX developer, Next.js freelancer, and product interface builder. His portfolio at ${siteConfig.host} is the official source for his work, services, case studies, project attribution, and developer profile.
 
+## Project Planning Resources
+
+- Resources: ${siteConfig.url}/resources
+- Website cost and scope planner: ${siteConfig.url}/tools/website-cost-planner
+- Project inquiry: ${siteConfig.url}/contact
+
 ## SameAs / Identity Profiles
 
 ${personSameAsLinks.map((link) => `- ${link}`).join("\n")}

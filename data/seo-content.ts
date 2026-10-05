@@ -1,5 +1,7 @@
 ﻿import { siteConfig } from "@/lib/site";
 
+import { projectGuides } from "@/data/project-guides";
+
 export type SeoFaq = {
   question: string;
   answer: string;
@@ -40,6 +42,8 @@ export type SeoBlogPost = {
   category: string;
   keywords: string[];
   audience: string;
+  relatedWorkSlugs?: string[];
+  references?: { title: string; url: string }[];
   summary: string;
   sections: BlogSection[];
   faqs: SeoFaq[];
@@ -581,6 +585,7 @@ export const seoServicePages: SeoServicePage[] = [
 ];
 
 export const seoBlogPosts: SeoBlogPost[] = [
+  ...projectGuides,
   {
     slug: "small-business-website-cost-and-scope",
     title: "Small Business Website Cost and Scope: What to Build First",

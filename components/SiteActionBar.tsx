@@ -16,7 +16,7 @@ export function SiteActionBar() {
           <Layers3 className="h-4 w-4" />
         </Link>
         <Link
-          href="/#contact"
+          href="/contact"
           className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-4 py-2.5 text-sm font-semibold text-[#0d0c09] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
         >
           Contact

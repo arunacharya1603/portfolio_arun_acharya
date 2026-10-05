@@ -1,4 +1,4 @@
-﻿export type ServicePackage = {
+export type ServicePackage = {
   slug: string;
   name: string;
   delivery: string;
@@ -14,10 +14,6 @@ export type LocationMarket = {
   region: string;
   country: string;
   currency: string;
-  typicalLandingPageRange: string;
-  typicalBusinessWebsiteRange: string;
-  typicalWebAppRange: string;
-  myStartingPrice: string;
 };
 
 export const servicePackages: ServicePackage[] = [
@@ -42,7 +38,7 @@ export const servicePackages: ServicePackage[] = [
     delivery: "2 to 3 weeks",
     startingPriceUSD: 650,
     startingPriceINR: 55000,
-    bestFor: "Small and medium businesses that need 4 to 8 professional pages.",
+    bestFor: "Small and medium businesses starting with up to 5 professional pages.",
     features: [
       "Custom UI design",
       "Performance optimization",
@@ -54,7 +50,7 @@ export const servicePackages: ServicePackage[] = [
   {
     slug: "web-apps-saas",
     name: "Custom Full-Stack Web App",
-    delivery: "Based on project complexity, up to 4 weeks",
+    delivery: "4-5 weeks for a scoped app; larger builds quoted separately",
     startingPriceUSD: 1500,
     startingPriceINR: 120000,
     bestFor: "Products needing auth, dashboards, APIs, and scalable architecture.",
@@ -75,10 +71,6 @@ export const locationMarkets: LocationMarket[] = [
     region: "Karnataka",
     country: "India",
     currency: "INR",
-    typicalLandingPageRange: "INR 12,000 to INR 35,000",
-    typicalBusinessWebsiteRange: "INR 35,000 to INR 1,20,000",
-    typicalWebAppRange: "INR 1,20,000 to INR 6,00,000+",
-    myStartingPrice: "INR 15,000",
   },
   {
     slug: "mumbai",
@@ -86,10 +78,6 @@ export const locationMarkets: LocationMarket[] = [
     region: "Maharashtra",
     country: "India",
     currency: "INR",
-    typicalLandingPageRange: "INR 15,000 to INR 40,000",
-    typicalBusinessWebsiteRange: "INR 40,000 to INR 1,40,000",
-    typicalWebAppRange: "INR 1,50,000 to INR 7,00,000+",
-    myStartingPrice: "INR 18,000",
   },
   {
     slug: "delhi",
@@ -97,32 +85,20 @@ export const locationMarkets: LocationMarket[] = [
     region: "Delhi",
     country: "India",
     currency: "INR",
-    typicalLandingPageRange: "INR 14,000 to INR 38,000",
-    typicalBusinessWebsiteRange: "INR 38,000 to INR 1,30,000",
-    typicalWebAppRange: "INR 1,40,000 to INR 6,50,000+",
-    myStartingPrice: "INR 16,000",
   },
   {
     slug: "dubai",
     city: "Dubai",
     region: "Dubai",
     country: "UAE",
-    currency: "AED",
-    typicalLandingPageRange: "AED 1,500 to AED 6,000",
-    typicalBusinessWebsiteRange: "AED 6,000 to AED 20,000",
-    typicalWebAppRange: "AED 20,000 to AED 1,00,000+",
-    myStartingPrice: "AED 1,200 equivalent",
+    currency: "USD",
   },
   {
     slug: "london",
     city: "London",
     region: "England",
     country: "United Kingdom",
-    currency: "GBP",
-    typicalLandingPageRange: "GBP 400 to GBP 1,500",
-    typicalBusinessWebsiteRange: "GBP 1,500 to GBP 6,000",
-    typicalWebAppRange: "GBP 6,000 to GBP 50,000+",
-    myStartingPrice: "GBP 250 equivalent",
+    currency: "USD",
   },
   {
     slug: "new-york",
@@ -130,32 +106,20 @@ export const locationMarkets: LocationMarket[] = [
     region: "New York",
     country: "United States",
     currency: "USD",
-    typicalLandingPageRange: "USD 500 to USD 2,000",
-    typicalBusinessWebsiteRange: "USD 2,000 to USD 8,000",
-    typicalWebAppRange: "USD 8,000 to USD 60,000+",
-    myStartingPrice: "USD 200",
   },
   {
     slug: "toronto",
     city: "Toronto",
     region: "Ontario",
     country: "Canada",
-    currency: "CAD",
-    typicalLandingPageRange: "CAD 700 to CAD 2,500",
-    typicalBusinessWebsiteRange: "CAD 2,500 to CAD 10,000",
-    typicalWebAppRange: "CAD 10,000 to CAD 70,000+",
-    myStartingPrice: "CAD 300 equivalent",
+    currency: "USD",
   },
   {
     slug: "sydney",
     city: "Sydney",
     region: "New South Wales",
     country: "Australia",
-    currency: "AUD",
-    typicalLandingPageRange: "AUD 700 to AUD 2,800",
-    typicalBusinessWebsiteRange: "AUD 2,800 to AUD 12,000",
-    typicalWebAppRange: "AUD 12,000 to AUD 80,000+",
-    myStartingPrice: "AUD 320 equivalent",
+    currency: "USD",
   },
 ];
 

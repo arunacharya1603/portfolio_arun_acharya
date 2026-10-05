@@ -7,6 +7,7 @@ export const siteConfig = {
   host: "www.arunacharya1603.in",
   url: "https://www.arunacharya1603.in",
   email: "arunacharya1603@gmail.com",
+  corpvance: "https://www.corpvance.com/team/arun-acharya",
   x: "https://x.com/143rhry112645",
   github: "https://github.com/arunacharya1603",
   linkedin: "https://www.linkedin.com/in/arunacharya1603/",
@@ -18,6 +19,7 @@ export const siteConfig = {
 };
 
 export const personSameAsLinks = [
+  siteConfig.corpvance,
   siteConfig.github,
   siteConfig.linkedin,
   siteConfig.x,

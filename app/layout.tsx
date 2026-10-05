@@ -6,6 +6,7 @@ import "@fontsource/poetsen-one/latin.css";
 import "@fontsource/varela-round/latin.css";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
+import { InquiryAttribution } from "@/components/InquiryAttribution";
 import { seoServicePages } from "@/data/seo-content";
 import { siteConfig, topSeoKeywords } from "@/lib/site";
 import {
@@ -104,6 +105,7 @@ export default function RootLayout({
         ))}
       </head>
       <body className="font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]">
+        <InquiryAttribution />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

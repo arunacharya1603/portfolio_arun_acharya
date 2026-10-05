@@ -47,7 +47,6 @@ import {
   useMemo,
   useRef,
   useState,
-  type FormEvent,
   type MouseEvent,
   type ReactNode,
 } from "react";
@@ -65,7 +64,7 @@ import {
 import { workProjects, type WorkProject } from "@/data/work-projects";
 import { servicePackages } from "@/data/seo";
 import { siteConfig } from "@/lib/site";
-import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
+import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
 import { SiteActionBar } from "./SiteActionBar";
 import { SiteHeader } from "./SiteHeader";
 
@@ -107,7 +106,8 @@ const navItems = [
   { name: "Pricing", href: "/pricing" },
   { name: "FAQ", href: "/faq" },
   { name: "Reviews", href: "/reviews" },
-  { name: "Contact", href: "/#contact" },
+  { name: "Resources", href: "/resources" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const stats: StatItem[] = [
@@ -1688,165 +1688,10 @@ function ContactSection() {
         </div>
 
         <div className="rounded-[1.75rem] bg-[#f4efe3]/[0.045] p-6 text-[#f4efe3] md:p-10 lg:p-12">
-          <ContactForm />
+          <ProjectInquiryForm />
         </div>
       </div>
     </section>
-  );
-}
-
-function ContactForm() {
-  const projectTypes = [
-    "Landing Page",
-    "Business Website",
-    "UI/UX Redesign",
-    "Full-Stack Web App",
-    "Dashboard",
-    "MVP",
-  ];
-  const [projectType, setProjectType] = useState(projectTypes[0]);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    setSubmitStatus("submitting");
-
-    try {
-      await submitProjectInquiry({
-        source: "portfolio-contact",
-        name: String(data.get("name") ?? ""),
-        email: String(data.get("email") ?? ""),
-        projectType: String(data.get("projectType") ?? projectType),
-        budget: String(data.get("budget") ?? "Not specified"),
-        timeline: String(data.get("timeline") ?? "Not specified"),
-        message: String(data.get("message") ?? ""),
-      });
-      form.reset();
-      setProjectType(projectTypes[0]);
-      setSubmitStatus("success");
-    } catch {
-      setSubmitStatus("error");
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <p className="font-grotesk text-3xl font-semibold text-[#f4efe3]">Project intake</p>
-        <p className="mt-2 text-sm leading-7 text-[#f4efe3]/76">
-          Share the signal. I will reply with the next practical step.
-        </p>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Name" name="name" placeholder="Your name" required />
-        <Field label="Email" name="email" type="email" placeholder="you@example.com" required />
-      </div>
-
-      <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">Project type</span>
-        <select
-          name="projectType"
-          value={projectType}
-          onChange={(event) => setProjectType(event.target.value)}
-          className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition focus:border-[#f4efe3]"
-        >
-          {projectTypes.map((type) => (
-            <option key={type}>{type}</option>
-          ))}
-        </select>
-      </label>
-
-      <div className="flex flex-wrap gap-2">
-        {projectTypes.map((type) => (
-          <button
-            key={type}
-            type="button"
-            onClick={() => setProjectType(type)}
-            className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
-              projectType === type
-                ? "border-[#f4efe3] bg-[#f4efe3] text-[#0d0c09]"
-                : "border-[#f4efe3]/12 bg-[#f4efe3]/6 text-[#f4efe3]/76 hover:bg-[#f4efe3]/10"
-            }`}
-          >
-            {type}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Budget range</span>
-          <select
-            name="budget"
-            className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition focus:border-[#f4efe3]"
-            defaultValue=""
-          >
-            <option value="" disabled>Select range</option>
-            <option>USD 200-600</option>
-            <option>USD 600-1500</option>
-            <option>USD 1500-5000</option>
-            <option>Custom scope</option>
-          </select>
-        </label>
-        <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Timeline</span>
-          <select
-            name="timeline"
-            className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition focus:border-[#f4efe3]"
-            defaultValue=""
-          >
-            <option value="" disabled>Select timeline</option>
-            <option>7 days</option>
-            <option>2-3 weeks</option>
-            <option>Based on complexity, up to 4 weeks</option>
-            <option>Flexible</option>
-          </select>
-        </label>
-      </div>
-
-      <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">Message</span>
-        <textarea
-          name="message"
-          rows={5}
-          placeholder="Tell me what you want to launch."
-          className="mt-2 w-full resize-none rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/55 focus:border-[#f4efe3]"
-          required
-        />
-      </label>
-
-      <div className="space-y-3">
-        <p
-          aria-live="polite"
-          className={`text-sm ${
-            submitStatus === "error"
-              ? "text-red-300"
-              : submitStatus === "success"
-                ? "text-emerald-300"
-                : "text-[#f4efe3]/58"
-          }`}
-        >
-          {submitStatus === "success"
-            ? "Message saved. I’ll get back to you soon."
-            : submitStatus === "error"
-              ? "Couldn’t save your message. Please try again."
-              : "Your project details are saved for follow-up."}
-        </p>
-        <button
-          type="submit"
-          disabled={submitStatus === "submitting"}
-          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#f4efe3] px-6 py-4 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] disabled:cursor-wait disabled:opacity-60"
-        >
-          {submitStatus === "submitting" ? "Saving..." : "Send Message"}
-          <Send className="h-4 w-4" />
-        </button>
-      </div>
-    </form>
   );
 }
 
@@ -1864,7 +1709,7 @@ function PageCta() {
           </p>
         </div>
         <Link
-          href="/#contact"
+          href="/contact"
           className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#d8cfc0] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
         >
           Start a Project
@@ -2054,33 +1899,6 @@ function InfoLine({ label, value }: { label: string; value: string }) {
       <p className="text-[13px] font-bold uppercase tracking-[0.12em] text-slate-400">{label}</p>
       <p className="mt-2 text-base leading-7 text-slate-200">{value}</p>
     </div>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-  placeholder,
-  required,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  placeholder: string;
-  required?: boolean;
-}) {
-  return (
-    <label className="block">
-      <span className="text-sm font-semibold text-[#f4efe3]">{label}</span>
-      <input
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        className="mt-2 w-full rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/8 px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/55 focus:border-[#f4efe3]"
-      />
-    </label>
   );
 }
 

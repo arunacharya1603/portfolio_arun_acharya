@@ -1,7 +1,6 @@
 ﻿import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { siteConfig } from "@/lib/site";
 import { SiteActionBar } from "@/components/SiteActionBar";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -65,7 +64,7 @@ export function SeoPageShell({
               path.
             </p>
             <Link
-              href={`mailto:${siteConfig.email}?subject=Project%20Inquiry`}
+              href="/contact"
               className="mt-6 inline-flex rounded-[6px] bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3]"
             >
               Start a project

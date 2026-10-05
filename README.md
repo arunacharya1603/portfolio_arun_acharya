@@ -1,3 +1,32 @@
+## Portfolio SEO and enquiries
+
+The canonical site is https://www.arunacharya1603.in. Non-www URLs should redirect to the matching www page. A Search Console “Page with redirect” exclusion on the old URL is expected; inspect the destination URL for indexing.
+
+- Buyer resources: /resources and /tools/website-cost-planner.
+- Project guides: data/project-guides.ts, with relevant work and service links.
+- Service packages: data/service-proposals.ts. General pricing and location pages use data/seo.ts; the regression check verifies their starting prices match.
+- Contact: /contact, the homepage form, the planner form and the service proposal forms all use /api/contact-submissions.
+
+### Local checks
+
+Run npm run lint, node scripts/check-inquiries.cjs and npm run build. Start the production preview with npm run start -- --port 3005, then run node scripts/check-seo.cjs http://localhost:3005. The inquiry check mocks delivery and storage; it sends no real email.
+
+### Delivery and publishing
+
+Copy .env.example to .env.local for local email delivery. Configure GMAIL_APP_PASSWORD, GMAIL_SMTP_USER and CONTACT_TO_EMAIL in the existing Vercel project's Production environment. Never commit the password. Success is returned only after SMTP accepts the email; this does not independently prove inbox delivery. Vercel does not use the optional local JSON backup as a lead database. Retain the email fallback on all forms.
+
+Publish to the existing portfolio Vercel project, preserving the www domain and permanent non-www redirects. Verify new routes, the sitemap and a real owner-authorized inquiry after deployment. Submit the canonical sitemap in the www Search Console property. Do not repeatedly validate expected redirect exclusions.
+
+### Measuring the result
+
+Compare complete 28-day periods in Search Console by page and query: impressions, clicks, CTR and non-branded searches. Track qualified enquiries, proposals and won projects separately from visits. Enquiry emails include first page, referral hostname and optional UTM source/medium/campaign from session storage; this is useful attribution, not a full analytics system. Blocked storage and direct email enquiries can limit attribution.
+
+No page-view analytics provider is configured in this repository. Search Console remains the source for Google search traffic. Expand content when query data or recurring buyer questions justify a substantive answer, with real project evidence. Publishing page volume alone is not the goal.
+
+The Corpvance profile is linked on About and in Person.sameAs. A backlink from Corpvance to this portfolio would require a change on their site.
+
+---
+
 <div align="center">
   <br />
     <a href="https://youtu.be/FTH6Dn3AyIQ" target="_blank">

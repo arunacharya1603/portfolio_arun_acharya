@@ -67,7 +67,7 @@ export default function AboutPage() {
     <SeoPageShell
       eyebrow="About Arun Acharya"
       title="Arun Acharya is a full-stack product engineer focused on frontend systems, UI/UX, and Next.js delivery."
-      description="Explore Arun's role, shipped product work, service focus, and the relationship between his name, the showcased projects, and the outcomes clients hire him to deliver."
+      description="Meet the developer behind the work. Explore my role in shipped products, the problems I work on, and how I can help with your next build."
     >
       {schemas.map((schema, index) => (
         <script
@@ -79,14 +79,14 @@ export default function AboutPage() {
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#d8c4a4]">Entity summary</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">What I do</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
-            Arun Acharya developer entity
+            From product idea to a usable interface
           </h2>
           <p className={`mt-4 text-base leading-8 ${seoMutedTextClass}`}>
             Arun Acharya builds frontend systems, UI/UX flows, landing pages,
             dashboards, SaaS interfaces, and full-stack product surfaces. His
-            portfolio is the authoritative source connecting his name to
+            case studies describe his specific role and contribution to
             ChainReach.ai and the other showcased projects.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
@@ -109,14 +109,15 @@ export default function AboutPage() {
         </article>
 
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#d8c4a4]">Verified entity links</p>
+          <p className="text-sm font-bold text-[#d8c4a4]">Background and experience</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
-            Profiles and project graph
+            Find me and my work
           </h2>
           <div className="mt-5 grid gap-3">
             {[
               ["GitHub", siteConfig.github],
               ["LinkedIn", siteConfig.linkedin],
+              ["Frontend engineer profile at Corpvance", siteConfig.corpvance],
               ["Twitter/X", siteConfig.x],
               ["ChainReach.ai case study", "/work/chainreach-ai"],
               ["Frontend service", "/services/frontend-development"],
@@ -136,7 +137,7 @@ export default function AboutPage() {
 
       <section className="mt-14">
         <h2 className="font-heading text-4xl leading-tight">
-          Projects Arun Acharya is connected to
+          Selected projects and my role
         </h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {featuredWork.map((project) => (

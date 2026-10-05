@@ -1,3 +1,5 @@
+import { getInquiryAttribution } from "@/lib/inquiry-attribution";
+
 export type ProjectInquiry = {
   source: string;
   name: string;
@@ -12,7 +14,7 @@ export async function submitProjectInquiry(inquiry: ProjectInquiry) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(inquiry),
+    body: JSON.stringify({ ...inquiry, ...getInquiryAttribution() }),
   });
 
   const result = (await response.json()) as { error?: string };

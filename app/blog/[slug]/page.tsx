@@ -13,7 +13,6 @@ import {
   seoBlogPosts,
 } from "@/data/seo-content";
 import { workProjects } from "@/data/work-projects";
-import { siteConfig } from "@/lib/site";
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -57,7 +56,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedServices = post.relatedServiceSlugs
     .map(getSeoServicePage)
     .filter(Boolean);
-  const relatedWork = workProjects.slice(0, 2);
+  const relatedWork = post.relatedWorkSlugs
+    ? workProjects.filter((project) => post.relatedWorkSlugs!.includes(project.slug))
+    : workProjects.slice(0, 2);
 
   const schemas = [
     articleJsonLd(post),
@@ -107,6 +108,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
 
+          {post.references?.length ? <section className="mt-8 border-t border-[#f4efe3]/12 pt-6">
+            <h2 className="text-xl font-semibold">Further reading</h2>
+            <ul className="mt-4 space-y-3 text-sm text-[#d8c4a4]">{post.references.map((reference) => <li key={reference.url}><a href={reference.url} className="underline underline-offset-4">{reference.title}</a></li>)}</ul>
+          </section> : null}
+
           <section className="mt-10 border-t border-[#f4efe3]/12 pt-8">
             <h2 className="font-grotesk text-3xl font-semibold">
               Common questions
@@ -138,7 +144,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               href="/blog/author/arun-acharya"
               className="mt-4 inline-flex text-sm font-semibold text-[#d8c4a4]"
             >
-              View author entity page
+              About the author
             </Link>
             <p className="mt-4 text-xs font-semibold text-[#f4efe3]/45">
               Published {post.datePublished}. Updated {post.dateModified}.
@@ -196,14 +202,12 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Have a similar project? Share the current site, target audience,
               timeline, and what needs to improve.
             </p>
-            <a
-              href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(
-                post.title
-              )}`}
+            <Link
+              href="/tools/website-cost-planner"
               className="mt-5 inline-flex rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
             >
-              Ask about this
-            </a>
+              Plan a similar project
+            </Link>
           </section>
         </aside>
       </article>
