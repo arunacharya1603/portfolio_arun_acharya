@@ -105,7 +105,6 @@ const navItems = [
   { name: "Process", href: "/process" },
   { name: "Pricing", href: "/pricing" },
   { name: "FAQ", href: "/faq" },
-  { name: "Reviews", href: "/reviews" },
   { name: "Resources", href: "/resources" },
   { name: "Contact", href: "/contact" },
 ];
@@ -351,10 +350,10 @@ const pageLinks = [
     icon: Timer,
   },
   {
-    title: "Reviews",
-    href: "/reviews",
-    copy: "Verified proof placeholder, delivery badges, and trust signals.",
-    icon: ShieldCheck,
+    title: "Global clients",
+    href: "/locations",
+    copy: "Remote collaboration details for India and international clients.",
+    icon: Globe2,
   },
 ];
 
@@ -566,20 +565,6 @@ export function PricingPageContent() {
       />
       <PricingGrid />
       <LocationSeoSection />
-      <PageCta />
-    </PortfolioScaffold>
-  );
-}
-
-export function ReviewsPageContent() {
-  return (
-    <PortfolioScaffold>
-      <PageHero
-        eyebrow="Proof"
-        title="Proof lives in shipped work, clear outcomes, and verified client feedback."
-        copy="Explore selected builds and delivery standards now. Client testimonials appear only when permission and attribution are confirmed."
-      />
-      <ProofSection />
       <PageCta />
     </PortfolioScaffold>
   );

@@ -31,8 +31,15 @@ async function main() {
     if (known.has(route)) continue;
     assert.equal((await fetch(`${base}${route}`)).status, 200, `Broken internal link: ${route}`);
   }
+  for (const [route, destination] of [["/reviews", "/work"], ["/locations/delhi", "/locations"]]) {
+    const redirect = await fetch(`${base}${route}`, { redirect: "manual" });
+    assert.equal(redirect.status, 308, `${route} must permanently redirect`);
+    assert.equal(redirect.headers.get("location"), destination, `${route} has the wrong redirect target`);
+  }
+  assert.equal((await fetch(`${base}/locations/not-a-market`, { redirect: "manual" })).status, 404);
   const robots = await (await fetch(`${base}/robots.txt`)).text();
   assert.ok(robots.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`));
+  assert.ok(robots.includes("Disallow: /sentry-example-page"));
   console.log(`PASS: ${urls.length} sitemap pages return 200 with matching www canonicals, one h1, indexable metadata and parseable JSON-LD. Internal links resolve.`);
 }
 main().catch((error) => { console.error(error); process.exitCode = 1; });

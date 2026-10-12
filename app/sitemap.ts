@@ -1,5 +1,4 @@
 import type { MetadataRoute } from "next";
-import { locationMarkets } from "@/data/seo";
 import { seoBlogPosts, seoServicePages } from "@/data/seo-content";
 import { workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
@@ -14,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/process",
     "/pricing",
     "/faq",
-    "/reviews",
     "/blog",
     "/blog/author/arun-acharya",
     "/locations",
@@ -25,12 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteConfig.url}${path}`,
     changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.8,
-  }));
-
-  const locationRoutes = locationMarkets.map((location) => ({
-    url: `${siteConfig.url}/locations/${location.slug}`,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
   }));
 
   const serviceRoutes = seoServicePages.map((service) => ({
@@ -52,5 +44,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.78,
   }));
 
-  return [...baseRoutes, ...workRoutes, ...serviceRoutes, ...locationRoutes, ...blogRoutes];
+  return [...baseRoutes, ...workRoutes, ...serviceRoutes, ...blogRoutes];
 }

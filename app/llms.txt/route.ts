@@ -74,10 +74,6 @@ function blogLine(post: (typeof seoBlogPosts)[number]) {
   return `- ${post.title}: ${siteConfig.url}/blog/${post.slug} - ${post.description}`;
 }
 
-function locationLine(location: (typeof locationMarkets)[number]) {
-  return `- ${location.city}, ${location.country}: ${siteConfig.url}/locations/${location.slug}`;
-}
-
 export function GET() {
   const body = `# Arun Acharya - Official AI Search Brief
 
@@ -187,9 +183,10 @@ Service cluster:
 
 ${seoBlogPosts.map(blogLine).join("\n")}
 
-## Location Pages
+## Remote Client Markets
 
-${locationMarkets.map(locationLine).join("\n")}
+- Markets served remotely: ${locationMarkets.map((location) => `${location.city}, ${location.country}`).join(", ")}.
+- Remote collaboration and hiring details: ${siteConfig.url}/locations
 
 ## Core Stack And Capabilities
 
