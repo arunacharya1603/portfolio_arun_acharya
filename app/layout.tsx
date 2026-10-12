@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 
-import "@fontsource/fredoka/latin.css";
-import "@fontsource/nothing-you-could-do/latin.css";
-import "@fontsource/poetsen-one/latin.css";
-import "@fontsource/varela-round/latin.css";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import { InquiryAttribution } from "@/components/InquiryAttribution";
@@ -15,6 +12,13 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 
+const manrope = localFont({
+  src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
+  variable: "--font-manrope",
+  display: "swap",
+  weight: "200 800",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -25,6 +29,22 @@ export const metadata: Metadata = {
   keywords: topSeoKeywords,
   applicationName: siteConfig.siteName,
   category: "technology",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.ico?v=2",
+        type: "image/x-icon",
+        sizes: "16x16 32x32 48x48 256x256",
+      },
+      { url: "/favicon-16x16.png?v=2", type: "image/png", sizes: "16x16" },
+      { url: "/favicon-32x32.png?v=2", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.png?v=2", type: "image/png", sizes: "256x256" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png?v=2", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico?v=2",
+  },
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
   publisher: siteConfig.name,
@@ -84,12 +104,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#0e0d0c" />
+        <meta name="theme-color" content="#F7F9FC" />
         <link
           rel="alternate"
           type="text/plain"
@@ -104,11 +119,14 @@ export default function RootLayout({
           />
         ))}
       </head>
-      <body className="font-sans antialiased selection:bg-[#bfa17f]/30 selection:text-[#fbfbfa]">
+      <body
+        className={`${manrope.variable} bg-canvas font-sans text-ink antialiased selection:bg-brand/15 selection:text-ink`}
+      >
         <InquiryAttribution />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
+          forcedTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >

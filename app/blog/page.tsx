@@ -1,3 +1,4 @@
+import { LiquidSurface } from "@/components/ui/liquid-surface";
 import Link from "next/link";
 
 import {
@@ -15,7 +16,11 @@ export function generateMetadata() {
     description:
       "Articles by Arun Acharya about landing pages, frontend development, UI/UX, Next.js, API planning, SaaS builds, SEO structure, and product scoping.",
     path: "/blog",
-    keywords: ["Arun Acharya blog", "frontend development blog", "Next.js freelancer blog"],
+    keywords: [
+      "Arun Acharya blog",
+      "frontend development blog",
+      "Next.js freelancer blog",
+    ],
   });
 }
 
@@ -61,14 +66,18 @@ export default function BlogPage() {
         />
       ))}
 
-      <section className="mb-8 rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-5">
+      <section className="mb-8 rounded-lg border border-line bg-surface p-5">
         <p className={`text-sm leading-7 ${seoMutedTextClass}`}>
           Written by{" "}
-          <Link href="/blog/author/arun-acharya" className="font-semibold text-[#d8c4a4]">
+          <Link
+            href="/blog/author/arun-acharya"
+            className="font-semibold text-brand"
+          >
             Arun Acharya
           </Link>
-          , a frontend developer, UI/UX developer, and Next.js freelancer building landing pages,
-          dashboards, SaaS products, and SEO-ready websites.
+          , a frontend developer, UI/UX developer, and Next.js freelancer
+          building landing pages, dashboards, SaaS products, and SEO-ready
+          websites.
         </p>
       </section>
 
@@ -77,11 +86,12 @@ export default function BlogPage() {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className={`${seoCardClass} group transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07] ${
+            className={`${seoCardClass} group transition hover:-translate-y-0.5 hover:border-brand/30 hover:bg-brand-soft ${
               index === 0 ? "md:col-span-2" : ""
             }`}
           >
-            <p className="text-sm font-bold text-[#d8c4a4]">
+            <LiquidSurface radius={16} />
+            <p className="text-sm font-bold text-brand">
               {post.category} / {post.readingTime}
             </p>
             <h2 className="mt-3 font-grotesk text-3xl font-semibold">
@@ -94,13 +104,13 @@ export default function BlogPage() {
               {post.keywords.slice(0, 3).map((keyword) => (
                 <span
                   key={keyword}
-                  className="rounded-full border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] px-3 py-1 text-xs font-semibold text-[#f4efe3]/72"
+                  className="rounded-full border border-line bg-surface px-3 py-1 text-xs font-semibold text-subtle"
                 >
                   {keyword}
                 </span>
               ))}
             </div>
-            <span className="mt-6 inline-flex text-sm font-semibold text-[#d8c4a4]">
+            <span className="mt-6 inline-flex text-sm font-semibold text-brand">
               Read guide
             </span>
           </Link>

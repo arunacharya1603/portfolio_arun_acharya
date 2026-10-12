@@ -1,3 +1,4 @@
+import { LiquidSurface } from "@/components/ui/liquid-surface";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -57,7 +58,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     .map(getSeoServicePage)
     .filter(Boolean);
   const relatedWork = post.relatedWorkSlugs
-    ? workProjects.filter((project) => post.relatedWorkSlugs!.includes(project.slug))
+    ? workProjects.filter((project) =>
+        post.relatedWorkSlugs!.includes(project.slug),
+      )
     : workProjects.slice(0, 2);
 
   const schemas = [
@@ -86,11 +89,10 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className="grid gap-8 lg:grid-cols-[0.72fr_0.28fr]">
         <div className={seoCardClass}>
-          <div className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-5">
-            <p className="text-sm font-bold text-[#d8c4a4]">Short answer</p>
-            <p className="mt-3 text-lg leading-8 text-[#f4efe3]">
-              {post.summary}
-            </p>
+          <LiquidSurface radius={16} />
+          <div className="rounded-lg border border-line bg-surface p-5">
+            <p className="text-sm font-bold text-brand">Short answer</p>
+            <p className="mt-3 text-lg leading-8 text-ink">{post.summary}</p>
           </div>
 
           <div className="mt-8 space-y-8">
@@ -99,7 +101,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <h2 className="font-grotesk text-3xl font-semibold">
                   {section.heading}
                 </h2>
-                <div className={`mt-4 space-y-4 text-base leading-8 ${seoMutedTextClass}`}>
+                <div
+                  className={`mt-4 space-y-4 text-base leading-8 ${seoMutedTextClass}`}
+                >
                   {section.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
@@ -108,18 +112,34 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             ))}
           </div>
 
-          {post.references?.length ? <section className="mt-8 border-t border-[#f4efe3]/12 pt-6">
-            <h2 className="text-xl font-semibold">Further reading</h2>
-            <ul className="mt-4 space-y-3 text-sm text-[#d8c4a4]">{post.references.map((reference) => <li key={reference.url}><a href={reference.url} className="underline underline-offset-4">{reference.title}</a></li>)}</ul>
-          </section> : null}
+          {post.references?.length ? (
+            <section className="mt-8 border-t border-line pt-6">
+              <h2 className="text-xl font-semibold">Further reading</h2>
+              <ul className="mt-4 space-y-3 text-sm text-brand">
+                {post.references.map((reference) => (
+                  <li key={reference.url}>
+                    <a
+                      href={reference.url}
+                      className="underline underline-offset-4"
+                    >
+                      {reference.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
-          <section className="mt-10 border-t border-[#f4efe3]/12 pt-8">
+          <section className="mt-10 border-t border-line pt-8">
             <h2 className="font-grotesk text-3xl font-semibold">
               Common questions
             </h2>
             <div className="mt-5 grid gap-4">
               {post.faqs.map((faq) => (
-                <article key={faq.question} className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-5">
+                <article
+                  key={faq.question}
+                  className="rounded-lg border border-line bg-surface p-5"
+                >
                   <h3 className="font-semibold">{faq.question}</h3>
                   <p className={`mt-2 text-sm leading-7 ${seoMutedTextClass}`}>
                     {faq.answer}
@@ -132,26 +152,29 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         <aside className="space-y-5">
           <section className={seoCardClass}>
-            <p className="text-sm font-bold text-[#d8c4a4]">Author and context</p>
+            <LiquidSurface radius={16} />
+            <p className="text-sm font-bold text-brand">Author and context</p>
             <h2 className="mt-3 font-grotesk text-2xl font-semibold">
               Arun Acharya
             </h2>
             <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
-              Freelance frontend developer, UI/UX developer, and Next.js freelancer
-              building landing pages, web apps, dashboards, APIs, and product experiences.
+              Freelance frontend developer, UI/UX developer, and Next.js
+              freelancer building landing pages, web apps, dashboards, APIs, and
+              product experiences.
             </p>
             <Link
               href="/blog/author/arun-acharya"
-              className="mt-4 inline-flex text-sm font-semibold text-[#d8c4a4]"
+              className="mt-4 inline-flex text-sm font-semibold text-brand"
             >
               About the author
             </Link>
-            <p className="mt-4 text-xs font-semibold text-[#f4efe3]/45">
+            <p className="mt-4 text-xs font-semibold text-subtle">
               Published {post.datePublished}. Updated {post.dateModified}.
             </p>
           </section>
 
           <section className={seoCardClass}>
+            <LiquidSurface radius={16} />
             <h2 className="font-grotesk text-2xl font-semibold">
               Related services
             </h2>
@@ -160,7 +183,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={service!.slug}
                   href={`/services/${service!.slug}`}
-                  className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 font-semibold transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
+                  className="rounded-lg border border-line bg-surface p-4 font-semibold transition hover:border-brand/30 hover:bg-brand-soft"
                 >
                   {service!.navLabel}
                 </Link>
@@ -169,6 +192,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </section>
 
           <section className={seoCardClass}>
+            <LiquidSurface radius={16} />
             <h2 className="font-grotesk text-2xl font-semibold">
               Related work
             </h2>
@@ -177,17 +201,21 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
-                  className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
+                  className="rounded-lg border border-line bg-surface p-4 transition hover:border-brand/30 hover:bg-brand-soft"
                 >
-                  <span className="block font-semibold">{project.shortName}</span>
-                  <span className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}>
+                  <span className="block font-semibold">
+                    {project.shortName}
+                  </span>
+                  <span
+                    className={`mt-2 block text-sm leading-6 ${seoMutedTextClass}`}
+                  >
                     {project.impact}
                   </span>
                 </Link>
               ))}
               <Link
                 href="/work"
-                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.045] p-4 text-sm font-semibold text-[#d8c4a4] transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
+                className="rounded-lg border border-line bg-surface p-4 text-sm font-semibold text-brand transition hover:border-brand/30 hover:bg-brand-soft"
               >
                 See all case studies
               </Link>
@@ -195,6 +223,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </section>
 
           <section className={seoCardClass}>
+            <LiquidSurface radius={16} />
             <h2 className="font-grotesk text-2xl font-semibold">
               Project discussion
             </h2>
@@ -204,7 +233,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </p>
             <Link
               href="/tools/website-cost-planner"
-              className="mt-5 inline-flex rounded-full bg-[#f4efe3] px-5 py-3 text-sm font-semibold text-[#0d0c09]"
+              className="mt-5 inline-flex rounded-full bg-brand px-5 py-3 text-sm font-semibold text-primary-foreground"
             >
               Plan a similar project
             </Link>

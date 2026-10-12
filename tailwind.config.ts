@@ -2,7 +2,6 @@ import type { Config } from "tailwindcss";
 
 const svgToDataUri = require("mini-svg-data-uri");
 
-const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
@@ -46,8 +45,18 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#C6C5D4",
-          foreground: "#2F303B",
+          DEFAULT: "hsl(var(--primary) / <alpha-value>)",
+          foreground: "hsl(var(--primary-foreground) / <alpha-value>)",
+        },
+        canvas: "hsl(var(--background) / <alpha-value>)",
+        surface: "hsl(var(--surface) / <alpha-value>)",
+        ink: "hsl(var(--foreground) / <alpha-value>)",
+        subtle: "hsl(var(--muted-foreground) / <alpha-value>)",
+        line: "hsl(var(--border) / <alpha-value>)",
+        brand: {
+          DEFAULT: "hsl(var(--primary) / <alpha-value>)",
+          hover: "hsl(var(--primary-hover) / <alpha-value>)",
+          soft: "hsl(var(--secondary) / <alpha-value>)",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -75,11 +84,28 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["Fredoka", "Arial Rounded MT Bold", "sans-serif"],
-        grotesk: ["Fredoka", "Arial Rounded MT Bold", "sans-serif"],
-        heading: ["Poetsen One", "Arial Rounded MT Bold", "sans-serif"],
-        hero: ["Varela Round", "Arial Rounded MT Bold", "sans-serif"],
-        review: ["Nothing You Could Do", "Comic Sans MS", "cursive"],
+        sans: ["var(--font-manrope)", "Arial", "sans-serif"],
+        grotesk: ["var(--font-manrope)", "Arial", "sans-serif"],
+        heading: ["var(--font-manrope)", "Arial", "sans-serif"],
+        hero: ["var(--font-manrope)", "Arial", "sans-serif"],
+        review: ["var(--font-manrope)", "Arial", "sans-serif"],
+      },
+      maxWidth: { site: "1400px" },
+      fontSize: {
+        display: [
+          "clamp(3rem, 5.2vw, 5rem)",
+          { lineHeight: "1.08", letterSpacing: "-0.055em", fontWeight: "600" },
+        ],
+        section: [
+          "clamp(2rem, 3.5vw, 3.5rem)",
+          { lineHeight: "1.15", letterSpacing: "-0.04em", fontWeight: "600" },
+        ],
+      },
+      boxShadow: {
+        glass:
+          "0 8px 28px -12px rgb(62 79 151 / 0.2), inset 0 1px 0 rgb(255 255 255 / 0.9)",
+        card: "0 8px 32px -16px rgb(21 34 56 / 0.14)",
+        showcase: "0 28px 64px -28px rgb(21 34 56 / 0.3)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -169,41 +195,32 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
           "bg-grid": (value: any) => ({
             backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100" height="100" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100" height="100" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
             )}")`,
           }),
           "bg-grid-small": (value: any) => ({
             backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`,
             )}")`,
           }),
           "bg-dot": (value: any) => ({
             backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`,
             )}")`,
           }),
         },
-        { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
+        {
+          values: flattenColorPalette(theme("backgroundColor")),
+          type: "color",
+        },
       );
     },
   ],
 } satisfies Config;
-
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
-
-  addBase({
-    ":root": newVars,
-  });
-}
 
 export default config;

@@ -1,189 +1,165 @@
 "use client";
 
+import { GlassLink } from "@/components/ui/glass-link";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { LiquiGlass } from "@liqui-design/glass";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { cardGlass } from "@/lib/glass";
 
 const navigation = [
   { name: "Work", href: "/work" },
   { name: "About", href: "/about" },
-  { name: "Experience", href: "/experience" },
   { name: "Services", href: "/services" },
-  { name: "Process", href: "/process" },
   { name: "Pricing", href: "/pricing" },
-  { name: "FAQ", href: "/faq" },
-  { name: "Resources", href: "/resources" },
 ];
 
-function isActivePath(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
 export function SiteHeader() {
-  const pathname = usePathname() ?? "/";
-  const { scrollY } = useScroll();
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [isAwayFromTop, setIsAwayFromTop] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(true);
-  const lastScrollYRef = useRef(0);
-  const isHome = pathname === "/";
+  const toggleRef = useRef<HTMLElement>(null);
 
-  useMotionValueEvent(scrollY, "change", (current) => {
-    const previous = lastScrollYRef.current;
-    const delta = current - previous;
-
-    setIsAwayFromTop(current > 72);
-
-    if (open || current <= 32) {
-      setHeaderVisible(true);
-    } else if (Math.abs(delta) > 2) {
-      setHeaderVisible(delta < 0);
-    }
-
-    lastScrollYRef.current = current;
-  });
+  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
-    if (open) setHeaderVisible(true);
+    if (!open) return;
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    }
+    // Clear the disclosure state when the full navigation becomes visible.
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      desktop.removeEventListener("change", closeOnDesktop);
+    };
   }, [open]);
 
-  useEffect(() => {
-    setOpen(false);
-    setIsAwayFromTop(scrollY.get() > 72);
-    setHeaderVisible(true);
-    lastScrollYRef.current = scrollY.get();
-  }, [pathname, scrollY]);
+  function navLink(item: (typeof navigation)[number], mobile = false) {
+    const active =
+      pathname === item.href || pathname?.startsWith(`${item.href}/`);
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        aria-current={active ? "page" : undefined}
+        onClick={() => setOpen(false)}
+        className={cn(
+          "rounded-md font-medium transition-colors hover:bg-brand-soft hover:text-brand",
+          mobile
+            ? "flex min-h-12 items-center justify-between px-4 text-base"
+            : "px-4 py-3 text-sm",
+          active ? "bg-brand-soft text-brand" : "text-subtle",
+        )}
+      >
+        {item.name}
+        {mobile && <ArrowUpRight aria-hidden="true" className="h-4 w-4" />}
+      </Link>
+    );
+  }
 
   return (
-    <motion.header
-      initial={false}
-      animate={{ y: headerVisible ? 0 : -120, opacity: headerVisible ? 1 : 0 }}
-      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-      onFocusCapture={() => setHeaderVisible(true)}
-      className={`site-header z-50 px-3 pt-3 sm:px-5 sm:pt-4 ${
-        isHome ? "fixed inset-x-0 top-0" : "sticky top-0"
-      }`}
-    >
-      <div
-        className={`mx-auto w-full max-w-[1480px] overflow-hidden rounded-[10px] border backdrop-blur-2xl transition-[background,border-color,box-shadow] duration-300 ${
-          isAwayFromTop || open
-            ? "border-[#f4efe3]/[0.14] bg-[#302b24]/[0.9] shadow-[0_18px_58px_rgba(0,0,0,0.34)]"
-            : "border-[#f4efe3]/10 bg-[#302b24]/[0.74] shadow-[0_14px_42px_rgba(0,0,0,0.22)]"
-        }`}
+    <header className="sticky top-0 z-50 px-3 py-3 sm:px-6 sm:py-4">
+      <a
+        href="#main-content"
+        className="sr-only rounded-lg bg-brand px-5 py-3 text-primary-foreground focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-50"
+      >
+        Skip to content
+      </a>
+      <LiquiGlass
+        {...cardGlass}
+        blur={2}
+        frost={0.35}
+        bezel={18}
+        className="liquid-navigation mx-auto max-w-site"
       >
         <nav
-          className="flex min-w-0 items-center justify-between gap-2 px-2.5 py-2.5 sm:gap-4 sm:px-4 sm:py-3"
           aria-label="Primary navigation"
+          className="flex h-[72px] items-center justify-between gap-4 px-4 sm:px-6"
         >
           <Link
             href="/"
-            className="group flex min-w-0 items-center gap-2.5 rounded-[6px] pr-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:gap-3"
             aria-label="Arun Acharya home"
+            className="flex shrink-0 items-center gap-3"
           >
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[7px] border border-[#f4efe3]/[0.12] bg-[#f4efe3] font-grotesk text-sm font-semibold text-[#0d0c09] shadow-[0_8px_24px_rgba(244,239,227,0.08)] transition group-hover:bg-[#fff8e8]">
-              AA
-            </span>
-            <span className="min-w-0 leading-none">
-              <span className="block truncate font-grotesk text-sm font-semibold text-[#f4efe3]/[0.95] sm:text-base">
-                Arun Acharya
-              </span>
-              <span className="mt-1 block truncate text-xs text-[#f4efe3]/[0.66]">
-                Full-Stack Product Engineer
-              </span>
+            <Image
+              src="/brand/arun-graphic-logo-v2-transparent.png"
+              alt=""
+              width={48}
+              height={48}
+              sizes="48px"
+              priority
+              className="h-12 w-12 shrink-0 object-contain"
+            />
+            <span className="text-sm font-bold tracking-tight sm:text-base">
+              Arun Acharya
             </span>
           </Link>
-
-          <div className="hidden items-center gap-1 xl:flex">
-            {navigation.map((item) => {
-              const active = isActivePath(pathname, item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`relative rounded-[5px] px-2.5 py-2 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
-                    active
-                      ? "text-[#fffaf0] after:absolute after:inset-x-2.5 after:-bottom-0.5 after:h-px after:bg-[#d8c4a4]/[0.8]"
-                      : "text-[#f4efe3]/[0.78] hover:bg-[#f4efe3]/[0.06] hover:text-[#fffaf0]"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+          <div className="hidden items-center gap-1 lg:flex">
+            {navigation.map((item) => navLink(item))}
           </div>
-
-          <Link
-            href="/contact"
-            className="group hidden items-center gap-2 rounded-[7px] bg-[#f4efe3] px-3.5 py-2.5 text-sm font-semibold text-[#0d0c09] shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] md:inline-flex"
-          >
-            Start Project
-            <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[7px] border border-[#f4efe3]/[0.12] bg-[#f4efe3]/[0.06] text-[#f4efe3] transition hover:bg-[#f4efe3]/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] xl:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="site-mobile-navigation"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        <AnimatePresence initial={false}>
-          {open ? (
-            <motion.div
-              id="site-mobile-navigation"
-              initial={{ opacity: 0, height: 0, y: -8 }}
-              animate={{ opacity: 1, height: "auto", y: 0 }}
-              exit={{ opacity: 0, height: 0, y: -8 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="border-t border-[#f4efe3]/10 bg-[#211e19]/[0.54] xl:hidden"
+          <div className="flex items-center gap-3">
+            <GlassLink
+              href="/contact"
+              variant={"primary"}
+              className={"hidden sm:inline-flex"}
             >
-              <div className="grid gap-1 p-2 sm:grid-cols-2 sm:p-3">
-                {navigation.map((item, index) => {
-                  const active = isActivePath(pathname, item.href);
-
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.18, delay: index * 0.02 }}
-                    >
-                      <Link
-                        href={item.href}
-                        aria-current={active ? "page" : undefined}
-                        className={`group flex min-h-[52px] items-center justify-between gap-4 rounded-[7px] px-3.5 py-3 text-base font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] ${
-                          active
-                            ? "bg-[#f4efe3]/12 text-[#f4efe3]"
-                            : "text-[#f4efe3]/[0.78] hover:bg-[#f4efe3]/[0.07] hover:text-[#f4efe3]"
-                        }`}
-                      >
-                        <span>{item.name}</span>
-                        <ArrowUpRight className="h-4 w-4 text-[#f4efe3]/70 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-                <Link
-                  href="/contact"
-                  className="group mt-1 flex min-h-[52px] items-center justify-between rounded-[6px] bg-[#f4efe3] px-3.5 py-3 text-base font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] sm:col-span-2"
-                >
-                  Start Project
-                  <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </div>
-    </motion.header>
+              Start Project
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </GlassLink>
+            <Button
+              ref={toggleRef}
+              type="button"
+              onClick={() => setOpen(!open)}
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="site-mobile-navigation"
+              glass={{
+                radius: 14,
+                contentClassName: "h-full w-full !p-0",
+              }}
+              className="h-12 w-12 text-ink lg:hidden"
+            >
+              {open ? (
+                <X aria-hidden="true" className="h-5 w-5" />
+              ) : (
+                <Menu aria-hidden="true" className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
+        </nav>
+        {open && (
+          <nav
+            id="site-mobile-navigation"
+            aria-label="Mobile navigation"
+            className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-3xl border-t border-line bg-surface/95 p-4 lg:hidden"
+          >
+            <div className="mx-auto grid max-w-3xl gap-1 sm:grid-cols-2">
+              {navigation.map((item) => navLink(item, true))}
+              <GlassLink
+                href="/contact"
+                onClick={() => setOpen(false)}
+                variant={"primary"}
+                className={"mt-3 sm:col-span-2"}
+              >
+                Start Project
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </GlassLink>
+            </div>
+          </nav>
+        )}
+      </LiquiGlass>
+    </header>
   );
 }

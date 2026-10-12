@@ -1,3 +1,4 @@
+import { LiquidSurface } from "@/components/ui/liquid-surface";
 import Link from "next/link";
 
 import {
@@ -8,11 +9,7 @@ import {
 import { seoServicePages } from "@/data/seo-content";
 import { workProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
-import {
-  absoluteUrl,
-  breadcrumbJsonLd,
-  createPageMetadata,
-} from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
@@ -52,7 +49,9 @@ const aboutPageJsonLd = {
 
 export default function AboutPage() {
   const featuredServices = seoServicePages.filter((service) =>
-    ["landing-pages", "frontend-development", "ui-ux-design"].includes(service.slug)
+    ["landing-pages", "frontend-development", "ui-ux-design"].includes(
+      service.slug,
+    ),
   );
   const featuredWork = workProjects.slice(0, 5);
   const schemas = [
@@ -79,7 +78,8 @@ export default function AboutPage() {
 
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#d8c4a4]">What I do</p>
+          <LiquidSurface radius={16} />
+          <p className="text-sm font-bold text-brand">What I do</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             From product idea to a usable interface
           </h2>
@@ -100,7 +100,7 @@ export default function AboutPage() {
             ].map((item) => (
               <span
                 key={item}
-                className="rounded-full border border-[#f4efe3]/14 bg-[#f4efe3]/[0.06] px-3 py-1 text-[13px] font-semibold text-[#f4efe3]/80"
+                className="rounded-full border border-line bg-surface px-3 py-1 text-[13px] font-semibold text-subtle"
               >
                 {item}
               </span>
@@ -109,7 +109,10 @@ export default function AboutPage() {
         </article>
 
         <article className={seoCardClass}>
-          <p className="text-sm font-bold text-[#d8c4a4]">Background and experience</p>
+          <LiquidSurface radius={16} />
+          <p className="text-sm font-bold text-brand">
+            Background and experience
+          </p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             Find me and my work
           </h2>
@@ -126,7 +129,7 @@ export default function AboutPage() {
               <Link
                 key={label}
                 href={href}
-                className="rounded-lg border border-[#f4efe3]/12 bg-[#f4efe3]/[0.06] p-4 font-semibold transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
+                className="rounded-lg border border-line bg-surface p-4 font-semibold transition hover:border-brand/30 hover:bg-brand-soft"
               >
                 {label}
               </Link>
@@ -144,9 +147,10 @@ export default function AboutPage() {
             <Link
               key={project.slug}
               href={`/work/${project.slug}`}
-              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
+              className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-brand/30 hover:bg-brand-soft`}
             >
-              <p className="text-sm font-bold text-[#d8c4a4]">{project.role}</p>
+              <LiquidSurface radius={16} />
+              <p className="text-sm font-bold text-brand">{project.role}</p>
               <h3 className="mt-3 font-grotesk text-2xl font-semibold">
                 {project.name}
               </h3>
@@ -163,9 +167,10 @@ export default function AboutPage() {
           <Link
             key={service.slug}
             href={`/services/${service.slug}`}
-            className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]`}
+            className={`${seoCardClass} transition hover:-translate-y-0.5 hover:border-brand/30 hover:bg-brand-soft`}
           >
-            <p className="text-sm font-bold text-[#d8c4a4]">Service</p>
+            <LiquidSurface radius={16} />
+            <p className="text-sm font-bold text-brand">Service</p>
             <h3 className="mt-3 font-grotesk text-2xl font-semibold">
               {service.navLabel}
             </h3>

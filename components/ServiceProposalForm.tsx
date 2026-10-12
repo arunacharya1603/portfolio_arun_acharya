@@ -5,11 +5,10 @@ import { useState, type FormEvent } from "react";
 
 import type { ServiceProposal } from "@/data/service-proposals";
 import type { SeoServicePage } from "@/data/seo-content";
+import { inputClass } from "@/components/ui/control-styles";
+import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site";
 import { submitProjectInquiry } from "@/lib/submit-project-inquiry";
-
-const inputClass =
-  "mt-2 w-full rounded-[7px] border border-[#f4efe3]/14 bg-[#090806] px-4 py-3 text-sm text-[#f4efe3] outline-none transition placeholder:text-[#f4efe3]/34 focus:border-[#d8c4a4]/75 focus:ring-2 focus:ring-[#d8c4a4]/10";
 
 function Field({
   label,
@@ -17,22 +16,28 @@ function Field({
   type = "text",
   placeholder,
   required,
+  autoComplete,
 }: {
   label: string;
   name: string;
   type?: string;
   placeholder: string;
   required?: boolean;
+  autoComplete?: string;
 }) {
   return (
     <label className="block">
-      <span className="text-sm font-semibold text-[#f4efe3]">{label}</span>
+      <span className="text-sm font-semibold text-ink">
+        {label}
+        {required ? " (required)" : " (optional)"}
+      </span>
       <input
         className={inputClass}
         name={name}
         type={type}
         placeholder={placeholder}
         required={required}
+        autoComplete={autoComplete}
       />
     </label>
   );
@@ -46,7 +51,8 @@ export function ServiceProposalForm({
   proposal: ServiceProposal;
 }) {
   const [selectedPackage, setSelectedPackage] = useState(
-    proposal.packages.find((item) => item.recommended)?.name ?? proposal.packages[0].name
+    proposal.packages.find((item) => item.recommended)?.name ??
+      proposal.packages[0].name,
   );
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "submitting" | "success" | "error"
@@ -86,7 +92,8 @@ export function ServiceProposalForm({
       });
       form.reset();
       setSelectedPackage(
-        proposal.packages.find((item) => item.recommended)?.name ?? proposal.packages[0].name
+        proposal.packages.find((item) => item.recommended)?.name ??
+          proposal.packages[0].name,
       );
       setSubmitStatus("success");
     } catch {
@@ -97,14 +104,40 @@ export function ServiceProposalForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Your name" name="name" placeholder="Name" required />
-        <Field label="Work email" name="email" type="email" placeholder="you@company.com" required />
-        <Field label="Company or product" name="company" placeholder="Company name" />
-        <Field label="Current website" name="website" type="url" placeholder="https://" />
+        <Field
+          label="Your name"
+          name="name"
+          placeholder="Name"
+          autoComplete="name"
+          required
+        />
+        <Field
+          label="Work email"
+          name="email"
+          type="email"
+          placeholder="you@company.com"
+          autoComplete="email"
+          required
+        />
+        <Field
+          label="Company or product"
+          name="company"
+          placeholder="Company name"
+          autoComplete="organization"
+        />
+        <Field
+          label="Current website"
+          name="website"
+          type="url"
+          placeholder="https://"
+          autoComplete="url"
+        />
       </div>
 
       <fieldset>
-        <legend className="text-sm font-semibold text-[#f4efe3]">Preferred engagement</legend>
+        <legend className="text-sm font-semibold text-ink">
+          Preferred engagement
+        </legend>
         <div className="mt-3 grid gap-2 md:grid-cols-3">
           {proposal.packages.map((item) => {
             const selected = selectedPackage === item.name;
@@ -112,10 +145,10 @@ export function ServiceProposalForm({
             return (
               <label
                 key={item.name}
-                className={`cursor-pointer rounded-[7px] border p-4 transition ${
+                className={`cursor-pointer rounded-lg border p-4 transition-colors focus-within:ring-2 focus-within:ring-brand focus-within:ring-offset-2 ${
                   selected
-                    ? "border-[#d8c4a4]/80 bg-[#d8c4a4]/10"
-                    : "border-[#f4efe3]/12 bg-[#f4efe3]/[0.035] hover:border-[#f4efe3]/28"
+                    ? "border-brand/30 bg-brand-soft"
+                    : "border-line bg-surface hover:border-line"
                 }`}
               >
                 <input
@@ -127,10 +160,17 @@ export function ServiceProposalForm({
                   className="sr-only"
                 />
                 <span className="flex items-start justify-between gap-3">
-                  <span className="text-sm font-semibold text-[#f4efe3]">{item.name}</span>
-                  {selected ? <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d8c4a4]" /> : null}
+                  <span className="text-sm font-semibold text-ink">
+                    {item.name}
+                  </span>
+                  {selected ? (
+                    <CheckCircle2
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0 text-brand"
+                    />
+                  ) : null}
                 </span>
-                <span className="mt-2 block text-xs leading-5 text-[#f4efe3]/54">
+                <span className="mt-2 block text-xs leading-5 text-subtle">
                   {item.priceUSD} / {item.priceINR}
                 </span>
               </label>
@@ -141,9 +181,11 @@ export function ServiceProposalForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Project stage</span>
+          <span className="text-sm font-semibold text-ink">Project stage</span>
           <select name="stage" required defaultValue="" className={inputClass}>
-            <option value="" disabled>Select stage</option>
+            <option value="" disabled>
+              Select stage
+            </option>
             <option>New idea / starting from zero</option>
             <option>Designs are ready</option>
             <option>Existing product needs improvement</option>
@@ -151,9 +193,11 @@ export function ServiceProposalForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Working budget</span>
+          <span className="text-sm font-semibold text-ink">Working budget</span>
           <select name="budget" required defaultValue="" className={inputClass}>
-            <option value="" disabled>Select a range</option>
+            <option value="" disabled>
+              Select a range
+            </option>
             <option>Under USD 500 / INR 40,000</option>
             <option>USD 500-1,500 / INR 40,000-1,20,000</option>
             <option>USD 1,500-3,000 / INR 1,20,000-2,50,000</option>
@@ -162,9 +206,18 @@ export function ServiceProposalForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Target timeline</span>
-          <select name="timeline" required defaultValue="" className={inputClass}>
-            <option value="" disabled>Select timeline</option>
+          <span className="text-sm font-semibold text-ink">
+            Target timeline
+          </span>
+          <select
+            name="timeline"
+            required
+            defaultValue=""
+            className={inputClass}
+          >
+            <option value="" disabled>
+              Select timeline
+            </option>
             <option>As soon as practical</option>
             <option>Within 2 weeks</option>
             <option>Within 1 month</option>
@@ -173,8 +226,15 @@ export function ServiceProposalForm({
           </select>
         </label>
         <label className="block">
-          <span className="text-sm font-semibold text-[#f4efe3]">Preferred connection</span>
-          <select name="connection" required defaultValue="Email" className={inputClass}>
+          <span className="text-sm font-semibold text-ink">
+            Preferred connection
+          </span>
+          <select
+            name="connection"
+            required
+            defaultValue="Email"
+            className={inputClass}
+          >
             <option>Email</option>
             <option>LinkedIn message</option>
             <option>Video call after scope review</option>
@@ -183,7 +243,9 @@ export function ServiceProposalForm({
       </div>
 
       <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">What should this project achieve?</span>
+        <span className="text-sm font-semibold text-ink">
+          What should this project achieve?
+        </span>
         <textarea
           className={`${inputClass} min-h-28 resize-y`}
           name="goal"
@@ -193,7 +255,9 @@ export function ServiceProposalForm({
       </label>
 
       <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">Requirements or current blockers (optional)</span>
+        <span className="text-sm font-semibold text-ink">
+          Requirements or current blockers (optional)
+        </span>
         <textarea
           className={`${inputClass} min-h-36 resize-y`}
           name="requirements"
@@ -202,7 +266,9 @@ export function ServiceProposalForm({
       </label>
 
       <label className="block">
-        <span className="text-sm font-semibold text-[#f4efe3]">References or useful links</span>
+        <span className="text-sm font-semibold text-ink">
+          References or useful links
+        </span>
         <textarea
           className={`${inputClass} min-h-24 resize-y`}
           name="references"
@@ -210,15 +276,15 @@ export function ServiceProposalForm({
         />
       </label>
 
-      <div className="flex flex-col gap-3 border-t border-[#f4efe3]/12 pt-6 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p
           aria-live="polite"
           className={`max-w-md text-xs leading-5 ${
             submitStatus === "error"
-              ? "text-red-300"
+              ? "text-red-700"
               : submitStatus === "success"
-                ? "text-emerald-300"
-                : "text-[#f4efe3]/48"
+                ? "text-emerald-700"
+                : "text-subtle"
           }`}
         >
           {submitStatus === "success"
@@ -227,26 +293,39 @@ export function ServiceProposalForm({
               ? "Couldn’t email the proposal. Your details are still here. Retry or use the email link below."
               : "Your brief, entry page and referral source are emailed to Arun for follow-up."}
         </p>
-        <button
+        <Button
+          variant="accent"
           type="submit"
           disabled={submitStatus === "submitting"}
-          className="inline-flex items-center justify-center gap-2 rounded-[7px] bg-[#f4efe3] px-5 py-3.5 text-sm font-semibold text-[#0d0c09] transition hover:bg-[#fff8e8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f4efe3] disabled:cursor-wait disabled:opacity-60"
+          className="w-full sm:w-auto"
         >
-          {submitStatus === "submitting" ? "Sending..." : "Request a scoped proposal"}
-          <Send className="h-4 w-4" />
-        </button>
+          {submitStatus === "submitting"
+            ? "Sending..."
+            : "Request a scoped proposal"}
+          <Send aria-hidden="true" className="h-4 w-4" />
+        </Button>
       </div>
 
-      <div className="hidden" aria-hidden="true"><label>Leave this empty<input name="companyFax" tabIndex={-1} autoComplete="off" /></label></div>
-      <a className="block break-all text-sm text-[#d8c4a4] underline underline-offset-4" href={`mailto:${siteConfig.email}`}>Email Arun directly: {siteConfig.email}</a>
+      <div className="hidden" aria-hidden="true">
+        <label>
+          Leave this empty
+          <input name="companyFax" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+      <a
+        className="block break-all text-sm text-brand underline underline-offset-4"
+        href={`mailto:${siteConfig.email}`}
+      >
+        Email Arun directly: {siteConfig.email}
+      </a>
       <a
         href={siteConfig.linkedin}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[#d8c4a4] transition hover:text-[#f4efe3]"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-brand transition hover:text-ink"
       >
         Prefer a short introduction first? Connect on LinkedIn
-        <ArrowUpRight className="h-4 w-4" />
+        <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
       </a>
     </form>
   );

@@ -1,3 +1,4 @@
+import { LiquidSurface } from "@/components/ui/liquid-surface";
 import Link from "next/link";
 
 import {
@@ -53,7 +54,8 @@ export default function FaqPage() {
         <div className="grid gap-4 md:grid-cols-2">
           {seoFaqs.map((faq) => (
             <article key={faq.question} className={seoCardClass}>
-              <h3 className="font-grotesk text-2xl font-semibold text-[#f4efe3]">
+              <LiquidSurface radius={16} />
+              <h3 className="font-grotesk text-2xl font-semibold text-ink">
                 {faq.question}
               </h3>
               <p className={`mt-4 text-base leading-8 ${seoMutedTextClass}`}>
@@ -64,7 +66,10 @@ export default function FaqPage() {
         </div>
       </section>
 
-      <nav aria-label="Related portfolio information" className="mt-8 flex flex-wrap gap-3">
+      <nav
+        aria-label="Related portfolio information"
+        className="mt-8 flex flex-wrap gap-3"
+      >
         {[
           ["Compare services", "/services"],
           ["See exact pricing", "/pricing"],
@@ -73,7 +78,7 @@ export default function FaqPage() {
           <Link
             key={href}
             href={href}
-            className="rounded-full border border-[#f4efe3]/16 px-5 py-3 text-sm font-semibold text-[#f4efe3] transition hover:border-[#d8c4a4]/70 hover:bg-[#f4efe3]/[0.07]"
+            className="rounded-full border border-line px-5 py-3 text-sm font-semibold text-ink transition hover:border-brand/30 hover:bg-brand-soft"
           >
             {label}
           </Link>
