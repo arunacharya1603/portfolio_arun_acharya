@@ -599,38 +599,6 @@ export const workProjects: WorkProject[] = [
     ],
   },
   {
-    slug: "civicround",
-    name: "CivicRound - Online Debate Platform",
-    shortName: "CivicRound",
-    status: "Public Beta",
-    role: "Developer",
-    stack: [],
-    impact:
-      "A debate platform built around choosing a side, timed rounds, and structured scorecards.",
-    description:
-      "A public beta for structured online debate, with an arena-style interface that introduces motions, opposing sides, timed turns, and round verdicts.",
-    problem:
-      "An online debate needs a clear structure: what is being argued, whose turn it is, and how a round is evaluated.",
-    features: [
-      "Debate motion and side selection",
-      "One-to-one arena presentation",
-      "Opening, response, and closing round structure",
-      "Timed-turn interface",
-      "Scorecard criteria for evidence, rebuttal, and clarity",
-    ],
-    image: "/image/civicround-thumbnail.webp",
-    imageFit: "contain",
-    href: "/work/civicround",
-    externalUrl: "https://civic-round.vercel.app/",
-    applicationCategory: "SocialNetworkingApplication",
-    overview:
-      "CivicRound presents debate as a focused sequence of rounds. The public experience uses a dark editorial layout, prominent arena entry points, and a preview of the timed debate and scorecard interface.",
-    whatIDid: ["Developed the public-facing debate product interface."],
-    howIDid: [],
-    challenges: [],
-    outcomes: ["A publicly accessible beta with a live product preview."],
-  },
-  {
     slug: "rey9-living",
     name: "Rey9 Living - Modular Interiors Website",
     shortName: "Rey9 Living",
