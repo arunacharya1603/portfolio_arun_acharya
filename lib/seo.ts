@@ -27,7 +27,7 @@ export function createPageMetadata({
   description,
   path = "",
   keywords = [],
-  image = "/og-image.png",
+  image = siteConfig.socialImage,
   type = "website",
   publishedTime,
   modifiedTime,
@@ -62,8 +62,7 @@ export function createPageMetadata({
       images: [
         {
           url: imageUrl,
-          width: 1200,
-          height: 630,
+          ...(image === siteConfig.socialImage ? { width: 1200, height: 630 } : {}),
           alt: `${title} by ${siteConfig.name}`,
         },
       ],
@@ -95,7 +94,7 @@ export function personJsonLd() {
     jobTitle: siteConfig.jobTitle,
     description:
       "Arun Acharya is a frontend developer, UI/UX developer, Next.js freelancer, and full-stack product builder for landing pages, web apps, dashboards, SaaS products, and SEO-ready websites.",
-    image: absoluteUrl("/og-image.png"),
+    image: absoluteUrl(siteConfig.socialImage),
     email: siteConfig.email,
     sameAs: personSameAsLinks,
     worksFor: {
@@ -139,7 +138,7 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
     "@id": `${siteConfig.url}#studio`,
     name: "Arun Acharya Freelance Web Development",
     url: siteConfig.url,
-    image: absoluteUrl("/og-image.png"),
+    image: absoluteUrl(siteConfig.socialImage),
     description:
       "Frontend development, UI/UX design, Next.js development, landing page design, dashboard development, and full-stack product build services by Arun Acharya.",
     founder: { "@id": siteConfig.personId },
@@ -268,7 +267,7 @@ export function articleJsonLd(post: SeoBlogPost) {
     author: { "@id": siteConfig.personId },
     publisher: { "@id": siteConfig.personId },
     mainEntityOfPage: canonical,
-    image: absoluteUrl("/og-image.png"),
+    image: absoluteUrl(siteConfig.socialImage),
     inLanguage: "en",
     about: post.keywords,
   };

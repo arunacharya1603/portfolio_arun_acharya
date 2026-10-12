@@ -1,6 +1,6 @@
 import StudioPortfolio from "@/components/StudioPortfolio";
 import { seoServicePages } from "@/data/seo-content";
-import { workProjects } from "@/data/work-projects";
+import { homeWorkProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
 import {
   absoluteUrl,
@@ -61,7 +61,7 @@ const homeWorkItemListJsonLd = {
   "@type": "ItemList",
   "@id": `${siteConfig.url}/#work-itemlist`,
   name: "Project roles and frontend contributions by Arun Acharya",
-  itemListElement: workProjects.map((project, index) => ({
+  itemListElement: homeWorkProjects.map((project, index) => ({
     "@type": "ListItem",
     position: index + 1,
     name: project.name,

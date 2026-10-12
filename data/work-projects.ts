@@ -689,3 +689,12 @@ export const workProjects: WorkProject[] = [
 export function getWorkProjectBySlug(slug: string) {
   return workProjects.find((project) => project.slug === slug);
 }
+
+export const homeWorkProjects = [
+  "chainreach-ai",
+  "heyclo-clo-ai",
+  "sound-of-meme",
+  "proofcohort",
+]
+  .map(getWorkProjectBySlug)
+  .filter((project): project is WorkProject => project !== undefined);

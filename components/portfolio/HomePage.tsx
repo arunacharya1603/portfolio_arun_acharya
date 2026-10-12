@@ -14,7 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteActionBar } from "@/components/SiteActionBar";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { GlassLink } from "@/components/ui/glass-link";
-import { workProjects } from "@/data/work-projects";
+import { homeWorkProjects } from "@/data/work-projects";
 import { proofMetrics } from "@/components/features/landing/proofMetricsData";
 import { Container, SectionHeading } from "./Section";
 import { PageCta } from "./PageCta";
@@ -150,7 +150,7 @@ export default function HomePage() {
               description="A selection of websites and product experiences I’ve helped bring to life."
             />
             <div className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-2">
-              {workProjects.slice(0, 4).map((project) => (
+              {homeWorkProjects.map((project) => (
                 <ProjectCard key={project.slug} project={project} />
               ))}
             </div>

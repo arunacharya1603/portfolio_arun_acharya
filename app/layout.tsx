@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: `${siteConfig.url}/og-image.png`,
+        url: `${siteConfig.url}${siteConfig.socialImage}`,
         width: 1200,
         height: 630,
         alt: "Arun Acharya developer portfolio",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: siteConfig.defaultTitle,
     description: siteConfig.description,
     creator: "@143rhry112645",
-    images: [`${siteConfig.url}/og-image.png`],
+    images: [`${siteConfig.url}${siteConfig.socialImage}`],
   },
   verification: {
     google: "k3NVUdMrzJH10e27pPETvifGnNxoZURWiEIUBvgRObQ",
