@@ -11,6 +11,7 @@ export type WorkProject = {
   status: string;
   timeline?: string;
   role: string;
+  contributionSummary?: string;
   stack: string[];
   impact: string;
   description: string;
@@ -35,6 +36,8 @@ export const workProjects: WorkProject[] = [
     shortName: "Transcendence",
     status: "Live Website",
     role: "Frontend Engineer",
+    contributionSummary:
+      "I was the Frontend Engineer for the full Transcendence project. My work spans the public website, Unit and TRS product presentations, experience pages, dashboard interfaces, and the motion and loading states that connect them. The published website is linked from this case study.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Three.js"],
     impact:
       "Full-project frontend engineering for an immersive holographic technology platform, from its public website to dashboards.",
@@ -105,6 +108,8 @@ export const workProjects: WorkProject[] = [
     shortName: "ProofCohort",
     status: "Live Product",
     role: "Developer",
+    contributionSummary:
+      "My ProofCohort work covers public-facing pages, program presentation, project resources, pricing behavior, brand artwork, and certificate-related guides. These contributions sit within a wider learning platform with student, assessment, and verification workflows. The live product is available at proofcohort.in.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     impact:
       "A project-based learning platform connecting programs, student workflows, assessments, and verifiable certificates.",
@@ -174,6 +179,8 @@ export const workProjects: WorkProject[] = [
     status: "Live Product",
     timeline: "Jan 2026 - Present",
     role: "Frontend Developer",
+    contributionSummary:
+      "I built frontend workflows for brands, creators, and administrators on ChainReach.ai: dashboards, campaign creation and acceptance, negotiation screens, AI-assisted campaign generation, and chat. I connected these interfaces to backend APIs using Next.js, TypeScript, and Tailwind CSS. Dashboard access depends on the user's account and role.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     impact: "A large-scale creator-brand platform with dashboards, campaign flows, negotiation, and AI-assisted creation.",
     description:
@@ -319,6 +326,8 @@ export const workProjects: WorkProject[] = [
     status: "Live Product",
     timeline: "Mar 2026 - Present",
     role: "Frontend / Framer Developer",
+    contributionSummary:
+      "I developed HeyClo's animated product landing page with Framer and Lenis, including responsive sections, smooth scrolling, interaction details, and the loading experience. My contribution focused on the public-facing product story and how it behaves across screen sizes. The published landing page is linked from this case study.",
     stack: ["Framer", "Lenis", "Responsive UI"],
     impact: "A fully animated product landing page with smooth scrolling and premium storytelling.",
     description:
@@ -380,6 +389,8 @@ export const workProjects: WorkProject[] = [
     status: "Live Product",
     timeline: "Nov 2024 - Dec 2025",
     role: "Lead Frontend Developer",
+    contributionSummary:
+      "I led Sound Of Meme's frontend development from scratch using React, Redux, and Tailwind CSS. I built the music player and AI song-generation interface, established reusable components and hooks, and worked on bundle optimization and the SEO blog architecture. This case study documents that frontend scope and the engineering decisions behind it.",
     stack: ["React.js", "Redux", "Tailwind CSS"],
     impact: "An AI-powered music generation product with a scalable React architecture and optimized bundle size.",
     description:

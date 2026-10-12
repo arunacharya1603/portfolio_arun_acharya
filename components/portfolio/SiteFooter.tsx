@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { AnalyticsPreferencesButton } from "@/components/AnalyticsConsent";
 import { Container } from "./Section";
 
 const footerLinks = [
@@ -63,7 +64,9 @@ export function SiteFooter() {
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-5 border-t border-line pt-6 text-xs text-subtle">
           <p>© {new Date().getFullYear()} Arun Acharya</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-brand">Privacy</Link>
+            <AnalyticsPreferencesButton />
             <a
               href={siteConfig.github}
               target="_blank"

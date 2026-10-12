@@ -90,6 +90,14 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
             ))}
         </dl>
       </div>
+      {project.contributionSummary && (
+        <section aria-labelledby="contribution-heading" className="mb-10 max-w-3xl">
+          <h2 id="contribution-heading" className="text-xl font-semibold tracking-tight">
+            What did I build for {project.shortName}?
+          </h2>
+          <p className="mt-4 text-base leading-8 text-subtle">{project.contributionSummary}</p>
+        </section>
+      )}
       <figure>
         <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-line bg-surface sm:aspect-video">
           <Image

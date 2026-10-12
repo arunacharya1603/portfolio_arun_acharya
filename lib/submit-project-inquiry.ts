@@ -1,4 +1,5 @@
 import { getInquiryAttribution } from "@/lib/inquiry-attribution";
+import { trackSuccessfulInquiry } from "@/lib/analytics";
 
 export type ProjectInquiry = {
   source: string;
@@ -22,4 +23,6 @@ export async function submitProjectInquiry(inquiry: ProjectInquiry) {
   if (!response.ok) {
     throw new Error(result.error || "Your message could not be sent.");
   }
+
+  if (!inquiry.companyFax) trackSuccessfulInquiry(inquiry.source);
 }

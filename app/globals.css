@@ -115,6 +115,7 @@
   }
 
   body:has(#site-mobile-navigation) [aria-label="Quick actions"],
+  body:has(#analytics-preferences) [aria-label="Quick actions"],
   body:has(form:focus-within) [aria-label="Quick actions"] {
     visibility: hidden;
     opacity: 0;

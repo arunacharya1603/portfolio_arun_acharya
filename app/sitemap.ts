@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/resources",
     "/tools/website-cost-planner",
     "/contact",
+    "/privacy",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
     changeFrequency: "weekly" as const,
