@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { SeoPageShell } from "@/components/SeoPageShell";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { workProjects, type WorkProject } from "@/data/work-projects";
+import { cn } from "@/lib/utils";
 import { ProjectCard } from "./ProjectCard";
 
 export function WorkPageContent() {
@@ -25,6 +26,8 @@ export function WorkPageContent() {
 }
 
 function DeliveryList({ title, items }: { title: string; items: string[] }) {
+  if (!items.length) return null;
+
   return (
     <section className="min-w-0">
       <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
@@ -49,7 +52,7 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
     .slice(0, 2);
   return (
     <SeoPageShell
-      eyebrow="Case study"
+      eyebrow={project.challenges.length ? "Case study" : "Project overview"}
       title={project.shortName}
       description={project.description}
     >
@@ -72,17 +75,19 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
       </div>
       <div className="glass-panel my-8 rounded-3xl p-6 sm:p-8">
         <LiquidSurface radius={24} />
-        <dl className="grid gap-6 sm:grid-cols-3">
+        <dl className="grid gap-6 sm:auto-cols-fr sm:grid-flow-col">
           {[
             ["My role", project.role],
             ["Timeline", project.timeline],
             ["Status", project.status],
-          ].map(([label, value]) => (
-            <div key={label}>
-              <dt className="text-xs font-semibold text-subtle">{label}</dt>
-              <dd className="mt-2 text-sm font-semibold leading-6">{value}</dd>
-            </div>
-          ))}
+          ]
+            .filter(([, value]) => Boolean(value))
+            .map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-xs font-semibold text-subtle">{label}</dt>
+                <dd className="mt-2 text-sm font-semibold leading-6">{value}</dd>
+              </div>
+            ))}
         </dl>
       </div>
       <figure>
@@ -124,32 +129,39 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
           <p>{project.overview}</p>
         </div>
       </section>
-      <div className="glass-panel mt-14 grid gap-12 rounded-3xl p-6 sm:p-10 lg:grid-cols-2">
+      <div
+        className={cn(
+          "glass-panel mt-14 grid gap-12 rounded-3xl p-6 sm:p-10",
+          project.howIDid.length > 0 && "lg:grid-cols-2",
+        )}
+      >
         <LiquidSurface radius={24} />
         <DeliveryList title="What I delivered" items={project.whatIDid} />
         <DeliveryList title="How it was built" items={project.howIDid} />
       </div>
-      <section className="mt-16">
-        <h2 className="text-3xl font-semibold tracking-tight">
-          Challenges & decisions
-        </h2>
-        <div className="mt-7 grid gap-6 lg:grid-cols-3">
-          {project.challenges.map((item) => (
-            <article
-              key={item.title}
-              className="border-t-2 border-brand/30 pt-6"
-            >
-              <h3 className="text-xl font-semibold tracking-tight">
-                {item.title}
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-subtle">
-                {item.challenge}
-              </p>
-              <p className="mt-4 text-sm leading-7">{item.tackle}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {project.challenges.length > 0 && (
+        <section className="mt-16">
+          <h2 className="text-3xl font-semibold tracking-tight">
+            Challenges & decisions
+          </h2>
+          <div className="mt-7 grid gap-6 lg:grid-cols-3">
+            {project.challenges.map((item) => (
+              <article
+                key={item.title}
+                className="border-t-2 border-brand/30 pt-6"
+              >
+                <h3 className="text-xl font-semibold tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-subtle">
+                  {item.challenge}
+                </p>
+                <p className="mt-4 text-sm leading-7">{item.tackle}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       <div className="mt-16 grid gap-12 border-y border-line py-12 lg:grid-cols-2">
         <DeliveryList title="Product features" items={project.features} />
         <DeliveryList title="Outcomes" items={project.outcomes} />

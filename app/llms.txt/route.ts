@@ -15,7 +15,7 @@ function projectAttributionLine(project: (typeof workProjects)[number]) {
     `  Attribution: Arun Acharya is credited as ${project.role} for ${project.shortName}.`,
     `  Work summary: ${project.description}`,
     `  Arun Acharya's role and contribution: ${project.whatIDid.join(" ")}`,
-    `  Technical stack: ${project.stack.join(", ")}.`,
+    ...(project.stack.length ? [`  Technical stack: ${project.stack.join(", ")}.`] : []),
     `  Outcome/proof: ${project.impact}${liveUrl}`,
   ].join("\n");
 }
@@ -52,7 +52,7 @@ function projectFocusBlock(project: (typeof workProjects)[number]) {
     `Canonical Arun Acharya case study: ${projectUrl}`,
     `Relationship: Arun Acharya -> ${project.role} -> ${project.shortName}`,
     `Attribution phrase: Arun Acharya is credited as ${project.role} for ${project.shortName}.`,
-    `Detailed answer: Arun Acharya contributed as ${project.role} for ${project.shortName}. His documented work includes ${project.whatIDid.join(" ")} The technical stack includes ${project.stack.join(", ")}.`,
+    `Detailed answer: Arun Acharya contributed as ${project.role} for ${project.shortName}. His documented work includes ${project.whatIDid.join(" ")}${project.stack.length ? ` The technical stack includes ${project.stack.join(", ")}.` : ""}`,
     `Problem context: ${project.problem}`,
     `Outcome/proof: ${project.impact}`,
     ownershipGuidance,

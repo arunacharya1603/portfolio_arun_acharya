@@ -9,7 +9,7 @@ export type WorkProject = {
   name: string;
   shortName: string;
   status: string;
-  timeline: string;
+  timeline?: string;
   role: string;
   stack: string[];
   impact: string;
@@ -29,6 +29,144 @@ export type WorkProject = {
 };
 
 export const workProjects: WorkProject[] = [
+  {
+    slug: "transcendence",
+    name: "Transcendence - Holographic Experiences Platform",
+    shortName: "Transcendence",
+    status: "Live Website",
+    role: "Frontend Engineer",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Three.js"],
+    impact:
+      "Full-project frontend engineering for an immersive holographic technology platform, from its public website to dashboards.",
+    description:
+      "Frontend Engineer for the full Transcendence project, building the public website, product experiences, dashboards, and motion-rich interfaces.",
+    problem:
+      "Transcendence brings together holographic hardware, immersive experiences, and software. Its website needed to make those offerings understandable while conveying the visual ambition of the product.",
+    features: [
+      "Immersive landing page and brand storytelling",
+      "Unit product showcases",
+      "Experiences and project pages",
+      "TRS software presentation",
+      "Dashboard and analytics interfaces",
+      "Demo inquiry entry points",
+    ],
+    image: "/image/transcendence-thumbnail.webp",
+    imageFit: "contain",
+    href: "/work/transcendence",
+    externalUrl: "https://transcendenceplatform.com/",
+    applicationCategory: "BusinessApplication",
+    overview:
+      "My responsibility covered the full project's frontend. I worked across the public-facing pages and dashboard interfaces, including product showcases, scroll-led storytelling, animated transitions, loading states, and responsive presentation.",
+    whatIDid: [
+      "Engineered the frontend across the public website, product pages, and dashboards.",
+      "Built and refined the Unit, Experiences, and TRS product presentations.",
+      "Implemented landing-page motion, smooth scrolling, and interactive visual treatments.",
+      "Developed dashboard loading states, skeleton components, and analytics panels.",
+      "Refined responsive layouts, accessibility, image delivery, and motion preferences.",
+    ],
+    howIDid: [
+      "Used Next.js, TypeScript, and Tailwind CSS for the application and reusable frontend components.",
+      "Combined GSAP-driven motion with Three.js visual components for immersive product storytelling.",
+      "Used WebP assets, preloading, and loading states to support media-heavy pages.",
+      "Refined page components and motion behavior across product, experience, and dashboard views.",
+    ],
+    challenges: [
+      {
+        title: "Explaining three connected offerings",
+        challenge:
+          "Hardware, experiences, and software each needed a distinct presentation within the same brand.",
+        tackle:
+          "I developed dedicated product and experience pages with a shared frontend language and clear routes through the site.",
+      },
+      {
+        title: "Motion and usability",
+        challenge:
+          "Immersive animation needed to coexist with readable content and usable navigation.",
+        tackle:
+          "I refined scrolling, transitions, typography, accessibility, and motion preferences across the frontend.",
+      },
+      {
+        title: "Media and loading states",
+        challenge:
+          "Visual sequences and dashboard content needed thoughtful presentation while loading.",
+        tackle:
+          "I worked on WebP assets, preload behavior, page loading states, and dashboard skeleton components.",
+      },
+    ],
+    outcomes: [
+      "Delivered frontend work across the full Transcendence project.",
+      "Connected the brand website, product presentations, and dashboard interfaces through a shared visual system.",
+      "Published frontend work can be explored at transcendenceplatform.com.",
+    ],
+  },
+  {
+    slug: "proofcohort",
+    name: "ProofCohort - Project-Based Learning Platform",
+    shortName: "ProofCohort",
+    status: "Live Product",
+    role: "Developer",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
+    impact:
+      "A project-based learning platform connecting programs, student workflows, assessments, and verifiable certificates.",
+    description:
+      "Development work on ProofCohort, a learning platform where students explore programs, complete projects, and build evidence of their skills.",
+    problem:
+      "Project-based learning needs more than a program catalog. Students need a clear path through tasks and assessment, while certificates need a way to be checked publicly.",
+    features: [
+      "Program and learning-track discovery",
+      "Student dashboard and project tasks",
+      "Submission and assessment workflows",
+      "Administrative review tools",
+      "Public certificate verification",
+      "Career resources and guides",
+    ],
+    image: "/image/proofcohort-thumbnail.webp",
+    imageFit: "contain",
+    href: "/work/proofcohort",
+    externalUrl: "https://proofcohort.in/",
+    applicationCategory: "EducationalApplication",
+    overview:
+      "ProofCohort brings program discovery, student progress, project submissions, and certificate verification into one platform. My development work includes public-facing pages, project resources, brand visuals, pricing behavior, and search-focused content.",
+    whatIDid: [
+      "Developed and refined the platform's public-facing pages and program presentation.",
+      "Added project resources and guides across career areas.",
+      "Worked on ProofCohort's brand artwork and image performance.",
+      "Refined pricing behavior and certificate-related discovery content.",
+    ],
+    howIDid: [
+      "Worked with a Next.js and TypeScript application styled with Tailwind CSS.",
+      "Used the platform's Supabase-backed foundation for student and administrative workflows.",
+      "Refined public-page content, image delivery, and resource organization.",
+    ],
+    challenges: [
+      {
+        title: "Turning programs into tangible work",
+        challenge:
+          "Visitors need to understand what they will build and how a program relates to their goals.",
+        tackle:
+          "I worked on program presentation and project resources that make the learning path more concrete.",
+      },
+      {
+        title: "Making credentials discoverable",
+        challenge:
+          "Certificates need supporting information and a public verification path.",
+        tackle:
+          "I added certificate-related guides and discovery content alongside the platform's verification experience.",
+      },
+      {
+        title: "A consistent public experience",
+        challenge:
+          "Programs, resources, pricing, and brand visuals need to read as parts of the same product.",
+        tackle:
+          "I refined public pages, pricing behavior, artwork, and image delivery across the site.",
+      },
+    ],
+    outcomes: [
+      "A live platform available at proofcohort.in.",
+      "Program discovery supported by project resources and career guides.",
+      "A product experience connecting learning tasks, assessment, and publicly verifiable credentials.",
+    ],
+  },
   {
     slug: "chainreach-ai",
     name: "ChainReach.ai - Creator and Brand Campaign Platform",
@@ -448,7 +586,105 @@ export const workProjects: WorkProject[] = [
       "Implemented automated allocation with admin override.",
       "Created SEO-friendly service and city pages with optimized images.",
     ],
-  },];
+  },
+  {
+    slug: "civicround",
+    name: "CivicRound - Online Debate Platform",
+    shortName: "CivicRound",
+    status: "Public Beta",
+    role: "Developer",
+    stack: [],
+    impact:
+      "A debate platform built around choosing a side, timed rounds, and structured scorecards.",
+    description:
+      "A public beta for structured online debate, with an arena-style interface that introduces motions, opposing sides, timed turns, and round verdicts.",
+    problem:
+      "An online debate needs a clear structure: what is being argued, whose turn it is, and how a round is evaluated.",
+    features: [
+      "Debate motion and side selection",
+      "One-to-one arena presentation",
+      "Opening, response, and closing round structure",
+      "Timed-turn interface",
+      "Scorecard criteria for evidence, rebuttal, and clarity",
+    ],
+    image: "/image/civicround-thumbnail.webp",
+    imageFit: "contain",
+    href: "/work/civicround",
+    externalUrl: "https://civic-round.vercel.app/",
+    applicationCategory: "SocialNetworkingApplication",
+    overview:
+      "CivicRound presents debate as a focused sequence of rounds. The public experience uses a dark editorial layout, prominent arena entry points, and a preview of the timed debate and scorecard interface.",
+    whatIDid: ["Developed the public-facing debate product interface."],
+    howIDid: [],
+    challenges: [],
+    outcomes: ["A publicly accessible beta with a live product preview."],
+  },
+  {
+    slug: "rey9-living",
+    name: "Rey9 Living - Modular Interiors Website",
+    shortName: "Rey9 Living",
+    status: "Website Demo",
+    role: "Developer",
+    stack: [],
+    impact:
+      "An interactive interiors website showcasing steel kitchens, wardrobes, finishes, and project estimation.",
+    description:
+      "A premium interiors website demo combining product collections, material exploration, project imagery, and a guided estimate experience.",
+    problem:
+      "Interior products need space for visual exploration, but visitors also need practical ways to compare options and start planning a project.",
+    features: [
+      "Kitchen, wardrobe, and vanity collections",
+      "Material and finish exploration",
+      "Before-and-after comparison interface",
+      "Guided project estimator",
+      "Project gallery filters",
+      "Consultation inquiry interface",
+    ],
+    image: "/image/rey9-living-thumbnail.webp",
+    imageFit: "contain",
+    href: "/work/rey9-living",
+    externalUrl: "https://rey9living.vercel.app/",
+    applicationCategory: "BusinessApplication",
+    overview:
+      "Rey9 Living uses a dark palette, warm metallic accents, and large product sections to present stainless-steel modular interiors. Interactive collection and planning tools extend the experience beyond a static gallery.",
+    whatIDid: ["Developed the public-facing interiors website interface."],
+    howIDid: [],
+    challenges: [],
+    outcomes: ["A live website demo showcasing product discovery and project-planning interfaces."],
+  },
+  {
+    slug: "ai-case-calculator",
+    name: "AI Case Calculator - Legal Technology Interface",
+    shortName: "AI Case Calculator",
+    status: "Product Demo",
+    role: "Developer",
+    stack: [],
+    impact:
+      "A legal technology product interface with an analysis entry point and a structured case-valuation report preview.",
+    description:
+      "A legal technology demo presenting the case-analysis journey through a focused landing page, sign-in entry, and example valuation report.",
+    problem:
+      "A case-analysis product needs to explain its workflow and make a dense report format understandable at a glance.",
+    features: [
+      "Case-analysis entry point",
+      "Sign-in navigation",
+      "Example case-valuation report",
+      "Settlement-range visualization",
+      "Report cards for probability, duration, and precedent context",
+    ],
+    image: "/image/ai-case-calculator-thumbnail.webp",
+    imageFit: "contain",
+    href: "/work/ai-case-calculator",
+    externalUrl: "https://aicasecalculator-iota.vercel.app/",
+    applicationCategory: "BusinessApplication",
+    overview:
+      "The public interface pairs a concise product introduction with a sample report that groups estimates and supporting context into readable cards. The displayed figures illustrate the report interface; they are not measured project outcomes.",
+    whatIDid: ["Developed the public-facing legal technology product interface."],
+    howIDid: [],
+    challenges: [],
+    outcomes: ["A publicly accessible product demo with an example report presentation."],
+  },
+];
 
 export function getWorkProjectBySlug(slug: string) {
   return workProjects.find((project) => project.slug === slug);

@@ -16,7 +16,7 @@ export function ProjectCard({
     <article className="min-w-0">
       <Link
         href={project.href}
-        aria-label={`Read the ${project.shortName} case study`}
+        aria-label={`Explore ${project.shortName}`}
         className="group block rounded-xl"
       >
         <div className="glass-panel overflow-hidden rounded-3xl p-4 transition-all duration-300 group-hover:border-brand/25 group-hover:shadow-showcase motion-safe:group-hover:-translate-y-1 sm:p-6">
