@@ -464,24 +464,7 @@
   }
 }
 
-/* Lenis Smooth Scroll CSS Resets */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
+/* Lenis drives smooth scrolling; avoid a second browser scroll animation. */
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
 }

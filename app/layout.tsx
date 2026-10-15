@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 import { InquiryAttribution } from "@/components/InquiryAttribution";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { seoServicePages } from "@/data/seo-content";
 import { siteConfig, topSeoKeywords } from "@/lib/site";
 import {
@@ -124,6 +126,7 @@ export default function RootLayout({
         className={`${manrope.variable} bg-canvas font-sans text-ink antialiased selection:bg-brand/15 selection:text-ink`}
       >
         <InquiryAttribution />
+        <SmoothScroll />
         <AnalyticsConsent />
         <ThemeProvider
           attribute="class"

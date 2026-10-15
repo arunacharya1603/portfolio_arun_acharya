@@ -142,6 +142,7 @@ export function SiteHeader() {
         {open && (
           <nav
             id="site-mobile-navigation"
+            data-lenis-prevent
             aria-label="Mobile navigation"
             className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-3xl border-t border-line bg-surface/95 p-4 lg:hidden"
           >
