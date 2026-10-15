@@ -102,6 +102,7 @@ export function personJsonLd() {
       "@id": `${siteConfig.url}#studio`,
       name: "Arun Acharya Freelance Web Development",
       url: siteConfig.url,
+      logo: absoluteUrl(siteConfig.brandLogo),
     },
     knowsAbout: [
       "Frontend Development",
@@ -138,6 +139,7 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
     "@id": `${siteConfig.url}#studio`,
     name: "Arun Acharya Freelance Web Development",
     url: siteConfig.url,
+    logo: absoluteUrl(siteConfig.brandLogo),
     image: absoluteUrl(siteConfig.socialImage),
     description:
       "Frontend development, UI/UX design, Next.js development, landing page design, dashboard development, and full-stack product build services by Arun Acharya.",
