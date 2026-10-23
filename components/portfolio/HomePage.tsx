@@ -14,14 +14,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteActionBar } from "@/components/SiteActionBar";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { GlassLink } from "@/components/ui/glass-link";
-import { homeWorkProjects } from "@/data/work-projects";
-import { proofMetrics } from "@/components/features/landing/proofMetricsData";
+import { homeWorkProjects, workProjects } from "@/data/work-projects";
 import { Container, SectionHeading } from "./Section";
 import { PageCta } from "./PageCta";
 import { ProjectCard } from "./ProjectCard";
 import { SiteFooter } from "./SiteFooter";
 
-const capabilities = [
+export const homeCapabilities = [
   {
     name: "Websites & landing pages",
     description:
@@ -67,6 +66,12 @@ const workflow = [
   },
 ];
 
+const portfolioCounts = [
+  { value: workProjects.length, label: "Projects in this portfolio" },
+  { value: workProjects.filter((project) => project.challenges.length > 0).length, label: "Detailed case studies" },
+  { value: workProjects.filter((project) => project.status.includes("Demo")).length, label: "Interface demos" },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -85,9 +90,9 @@ export default function HomePage() {
                   <span className="text-brand">remember.</span>
                 </h1>
                 <p className="mt-7 max-w-lg text-lg leading-8 text-subtle">
-                  Thoughtful websites, intuitive interfaces, and reliable
-                  development for founders and businesses ready for their next
-                  chapter.
+                  I’m Arun Acharya, a freelance frontend and Next.js developer.
+                  I build websites and product interfaces for founders and
+                  businesses, with clear scope and direct collaboration.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <GlassLink href="/contact" variant={"primary"}>
@@ -116,24 +121,23 @@ export default function HomePage() {
         </section>
 
         <section
-          aria-label="Experience in numbers"
+          aria-label="Work documented in this portfolio"
           className="px-5 pb-4 sm:px-8 lg:px-12"
         >
           <div className="glass-panel mx-auto grid max-w-[1304px] gap-7 rounded-3xl px-7 py-8 sm:grid-cols-3 sm:px-9 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:py-10">
             <LiquidSurface radius={24} />
             <p className="hidden max-w-56 text-sm leading-7 text-subtle lg:block">
-              From the first conversation
+              Explore the work,
               <br />
-              to a product out in the world.
+              my role, and the decisions behind it.
             </p>
-            {proofMetrics.slice(0, 3).map((metric) => (
+            {portfolioCounts.map((metric) => (
               <div
                 key={metric.label}
                 className="flex items-center gap-4 sm:justify-center lg:justify-start"
               >
                 <p className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                   {metric.value}
-                  <span className="text-brand">{metric.suffix}</span>
                 </p>
                 <p className="max-w-28 text-sm leading-6 text-subtle">
                   {metric.label}
@@ -175,7 +179,7 @@ export default function HomePage() {
             </div>
             <div className="glass-panel rounded-3xl p-6 sm:p-8">
               <LiquidSurface radius={24} />
-              {capabilities.map(({ name, description, href, icon: Icon }) => (
+              {homeCapabilities.map(({ name, description, href, icon: Icon }) => (
                 <Link
                   key={name}
                   href={href}

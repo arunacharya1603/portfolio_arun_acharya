@@ -10,11 +10,11 @@ export const projectGuides: SeoBlogPost[] = [
     audience: "Practice owners commissioning a home-visit or clinic website.",
     summary: "Start with the decision a patient or family needs to make: do you provide the right service, cover their location, and offer a clear next step? A service website with a reliable enquiry flow can be the right first build. Real-time scheduling and practitioner allocation need a separate application scope.",
     sections: [
-      { heading: "Define the pages around a patient journey", body: [
+      { heading: "Define the pages around a patient journey", link: { text: "Write the journey before choosing a template", href: "/blog/ui-ux-before-rebuild" }, body: [
         "Pivotal Physiocare’s case study documents a home physiotherapy website serving Greater Noida and Noida. My work connected care information, practitioner profiles, treatment imagery, recovery stories and home-visit actions. That is the project context for this brief; it is not evidence of a measured increase in leads.",
         "Write the journey before choosing a template: a visitor finds a service, checks the care team and service area, understands the next step, then requests a visit. Scope a homepage, substantive service pages, practitioner information, coverage details and a contact page. Every service page should make its booking path easy to find.",
       ] },
-      { heading: "Separate appointment requests from confirmed bookings", body: [
+      { heading: "Separate appointment requests from confirmed bookings", link: { text: "Practitioner assignment, payments and patient accounts", href: "/blog/landing-page-vs-website-vs-web-app" }, body: [
         "A request form can collect a name, contact method, locality and preferred time. Its confirmation should explain that the practice will follow up; it should not promise an appointment that nobody has accepted. Avoid asking for detailed medical histories in a general enquiry form.",
         "Live slot selection adds availability, rescheduling, notifications and handling simultaneous bookings to the scope. Practitioner assignment, payments and patient accounts turn a public website into a product. NursePhysioWala is an example in my portfolio of broader patient, practitioner and administrator workflows.",
       ] },
@@ -42,7 +42,7 @@ export const projectGuides: SeoBlogPost[] = [
     audience: "Founders and product teams commissioning a dashboard or MVP frontend.",
     summary: "Scope a dashboard around the work each user must complete. Name roles, permissions, API dependencies and failure states before counting screens. A five-screen product with approvals and incomplete APIs can involve more work than a larger read-only interface.",
     sections: [
-      { heading: "Start with a role and action inventory", body: [
+      { heading: "Start with a role and action inventory", link: { text: "what it can view, create, edit and approve", href: "/blog/api-development-for-startup-web-apps" }, body: [
         "ChainReach.ai’s case study documents my frontend work across brand, creator and administrator flows, including campaign and negotiation experiences. Those roles illustrate why one dashboard mockup is not enough to describe a product.",
         "For each role, write down what it can view, create, edit and approve. A brand user might create a campaign, a creator respond to an opportunity, and an administrator review activity. Mark these as proposed requirements until the team confirms them. Separate first-release actions from later work.",
       ] },
@@ -69,7 +69,7 @@ export const projectGuides: SeoBlogPost[] = [
     slug: "react-nextjs-performance-audit-brief",
     title: "React and Next.js Performance Audit: What to Ask for Before a Rebuild",
     description: "A buyer’s checklist for measuring a slow frontend, prioritizing improvements and reviewing evidence, with context from the Sound Of Meme project.",
-    datePublished: "2026-10-05", dateModified: "2026-10-05", readingTime: "4 min read",
+    datePublished: "2026-10-05", dateModified: "2026-10-23", readingTime: "4 min read",
     category: "Frontend Performance", keywords: ["Next.js performance audit", "React performance optimization", "slow website audit"],
     audience: "Founders with an existing React or Next.js website that feels slow.",
     summary: "Commission a baseline and prioritized fix list before a full rebuild. Ask which routes and actions are slow, what evidence supports the diagnosis, and how the same experience will be measured after changes. Bundle size, a lab score and real user performance describe different things.",
@@ -79,10 +79,10 @@ export const projectGuides: SeoBlogPost[] = [
         "Distinguish lab tests from field data. Google’s Core Web Vitals describe loading, interaction responsiveness and layout stability through LCP, INP and CLS. A repeatable lab test helps diagnose problems; real-user measurements describe actual visitors. If field data is unavailable, label the gap instead of claiming a pass.",
       ] },
       { heading: "Use project results as context", body: [
-        "My Sound Of Meme case study reports a production bundle reduction from approximately 8 MB to 2 MB using lazy loading, route-level code splitting, shared components and rendering optimization. This was React product work, not a published Next.js benchmark or a promise that another site will achieve the same reduction.",
+        "My Sound Of Meme case study describes React bundle optimization using lazy loading, route-level code splitting, shared components and rendering optimization. The approximately 8 MB to 2 MB figure is a historical project estimate without published build artifacts or test conditions, not a reproducible benchmark or a promised result for another site.",
         "Agree exactly what is measured: build output, route JavaScript, compressed transfer size or a user-facing metric. Compare like for like. A smaller bundle can help, but does not by itself establish faster server responses, improved conversion or higher rankings.",
       ] },
-      { heading: "Request a fix list with tradeoffs", body: [
+      { heading: "Request a fix list with tradeoffs", link: { text: "A rewrite should follow evidence", href: "/blog/frontend-revamp-checklist" }, body: [
         "Each proposed change should address an observed issue. Possible findings include oversized images, JavaScript shipped to routes that do not need it, expensive rendering, third-party scripts or slow data fetching. Separate quick changes from architecture work and explain what might regress.",
         "Lazy loading helps when code is not needed immediately, but deferring a critical interaction can move the wait to the moment of use. Agree which features can load later and check their loading and error states. A rewrite should follow evidence that the current structure prevents the necessary improvement.",
       ] },

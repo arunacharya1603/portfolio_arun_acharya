@@ -22,7 +22,7 @@ import {
   seoBlogPosts,
   seoServicePages,
 } from "@/data/seo-content";
-import { getWorkProjectBySlug, workProjects } from "@/data/work-projects";
+import { getWorkProjectBySlug } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
 import {
   breadcrumbJsonLd,
@@ -64,9 +64,9 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         service.relatedBlogSlugs.includes(post.slug),
     )
     .slice(0, 4);
-  const relatedProjects = service.relatedWorkSlugs?.length
-    ? service.relatedWorkSlugs.map(getWorkProjectBySlug).filter(Boolean)
-    : workProjects.slice(0, 3);
+  const relatedProjects = (service.relatedWorkSlugs ?? [])
+    .map(getWorkProjectBySlug)
+    .filter(Boolean);
   const schemas = [
     createServiceJsonLd(service),
     faqJsonLd(service.faqs),
@@ -338,7 +338,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               Relevant work
             </p>
             <h2 className="mt-3 font-grotesk text-4xl font-semibold text-ink">
-              Proof from shipped product surfaces.
+              Project experience and my contribution.
             </h2>
           </div>
           <Link
@@ -373,7 +373,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
                   {project!.name}
                 </h3>
                 <p className={`mt-3 text-sm leading-6 ${seoMutedTextClass}`}>
-                  {project!.impact}
+                  {project!.contributionSummary}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
                   Read case study{" "}

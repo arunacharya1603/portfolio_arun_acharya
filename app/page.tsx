@@ -1,5 +1,5 @@
 import StudioPortfolio from "@/components/StudioPortfolio";
-import { seoServicePages } from "@/data/seo-content";
+import { homeCapabilities } from "@/components/portfolio/HomePage";
 import { homeWorkProjects } from "@/data/work-projects";
 import { siteConfig } from "@/lib/site";
 import {
@@ -48,11 +48,11 @@ const homeServicesItemListJsonLd = {
   "@type": "ItemList",
   "@id": `${siteConfig.url}/#services-itemlist`,
   name: "Arun Acharya services",
-  itemListElement: seoServicePages.slice(0, 6).map((service, index) => ({
+  itemListElement: homeCapabilities.map((service, index) => ({
     "@type": "ListItem",
     position: index + 1,
-    name: service.navLabel,
-    item: absoluteUrl(`/services/${service.slug}`),
+    name: service.name,
+    item: absoluteUrl(service.href),
   })),
 };
 

@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import Link from "next/link";
 import { SeoPageShell } from "@/components/SeoPageShell";
 import { experience } from "@/data/portfolio";
 
@@ -7,7 +8,7 @@ export function ExperiencePageContent() {
     <SeoPageShell
       eyebrow="Experience"
       title="Building products. Taking ownership."
-      description="Frontend engineering at Persist Ventures since November 2024, across AI music, creator-brand workflows, and animated product experiences."
+      description="Frontend engineering at Persist Ventures since November 2024, alongside freelance and personal work across music, immersive products, analytics, education, and healthcare interfaces."
     >
       <div className="space-y-10">
         {experience.map((item) => (
@@ -16,11 +17,17 @@ export function ExperiencePageContent() {
             className="grid gap-6 border-b border-line pb-10 last:border-b-0 md:grid-cols-[240px_1fr] lg:gap-12"
           >
             <div>
-              <p className="text-sm font-semibold text-brand">{item.period}</p>
+              {item.period && (
+                <p className="text-sm font-semibold text-brand">{item.period}</p>
+              )}
               <p className="mt-2 text-sm leading-7 text-subtle">
                 {item.company}
-                <br />
-                {item.location}
+                {item.location && (
+                  <>
+                    <br />
+                    {item.location}
+                  </>
+                )}
               </p>
             </div>
             <div>
@@ -43,6 +50,16 @@ export function ExperiencePageContent() {
                   </li>
                 ))}
               </ul>
+              {item.workSlug && (
+                <Link href={`/work/${item.workSlug}`} className="mt-5 inline-flex text-sm font-semibold text-brand underline underline-offset-4">
+                  Read the {item.product} case study
+                </Link>
+              )}
+              {item.externalUrl && (
+                <a href={item.externalUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex text-sm font-semibold text-brand underline underline-offset-4">
+                  Visit {item.product} website
+                </a>
+              )}
               <div className="mt-6 flex flex-wrap gap-2">
                 {item.stack.map((name) => (
                   <span

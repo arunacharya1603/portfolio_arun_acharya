@@ -1,4 +1,5 @@
 import { LiquidSurface } from "@/components/ui/liquid-surface";
+import Link from "next/link";
 import { SeoPageShell } from "@/components/SeoPageShell";
 import { processSteps } from "@/data/portfolio";
 
@@ -61,6 +62,13 @@ export function ProcessPageContent() {
             </div>
           ))}
         </div>
+        <p className="mt-7 text-sm leading-7 text-subtle">
+          Prepare your brief with the{" "}
+          <Link href="/resources" className="text-brand underline underline-offset-4">project-planning resources</Link>
+          {" "}and review the{" "}
+          <Link href="/faq" className="text-brand underline underline-offset-4">hiring FAQ</Link>
+          {" "}before we agree a scope.
+        </p>
       </section>
     </SeoPageShell>
   );

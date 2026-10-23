@@ -1,15 +1,13 @@
 import SentryExampleClient from "./SentryExampleClient";
+import { createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
-  return {
+  return createPageMetadata({
     title: "Sentry Onboarding",
     description: "Internal Sentry test page.",
-    robots: {
-      index: false,
-      follow: false,
-      nocache: true,
-    },
-  };
+    path: "/sentry-example-page",
+    noIndex: true,
+  });
 }
 
 export default function Page() {

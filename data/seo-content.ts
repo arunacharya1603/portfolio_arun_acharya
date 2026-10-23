@@ -1,6 +1,7 @@
 ﻿import { siteConfig } from "@/lib/site";
 
 import { projectGuides } from "@/data/project-guides";
+import { serviceProposals } from "@/data/service-proposals";
 
 export type SeoFaq = {
   question: string;
@@ -30,6 +31,7 @@ export type SeoServicePage = {
 export type BlogSection = {
   heading: string;
   body: string[];
+  link?: { text: string; href: string };
 };
 
 export type SeoBlogPost = {
@@ -139,7 +141,7 @@ export const seoServicePages: SeoServicePage[] = [
       "Clean React or Next.js component architecture tied to real product workflows.",
       "Responsive screens that hold up across mobile, tablet, desktop, and narrow content panes.",
       "Performance-conscious images, lazy loading, semantic HTML, and SEO-safe route structure.",
-      "A stronger entity trail from Arun Acharya to ChainReach.ai, NursePhysioWala, Sound Of Meme, and other showcased builds.",
+      "Clear handover notes describing component responsibilities, API dependencies, and the workflows delivered.",
     ],
     includes: [
       "React and Next.js frontend development",
@@ -233,6 +235,7 @@ export const seoServicePages: SeoServicePage[] = [
       "small-business-website-cost-and-scope",
       "landing-page-vs-website-vs-web-app",
     ],
+    relatedWorkSlugs: ["pivotal-physiocare", "samriddhi-interiors"],
   },
   {
     slug: "frontend-revamp",
@@ -289,6 +292,7 @@ export const seoServicePages: SeoServicePage[] = [
     ],
     relatedServiceSlugs: ["ui-ux-design", "small-business-websites", "web-apps-saas"],
     relatedBlogSlugs: ["frontend-revamp-checklist", "ui-ux-before-rebuild"],
+    relatedWorkSlugs: ["sound-of-meme", "heyclo-clo-ai"],
   },
   {
     slug: "ui-ux-design",
@@ -345,6 +349,7 @@ export const seoServicePages: SeoServicePage[] = [
     ],
     relatedServiceSlugs: ["frontend-revamp", "small-business-websites", "web-apps-saas"],
     relatedBlogSlugs: ["ui-ux-before-rebuild", "frontend-revamp-checklist"],
+    relatedWorkSlugs: ["chainreach-ai", "rey9-living", "ai-case-calculator"],
   },
   {
     slug: "api-development",
@@ -401,6 +406,7 @@ export const seoServicePages: SeoServicePage[] = [
     ],
     relatedServiceSlugs: ["web-apps-saas", "frontend-revamp", "small-business-websites"],
     relatedBlogSlugs: ["api-development-for-startup-web-apps", "landing-page-vs-website-vs-web-app"],
+    relatedWorkSlugs: ["nursephysiowala", "chainreach-ai"],
   },
   {
     slug: "web-apps-saas",
@@ -457,6 +463,7 @@ export const seoServicePages: SeoServicePage[] = [
     ],
     relatedServiceSlugs: ["api-development", "ui-ux-design", "frontend-revamp"],
     relatedBlogSlugs: ["api-development-for-startup-web-apps", "landing-page-vs-website-vs-web-app"],
+    relatedWorkSlugs: ["nursephysiowala", "chainreach-ai", "proofcohort"],
   },
   {
     slug: "performance-optimization",
@@ -584,6 +591,10 @@ export const seoServicePages: SeoServicePage[] = [
   },
 ];
 
+const businessWebsitePackage = serviceProposals.find(
+  (service) => service.slug === "small-business-websites"
+)!.packages[0];
+
 export const seoBlogPosts: SeoBlogPost[] = [
   ...projectGuides,
   {
@@ -592,7 +603,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     description:
       "A practical guide for small businesses deciding what pages, features, and budget level they need before hiring a website developer.",
     datePublished: "2026-05-24",
-    dateModified: "2026-05-24",
+    dateModified: "2026-10-23",
     readingTime: "5 min read",
     category: "Website Strategy",
     keywords: [
@@ -606,6 +617,15 @@ export const seoBlogPosts: SeoBlogPost[] = [
       "Most small business websites should start with clear positioning, a few conversion-focused pages, mobile responsiveness, and SEO-ready structure before adding complex features.",
     sections: [
       {
+        heading: "A concrete starting scope and budget",
+        link: { text: "Essential Website package", href: "/services/small-business-websites" },
+        body: [
+          `The current Essential Website package starts at ${businessWebsitePackage.priceUSD} / ${businessWebsitePackage.priceINR}, with a typical ${businessWebsitePackage.timeline} schedule. It covers up to five pages, mobile-first design, a contact flow, technical SEO setup and two revision rounds. This is my published starting package, not an industry average or a quote for every project.`,
+          "For an illustrative five-page service website, those pages could be Home, Services, Work, About and Contact, with FAQs included within the relevant pages. Agree who supplies the copy and approved project images before confirming the schedule. This example is a planning scenario, not a client result.",
+          "A booking system, payments, customer accounts, substantial copy production or additional pages change the scope. Third-party subscriptions, paid assets and content production are quoted separately; confirm hosting, maintenance and ownership in the written proposal.",
+        ],
+      },
+      {
         heading: "Start with the decision your visitor needs to make",
         body: [
           "A small business website is not only a digital brochure. It should help a visitor understand what you offer, who it is for, why they can trust you, and what to do next.",
@@ -614,6 +634,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "Keep the first build lean, but not fragile",
+        link: { text: "strategy and structure", href: "/blog/ui-ux-before-rebuild" },
         body: [
           "A lean site can still be built with strong foundations: responsive layouts, fast loading, semantic HTML, metadata, sitemap, schema, and clear internal links.",
           "The mistake is cutting strategy and structure. A cheap page with unclear copy usually costs more later because it needs to be rebuilt before it can rank or convert.",
@@ -621,6 +642,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "When to move from website to web app",
+        link: { text: "accounts, dashboards, payments, permissions, workflows, or data entry", href: "/blog/landing-page-vs-website-vs-web-app" },
         body: [
           "If the project needs accounts, dashboards, payments, permissions, workflows, or data entry, it is moving beyond a small business website into web app territory.",
           "That is where a full-stack scope matters. The frontend, API, database, auth, and deployment plan need to be discussed together.",
@@ -636,10 +658,11 @@ export const seoBlogPosts: SeoBlogPost[] = [
       {
         question: "Can a small website rank on Google?",
         answer:
-          "Yes, but it needs useful page content, technical SEO, internal links, crawlable routes, and a clear topical focus. Ranking is stronger when the site grows with service pages and helpful articles.",
+          "A small site can appear in search when its pages are accessible and useful for the query. More pages alone do not establish relevance or guarantee rankings. Use Search Console to check actual indexing, queries and impressions after launch.",
       },
     ],
     relatedServiceSlugs: ["small-business-websites", "ui-ux-design"],
+    relatedWorkSlugs: ["pivotal-physiocare", "samriddhi-interiors"],
   },
   {
     slug: "frontend-revamp-checklist",
@@ -647,7 +670,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     description:
       "A practical frontend revamp checklist covering UI hierarchy, responsive behavior, speed, accessibility, SEO preservation, and conversion paths.",
     datePublished: "2026-05-24",
-    dateModified: "2026-09-11",
+    dateModified: "2026-10-23",
     readingTime: "6 min read",
     category: "Frontend Revamp",
     keywords: [
@@ -662,6 +685,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     sections: [
       {
         heading: "Audit the current product before touching visuals",
+        link: { text: "which screens feel confusing", href: "/blog/ui-ux-before-rebuild" },
         body: [
           "A redesign should start with what users are trying to do, where they drop off, which screens feel confusing, and which existing URLs or content already bring search traffic.",
           "That audit protects the business from a common redesign mistake: making the site prettier while removing the content, headings, links, or flows that were doing useful work.",
@@ -669,9 +693,10 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "Fix responsive and performance issues early",
+        link: { text: "loading states, and layout shift", href: "/blog/react-nextjs-performance-audit-brief" },
         body: [
           "Mobile layout, text wrapping, tap targets, image sizes, loading states, and layout shift should be part of the revamp plan from the beginning.",
-          "Modern SEO and AI answer surfaces both reward pages that are easy to crawl, understand, and trust. Speed and structured content support that.",
+          "Keep meaningful content and links readable in the delivered HTML. Check performance under a documented device and network profile, then compare with real-user measurements where available. Neither a lab score nor structured data guarantees a ranking or an AI citation.",
         ],
       },
       {
@@ -695,6 +720,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
     ],
     relatedServiceSlugs: ["frontend-revamp", "ui-ux-design", "web-apps-saas"],
+    relatedWorkSlugs: ["sound-of-meme", "heyclo-clo-ai"],
   },
   {
     slug: "ui-ux-before-rebuild",
@@ -717,6 +743,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     sections: [
       {
         heading: "Development is faster when the product decisions are clearer",
+        link: { text: "which states need to exist", href: "/blog/saas-dashboard-development-scope" },
         body: [
           "A rebuild becomes expensive when layout, flows, copy, and states are still being discovered inside code.",
           "UI/UX work turns those unknowns into decisions: what the page says, what the user sees first, how the CTA works, and which states need to exist.",
@@ -750,6 +777,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
     ],
     relatedServiceSlugs: ["ui-ux-design", "frontend-revamp"],
+    relatedWorkSlugs: ["chainreach-ai", "samriddhi-interiors"],
   },
   {
     slug: "api-development-for-startup-web-apps",
@@ -757,7 +785,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     description:
       "A founder-friendly guide to planning APIs, auth, data models, integrations, and frontend states for SaaS and web app projects.",
     datePublished: "2026-05-24",
-    dateModified: "2026-09-11",
+    dateModified: "2026-10-23",
     readingTime: "6 min read",
     category: "Full-Stack Development",
     keywords: [
@@ -786,9 +814,12 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "Frontend and API should be designed together",
+        link: { text: "loading, empty, error, success, and permission states", href: "/blog/saas-dashboard-development-scope" },
         body: [
           "Dashboards and SaaS products fail when backend responses do not match the UI's loading, empty, error, success, and permission states.",
           "A full-stack workflow keeps those contracts aligned so the product feels reliable from the user's side.",
+          "For example, in an illustrative approval workflow, specify who can approve a record, what happens if it was already approved, and how the UI represents denied access, a timeout and a successful response. Agree which team owns permission enforcement and which owns the interface before estimating delivery.",
+          "The linked case studies document my frontend integration and product-interface contributions. They are not evidence that I authored every API, database or backend behind those products. A new engagement should explicitly define those responsibilities.",
         ],
       },
     ],
@@ -805,6 +836,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
     ],
     relatedServiceSlugs: ["api-development", "web-apps-saas"],
+    relatedWorkSlugs: ["nursephysiowala", "chainreach-ai"],
   },
   {
     slug: "landing-page-vs-website-vs-web-app",
@@ -827,6 +859,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
     sections: [
       {
         heading: "Choose a landing page when the offer is focused",
+        link: { text: "A landing page", href: "/services/landing-pages" },
         body: [
           "A landing page is best when you need to validate one product, campaign, service, or waitlist with a clear CTA.",
           "It should be fast to launch, easy to read, mobile-friendly, and designed around one primary action.",
@@ -834,6 +867,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "Choose a website when trust needs more room",
+        link: { text: "A business website", href: "/blog/small-business-website-cost-and-scope" },
         body: [
           "A business website makes sense when you need multiple services, proof, about content, FAQs, contact paths, and SEO pages.",
           "This is usually the right choice for small to medium service businesses that need consistent discovery and better credibility.",
@@ -841,6 +875,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
       {
         heading: "Choose a web app when users need to do work",
+        link: { text: "accounts, dashboards, saved data, payments, approvals, uploads, or workflow automation", href: "/blog/saas-dashboard-development-scope" },
         body: [
           "If users need accounts, dashboards, saved data, payments, approvals, uploads, or workflow automation, you are building a web app.",
           "That requires deeper planning across UI, API, database, permissions, and deployment.",
@@ -860,6 +895,7 @@ export const seoBlogPosts: SeoBlogPost[] = [
       },
     ],
     relatedServiceSlugs: ["small-business-websites", "web-apps-saas", "api-development"],
+    relatedWorkSlugs: ["heyclo-clo-ai", "samriddhi-interiors", "nursephysiowala"],
   },
 ];
 

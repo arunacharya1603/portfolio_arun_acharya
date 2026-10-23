@@ -6,7 +6,7 @@ import { getWorkProjectBySlug, workProjects } from "@/data/work-projects";
 import {
   breadcrumbJsonLd,
   createPageMetadata,
-  softwareApplicationJsonLd,
+  caseStudyJsonLd,
 } from "@/lib/seo";
 
 type WorkProjectPageProps = {
@@ -31,12 +31,11 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
   }
 
   return createPageMetadata({
-    title: `${project.shortName} Case Study by Arun Acharya`,
-    description: `${project.shortName} case study: Arun Acharya's credited work as ${project.role}, including ${project.features
-      .slice(0, 2)
-      .join(", ")}.`,
+    title: project.seoTitle,
+    description: project.seoDescription,
     path: `/work/${project.slug}`,
     image: project.image,
+    imageSize: project.imageSize,
     type: "article",
     keywords: [
       project.name,
@@ -61,7 +60,7 @@ export default function WorkProjectPage({ params }: WorkProjectPageProps) {
   }
 
   const schemas = [
-    softwareApplicationJsonLd(project),
+    caseStudyJsonLd(project),
     breadcrumbJsonLd([
       { name: "Home", path: "/" },
       { name: "Work", path: "/work" },

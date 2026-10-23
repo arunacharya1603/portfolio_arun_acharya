@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { SeoPageShell } from "@/components/SeoPageShell";
 import { textLinkStyles } from "@/components/ui/control-styles";
-import { workProjects, type WorkProject } from "@/data/work-projects";
+import { getWorkProjectBySlug, workProjects, type WorkProject } from "@/data/work-projects";
+import { getSeoServicePage, seoBlogPosts } from "@/data/seo-content";
 import { cn } from "@/lib/utils";
 import { ProjectCard } from "./ProjectCard";
 
@@ -47,8 +48,14 @@ function DeliveryList({ title, items }: { title: string; items: string[] }) {
 }
 
 export function WorkProjectPageContent({ project }: { project: WorkProject }) {
-  const related = workProjects
-    .filter((item) => item.slug !== project.slug)
+  const related = project.relatedWorkSlugs
+    .filter((slug) => slug !== project.slug)
+    .map(getWorkProjectBySlug)
+    .filter((item): item is WorkProject => Boolean(item))
+    .slice(0, 2);
+  const relatedServices = project.relatedServiceSlugs.map(getSeoServicePage).filter(Boolean);
+  const relatedGuides = seoBlogPosts
+    .filter((post) => post.relatedWorkSlugs?.includes(project.slug))
     .slice(0, 2);
   return (
     <SeoPageShell
@@ -68,7 +75,7 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
             rel="noopener noreferrer"
             variant={"primary"}
           >
-            View Live Site
+            {project.status.includes("Demo") ? "View interface demo" : "View project website"}
             <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
           </GlassLink>
         )}
@@ -96,6 +103,12 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
             What did I build for {project.shortName}?
           </h2>
           <p className="mt-4 text-base leading-8 text-subtle">{project.contributionSummary}</p>
+          {project.evidenceNote && (
+            <p className="mt-4 text-sm leading-7 text-subtle">
+              <span className="font-semibold text-ink">Evidence and scope: </span>
+              {project.evidenceNote}
+            </p>
+          )}
         </section>
       )}
       <figure>
@@ -135,6 +148,22 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
         <div className="space-y-6 text-base leading-8 text-subtle">
           <p>{project.problem}</p>
           <p>{project.overview}</p>
+          {relatedServices.map((service) => (
+            <p key={service!.slug}>
+              For similar work, explore{" "}
+              <Link href={`/services/${service!.slug}`} className="text-brand underline underline-offset-4">
+                {service!.navLabel}
+              </Link>.
+            </p>
+          ))}
+          {relatedGuides.map((post) => (
+            <p key={post.slug}>
+              Planning a similar build? Read{" "}
+              <Link href={`/blog/${post.slug}`} className="text-brand underline underline-offset-4">
+                {post.title}
+              </Link>.
+            </p>
+          ))}
         </div>
       </section>
       <div

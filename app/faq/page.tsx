@@ -61,6 +61,11 @@ export default function FaqPage() {
               <p className={`mt-4 text-base leading-8 ${seoMutedTextClass}`}>
                 {faq.answer}
               </p>
+              {faq.question === "Do you work with clients outside India?" && (
+                <Link href="/locations" className="mt-3 inline-flex text-sm font-semibold text-brand underline underline-offset-4">
+                  Remote collaboration details
+                </Link>
+              )}
             </article>
           ))}
         </div>

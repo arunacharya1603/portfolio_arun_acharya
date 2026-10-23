@@ -8,20 +8,25 @@ export type WorkProject = {
   slug: string;
   name: string;
   shortName: string;
+  seoTitle: string;
+  seoDescription: string;
   status: string;
   timeline?: string;
   role: string;
-  contributionSummary?: string;
+  contributionSummary: string;
+  evidenceNote?: string;
   stack: string[];
   impact: string;
   description: string;
   problem: string;
   features: string[];
   image: string;
+  imageSize: { width: number; height: number };
   imageFit?: "cover" | "contain";
   href: string;
+  relatedWorkSlugs: string[];
+  relatedServiceSlugs: string[];
   externalUrl?: string;
-  applicationCategory?: string;
   overview: string;
   whatIDid: string[];
   howIDid: string[];
@@ -34,6 +39,8 @@ export const workProjects: WorkProject[] = [
     slug: "transcendence",
     name: "Transcendence - Holographic Experiences Platform",
     shortName: "Transcendence",
+    seoTitle: "Transcendence Platform Frontend Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's frontend work on Transcendence's holographic platform: public pages, UNIT and TRS presentations, dashboards, motion and loading states.",
     status: "Live Website",
     role: "Frontend Engineer",
     contributionSummary:
@@ -54,10 +61,12 @@ export const workProjects: WorkProject[] = [
       "Demo inquiry entry points",
     ],
     image: "/image/transcendence-thumbnail.webp",
+    imageSize: { width: 1280, height: 720 },
     imageFit: "contain",
     href: "/work/transcendence",
+    relatedWorkSlugs: ["heyclo-clo-ai", "chainreach-ai"],
+    relatedServiceSlugs: ["frontend-development"],
     externalUrl: "https://transcendenceplatform.com/",
-    applicationCategory: "BusinessApplication",
     overview:
       "My responsibility covered the full project's frontend. I worked across the public-facing pages and dashboard interfaces, including product showcases, scroll-led storytelling, animated transitions, loading states, and responsive presentation.",
     whatIDid: [
@@ -105,7 +114,9 @@ export const workProjects: WorkProject[] = [
   {
     slug: "proofcohort",
     name: "ProofCohort - Project-Based Learning Platform",
-    shortName: "ProofCohort",
+    shortName: "Proof Cohort",
+    seoTitle: "Proof Cohort (ProofCohort) Website Work | Arun Acharya",
+    seoDescription: "Arun Acharya's Proof Cohort (ProofCohort) development work: public program pages, project resources, pricing presentation and certificate guides.",
     status: "Live Product",
     role: "Developer",
     contributionSummary:
@@ -114,7 +125,7 @@ export const workProjects: WorkProject[] = [
     impact:
       "A project-based learning platform connecting programs, student workflows, assessments, and verifiable certificates.",
     description:
-      "Development work on ProofCohort, a learning platform where students explore programs, complete projects, and build evidence of their skills.",
+      "Proof Cohort (ProofCohort) case study covering my development work on program pages, project resources, pricing, and certificate guides.",
     problem:
       "Project-based learning needs more than a program catalog. Students need a clear path through tasks and assessment, while certificates need a way to be checked publicly.",
     features: [
@@ -126,12 +137,14 @@ export const workProjects: WorkProject[] = [
       "Career resources and guides",
     ],
     image: "/image/proofcohort-thumbnail.webp",
+    imageSize: { width: 1275, height: 717 },
     imageFit: "contain",
     href: "/work/proofcohort",
+    relatedWorkSlugs: ["nursephysiowala", "chainreach-ai"],
+    relatedServiceSlugs: ["web-apps-saas"],
     externalUrl: "https://proofcohort.in/",
-    applicationCategory: "EducationalApplication",
     overview:
-      "ProofCohort brings program discovery, student progress, project submissions, and certificate verification into one platform. My development work includes public-facing pages, project resources, brand visuals, pricing behavior, and search-focused content.",
+      "Proof Cohort brings program discovery, student progress, project submissions, and certificate verification into one platform. My development work includes public-facing pages, project resources, brand visuals, pricing behavior, and search-focused content.",
     whatIDid: [
       "Developed and refined the platform's public-facing pages and program presentation.",
       "Added project resources and guides across career areas.",
@@ -175,7 +188,9 @@ export const workProjects: WorkProject[] = [
   {
     slug: "chainreach-ai",
     name: "ChainReach.ai - Creator and Brand Campaign Platform",
-    shortName: "Chainreach.ai",
+    shortName: "ChainReach.ai",
+    seoTitle: "ChainReach.ai Frontend & Dashboard Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's ChainReach.ai frontend work: brand, creator and admin dashboards, campaign and negotiation flows, AI interfaces and API integration.",
     status: "Live Product",
     timeline: "Jan 2026 - Present",
     role: "Frontend Developer",
@@ -196,10 +211,12 @@ export const workProjects: WorkProject[] = [
       "Global AI chat UI",
     ],
     image: "/image/chainreach-thumbnail.png",
+    imageSize: { width: 1425, height: 891 },
     imageFit: "contain",
     href: "/work/chainreach-ai",
+    relatedWorkSlugs: ["nursephysiowala", "ai-case-calculator"],
+    relatedServiceSlugs: ["frontend-development"],
     externalUrl: "https://chainreach.ai/",
-    applicationCategory: "BusinessApplication",
     overview:
       "ChainReach.ai is a creator and brand campaign platform with multi-role product surfaces. The frontend work covered dashboards, campaign creation, creator acceptance flows, negotiation screens, AI-assisted campaign generation, and global AI chat UI.",
     whatIDid: [
@@ -248,9 +265,13 @@ export const workProjects: WorkProject[] = [
     slug: "pivotal-physiocare",
     name: "Pivotal Physiocare - Home Physiotherapy Website",
     shortName: "Pivotal Physiocare",
+    seoTitle: "Pivotal Physiocare Website Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's Pivotal Physiocare website work: responsive service pages, practitioner profiles and home-visit enquiry paths for Noida and Greater Noida.",
     status: "Live Product",
     timeline: "2026",
     role: "Frontend / Full-Stack Developer",
+    contributionSummary: "I built Pivotal Physiocare's responsive public website, organizing care information, practitioner profiles, service coverage, galleries and home-visit enquiry paths. This case study covers the website implementation, not clinical care or measured patient outcomes.",
+    evidenceNote: "Patient counts, ratings, practitioner details and recovery stories are the practice's published information. They are not independently verified clinical claims or results attributed to my development work.",
     stack: ["Next.js", "Responsive UI", "Local SEO"],
     impact: "A conversion-focused home physiotherapy website combining local discovery, clinical trust, and direct booking.",
     description:
@@ -267,17 +288,19 @@ export const workProjects: WorkProject[] = [
       "Call and contact actions",
     ],
     image: "/image/pivotal-physiocare-thumbnail.png",
+    imageSize: { width: 1425, height: 891 },
     imageFit: "contain",
     href: "/work/pivotal-physiocare",
+    relatedWorkSlugs: ["nursephysiowala", "samriddhi-interiors"],
+    relatedServiceSlugs: ["small-business-websites"],
     externalUrl: "https://www.pivotalphysiocare.com/",
-    applicationCategory: "HealthApplication",
     overview:
       "Pivotal Physiocare is a live patient-enquiry website for personal home physiotherapy in Greater Noida and Noida. The experience combines expert-led credibility, real treatment moments, patient recovery journeys, care information, location coverage, and direct home-visit actions in one responsive flow.",
     whatIDid: [
       "Built the responsive public website and its patient-focused content hierarchy.",
       "Created a conversion-led hero with direct home-visit planning and call actions.",
       "Structured care, expert, location, resource, and contact paths for fast discovery.",
-      "Presented 4.9-rated proof, 5,000+ patients supported, and a consistent two-expert care team.",
+      "Presented the practice's published ratings, patient-count claims and care-team information.",
       "Built real-care gallery and patient-story sections around ten recovery journeys.",
       "Connected local service discovery with direct phone, contact, and booking paths.",
     ],
@@ -314,7 +337,7 @@ export const workProjects: WorkProject[] = [
     outcomes: [
       "Delivered a live responsive website at pivotalphysiocare.com.",
       "Created direct home-visit planning, phone, and contact conversion paths.",
-      "Presented 5,000+ patients supported, 4.9-rated care, and two expert physiotherapists.",
+      "Organized practice-provided care-team information and patient stories within the website.",
       "Showcased ten patient recovery journeys and real treatment moments.",
       "Supported local service discovery across Greater Noida and Noida.",
     ],
@@ -322,12 +345,15 @@ export const workProjects: WorkProject[] = [
   {
     slug: "heyclo-clo-ai",
     name: "HeyClo / CLO AI - Animated Product Landing Page",
-    shortName: "CLO AI",
+    shortName: "HeyClo (CLO AI)",
+    seoTitle: "HeyClo (CLO AI) Framer Landing Page | Arun Acharya",
+    seoDescription: "Arun Acharya's HeyClo (CLO AI) landing-page work with Framer and Lenis: animated sections, responsive layouts, smooth scrolling and loading behavior.",
     status: "Live Product",
     timeline: "Mar 2026 - Present",
     role: "Frontend / Framer Developer",
     contributionSummary:
       "I developed HeyClo's animated product landing page with Framer and Lenis, including responsive sections, smooth scrolling, interaction details, and the loading experience. My contribution focused on the public-facing product story and how it behaves across screen sizes. The published landing page is linked from this case study.",
+    evidenceNote: "This documents my landing-page contribution, not development of HeyClo's relationship AI. Historical Lighthouse checks are not published here as a reproducible benchmark, and the live product may have changed since this work.",
     stack: ["Framer", "Lenis", "Responsive UI"],
     impact: "A fully animated product landing page with smooth scrolling and premium storytelling.",
     description:
@@ -336,9 +362,11 @@ export const workProjects: WorkProject[] = [
       "The product needed a premium animated landing experience that stayed smooth, responsive, and performance-conscious across screen sizes.",
     features: ["Animated landing page", "Smooth scrolling", "Responsive sections", "Loading experience", "Lighthouse checks"],
     image: "/image/clo.png",
+    imageSize: { width: 1901, height: 936 },
     href: "/work/heyclo-clo-ai",
+    relatedWorkSlugs: ["transcendence", "rey9-living"],
+    relatedServiceSlugs: ["landing-pages"],
     externalUrl: "https://heyclo.com/",
-    applicationCategory: "LifestyleApplication",
     overview:
       "HeyClo / CLO AI was built as a product landing page where motion, responsiveness, and page quality mattered as much as the visual direction. The work focused on turning the product story into screen-friendly sections with smooth scroll behavior and polished interaction design.",
     whatIDid: [
@@ -351,7 +379,7 @@ export const workProjects: WorkProject[] = [
       "Used Framer for interaction and section motion so the page could feel premium without becoming random.",
       "Used Lenis to make scrolling feel fluid and controlled across the landing flow.",
       "Checked the page across devices so the animation system did not break the responsive layout.",
-      "Improved page quality toward 80-90+ Lighthouse scores across key checks.",
+      "Used Lighthouse checks to guide loading and page-quality improvements.",
     ],
     challenges: [
       {
@@ -373,7 +401,7 @@ export const workProjects: WorkProject[] = [
         challenge:
           "A motion-heavy page still needed strong Lighthouse and loading behavior.",
         tackle:
-          "I tested loading experience and Lighthouse performance, improving the page quality to the 80-90+ range across key checks.",
+          "I tested loading behavior and used Lighthouse findings to guide page-quality improvements.",
       },
     ],
     outcomes: [
@@ -386,11 +414,14 @@ export const workProjects: WorkProject[] = [
     slug: "sound-of-meme",
     name: "Sound Of Meme - AI Music Generation Platform",
     shortName: "Sound Of Meme",
+    seoTitle: "Sound Of Meme React Frontend Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's lead frontend work on Sound Of Meme: React and Redux architecture, music-player and song-generation interfaces, SEO and bundle optimization.",
     status: "Live Product",
     timeline: "Nov 2024 - Dec 2025",
     role: "Lead Frontend Developer",
     contributionSummary:
       "I led Sound Of Meme's frontend development from scratch using React, Redux, and Tailwind CSS. I built the music player and AI song-generation interface, established reusable components and hooks, and worked on bundle optimization and the SEO blog architecture. This case study documents that frontend scope and the engineering decisions behind it.",
+    evidenceNote: "The approximately 8 MB to 2 MB bundle reduction is a historical project estimate. Before-and-after build artifacts and test conditions are not published here, so it is not a reproducible benchmark, a current site measurement or evidence of a ranking or conversion increase.",
     stack: ["React.js", "Redux", "Tailwind CSS"],
     impact: "An AI-powered music generation product with a scalable React architecture and optimized bundle size.",
     description:
@@ -406,8 +437,10 @@ export const workProjects: WorkProject[] = [
       "SEO blog architecture",
     ],
     image: "/image/soundofmeme.png",
+    imageSize: { width: 1440, height: 900 },
     href: "/work/sound-of-meme",
-    applicationCategory: "MultimediaApplication",
+    relatedWorkSlugs: ["chainreach-ai", "heyclo-clo-ai"],
+    relatedServiceSlugs: ["performance-optimization"],
     overview:
       "Sound Of Meme was an AI-powered music generation platform where I owned the frontend from scratch. The work covered scalable architecture, reusable components, custom hooks, maintainable UI flows, the core music player, AI song generation, SEO-focused frontend architecture, and production performance.",
     whatIDid: [
@@ -416,7 +449,7 @@ export const workProjects: WorkProject[] = [
       "Built the core music player system.",
       "Built the user-facing AI song generation experience.",
       "Implemented metadata optimization, structured content, and 25+ blog pages.",
-      "Reduced production bundle size from approximately 8 MB to 2 MB.",
+      "Worked on production bundle reduction through lazy loading and code splitting.",
     ],
     howIDid: [
       "Used React.js, Redux, and Tailwind CSS to build maintainable UI flows.",
@@ -435,9 +468,9 @@ export const workProjects: WorkProject[] = [
       {
         title: "Performance at production size",
         challenge:
-          "The production bundle was approximately 8 MB, which was too heavy for a responsive product experience.",
+          "The production frontend needed a smaller bundle and more selective loading.",
         tackle:
-          "I used lazy loading, route-level code splitting, shared/global components, and rendering optimization to reduce it to approximately 2 MB.",
+          "I used lazy loading, route-level code splitting, shared/global components, and rendering optimization to reduce the bundle. The historical size estimate and its limitations are noted above.",
       },
       {
         title: "AI music UX",
@@ -448,7 +481,7 @@ export const workProjects: WorkProject[] = [
       },
     ],
     outcomes: [
-      "Reduced production bundle size from approximately 8 MB to 2 MB.",
+      "Reduced the production frontend bundle; the historical estimate is qualified above.",
       "Built the core AI song generation and music player experience.",
       "Implemented SEO-focused architecture with 25+ blog pages.",
     ],
@@ -457,9 +490,13 @@ export const workProjects: WorkProject[] = [
     slug: "samriddhi-interiors",
     name: "Samriddhi Interiors - Premium Interior & Construction Website",
     shortName: "Samriddhi Interiors",
+    seoTitle: "Samriddhi Interiors Website Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's freelance website work for Samriddhi Interiors: service navigation, project galleries, responsive layouts and consultation enquiry flows.",
     status: "Live Freelance Project",
     timeline: "2025",
     role: "Freelance Frontend Developer",
+    contributionSummary: "I built Samriddhi Interiors' client-facing website with Next.js and TypeScript, organizing service categories, project photography, studio information and consultation enquiries. The interior projects and customer relationships shown on that site belong to the client, not to my development portfolio.",
+    evidenceNote: "Business history, client logos, testimonials and interior-project totals are content supplied or published by Samriddhi Interiors. They are not my software-delivery metrics or independently measured results of the website.",
     stack: ["Next.js", "TypeScript", "Framer Motion", "Responsive UI"],
     impact: "A live premium interiors website built to turn portfolio credibility into consultation inquiries.",
     description:
@@ -476,11 +513,13 @@ export const workProjects: WorkProject[] = [
       "Consultation inquiry flow",
     ],
     image: "/image/samriddhi.png",
+    imageSize: { width: 1440, height: 900 },
     href: "/work/samriddhi-interiors",
+    relatedWorkSlugs: ["rey9-living", "pivotal-physiocare"],
+    relatedServiceSlugs: ["small-business-websites"],
     externalUrl: "https://www.samriddhiinteriors.com/",
-    applicationCategory: "BusinessApplication",
     overview:
-      "Samriddhi Interiors is a live freelance client project for an interiors and construction brand. The website positions the business as a premium studio through a strong hero, founder-led credibility, 200+ project and 8+ years proof points, a detailed services system, signature portfolio work, client logos, process storytelling, testimonials, and a consultation-focused contact flow.",
+      "Samriddhi Interiors is a live freelance client project for an interiors and construction brand. The website presents the client's studio history, services, interior-project portfolio, client logos and testimonials alongside a consultation-focused contact flow. My contribution was the website, not the interior projects displayed within it.",
     whatIDid: [
       "Built the live client-facing website for Samriddhi Interiors.",
       "Created the premium landing structure around profile, projects, journal, about, services, and get-in-touch navigation.",
@@ -530,9 +569,12 @@ export const workProjects: WorkProject[] = [
     slug: "nursephysiowala",
     name: "NursePhysioWala - Healthcare Services Marketplace",
     shortName: "NursePhysioWala",
+    seoTitle: "NursePhysioWala Booking Platform Case Study | Arun Acharya",
+    seoDescription: "Arun Acharya's NursePhysioWala work as founder and frontend developer: booking flows, patient and practitioner dashboards, allocation and deployment.",
     status: "Live Product",
     timeline: "Personal Product",
     role: "Founder and Frontend Developer",
+    contributionSummary: "As NursePhysioWala's founder and frontend developer, I built the marketplace's patient, practitioner and admin workflows, request allocation with manual override, service pages and deployment setup. This is a software implementation case study, not evidence of clinical outcomes.",
     stack: ["Next.js", "TypeScript", "Firebase", "Vercel"],
     impact: "A live healthcare booking marketplace with patient, physiotherapist, and admin workflows.",
     description:
@@ -549,9 +591,11 @@ export const workProjects: WorkProject[] = [
       "SEO service and city pages",
     ],
     image: "/image/nurse.png",
+    imageSize: { width: 1440, height: 900 },
     href: "/work/nursephysiowala",
+    relatedWorkSlugs: ["pivotal-physiocare", "chainreach-ai"],
+    relatedServiceSlugs: ["product-mvp-development"],
     externalUrl: "https://nursephysiowala.in/",
-    applicationCategory: "HealthApplication",
     overview:
       "NursePhysioWala is a live healthcare services marketplace for home physiotherapy and nursing services. I built it from scratch as the founder and frontend developer, covering patient workflows, physiotherapist workflows, admin operations, allocation logic, SEO pages, and production deployment.",
     whatIDid: [
@@ -602,8 +646,11 @@ export const workProjects: WorkProject[] = [
     slug: "rey9-living",
     name: "Rey9 Living - Modular Interiors Website",
     shortName: "Rey9 Living",
+    seoTitle: "Rey9 Living Interiors Website Demo | Arun Acharya",
+    seoDescription: "Arun Acharya's Rey9 Living interface demo: modular-interiors collections, material exploration and project-planning screens. A demo, not a client-results claim.",
     status: "Website Demo",
     role: "Developer",
+    contributionSummary: "I developed the public-facing interiors website interface shown in this demo. It presents collections, materials and project-planning interactions; this overview does not claim a commissioned client launch or measured business results.",
     stack: [],
     impact:
       "An interactive interiors website showcasing steel kitchens, wardrobes, finishes, and project estimation.",
@@ -620,10 +667,12 @@ export const workProjects: WorkProject[] = [
       "Consultation inquiry interface",
     ],
     image: "/image/rey9-living-thumbnail.webp",
+    imageSize: { width: 1274, height: 717 },
     imageFit: "contain",
     href: "/work/rey9-living",
+    relatedWorkSlugs: ["samriddhi-interiors", "heyclo-clo-ai"],
+    relatedServiceSlugs: ["ui-ux-design"],
     externalUrl: "https://rey9living.vercel.app/",
-    applicationCategory: "BusinessApplication",
     overview:
       "Rey9 Living uses a dark palette, warm metallic accents, and large product sections to present stainless-steel modular interiors. Interactive collection and planning tools extend the experience beyond a static gallery.",
     whatIDid: ["Developed the public-facing interiors website interface."],
@@ -635,8 +684,11 @@ export const workProjects: WorkProject[] = [
     slug: "ai-case-calculator",
     name: "AI Case Calculator - Legal Technology Interface",
     shortName: "AI Case Calculator",
+    seoTitle: "AI Case Calculator: Legal-Tech UI Demo | Arun Acharya",
+    seoDescription: "Arun Acharya's legal-tech interface demo with case-analysis entry screens and an example valuation report. Sample figures, not validated legal estimates.",
     status: "Product Demo",
     role: "Developer",
+    contributionSummary: "I developed the public-facing legal-tech interface shown in this demo, including its product introduction and sample report presentation. The displayed figures illustrate the UI; they are not validated case valuations, legal advice or evidence of AI-model development.",
     stack: [],
     impact:
       "A legal technology product interface with an analysis entry point and a structured case-valuation report preview.",
@@ -652,10 +704,12 @@ export const workProjects: WorkProject[] = [
       "Report cards for probability, duration, and precedent context",
     ],
     image: "/image/ai-case-calculator-thumbnail.webp",
+    imageSize: { width: 1280, height: 720 },
     imageFit: "contain",
     href: "/work/ai-case-calculator",
+    relatedWorkSlugs: ["chainreach-ai", "proofcohort"],
+    relatedServiceSlugs: ["ui-ux-design"],
     externalUrl: "https://aicasecalculator-iota.vercel.app/",
-    applicationCategory: "BusinessApplication",
     overview:
       "The public interface pairs a concise product introduction with a sample report that groups estimates and supporting context into readable cards. The displayed figures illustrate the report interface; they are not measured project outcomes.",
     whatIDid: ["Developed the public-facing legal technology product interface."],

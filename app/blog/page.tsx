@@ -55,7 +55,7 @@ export default function BlogPage() {
   return (
     <SeoPageShell
       eyebrow="Blog and guides"
-      title="Practical SEO content for website, frontend, UI/UX, and full-stack project decisions."
+      title="Practical guides to planning your next website or product."
       description="These articles are built for real client questions: what to build first, when to revamp the frontend, how UI/UX affects development, and how APIs fit into web app projects."
     >
       {schemas.map((schema, index) => (

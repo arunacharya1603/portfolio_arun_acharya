@@ -16,6 +16,7 @@ type PageMetadataInput = {
   path?: string;
   keywords?: string[];
   image?: string;
+  imageSize?: { width: number; height: number };
   type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
@@ -28,6 +29,7 @@ export function createPageMetadata({
   path = "",
   keywords = [],
   image = siteConfig.socialImage,
+  imageSize,
   type = "website",
   publishedTime,
   modifiedTime,
@@ -45,13 +47,15 @@ export function createPageMetadata({
     creator: siteConfig.name,
     publisher: siteConfig.name,
     alternates: { canonical },
-    robots: noIndex
+    ...(noIndex
       ? {
+        robots: {
           index: false,
           follow: false,
           nocache: true,
-        }
-      : undefined,
+        },
+      }
+      : {}),
     openGraph: {
       title,
       description,
@@ -62,8 +66,8 @@ export function createPageMetadata({
       images: [
         {
           url: imageUrl,
-          ...(image === siteConfig.socialImage ? { width: 1200, height: 630 } : {}),
-          alt: `${title} by ${siteConfig.name}`,
+          ...(imageSize ?? (image === siteConfig.socialImage ? { width: 1200, height: 630 } : {})),
+          alt: title,
         },
       ],
       ...(type === "article"
@@ -152,7 +156,12 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
       "United Arab Emirates",
       "Australia",
     ],
-    availableLanguage: ["en"],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Project enquiries",
+      email: siteConfig.email,
+      availableLanguage: ["en"],
+    },
     priceRange: "$250+",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
@@ -228,30 +237,25 @@ export function serviceJsonLd(service: SeoServicePage) {
   };
 }
 
-export function softwareApplicationJsonLd(project: WorkProject) {
+export function caseStudyJsonLd(project: WorkProject) {
   const canonical = absoluteUrl(`/work/${project.slug}`);
-  const projectRole = {
-    "@type": "Role",
-    roleName: project.role,
-    contributor: { "@id": siteConfig.personId },
-  };
-
-  const founderOwnedProject = /founder/i.test(project.role);
   return {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "@id": `${canonical}#softwareapplication`,
-    name: project.shortName,
-    alternateName: project.name,
-    description: project.description,
+    "@type": "CreativeWork",
+    "@id": `${canonical}#case-study`,
+    name: project.seoTitle,
+    description: project.seoDescription,
     url: canonical,
+    mainEntityOfPage: canonical,
+    inLanguage: "en",
     image: absoluteUrl(project.image),
-    applicationCategory: project.applicationCategory ?? "WebApplication",
-    operatingSystem: "Web",
-    ...(founderOwnedProject ? { creator: { "@id": siteConfig.personId } } : {}),
-    contributor: projectRole,
-    sameAs: project.externalUrl ? [project.externalUrl] : undefined,
-    keywords: [project.shortName, project.name, ...project.stack, ...project.features].join(", "),
+    author: { "@id": siteConfig.personId },
+    creditText: `${siteConfig.name}: ${project.role}. ${project.contributionSummary}`,
+    about: {
+      "@type": "Thing",
+      name: project.name,
+      ...(project.externalUrl ? { url: project.externalUrl } : {}),
+    },
   };
 }
 

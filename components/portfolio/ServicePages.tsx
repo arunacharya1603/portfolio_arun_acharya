@@ -6,6 +6,7 @@ import { SeoPageShell } from "@/components/SeoPageShell";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { services } from "@/data/portfolio";
 import { servicePackages } from "@/data/seo";
+import { seoServicePages } from "@/data/seo-content";
 import { cn } from "@/lib/utils";
 
 export function ServicesPageContent() {
@@ -55,13 +56,23 @@ export function ServicesPageContent() {
                 href={`/services/${service.slug}`}
                 className={textLinkStyles("mt-auto justify-start pt-7")}
               >
-                Explore this service
+                Explore {service.title}
                 <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             </article>
           );
         })}
       </div>
+      <nav aria-label="Specialist services" className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
+        {seoServicePages
+          .filter((service) => !services.some((item) => item.slug === service.slug))
+          .map((service) => (
+            <Link key={service.slug} href={`/services/${service.slug}`} className={textLinkStyles()}>
+              {service.navLabel}
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+          ))}
+      </nav>
     </SeoPageShell>
   );
 }
@@ -117,7 +128,7 @@ export function PricingPageContent() {
               variant={index === 1 ? "primary" : "secondary"}
               className={"mt-auto"}
             >
-              Explore package
+              View {pkg.name} scope
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </GlassLink>
           </article>

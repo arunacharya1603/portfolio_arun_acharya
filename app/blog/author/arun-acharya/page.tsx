@@ -53,8 +53,8 @@ export default function AuthorPage() {
   return (
     <SeoPageShell
       eyebrow="Author"
-      title="Arun Acharya writes about frontend development, UI/UX, Next.js, landing pages, and product build decisions."
-      description="This author page connects Arun's articles to his developer entity, service pages, and showcased project work so Google can understand the expertise behind the content."
+      title="Arun Acharya — frontend developer and guide author"
+      description="Practical notes on scoping websites, building product interfaces and reviewing performance, grounded in my documented frontend work."
     >
       {schemas.map((schema, index) => (
         <script
@@ -67,7 +67,7 @@ export default function AuthorPage() {
       <section className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
         <article className={seoCardClass}>
           <LiquidSurface radius={16} />
-          <p className="text-sm font-bold text-brand">Author entity</p>
+          <p className="text-sm font-bold text-brand">About the author</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
             Arun Acharya
           </h2>
@@ -147,10 +147,10 @@ export default function AuthorPage() {
 
       <section className="mt-14">
         <h2 className="font-grotesk text-3xl font-semibold">
-          Project authority behind the writing
+          Project experience behind these guides
         </h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {workProjects.slice(0, 3).map((project) => (
+          {workProjects.filter((project) => ["pivotal-physiocare", "chainreach-ai", "sound-of-meme"].includes(project.slug)).map((project) => (
             <Link
               key={project.slug}
               href={`/work/${project.slug}`}

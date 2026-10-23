@@ -28,6 +28,8 @@ export function generateMetadata() {
   });
 }
 
+const featuredWork = workProjects.slice(0, 5);
+
 const aboutPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
@@ -35,15 +37,11 @@ const aboutPageJsonLd = {
   url: `${siteConfig.url}/about`,
   name: "About Arun Acharya",
   mainEntity: { "@id": siteConfig.personId },
-  mentions: workProjects.map((project) => ({
-    "@type": "SoftwareApplication",
-    name: project.shortName,
+  mentions: featuredWork.map((project) => ({
+    "@type": "CreativeWork",
+    "@id": `${absoluteUrl(`/work/${project.slug}`)}#case-study`,
+    name: project.seoTitle,
     url: absoluteUrl(`/work/${project.slug}`),
-    contributor: {
-      "@type": "Role",
-      roleName: project.role,
-      contributor: { "@id": siteConfig.personId },
-    },
   })),
 };
 
@@ -53,7 +51,6 @@ export default function AboutPage() {
       service.slug,
     ),
   );
-  const featuredWork = workProjects.slice(0, 5);
   const schemas = [
     aboutPageJsonLd,
     breadcrumbJsonLd([
@@ -125,6 +122,7 @@ export default function AboutPage() {
               ["ChainReach.ai case study", "/work/chainreach-ai"],
               ["Frontend service", "/services/frontend-development"],
               ["Blog author page", "/blog/author/arun-acharya"],
+              ["Professional experience", "/experience"],
             ].map(([label, href]) => (
               <Link
                 key={label}

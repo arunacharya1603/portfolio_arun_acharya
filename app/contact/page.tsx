@@ -45,6 +45,9 @@ export default function ContactPage() {
           >
             Read the case studies
           </Link>
+          <Link href="/locations" className="block text-brand underline underline-offset-4">
+            How remote collaboration works
+          </Link>
         </aside>
       </div>
     </SeoPageShell>

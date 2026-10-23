@@ -61,7 +61,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
     ? workProjects.filter((project) =>
         post.relatedWorkSlugs!.includes(project.slug),
       )
-    : workProjects.slice(0, 2);
+    : [];
 
   const schemas = [
     articleJsonLd(post),
@@ -87,6 +87,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         />
       ))}
 
+      <nav aria-label="Article navigation" className="mb-6">
+        <Link href="/blog" className="text-sm font-semibold text-brand underline underline-offset-4">
+          All articles
+        </Link>
+      </nav>
       <article className="grid gap-8 lg:grid-cols-[0.72fr_0.28fr]">
         <div className={seoCardClass}>
           <LiquidSurface radius={16} />
@@ -104,9 +109,23 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <div
                   className={`mt-4 space-y-4 text-base leading-8 ${seoMutedTextClass}`}
                 >
-                  {section.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
+                  {section.body.map((paragraph) => {
+                    const link = section.link;
+                    const start = link ? paragraph.indexOf(link.text) : -1;
+                    return (
+                      <p key={paragraph}>
+                        {link && start >= 0 ? (
+                          <>
+                            {paragraph.slice(0, start)}
+                            <Link href={link.href} className="text-brand underline underline-offset-4">
+                              {link.text}
+                            </Link>
+                            {paragraph.slice(start + link.text.length)}
+                          </>
+                        ) : paragraph}
+                      </p>
+                    );
+                  })}
                 </div>
               </section>
             ))}
