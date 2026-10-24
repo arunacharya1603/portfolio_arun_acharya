@@ -4,7 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const ts = require("typescript");
-const origin = "https://www.arunacharya1603.in";
+const origin = "https://arunacharya1603.in";
 const buildRoot = ".next/server/app";
 
 const decode = (value) => value

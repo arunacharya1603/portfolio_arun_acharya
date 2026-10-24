@@ -26,7 +26,21 @@ async function main() {
   const { servicePackages } = load("data/seo.ts");
   const { createPageMetadata, caseStudyJsonLd } = load("lib/seo.ts");
   const { siteConfig } = load("lib/site.ts");
+  assert.equal(siteConfig.url, "https://arunacharya1603.in");
+  assert.equal(siteConfig.host, new URL(siteConfig.url).hostname);
+  assert.equal(siteConfig.personId, `${siteConfig.url}#person`);
+  assert.equal(siteConfig.websiteId, `${siteConfig.url}#website`);
+  const sitemap = load("app/sitemap.ts").default();
+  assert.equal(new Set(sitemap.map((page) => page.url)).size, sitemap.length);
+  for (const page of sitemap) {
+    const url = new URL(page.url);
+    assert.equal(url.origin, siteConfig.url);
+    assert.equal(url.search + url.hash, "");
+  }
+  assert.equal(load("app/robots.ts").default().sitemap, `${siteConfig.url}/sitemap.xml`);
   const metadata = createPageMetadata({ title: "Test", description: "Test page", path: "/test" });
+  assert.equal(metadata.alternates.canonical, `${siteConfig.url}/test`);
+  assert.equal(metadata.openGraph.url, metadata.alternates.canonical);
   assert.equal(Object.hasOwn(metadata, "robots"), false, "Public pages must inherit root robots directives");
   const excluded = createPageMetadata({ title: "Test", description: "Test", noIndex: true });
   assert.equal(excluded.robots.index, false);
@@ -37,6 +51,7 @@ async function main() {
   const summaryResponse = load("app/llms.txt/route.ts").GET();
   assert.equal(summaryResponse.headers.get("content-type"), "text/plain; charset=utf-8");
   const summary = await summaryResponse.text();
+  assert.ok(!summary.includes("https://www.arunacharya1603.in"));
 
   for (const project of workProjects) {
     assert.ok(project.contributionSummary.trim(), project.slug + " requires an explicit contribution");
@@ -88,6 +103,6 @@ async function main() {
     assert.ok(post.dateModified >= post.datePublished, post.slug + " modification date");
     assert.ok(post.dateModified <= new Date().toISOString().slice(0, 10), post.slug + " future date");
   }
-  console.log("PASS: metadata inheritance, 10 contribution-based case studies, image dimensions, demo labels, factual llms index, price consistency and article dates.");
+  console.log("PASS: non-www metadata/sitemap/robots identity, metadata inheritance, 10 contribution-based case studies, image dimensions, demo labels, factual llms index, price consistency and article dates.");
 }
 main().catch((error) => { console.error(error); process.exitCode = 1; });

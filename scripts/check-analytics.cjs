@@ -26,10 +26,10 @@ function browser() {
   };
   const globals = {
     window: {}, document, URL, Date,
-    location: { hostname: "www.arunacharya1603.in", pathname: "/contact" },
+    location: { hostname: "arunacharya1603.in", pathname: "/contact" },
     localStorage: { getItem: (key) => storage.get(key), setItem: (key, value) => storage.set(key, value) },
   };
-  const analytics = load("lib/analytics.ts", globals);
+  const analytics = load("lib/analytics.ts", globals, { "@/lib/site": load("lib/site.ts") });
   const events = () => (globals.window.dataLayer || []).map((args) => Array.from(args));
   return { globals, storage, scripts, deleted, analytics, events };
 }
@@ -57,6 +57,8 @@ async function main() {
   a.trackSuccessfulInquiry("service-proposal:private@example.com");
   const lead = b.events().find((e) => e[1] === "generate_lead")[2];
   assert.equal(lead.form_name, "service-proposal");
+  assert.equal(lead.page_location, "https://arunacharya1603.in/contact");
+  assert.equal(b.events().find((e) => e[1] === "page_view")[2].page_location, "https://arunacharya1603.in/work");
   assert.equal(lead.page_referrer, "https://search.example");
   assert.equal(JSON.stringify(b.events()).includes("private@"), false);
   assert.equal(JSON.stringify(b.events()).includes("#secret"), false);
@@ -81,11 +83,15 @@ async function main() {
   b.globals.localStorage.setItem = () => { throw Error("Blocked storage"); };
   assert.equal(a.readAnalyticsConsent(), null);
   assert.doesNotThrow(() => a.saveAnalyticsConsent("denied"));
-  const local = browser();
-  local.globals.location.hostname = "localhost";
-  local.analytics.saveAnalyticsConsent("granted");
-  local.analytics.trackPageView("/");
-  assert.equal(local.scripts.length, 0, "Local and preview visits never pollute production");
+  for (const hostname of ["localhost", "127.0.0.1", "portfolio-preview.vercel.app", "www.arunacharya1603.in"]) {
+    const other = browser();
+    other.globals.location.hostname = hostname;
+    other.analytics.saveAnalyticsConsent("granted");
+    other.analytics.trackPageView("/");
+    other.analytics.trackSuccessfulInquiry("portfolio-contact");
+    assert.equal(other.scripts.length, 0, `No production tag on ${hostname}`);
+    assert.equal(other.events().length, 0, `No production events on ${hostname}`);
+  }
 
   let responseOk = true;
   const leads = [];

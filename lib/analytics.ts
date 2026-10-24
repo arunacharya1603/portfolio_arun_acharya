@@ -1,10 +1,12 @@
+import { siteConfig } from "@/lib/site";
+
 export const analyticsId = "G-J713ZJ8TRT";
 export const analyticsConsentKey = "portfolio-analytics-consent-v1";
 export const analyticsPreferencesEvent = "portfolio:analytics-preferences";
 
 type Consent = "granted" | "denied";
 const consentLifetime = 180 * 24 * 60 * 60 * 1000;
-const productionHost = "www.arunacharya1603.in";
+const productionHost = siteConfig.host;
 let consent: Consent | null = null;
 let initialized = false;
 let lastPage: string | null = null;

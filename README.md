@@ -1,6 +1,6 @@
 ## Portfolio SEO and enquiries
 
-The canonical site is https://www.arunacharya1603.in. Non-www URLs should redirect to the matching www page. A Search Console “Page with redirect” exclusion on the old URL is expected; inspect the destination URL for indexing.
+This branch prepares https://arunacharya1603.in as the canonical site. Production was still using www at the 24 October 2026 audit. Do not deploy this change independently of the hosting cutover: the existing apex-to-www redirect must be removed before enabling www-to-apex. See [the audit and release plan](docs/seo/canonical-hostname-audit.md).
 
 - Buyer resources: /resources and /tools/website-cost-planner.
 - Project guides: data/project-guides.ts, with relevant work and service links.
@@ -9,13 +9,15 @@ The canonical site is https://www.arunacharya1603.in. Non-www URLs should redire
 
 ### Local checks
 
-Run npm run lint, node scripts/check-inquiries.cjs and npm run build. Start the production preview with npm run start -- --port 3005, then run node scripts/check-seo.cjs http://localhost:3005. The inquiry check mocks delivery and storage; it sends no real email.
+Run npm run lint, npx tsc --noEmit --incremental false, node scripts/check-seo-data.cjs, node scripts/check-analytics.cjs, node scripts/check-inquiries.cjs and npm run build. Run node scripts/check-internal-links.cjs against that build. Start the production preview with npm run start -- --port 3005, then run node scripts/check-seo.cjs http://localhost:3005. The inquiry and analytics checks use mocks; they send no real email or Google events. Local checks do not verify Vercel's hostname/TLS redirects.
 
 ### Delivery and publishing
 
 Copy .env.example to .env.local for local email delivery. Configure GMAIL_APP_PASSWORD, GMAIL_SMTP_USER and CONTACT_TO_EMAIL in the existing Vercel project's Production environment. Never commit the password. Success is returned only after SMTP accepts the email; this does not independently prove inbox delivery. Vercel does not use the optional local JSON backup as a lead database. Retain the email fallback on all forms.
 
-Publish to the existing portfolio Vercel project, preserving the www domain and permanent non-www redirects. Verify new routes, the sitemap and a real owner-authorized inquiry after deployment. Submit the canonical sitemap in the www Search Console property. Do not repeatedly validate expected redirect exclusions.
+Deployment requires separate authorization. Keep the existing Vercel project and both domains. During an authorized release, first make apex serve directly, promote the verified non-www build, then configure the exact www hostname to permanently redirect to the matching apex path and query. Keep hostname normalization at Vercel and preserve existing route redirects. Verify both hosts, deep routes, queries, assets, the inquiry endpoint, sitemap and analytics. Vercel's automatic HTTP-to-HTTPS upgrade may add a second hop for HTTP/www.
+
+Keep all three Search Console properties and verification records. Use the Domain property for aggregate monitoring; retain the existing https://arunacharya1603.in/sitemap.xml endpoint. Check existing submission status before submitting anything, avoid duplicate submissions, and inspect destination URLs rather than repeatedly validating expected redirect exclusions. See the audit for the exact release checks and rollback sequence.
 
 ### Measuring the result
 

@@ -25,13 +25,13 @@ function loader(mocks = {}, globals = {}) {
 
 async function main() {
   const storage = new Map();
-  const browser = { location: new URL("https://www.arunacharya1603.in/resources?utm_source=partner&utm_campaign=launch&token=never-store") };
+  const browser = { location: new URL("https://arunacharya1603.in/resources?utm_source=partner&utm_campaign=launch&token=never-store") };
   const attribution = loader({}, {
     window: browser, document: { referrer: "https://www.google.com/search?q=private-query" },
     sessionStorage: { getItem: (key) => storage.get(key), setItem: (key, value) => storage.set(key, value) },
   })("lib/inquiry-attribution.ts");
   attribution.captureInquiryAttribution();
-  browser.location = new URL("https://www.arunacharya1603.in/contact?utm_medium=internal");
+  browser.location = new URL("https://arunacharya1603.in/contact?utm_medium=internal");
   const source = attribution.getInquiryAttribution();
   assert.equal(source.landingPage, "/resources");
   assert.equal(source.inquiryPage, "/contact");
@@ -80,7 +80,8 @@ async function main() {
   assert.equal(mail.replyTo.address, "client@example.com");
   assert.ok(mail.html.includes("&lt;script&gt;"));
   assert.ok(mail.text.includes("First page visited: /resources"));
-  assert.ok(mail.html.includes("www.arunacharya1603.in"));
+  assert.ok(mail.html.includes("arunacharya1603.in"));
+  assert.ok(!mail.html.includes("www.arunacharya1603.in"));
 
   const load = loader();
   const { servicePackages } = load("data/seo.ts");

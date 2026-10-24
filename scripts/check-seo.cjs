@@ -1,11 +1,12 @@
 // Test the running production build: node scripts/check-seo.cjs http://localhost:3005
 const assert = require("node:assert/strict");
 const base = process.argv[2] || "http://localhost:3005";
-const canonicalOrigin = "https://www.arunacharya1603.in";
+const canonicalOrigin = "https://arunacharya1603.in";
 
 async function main() {
-  const response = await fetch(`${base}/sitemap.xml`);
+  const response = await fetch(`${base}/sitemap.xml`, { redirect: "manual" });
   assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type"), /application\/xml/);
   const sitemap = await response.text();
   const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((item) => item[1]);
   assert.ok(urls.length > 0);
@@ -17,8 +18,10 @@ async function main() {
   for (let i = 0; i < urls.length; i += 5) {
     await Promise.all(urls.slice(i, i + 5).map(async (url) => {
       assert.equal(new URL(url).origin, canonicalOrigin);
+      assert.equal(new URL(url).search + new URL(url).hash, "", `Sitemap URL must be clean: ${url}`);
       const res = await fetch(`${base}${new URL(url).pathname}`, { redirect: "manual" });
       assert.equal(res.status, 200, `${url} must return 200 without a redirect`);
+      assert.ok(!/noindex/i.test(res.headers.get("x-robots-tag") || ""), `Unexpected header noindex: ${url}`);
       const html = await res.text();
       const document = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<!--[\s\S]*?-->/g, "");
       assert.ok(html.includes(`rel="canonical" href="${url}"`), `Wrong canonical: ${url}`);
@@ -36,8 +39,13 @@ async function main() {
       for (const field of ["title", "description", "url", "image", "type", "locale", "site_name"]) {
         assert.ok(document.includes(`property="og:${field}"`), `Missing OG ${field}: ${url}`);
       }
+      assert.ok(document.includes(`property="og:url" content="${url}"`), `Wrong OG URL: ${url}`);
+      assert.ok(document.includes('name="google-site-verification" content="k3NVUdMrzJH10e27pPETvifGnNxoZURWiEIUBvgRObQ"'), `Verification token changed: ${url}`);
       assert.ok(document.includes('name="twitter:card" content="summary_large_image"'), `Missing Twitter card: ${url}`);
       const schemas = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)].map((match) => JSON.parse(match[1]));
+      assert.ok(!JSON.stringify(schemas).includes("https://www.arunacharya1603.in"), `Old hostname in structured data: ${url}`);
+      assert.equal(schemas.find((schema) => schema["@type"] === "Person")?.["@id"], `${canonicalOrigin}#person`);
+      assert.equal(schemas.find((schema) => schema["@type"] === "WebSite")?.url, canonicalOrigin);
       if (new URL(url).pathname.startsWith("/work/")) {
         const work = schemas.find((schema) => schema["@id"] === `${url}#case-study`);
         assert.equal(work?.["@type"], "CreativeWork", `Missing case-study identity: ${url}`);
@@ -75,19 +83,46 @@ async function main() {
     if (known.has(route)) continue;
     assert.equal((await fetch(`${base}${route}`)).status, 200, `Broken internal link: ${route}`);
   }
-  for (const [route, destination] of [["/reviews", "/work"], ["/locations/delhi", "/locations"]]) {
+  const redirects = [
+    ["/reviews", "/work"],
+    ...["bengaluru", "mumbai", "delhi", "dubai", "london", "new-york", "toronto", "sydney"].map((city) => [`/locations/${city}`, "/locations"]),
+    ["/github", "https://github.com/arunacharya1603"],
+  ];
+  for (const [route, destination] of redirects) {
     const redirect = await fetch(`${base}${route}`, { redirect: "manual" });
     assert.equal(redirect.status, 308, `${route} must permanently redirect`);
     assert.equal(redirect.headers.get("location"), destination, `${route} has the wrong redirect target`);
+    const query = "?utm_source=seo-check&ref=scope%20review&tag=one&tag=two";
+    const withQuery = await fetch(`${base}${route}${query}`, { redirect: "manual" });
+    assert.equal(withQuery.status, 308);
+    const target = new URL(withQuery.headers.get("location"), base);
+    const expected = new URL(destination, base);
+    assert.equal(target.origin + target.pathname, expected.origin + expected.pathname);
+    assert.deepEqual([...target.searchParams], [...new URLSearchParams(query)], `Query changed: ${route}`);
+    if (target.origin === new URL(base).origin) {
+      assert.equal((await fetch(target, { redirect: "manual" })).status, 200, `Redirect chain: ${route}`);
+    }
+  }
+  for (const route of ["/", "/contact", "/services/landing-pages", "/work/transcendence", "/blog/saas-dashboard-development-scope"]) {
+    const queryPage = await fetch(`${base}${route}?utm_source=seo-check&ref=scope%20review`, { redirect: "manual" });
+    assert.equal(queryPage.status, 200, `Query URL must serve directly: ${route}`);
+    const document = (await queryPage.text()).replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
+    const expected = `${canonicalOrigin}${route === "/" ? "" : route}`;
+    assert.ok(document.includes(`rel="canonical" href="${expected}"`), `Query leaked into canonical: ${route}`);
+    assert.equal([...document.matchAll(/rel="canonical"/g)].length, 1);
   }
   for (const route of ["/locations/not-a-market", "/work/not-a-project", "/services/not-a-service", "/blog/not-an-article", "/not-a-real-page"]) {
     const missing = await fetch(`${base}${route}`, { redirect: "manual" });
     assert.equal(missing.status, 404, `Missing route must return 404: ${route}`);
     const html = await missing.text();
-    assert.match(html, /<meta name="robots" content="[^"]*noindex/, `Missing route must be noindex: ${route}`);
+    // A real 404 excludes indexing; Next's generic 404 need not emit an additional noindex.
     assert.ok(!/<link rel="canonical"/.test(html), `Missing route must not inherit homepage canonical: ${route}`);
   }
-  const robots = await (await fetch(`${base}/robots.txt`)).text();
+  const robotsResponse = await fetch(`${base}/robots.txt`, { redirect: "manual" });
+  assert.equal(robotsResponse.status, 200);
+  const robots = await robotsResponse.text();
+  assert.ok(robots.includes("Allow: /"));
+  assert.ok(!/^Disallow: \/\s*$/m.test(robots), "Public crawling must remain allowed");
   assert.ok(robots.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`));
   assert.ok(robots.includes("Disallow: /api/"));
   assert.ok(!robots.includes("Disallow: /sentry-example-page"), "Allow crawlers to read the test-page noindex");
@@ -95,6 +130,8 @@ async function main() {
   assert.equal(testPage.status, 200);
   assert.match(await testPage.text(), /<meta name="robots" content="noindex, nofollow/);
   assert.ok(!urls.includes(`${canonicalOrigin}/sentry-example-page`));
+  assert.equal((await fetch(`${base}/favicon.ico`, { redirect: "manual" })).status, 200);
+  assert.equal((await fetch(`${base}/api/contact-submissions`, { redirect: "manual" })).status, 405, "Submission API must keep its POST-only behavior");
   console.log(`PASS: ${urls.length} sitemap pages return 200 with unique metadata, matching canonicals, inherited robots, social metadata, one h1 and valid JSON-LD. Links, case-study scope, redirects, noindex and 404 behavior pass.`);
 }
 main().catch((error) => { console.error(error); process.exitCode = 1; });

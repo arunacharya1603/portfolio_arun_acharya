@@ -4,8 +4,8 @@ export const siteConfig = {
   defaultTitle: "Arun Acharya | Frontend & Next.js Developer",
   description:
     "Arun Acharya's portfolio: frontend, UI/UX, Next.js, dashboards, landing pages, and credited product work including ChainReach.ai.",
-  host: "www.arunacharya1603.in",
-  url: "https://www.arunacharya1603.in",
+  host: "arunacharya1603.in",
+  url: "https://arunacharya1603.in",
   brandLogo: "/brand/arun-graphic-logo-v2-transparent.png",
   socialImage: "/og-image-light-v2.jpg",
   email: "arunacharya1603@gmail.com",
@@ -16,8 +16,8 @@ export const siteConfig = {
   locale: "en_US",
   countryCode: "IN",
   jobTitle: "Frontend Developer, UI/UX Developer, and Next.js Freelancer",
-  personId: "https://www.arunacharya1603.in#person",
-  websiteId: "https://www.arunacharya1603.in#website",
+  personId: "https://arunacharya1603.in#person",
+  websiteId: "https://arunacharya1603.in#website",
 };
 
 export const personSameAsLinks = [

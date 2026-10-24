@@ -5,12 +5,14 @@
 - Property: `portfolio-aea53` (`522258245`)
 - Web stream: Arun Acharya Portfolio (`16112961650`)
 - Public measurement ID: `G-J713ZJ8TRT` (not a secret)
-- Production origin: `https://www.arunacharya1603.in`
+- Prepared production origin: `https://arunacharya1603.in`. The live site still used www at the 24 October 2026 audit; release requires the coordinated hosting cutover in [the migration plan](seo/canonical-hostname-audit.md).
 - `page_view`: initial page and subsequent App Router navigation, after consent.
 - `generate_lead`: after the inquiry endpoint returns success; marked as a GA4 key event, once per event, with no assigned monetary value.
 - Enhanced measurement is disabled in the web stream. Keep it disabled to avoid duplicate page views and automatic form collection.
 
 `lib/analytics.ts` owns the tag and event payloads. `components/AnalyticsConsent.tsx` owns the preference controls. The inquiry conversion is called centrally from `lib/submit-project-inquiry.ts`, so contact, service proposal and cost planner forms use the same success rule.
+
+The analytics host gate now derives from `siteConfig.host`. Deploy it with the canonical-host switch: this prepared build excludes www from measurement. Consent storage is origin-scoped, so a visitor's www consent does not automatically transfer to non-www; the existing consent flow still applies.
 
 The Google script loads only after analytics consent and only on the canonical production host. No tracking runs on localhost or Vercel previews. Form values never enter analytics events. Page URLs omit query strings and fragments; referrers contain only the origin. Advertising signals are disabled. Choosing “No thanks” stops measurement and removes the site's GA cookies. The preference lasts 180 days and is available in the footer.
 
