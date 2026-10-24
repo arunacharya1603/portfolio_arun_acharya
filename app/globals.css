@@ -114,15 +114,6 @@
       "calt" 1;
   }
 
-  body:has(#site-mobile-navigation) [aria-label="Quick actions"],
-  body:has(#analytics-preferences) [aria-label="Quick actions"],
-  body:has(form:focus-within) [aria-label="Quick actions"] {
-    visibility: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(1rem);
-  }
-
   :focus-visible {
     outline: 2px solid hsl(var(--ring));
     outline-offset: 4px;
@@ -196,8 +187,7 @@
   }
 
   .liquid-material::after,
-  .liquid-control::after,
-  .liquid-navigation::after {
+  .liquid-control::after {
     content: "";
     position: absolute;
     inset: 3px;

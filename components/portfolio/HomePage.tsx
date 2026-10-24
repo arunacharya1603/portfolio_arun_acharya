@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
+  CalendarDays,
   Check,
   Code2,
   Globe2,
@@ -11,10 +12,10 @@ import {
   PenTool,
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SiteActionBar } from "@/components/SiteActionBar";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { GlassLink } from "@/components/ui/glass-link";
 import { homeWorkProjects, workProjects } from "@/data/work-projects";
+import { siteConfig } from "@/lib/site";
 import { Container, SectionHeading } from "./Section";
 import { PageCta } from "./PageCta";
 import { ProjectCard } from "./ProjectCard";
@@ -95,15 +96,25 @@ export default function HomePage() {
                   businesses, with clear scope and direct collaboration.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                  <GlassLink href="/contact" variant={"primary"}>
+                  <GlassLink href="/contact">
                     Start Project
                     <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                   </GlassLink>
-                  <GlassLink href="#projects">
-                    Explore my work
-                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  <GlassLink
+                    href={siteConfig.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="primary"
+                  >
+                    <CalendarDays aria-hidden="true" className="h-4 w-4" />
+                    Book a call
+                    <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </GlassLink>
                 </div>
+                <p className="mt-4 text-sm leading-6 text-subtle">
+                  A short intro call to talk through your idea and the next step.
+                </p>
               </div>
               <div className="hero-art relative mx-auto w-full max-w-xl lg:max-w-none">
                 <Image
@@ -279,7 +290,6 @@ export default function HomePage() {
         <PageCta />
       </main>
       <SiteFooter />
-      <SiteActionBar />
     </>
   );
 }

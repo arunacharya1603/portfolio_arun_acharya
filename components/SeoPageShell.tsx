@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { SiteActionBar } from "@/components/SiteActionBar";
 import { Container } from "@/components/portfolio/Section";
 import { PageCta } from "@/components/portfolio/PageCta";
 import { SiteFooter } from "@/components/portfolio/SiteFooter";
@@ -40,7 +39,6 @@ export function SeoPageShell({
         {showFooterCta && <PageCta />}
       </main>
       <SiteFooter />
-      <SiteActionBar />
     </>
   );
 }

@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { ArrowUpRight, CalendarDays } from "lucide-react";
+import { GlassLink } from "@/components/ui/glass-link";
+import { siteConfig } from "@/lib/site";
 import { ProjectInquiryForm } from "@/components/ProjectInquiryForm";
 import { SeoPageShell } from "@/components/SeoPageShell";
 import { createPageMetadata } from "@/lib/seo";
@@ -21,6 +24,27 @@ export default function ContactPage() {
       <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
         <ProjectInquiryForm source="contact-page" />
         <aside className="space-y-5 border-t border-line pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <section className="border-b border-line pb-7">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Prefer to talk it through?
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-subtle">
+              Book a short intro call with me to discuss your idea, ask questions,
+              and work out the next step.
+            </p>
+            <GlassLink
+              href={siteConfig.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              className="mt-5"
+            >
+              <CalendarDays aria-hidden="true" className="h-4 w-4" />
+              Book a call
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </GlassLink>
+          </section>
           <h2 className="font-grotesk text-2xl font-semibold">
             What happens next?
           </h2>

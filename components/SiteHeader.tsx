@@ -4,12 +4,14 @@ import { GlassLink } from "@/components/ui/glass-link";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { LiquiGlass } from "@liqui-design/glass";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { cardGlass } from "@/lib/glass";
+import { siteConfig } from "@/lib/site";
+import { textLinkStyles } from "@/components/ui/control-styles";
 
 const navigation = [
   { name: "Work", href: "/work" },
@@ -22,6 +24,7 @@ const navigation = [
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLElement>(null);
 
   useEffect(() => setOpen(false), [pathname]);
@@ -34,15 +37,20 @@ export function SiteHeader() {
         toggleRef.current?.focus();
       }
     }
+    function closeOnOutsidePointer(event: PointerEvent) {
+      if (!headerRef.current?.contains(event.target as Node)) setOpen(false);
+    }
     // Clear the disclosure state when the full navigation becomes visible.
     const desktop = window.matchMedia("(min-width: 1024px)");
     const closeOnDesktop = () => {
       if (desktop.matches) setOpen(false);
     };
     document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsidePointer);
     desktop.addEventListener("change", closeOnDesktop);
     return () => {
       document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsidePointer);
       desktop.removeEventListener("change", closeOnDesktop);
     };
   }, [open]);
@@ -71,7 +79,13 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 px-3 py-3 sm:px-6 sm:py-4">
+    <header
+      ref={headerRef}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+      }}
+      className="sticky top-0 z-50 px-3 py-3 sm:px-6 sm:py-4"
+    >
       <a
         href="#main-content"
         className="sr-only rounded-lg bg-brand px-5 py-3 text-primary-foreground focus:not-sr-only focus:absolute focus:left-5 focus:top-4 focus:z-50"
@@ -80,10 +94,11 @@ export function SiteHeader() {
       </a>
       <LiquiGlass
         {...cardGlass}
+        radius={16}
         blur={2}
         frost={0.35}
         bezel={18}
-        className="liquid-navigation mx-auto max-w-site"
+        className="liquid-navigation mx-auto max-w-site rounded-lg"
       >
         <nav
           aria-label="Primary navigation"
@@ -111,13 +126,21 @@ export function SiteHeader() {
             {navigation.map((item) => navLink(item))}
           </div>
           <div className="flex items-center gap-3">
-            <GlassLink
-              href="/contact"
-              variant={"primary"}
-              className={"hidden sm:inline-flex"}
-            >
+            <Link href="/contact" className={textLinkStyles("hidden xl:inline-flex")}>
               Start Project
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </Link>
+            <GlassLink
+              href={siteConfig.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant={"primary"}
+              className={"hidden shrink-0 sm:inline-flex"}
+            >
+              <CalendarDays aria-hidden="true" className="h-4 w-4" />
+              Book a call
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              <span className="sr-only"> (opens in a new tab)</span>
             </GlassLink>
             <Button
               ref={toggleRef}
@@ -145,18 +168,30 @@ export function SiteHeader() {
             id="site-mobile-navigation"
             data-lenis-prevent
             aria-label="Mobile navigation"
-            className="max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-b-3xl border-t border-line bg-surface/95 p-4 lg:hidden"
+            className="absolute inset-x-0 top-[calc(100%+0.5rem)] z-10 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain rounded-lg border border-line bg-surface p-4 shadow-xl lg:hidden"
           >
             <div className="mx-auto grid max-w-3xl gap-1 sm:grid-cols-2">
               {navigation.map((item) => navLink(item, true))}
               <GlassLink
                 href="/contact"
                 onClick={() => setOpen(false)}
-                variant={"primary"}
-                className={"mt-3 sm:col-span-2"}
+                className="mt-3 sm:col-start-1"
               >
                 Start Project
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </GlassLink>
+              <GlassLink
+                href={siteConfig.bookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setOpen(false)}
+                variant="primary"
+                className="mt-2 sm:mt-3"
+              >
+                <CalendarDays aria-hidden="true" className="h-4 w-4" />
+                Book a call
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                <span className="sr-only"> (opens in a new tab)</span>
               </GlassLink>
             </div>
           </nav>

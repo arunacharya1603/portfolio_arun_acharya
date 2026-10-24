@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight, Github, Linkedin } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Github, Linkedin } from "lucide-react";
+import { GlassLink } from "@/components/ui/glass-link";
 import { siteConfig } from "@/lib/site";
 import { AnalyticsPreferencesButton } from "@/components/AnalyticsConsent";
 import { Container } from "./Section";
@@ -19,7 +20,7 @@ const footerLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-surface bg-surface/50 pb-28 pt-12 md:pb-8">
+    <footer className="border-t border-surface bg-surface/50 pb-8 pt-12">
       <Container>
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-sm">
@@ -43,6 +44,18 @@ export function SiteFooter() {
               Thoughtful websites and products. Designed with care, built to
               work.
             </p>
+            <GlassLink
+              href={siteConfig.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              className="mt-5"
+            >
+              <CalendarDays aria-hidden="true" className="h-4 w-4" />
+              Book a call
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </GlassLink>
             <a
               href={`mailto:${siteConfig.email}`}
               className="mt-5 inline-flex items-center gap-2 break-all text-sm font-medium text-brand"

@@ -17,6 +17,7 @@ export type WorkProject = {
   evidenceNote?: string;
   stack: string[];
   impact: string;
+  listingSummary: string;
   description: string;
   problem: string;
   features: string[];
@@ -48,6 +49,8 @@ export const workProjects: WorkProject[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Three.js"],
     impact:
       "Full-project frontend engineering for an immersive holographic technology platform, from its public website to dashboards.",
+    listingSummary:
+      "I developed the frontend for Transcendence's public website, Unit and TRS product presentations, experience pages, and dashboard interfaces. Using Next.js, TypeScript, and Tailwind CSS, I built reusable components and responsive layouts that carry the brand across these sections. My work also included GSAP motion, Three.js visuals, scroll transitions, and dashboard loading states, with attention to accessibility, motion preferences, and image delivery on media-heavy pages.",
     description:
       "Frontend Engineer for the full Transcendence project, building the public website, product experiences, dashboards, and motion-rich interfaces.",
     problem:
@@ -124,6 +127,8 @@ export const workProjects: WorkProject[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     impact:
       "A project-based learning platform connecting programs, student workflows, assessments, and verifiable certificates.",
+    listingSummary:
+      "I worked on Proof Cohort's public-facing experience, helping students explore programs, understand project tasks, and find resources for their learning path. My contributions included program pages, career guides, certificate-related content, pricing behavior, and brand artwork. Working within its Next.js, TypeScript, Tailwind CSS, and Supabase foundation, I also refined resource organization and image delivery to keep the platform's public presentation consistent.",
     description:
       "Proof Cohort (ProofCohort) case study covering my development work on program pages, project resources, pricing, and certificate guides.",
     problem:
@@ -198,6 +203,8 @@ export const workProjects: WorkProject[] = [
       "I built frontend workflows for brands, creators, and administrators on ChainReach.ai: dashboards, campaign creation and acceptance, negotiation screens, AI-assisted campaign generation, and chat. I connected these interfaces to backend APIs using Next.js, TypeScript, and Tailwind CSS. Dashboard access depends on the user's account and role.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     impact: "A large-scale creator-brand platform with dashboards, campaign flows, negotiation, and AI-assisted creation.",
+    listingSummary:
+      "I built frontend workflows for brands, creators, and administrators using Next.js, TypeScript, and Tailwind CSS. The work covered dashboards, campaign creation and acceptance, negotiation screens, and interfaces for AI-assisted campaign generation and chat. I connected these screens to backend APIs and organized shared UI into reusable components, keeping each role's actions clear as users move between campaign details, conversations, and dashboard views.",
     description:
       "Developed frontend modules for a creator-brand platform with multi-role workflows for brands, creators, and admin users.",
     problem:
@@ -274,6 +281,8 @@ export const workProjects: WorkProject[] = [
     evidenceNote: "Patient counts, ratings, practitioner details and recovery stories are the practice's published information. They are not independently verified clinical claims or results attributed to my development work.",
     stack: ["Next.js", "Responsive UI", "Local SEO"],
     impact: "A conversion-focused home physiotherapy website combining local discovery, clinical trust, and direct booking.",
+    listingSummary:
+      "I developed a responsive Next.js website for a home physiotherapy practice serving Noida and Greater Noida. The site brings together service information, practitioner profiles, treatment locations, photo galleries, and patient-story sections using the practice's supplied content. My work focused on clear page structure, local service discovery, and accessible contact options, helping visitors move from learning about care to making a home-visit inquiry.",
     description:
       "Built a responsive healthcare website for Pivotal Physiocare, presenting home physiotherapy across Greater Noida and Noida through expert-led care, patient recovery stories, service pages, and direct home-visit booking.",
     problem:
@@ -356,6 +365,8 @@ export const workProjects: WorkProject[] = [
     evidenceNote: "This documents my landing-page contribution, not development of HeyClo's relationship AI. Historical Lighthouse checks are not published here as a reproducible benchmark, and the live product may have changed since this work.",
     stack: ["Framer", "Lenis", "Responsive UI"],
     impact: "A fully animated product landing page with smooth scrolling and premium storytelling.",
+    listingSummary:
+      "I developed HeyClo's animated product landing page in Framer, translating its relationship-AI story into responsive sections and interactive visuals. I used Lenis for smooth scrolling and worked on section transitions, loading behavior, and the pacing of the page. The implementation included checks across screen sizes and Lighthouse-guided refinements, with attention to keeping navigation and text readable throughout the animated experience.",
     description:
       "Developed an animated landing page experience for HeyClo.com with smooth scrolling, responsive layouts, polished interaction design, and a loading experience tested across devices.",
     problem:
@@ -424,6 +435,8 @@ export const workProjects: WorkProject[] = [
     evidenceNote: "The approximately 8 MB to 2 MB bundle reduction is a historical project estimate. Before-and-after build artifacts and test conditions are not published here, so it is not a reproducible benchmark, a current site measurement or evidence of a ranking or conversion increase.",
     stack: ["React.js", "Redux", "Tailwind CSS"],
     impact: "An AI-powered music generation product with a scalable React architecture and optimized bundle size.",
+    listingSummary:
+      "I led frontend development for Sound Of Meme, building its React music player and song-generation interface with Redux state management and Tailwind CSS. I organized reusable components and hooks to support the product's interactive screens, then worked on lazy loading, route splitting, and rendering improvements. My contributions also included metadata, structured content, and blog presentation to support discovery alongside the core music experience.",
     description:
       "Led frontend development from scratch for an AI music generation platform, including the music player, song generation experience, SEO architecture, and performance optimization.",
     problem:
@@ -499,6 +512,8 @@ export const workProjects: WorkProject[] = [
     evidenceNote: "Business history, client logos, testimonials and interior-project totals are content supplied or published by Samriddhi Interiors. They are not my software-delivery metrics or independently measured results of the website.",
     stack: ["Next.js", "TypeScript", "Framer Motion", "Responsive UI"],
     impact: "A live premium interiors website built to turn portfolio credibility into consultation inquiries.",
+    listingSummary:
+      "I built Samriddhi Interiors' business website using Next.js, TypeScript, and Framer Motion, giving its services and project photography a clear, responsive presentation. The page connects the studio's story, service offering, portfolio, process, and testimonials in a consistent visual flow. I also implemented consultation entry points through the contact form, phone, email, and WhatsApp, making it straightforward for visitors to discuss an interiors project.",
     description:
       "Built a polished business website for Samriddhi Interiors with a premium hero, service architecture, portfolio showcases, client proof, testimonials, and a direct inquiry flow.",
     problem:
@@ -577,6 +592,8 @@ export const workProjects: WorkProject[] = [
     contributionSummary: "As NursePhysioWala's founder and frontend developer, I built the marketplace's patient, practitioner and admin workflows, request allocation with manual override, service pages and deployment setup. This is a software implementation case study, not evidence of clinical outcomes.",
     stack: ["Next.js", "TypeScript", "Firebase", "Vercel"],
     impact: "A live healthcare booking marketplace with patient, physiotherapist, and admin workflows.",
+    listingSummary:
+      "I built the frontend for NursePhysioWala's nursing and physiotherapy marketplace using Next.js, TypeScript, and Firebase. My work covered patient request and booking screens, practitioner dashboards, and administrative tools for allocating requests with a manual override. I also developed service-discovery pages and the Vercel deployment setup, connecting the public website with the application interfaces used to manage requests and coordinate service availability.",
     description:
       "Built a healthcare booking marketplace from scratch for home physiotherapy and nursing services, including booking flows, dashboards, allocation logic, SEO pages, and production deployment.",
     problem:
@@ -654,6 +671,8 @@ export const workProjects: WorkProject[] = [
     stack: [],
     impact:
       "An interactive interiors website showcasing steel kitchens, wardrobes, finishes, and project estimation.",
+    listingSummary:
+      "I developed this interiors website demo to present stainless-steel kitchens, wardrobes, materials, and finishes through a visual browsing experience. The interface combines large product imagery, collection sections, and a guided project-estimate flow, with a dark palette and warm metallic accents. My contribution focused on the public-facing presentation and planning interactions, showing how visitors could explore options before starting a project conversation.",
     description:
       "A premium interiors website demo combining product collections, material exploration, project imagery, and a guided estimate experience.",
     problem:
@@ -692,6 +711,8 @@ export const workProjects: WorkProject[] = [
     stack: [],
     impact:
       "A legal technology product interface with an analysis entry point and a structured case-valuation report preview.",
+    listingSummary:
+      "I developed the public-facing interface for this legal technology demo, covering the product introduction, sign-in entry, and sample case-report presentation. The design organizes estimate figures and supporting context into readable cards so visitors can understand the proposed analysis journey. My work focuses on presenting the concept and report structure; the sample figures illustrate the interface and are not validated case valuations.",
     description:
       "A legal technology demo presenting the case-analysis journey through a focused landing page, sign-in entry, and example valuation report.",
     problem:

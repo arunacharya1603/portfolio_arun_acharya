@@ -9,6 +9,7 @@ export const siteConfig = {
   brandLogo: "/brand/arun-graphic-logo-v2-transparent.png",
   socialImage: "/og-image-light-v2.jpg",
   email: "arunacharya1603@gmail.com",
+  bookingUrl: "https://calendly.com/arunacharya1603/30min",
   corpvance: "https://www.corpvance.com/team/arun-acharya",
   x: "https://x.com/143rhry112645",
   github: "https://github.com/arunacharya1603",

@@ -17,9 +17,14 @@ export function WorkPageContent() {
       title="Real projects. Thoughtful execution."
       description="Websites, product interfaces, and full-stack builds. Explore the brief, my contribution, and the decisions behind each project."
     >
-      <div className="grid gap-x-8 gap-y-14 md:grid-cols-2">
-        {workProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} headingAs="h2" />
+      <div className="space-y-14 sm:space-y-20 lg:space-y-28">
+        {workProjects.map((project, index) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            headingAs="h2"
+            imageSide={index % 2 === 0 ? "left" : "right"}
+          />
         ))}
       </div>
     </SeoPageShell>
