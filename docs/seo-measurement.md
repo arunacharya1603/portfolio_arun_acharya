@@ -5,14 +5,14 @@
 - Property: `portfolio-aea53` (`522258245`)
 - Web stream: Arun Acharya Portfolio (`16112961650`)
 - Public measurement ID: `G-J713ZJ8TRT` (not a secret)
-- Prepared production origin: `https://arunacharya1603.in`. The live site still used www at the 24 October 2026 audit; release requires the coordinated hosting cutover in [the migration plan](seo/canonical-hostname-audit.md).
+- Production origin: `https://arunacharya1603.in`, live after the authorized 24 October 2026 cutover. Release commit `0b472c20d6cad97808e8996ca286591cf8130588`, Vercel deployment `A6SL9TWecPiKYknFtmkptkecZTi5`. Apex serves directly; www redirects to apex with 308. See the [production record](seo/canonical-hostname-audit.md#11-final-production-release--24-october-2026).
 - `page_view`: initial page and subsequent App Router navigation, after consent.
 - `generate_lead`: after the inquiry endpoint returns success; marked as a GA4 key event, once per event, with no assigned monetary value.
 - Enhanced measurement is disabled in the web stream. Keep it disabled to avoid duplicate page views and automatic form collection.
 
 `lib/analytics.ts` owns the tag and event payloads. `components/AnalyticsConsent.tsx` owns the preference controls. The inquiry conversion is called centrally from `lib/submit-project-inquiry.ts`, so contact, service proposal and cost planner forms use the same success rule.
 
-The analytics host gate now derives from `siteConfig.host`. Deploy it with the canonical-host switch: this prepared build excludes www from measurement. Consent storage is origin-scoped, so a visitor's www consent does not automatically transfer to non-www; the existing consent flow still applies.
+The analytics host gate derives from `siteConfig.host` and was released with the hostname switch. It measures only the non-www production host after consent. Consent storage is origin-scoped, so a visitor's www consent does not automatically transfer to non-www; the existing consent flow still applies. Do not interpret a change in measured sessions as a traffic change without accounting for consent, browser blocking and the hostname transition.
 
 The Google script loads only after analytics consent and only on the canonical production host. No tracking runs on localhost or Vercel previews. Form values never enter analytics events. Page URLs omit query strings and fragments; referrers contain only the origin. Advertising signals are disabled. Choosing “No thanks” stops measurement and removes the site's GA cookies. The preference lasts 180 days and is available in the footer.
 
@@ -29,7 +29,38 @@ node scripts/check-seo.cjs http://localhost:3005
 
 The analytics check uses isolated browser and fetch stubs. It sends no Google events or inquiry emails. It covers consent, expiry, revocation, sanitized payloads, navigation deduplication, production-only loading, and failed/honeypot submissions.
 
-To verify a deployment, visit production, allow analytics, navigate between public pages, and inspect GA4 Realtime. Verify a real `generate_lead` when the next genuine inquiry arrives; do not submit fake leads into production. Standard reports need processing time.
+### Completed release checks — 24 October 2026
+
+- Local analytics and inquiry tests passed with browser, delivery and storage mocks; these do not prove Google ingestion or inbox receipt.
+- The protected staged deployment rendered correctly and loaded no Google tag after consent/navigation. Protection was retained.
+- Production apex had zero Google tag scripts before consent, one after Allow, and zero after decline/reload. The www host gate excluded measurement even after Allow when www still served directly during the controlled cutover; www now redirects to apex.
+- Homepage rendering, navigation, contact required-field validation and cost-planner currency/service changes passed. Empty forms were blocked; no real inquiry email was sent.
+- The production SEO suite passed across 42 sitemap pages; build and type checks passed; lint reported 11 existing warnings. Full mobile/device interaction coverage was not performed.
+
+**Still unverified:** GA4 Realtime/report ingestion, real `generate_lead` events, SMTP delivery and inbox receipt. The existing property/stream configuration above is retained context, not a claim that GA4 settings or reports were re-audited during this migration. When separately authorized, verify consented navigation in GA4 Realtime. Verify lead measurement and delivery with the next genuine inquiry; do not submit fake leads. Standard reports need processing time.
+
+## Search Console migration record — 24 October 2026
+
+All three existing properties remain verified and intact. Use the Domain property `arunacharya1603.in` for aggregate monitoring and the two HTTPS URL-prefix properties for host-specific diagnosis. Signed-in Google Search Console was used because the optional connector was subscription-blocked.
+
+| Item | Observed state |
+|---|---|
+| Canonical sitemap | `https://arunacharya1603.in/sitemap.xml`; resubmitted once in the Domain property; submitted/read 24 October; Success, 42 discovered pages, zero videos |
+| Four indexing requests | Homepage, `/work/chainreach-ai`, `/blog/saas-dashboard-development-scope`, `/blog/react-nextjs-performance-audit-brief`: live tests passed and Google confirmed addition to its priority crawl queue |
+| Four historical redirect-error URLs | `/work`, `/work/chainreach-ai`, `/blog/author/arun-acharya`, `/locations/delhi`: fresh live fetches succeeded, crawl/indexing allowed. Delhi correctly resolves to canonical `/locations` |
+| Redirect error validation | Started 24 October after all four tests passed; still Started at the read-only follow-up. Not completed; the historical four affected pages remain displayed |
+| Indexing report reference | Report dated 16 October: 33 indexed / 33 not indexed; includes historical host and retired-route variants, not 33 broken canonical pages |
+| Manual actions / security | No issues detected in either report |
+
+The 28-day Performance view captured on 24 October showed **4 clicks, 165 impressions, 2.4% CTR, average position 7.4**, with available chart dates 11–22 October. This is historical reference data captured after rollout, not a true before-and-after experiment or evidence of a traffic gain/loss. Domain crawl stats last updated 21 October showed 152 requests over 90 days and no reported host problems; those figures predate migration processing.
+
+Next checks are read-only: follow validation progress, inspect the indexed destination records and Google-selected canonicals after recrawling, and compare complete periods by page/query. Separate old www redirects from failures at their non-www destinations. Queued requests, live-test success and sitemap processing do not guarantee indexing or canonical selection. Do not repeatedly resubmit, delete properties/verification, or use Change of Address for this same-domain www/non-www move. See [Google URL Inspection guidance](https://support.google.com/webmasters/answer/9012289), [Change of Address scope](https://support.google.com/webmasters/answer/9370220), and the [complete dated evidence](seo/canonical-hostname-audit.md#12-search-console-results--24-october-2026).
+
+## Deployment control and rollback
+
+Auto-assign Custom Production Domains remains **OFF**. Future production-branch builds need deliberate promotion to the custom domains after testing and separate authorization. This setting is an operational choice, not an analytics defect.
+
+For an authorized rollback, follow the [exact sequence and verification gates](seo/canonical-hostname-audit.md#13-exact-rollback-plan--instructions-only-not-executed): remove www → apex first and make both hosts serve Production directly; restore deployment `6wrHreudtrn45JD5rTrKChzZUXNc` / commit `b3e630443dd68d779b8237233d9984ee92dea4c7`; verify www metadata and analytics host; then restore apex → www 308. Keep automatic assignment OFF and reconcile the source before another release. The previous build measures www after consent; origin-scoped consent does not automatically migrate back. Recheck consent/tag behavior and, separately, real reporting. No rollback, settings change or new Google action was performed by this documentation update.
 
 ## Mobile baseline — 12 October 2026
 

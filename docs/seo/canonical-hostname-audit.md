@@ -1,14 +1,16 @@
-# Canonical hostname audit and local migration
+# Canonical hostname audit and production migration
 
 Audit date: 24 October 2026 (Asia/Kolkata). Repository baseline: `b3e630443dd68d779b8237233d9984ee92dea4c7`, branch `main`, initially clean.
 
-Status: **non-www changes implemented and tested locally after user approval. No deployment or hosting changes.** Section 10 records the implementation and fresh test results. Sections 1–9 preserve the initial audit and proposed migration; their www observations and pre-approval test results describe the baseline. The redirect CSV also remains the measured production baseline.
+Status as verified on 24 October 2026: **non-www migration deployed and production-tested; Search Console redirect-error validation started, not completed.** Production runs commit `0b472c20d6cad97808e8996ca286591cf8130588`. Sections 11–14 are the authoritative release record, Search Console results, exact rollback plan and remaining checks. Sections 1–9 preserve the initial www audit and proposal; section 10 preserves the local-only milestone. Their statements about unavailable access or an undeployed patch are historical, not current status.
 
-The user authorized preparing and testing the local patch, explicitly excluding deployment and hosting changes. No DNS, TLS, production environment, Search Console setting or verification record was changed. No commit or push was made.
+The user separately authorized local preparation, disabling automatic custom-domain assignment, commit/push, staging, removal of the apex redirect, promotion, the www 308 redirect, and the specific Search Console actions recorded below. This documentation update is local only: no commit, push, deployment, settings change or new Search Console action. No secret values were read or included. DNS, nameservers, TLS settings, production environment values and verification records were not changed during the migration.
 
-## Decision
+The [redirect matrix](canonical-redirect-matrix.csv) retains the original 16 rows as `baseline-www` and adds dated `production-non-www` observations with evidence and scope notes. Empty canonical fields mean the probe did not inspect HTML canonical metadata (or the resource is not an indexable HTML page); they do not mean a missing canonical on an eligible page.
 
-The site currently has a consistent **HTTPS/www** configuration. Your requested target is **HTTPS/non-www**. This is a hostname migration, not a repair of a demonstrated site-wide indexing failure.
+## Initial decision — historical context
+
+At the initial audit, the site had a consistent **HTTPS/www** configuration. The requested **HTTPS/non-www** migration is now complete at the application and hosting layers. The initial audit did not establish a site-wide indexing failure.
 
 Changing only canonical tags would point them at URLs that currently redirect away. Adding a www-to-non-www application redirect while the current non-www-to-www edge redirect remains would create a loop. Prepare the local changes together, then coordinate the hosting switch in a separately authorized release.
 
@@ -53,7 +55,7 @@ All four hostname/protocol variants were also tested for:
 - `/work/transcendence`
 - `/blog/saas-dashboard-development-scope`
 
-They followed the same 2/1/0/1 hop pattern, preserved the path and query string, and ended at HTTP 200. Service query variants canonicalized to the query-free service URL. See [the exact 16-case matrix](canonical-redirect-matrix.csv) for every source, intermediate hop, destination and canonical.
+They followed the same 2/1/0/1 hop pattern, preserved the path and query string, and ended at HTTP 200. Service query variants canonicalized to the query-free service URL. See the 16 `baseline-www` rows in [the dated matrix](canonical-redirect-matrix.csv) for those original sources, intermediate hops, destinations and canonicals; `production-non-www` rows record the later release.
 
 ### Other live checks
 
@@ -139,7 +141,7 @@ The core configuration change is:
 
 No edits are currently needed in the page templates, shared canonical helper, sitemap route or robots route: they already consume the common configuration correctly. No new dependency, middleware, duplicate sitemap, public slug, metadata system or broad application redirect is proposed. `next.config.mjs` keeps its existing route redirects.
 
-## 6. Hosting plan — recommended, not implemented
+## 6. Original hosting plan — subsequently implemented in section 11
 
 Use the **existing Vercel project** and its domain settings as the single hostname-normalization layer. Vercel documents domain redirects specifically for www/apex normalization. [Vercel redirects](https://vercel.com/docs/routing/redirects)
 
@@ -176,7 +178,7 @@ Preview protection and any public production vercel.app alias need separate host
 
 The earlier report records a successful build on 23–24 October, but that is historical evidence, not a fresh build result for this task. After local approval, run the full production build, source/analytics/inquiry checks, generated link graph and production-mode HTTP checks against the local output. Production edge redirects require a separate deployed check; localhost cannot prove them.
 
-## 8. Exact Search Console checks
+## 8. Original Search Console checklist — results in section 12
 
 The connected GSC Wizard tool returned `payment_required / subscription_required`; it could not list properties or inspect URLs. No retry can resolve the account subscription gate. You can use Google's own Search Console directly without purchasing that connector.
 
@@ -198,7 +200,9 @@ After an authorized release and live validation:
 3. Expect old www URLs to report redirects once recrawled. Check destination indexing rather than treating all redirect exclusions as failures.
 4. Monitor indexing, crawl errors and performance through recrawling. Sitemap submission and correct canonicals do not guarantee indexing.
 
-## 9. Rollback and remaining limitations
+## 9. Original rollback proposal and audit-time limitations
+
+This proposal predates deployment. Use the exact production rollback in section 13; the access limitations below describe the initial audit only.
 
 Before editing, the relevant configuration is preserved in Git baseline `b3e630443dd68d779b8237233d9984ee92dea4c7`; this report records live behavior independently. The working tree was clean before report creation.
 
@@ -210,7 +214,7 @@ Migration risks include temporary canonical disagreement during cutover, Google 
 
 Still unverified: Search Console indexing/selected canonicals/manual actions/security, exact Vercel dashboard setup and release identity, preview protection, production environment values, real inquiry delivery, real analytics collection, mobile/full interaction regression and external rich-result validation. No DNS, TLS or provider change is justified by the observed behavior.
 
-**Scope update:** the user approved the local patch above. Deployment and hosting changes remain outside the authorization.
+**Historical scope update:** at this milestone the user approved the local patch only. Later, separately authorized production and Search Console steps are recorded in sections 11–12.
 
 ## 10. Local implementation and verification — 24 October 2026
 
@@ -261,7 +265,7 @@ Build warnings also note an old Browserslist data package; the server warned abo
 
 The isolated build remains at `C:/Users/aruna/.codex/visualizations/2026/10/24/01a16c90-b0a3-76c2-8526-bd884fce51a7/non-www-build` for review. It is outside the repository and was never uploaded.
 
-### Release status and practical limits
+### Status at the local-only milestone — superseded by sections 11–14
 
 **Implemented and tested locally:** canonical identity and all existing consumers, analytics host handling, regression checks and operating instructions. No application regression was found in the checks above.
 
@@ -270,3 +274,126 @@ The isolated build remains at `C:/Users/aruna/.codex/visualizations/2026/10/24/0
 **Still unverified:** Google-selected canonicals/indexing and Search Console reports, production mail/analytics collection, hosting dashboard/preview protection, full mobile/device coverage and external rich-result validation. Successful local tests cannot guarantee behavior of untested external services or every client.
 
 For rollback of this local patch, restore only the nine modified tracked files listed above to their baseline versions (or reverse these exact hunks if later work exists). That restores the four www identity values, standalone analytics hostname and previous test/documentation expectations. The audit report and CSV may remain as evidence. No production rollback is required because no release occurred.
+
+## 11. Final production release — 24 October 2026
+
+### Release identity and approved sequence
+
+| Item | Verified state |
+|---|---|
+| Existing Vercel project | `arun-acharya`, team `arunacharya1603s-projects`; production branch `main` |
+| Current production commit | `0b472c20d6cad97808e8996ca286591cf8130588` (`fix: prepare non-www canonical site identity`) |
+| Current deployment | `A6SL9TWecPiKYknFtmkptkecZTi5`, Ready / Production; promotion and current-domain assignment verified |
+| Previous production commit | `b3e630443dd68d779b8237233d9984ee92dea4c7` |
+| Previous deployment | `6wrHreudtrn45JD5rTrKChzZUXNc`; retain as the rollback target |
+| Apex custom domain | `arunacharya1603.in` serves Production directly; no hostname redirect |
+| www custom domain | `www.arunacharya1603.in` permanently redirects to `arunacharya1603.in` with 308 |
+| Automatic custom-domain assignment | **OFF**; rechecked after release. Future production-branch builds require deliberate promotion/assignment to these custom domains |
+| Existing Vercel alias | `portfolio-arun-acharya.vercel.app` retained; no unrelated alias or provider changes |
+
+Each consequential step had separate user authorization: turn off Auto-assign Custom Production Domains; commit and push the tested patch; verify the resulting staged build while the old production remained live; remove only apex → www; verify apex serves the old production directly; promote the tested non-www build; verify production; then set www → apex to permanent 308 and verify it. Opposite hostname redirects were never intentionally active together.
+
+Staging used the existing protection. Anonymous requests to the unique staged deployment redirected to authentication and carried `noindex`; the signed-in browser verified the staged site. Protection was not disabled to run tests. The full anonymous HTTP suite was run on the custom production domains after promotion, rather than treating authenticated preview navigation as proof of public response headers.
+
+The release commit contains two runtime files (`lib/site.ts`, `lib/analytics.ts`), five regression scripts and four documentation/evidence files: README, measurement notes, this audit and the redirect CSV. The runtime changes reuse the existing Metadata API, sitemap and robots generators. No content, public slugs, dependencies, inquiry delivery implementation, authentication, UI or styling was changed.
+
+### Production redirect behavior
+
+| Incoming valid page | Measured response chain | Redirect hops |
+|---|---|---:|
+| HTTPS/non-www | Direct 200, self-canonical on non-www | 0 |
+| HTTPS/www | 308 to the same HTTPS/non-www path and query, then 200 | 1 |
+| HTTP/non-www | 308 to HTTPS/non-www, then 200 | 1 |
+| HTTP/www | 308 to HTTPS/www, 308 to HTTPS/non-www, then 200 | 2 |
+
+The final redirect run checked all 42 sitemap pages through HTTPS/www with a query containing repeated keys, an empty value, encoded delimiters, spaces and Unicode. Each destination returned 200 with its clean non-www canonical. Five representative HTTP/www chains preserved the exact path and query and used two redirects. Twelve special-resource/error probes retained the expected final 200, 404 or POST-only API GET 405. Ten existing route redirects retained their targets and query values. GitHub's external destination was not followed, so its final response is not claimed.
+
+The two-hop HTTP/www path is a Vercel limitation, not an unnoticed loop: HTTPS enforcement occurs before hostname normalization and cannot be disabled. Retired routes can add their existing route redirect (for example HTTPS/www `/locations/delhi` → HTTPS/non-www `/locations/delhi` → `/locations`). Do not change DNS/providers, weaken HTTPS or add another redirect layer to remove these bounded hops. [Vercel HTTPS behavior](https://vercel.com/docs/cdn-security/encryption)
+
+The CSV contains 16 preserved `baseline-www` rows and 113 `production-non-www` observations. Its legacy-route rows record the observed destination origin/path and successful query-value preservation; exact final query serialization was not retained by that probe and is explicitly marked. It does not invent an external GitHub final status or a canonical check for a non-HTML resource. Multiple rows can cover the same URL when different checks were performed; row count is not a count of unique pages.
+
+### Production SEO and regression results
+
+| Check | Verified result |
+|---|---|
+| Public page coverage | All 42 sitemap pages passed the production SEO suite after promotion; HTTPS/www redirects were then checked across all 42 pages |
+| Page metadata | One correct non-www canonical per eligible page; unique titles/descriptions, matching OG URLs, inherited indexable robots, accessible HTML and one H1 |
+| Structured data | JSON-LD parsed; non-www Person/WebSite/page identities and case-study/article checks passed. This is not exhaustive rich-result eligibility certification |
+| Sitemap and robots | Existing endpoints return 200; 42 unique eligible non-www URLs; blog dates remain data-driven; public crawling allowed; API disallow retained; non-www sitemap directive |
+| Internal links | Local generated graph: 42 pages, 1,285 anchors, 760 unique edges, zero broken targets/missing fragments/orphans/unreachable pages, maximum depth 2. Hosted staged and production link checks also passed |
+| Queries and legacy routes | Query-free canonicals and preserved legitimate query values; all ten intentional route redirects retained |
+| Missing/test routes | True 404 responses without a homepage canonical; Sentry test page remains explicitly noindex and outside the sitemap |
+| Assets and API | Fifteen homepage CSS/JS assets and favicon returned 200; contact endpoint GET remained 405. No real inquiry was sent |
+| Browser smoke checks | Homepage/images rendered, no observed horizontal overflow or console warnings/errors; contact required-field validation blocked empty submission; client navigation and planner price/currency changes passed |
+| Analytics | Zero tag scripts before consent, one after Allow on apex, zero after decline/reload. www host gate was checked while www still served directly; local and staged hosts remained excluded |
+| Build and local checks | Production build, typecheck, SEO data, analytics/inquiry mocks, smooth-scroll and generated-link checks passed; lint passed with 11 pre-existing warnings |
+
+### Evidence provenance
+
+Local evidence is retained outside Git in `C:/Users/aruna/.codex/visualizations/2026/10/24/01a16c90-b0a3-76c2-8526-bd884fce51a7/`. Relevant files: `non-www-staged-validation.json`, `apex-production-routing-verification.json`, `non-www-production-verification.json`, `www-308-verification.json`, `verify-www-redirect.cjs`, and the corresponding Vercel screenshots. The script is evidence of the completed check, not a command run during this documentation edit.
+
+These are sequential snapshots. In particular, the production verification JSON's www "No Redirect" describes the deliberate intermediate step before www → apex was enabled; `www-308-verification.json` and `www-permanent-308-confirmed.jpg` record the final behavior. Do not interpret an earlier snapshot as the current setting.
+
+## 12. Search Console results — 24 October 2026
+
+Google's signed-in Search Console UI supplied the results; the optional GSC Wizard connector remained subscription-blocked. All three existing properties were accessible and verified: Domain `arunacharya1603.in`, URL-prefix `https://arunacharya1603.in/`, and URL-prefix `https://www.arunacharya1603.in/`. No property, verification token or verification record was removed or recreated.
+
+| Check/action | Observed result |
+|---|---|
+| Non-www sitemap in Domain property | Resubmitted once with explicit authorization. Google confirmed submission and processing success; submitted and last read 24 October 2026; 42 discovered pages, zero videos |
+| Existing www sitemap record | Left unchanged; its last observed successful read was 22 October 2026. No duplicate sitemap endpoint or submissions across all properties were created |
+| Page indexing report | Last updated 16 October 2026: 33 indexed, 33 not indexed. Exclusions: 13 Page with redirect, 4 Redirect error, 1 Alternate with proper canonical, 15 Discovered currently not indexed, 0 Crawled currently not indexed. These include historical host/route variants, not 33 broken current sitemap pages |
+| Manual actions / security | Both reported no issues detected |
+| Domain crawl stats | Last updated 21 October 2026: 152 requests over 90 days; www 142, apex 10; no host problems reported. Historical activity does not prove post-migration recrawling |
+| Performance reference | Observed 28-day filter: 4 clicks, 165 impressions, 2.4% CTR, average position 7.4; available chart covered 11–22 October. Captured after rollout from historical data, not a measured migration outcome |
+
+The non-www homepage's indexed record still described the old Page with redirect state and www canonical (last crawl 12 October); the www homepage's record was indexed with a www canonical from before the cutover. ChainReach's indexed record still showed the June redirect error. The landing-page service's indexed record already used its own non-www canonical. The two articles below were unknown to Google's index in the inspected records. These historical records are kept separate from the successful live tests.
+
+### Authorized indexing requests
+
+Google live tests passed first, then one Request indexing action per URL was accepted into Google's priority crawl queue:
+
+- `https://arunacharya1603.in/`
+- `https://arunacharya1603.in/work/chainreach-ai`
+- `https://arunacharya1603.in/blog/saas-dashboard-development-scope`
+- `https://arunacharya1603.in/blog/react-nextjs-performance-audit-brief`
+
+Evidence: `gsc-indexing-requests-confirmed.json` and four `gsc-indexing-request-*.jpg` confirmations. Acceptance does not establish that a page is indexed or that Google selected the non-www canonical. Live tests cannot determine Google's indexed canonical. [Google URL Inspection guidance](https://support.google.com/webmasters/answer/9012289)
+
+### Redirect-error validation
+
+Fresh smartphone live tests succeeded for every URL in the four-example Redirect error report:
+
+| Inspected path on HTTPS/non-www | Test time (Asia/Kolkata, 24 October) | Page fetch / crawl / indexing allowed | User-declared canonical in live result |
+|---|---|---|---|
+| `/work` | 18:28:57 | Successful / Yes / Yes | `https://arunacharya1603.in/work` |
+| `/work/chainreach-ai` | 18:29:01 | Successful / Yes / Yes | `https://arunacharya1603.in/work/chainreach-ai` |
+| `/blog/author/arun-acharya` | 18:29:27 | Successful / Yes / Yes | `https://arunacharya1603.in/blog/author/arun-acharya` |
+| `/locations/delhi` | 18:29:34 | Successful / Yes / Yes | `https://arunacharya1603.in/locations` |
+
+Delhi intentionally redirects to `/locations`; Google's live test followed it. There is no requirement to index the retired Delhi URL separately.
+
+After all four tests passed, Validate Fix was clicked once on the Domain property's Redirect error report. Google confirmed **Validation started — Started: 10/24/26**. A subsequent read-only refresh still showed Started and the historical four affected pages. Validation is not complete. Evidence: `gsc-redirect-validation.json`, `gsc-redirect-validation-started.jpg`, and four `gsc-redirect-live-*.jpg` captures. Sitemap evidence: `gsc-non-www-sitemap-submitted.jpg` and `gsc-non-www-sitemap-processed.jpg`.
+
+Next read-only checks: wait for validation progress; inspect the indexed (not just live) destination records and Google-selected canonicals after recrawling; compare complete performance periods and watch for new crawl failures. Expected Page with redirect exclusions on old www or retired URLs are not, by themselves, errors. Do not repeatedly request indexing or resubmit successful sitemaps. Keep all three properties. Google's Change of Address tool is not used for a same-domain www/non-www move. [Google guidance](https://support.google.com/webmasters/answer/9370220)
+
+## 13. Exact rollback plan — instructions only, not executed
+
+A production rollback requires fresh authorization. It changes both Vercel routing and the active build; a Git revert alone cannot restore dashboard settings. Use the existing project and retain both custom domains. Leave Auto-assign Custom Production Domains OFF throughout the rollback.
+
+1. **Verify the target before changing routing.** In `arunacharya1603s-projects/arun-acharya`, confirm the current deployment is `A6SL9TWecPiKYknFtmkptkecZTi5` / `0b472c20d6cad97808e8996ca286591cf8130588`, and that the previous Ready deployment `6wrHreudtrn45JD5rTrKChzZUXNc` belongs to commit `b3e630443dd68d779b8237233d9984ee92dea4c7`. Record any intervening releases or user edits. If the previous deployment is unavailable or its identity differs, stop and prepare a separately approved recovery; do not substitute a guessed deployment or expose environment values.
+2. **Remove the www → apex redirect first.** In Domains, edit only `www.arunacharya1603.in`, connect it directly to Production with No Redirect, and save. Leave apex connected directly to Production. Verify fresh HTTPS requests to both homepages and a representative service/blog path return 200 without a hostname redirect. At this brief intermediate step both hosts serve the current non-www build. Do not enable apex → www while www still redirects to apex.
+3. **Restore the previous production build.** Promote/roll back to the verified deployment `6wrHreudtrn45JD5rTrKChzZUXNc` through Vercel's deployment controls. Confirm the intended previous deployment becomes Current for both custom domains. Check www pages return 200 with their own www canonicals; sitemap, robots and structured data must use www again. Confirm the consent-gated analytics host agrees with www. Do not change environment variables, TLS, DNS, nameservers, unrelated aliases or API routes.
+4. **Restore apex → www only after www serves correctly.** In Domains, set only `arunacharya1603.in` to permanent 308 redirect to `www.arunacharya1603.in`, retaining path and query. Verify saved settings and fresh responses. Expected restored matrix for valid pages: HTTPS/www 200 (0 hops), HTTP/www → HTTPS/www → 200 (1 hop), HTTPS/apex → HTTPS/www → 200 (1 hop), HTTP/apex → HTTPS/apex → HTTPS/www → 200 (2 hops).
+5. **Verify the complete restored configuration.** Check every sitemap page, representative services/projects/articles, repeated and encoded queries, all existing route redirects, sitemap XML, robots, clean www canonicals/OG/JSON-LD, loaded assets, genuine 404s, API GET 405, navigation, empty-form validation and consent behavior. Inspect actual Location headers and detect loops. Use owner-authorized real delivery/GA reporting checks separately; do not send fake inquiries. Previously cached permanent redirects can outlive the change, so fresh-network checks do not prove every cached client has recovered.
+6. **Reconcile source and records before another release.** Prepare a separately reviewed source patch restoring www site identity and matching host expectations in the five affected regression scripts; use `b3e6304` as the reference, preserve the useful 404 test correction and later unrelated changes, and keep this historical migration record. The shared analytics host gate may continue to derive from the restored `siteConfig.host`. Run the full checks before any newly authorized push/promotion. Do not hard-reset the working tree or blindly revert all 11 files and delete the audit. Update the recorded active deployment, routing matrix and measurement origin. Keep Search Console properties/verification; review the now-pending non-www validation/indexing actions and the restored canonical sitemap before proposing any further Google action.
+
+If a verification gate fails, stop before the next routing reversal and investigate the last change. Do not add compensating reciprocal redirects. The rollback procedure itself has not been exercised in production.
+
+## 14. Completion status and remaining limits
+
+- **Implemented and production-tested:** canonical-host migration, Vercel 308 normalization, 42-page SEO checks, sitemap/robots, internal links, preserved routes/queries, assets, tested browser flows and consent/hostname gating.
+- **Actions accepted; outcome pending:** sitemap processing succeeded, four indexing requests were queued and redirect-error validation started. Google recrawling, final canonical selection, indexing and traffic effects remain to be observed.
+- **Not fully verified:** real SMTP delivery/inbox receipt, GA4 Realtime/report ingestion or real lead events, full mobile/device interaction coverage, exhaustive external rich-result eligibility, and post-promotion indexability/protection behavior of every Vercel alias. No production environment values were inspected to close these gaps.
+- **Operational choice retained:** automatic custom-domain assignment stays OFF; later deployments require deliberate promotion. Re-enabling it is optional and needs separate authorization, not an SEO repair.
+- **Local documentation completed:** current release/GSC results and the rollback procedure are recorded in this audit, the dated CSV, README and measurement notes. This edit does not commit, push, deploy, change settings or rerun Google requests. Existing warnings and unrelated application behavior remain outside its scope.
