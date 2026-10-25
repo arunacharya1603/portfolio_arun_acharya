@@ -53,6 +53,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   const service = getSeoServicePage(params.slug);
   const proposal = getServiceProposal(params.slug);
   if (!service || !proposal) notFound();
+  const copy = service.detailCopy;
 
   const relatedServices = service.relatedServiceSlugs
     .map(getSeoServicePage)
@@ -67,6 +68,12 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
   const relatedProjects = (service.relatedWorkSlugs ?? [])
     .map(getWorkProjectBySlug)
     .filter(Boolean);
+  const relatedReading =
+    copy?.relatedReading ??
+    relatedPosts.map((post) => ({
+      text: post.title,
+      href: `/blog/${post.slug}`,
+    }));
   const schemas = [
     createServiceJsonLd(service),
     faqJsonLd(service.faqs),
@@ -96,24 +103,23 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         <LiquidSurface />
         <div className="p-6 sm:p-8 lg:p-10">
           <p className="text-sm font-semibold text-brand">
-            A practical engagement, not a mystery quote
+            {copy ? "Your engagement" : "A practical engagement, not a mystery quote"}
           </p>
           <h2 className="mt-4 max-w-2xl font-grotesk text-3xl font-semibold leading-tight text-ink sm:text-4xl">
-            {proposal.shortPromise}
+            {copy?.engagementHeading ?? proposal.shortPromise}
           </h2>
           <p
             className={`mt-5 max-w-2xl text-sm leading-7 ${seoMutedTextClass}`}
           >
-            Start with a sensible scope, see the likely investment before a
-            call, and receive a written plan before development begins.
+            {copy?.engagementDescription ?? "Start with a sensible scope, see the likely investment before a call, and receive a written plan before development begins."}
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
             <GlassLink href="#proposal" variant="primary">
-              Share your requirements{" "}
+              {copy?.primaryCta ?? "Share your requirements"}{" "}
               <ArrowDownRight aria-hidden="true" className="h-4 w-4" />
             </GlassLink>
             <GlassLink href="#pricing">
-              Review pricing{" "}
+              {copy?.secondaryCta ?? "Review pricing"}{" "}
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </GlassLink>
           </div>
@@ -124,8 +130,8 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               "Typical starting point",
               `${proposal.startingPriceUSD} / ${proposal.startingPriceINR}`,
             ],
-            ["Typical delivery", proposal.typicalTimeline],
-            ["Best suited for", proposal.idealFor],
+            ["Typical delivery", copy?.typicalTimeline ?? proposal.typicalTimeline],
+            ["Best suited for", copy?.idealFor ?? proposal.idealFor],
           ].map(([label, value]) => (
             <div
               key={label}
@@ -148,12 +154,38 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             Right fit
           </p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold text-ink">
-            Built for a business outcome, not a list of screens.
+            {copy?.overview.heading ?? "Built for a business outcome, not a list of screens."}
           </h2>
+          {copy?.overview.paragraphs.map((paragraph) => (
+            <p key={paragraph} className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
+              {paragraph}
+            </p>
+          ))}
+          {copy?.overview.link && (
+            <Link
+              href={copy.overview.link.href}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand transition hover:text-ink"
+            >
+              {copy.overview.link.text}
+              <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+            </Link>
+          )}
         </div>
         <div className="glass-panel grid gap-px overflow-hidden rounded-3xl md:grid-cols-2">
           <LiquidSurface />
-          {service.bestFor.map((item) => (
+          {copy && (
+            <div className="border-b border-line/60 p-5 md:col-span-2">
+              <h3 className="font-grotesk text-xl font-semibold text-ink">
+                {copy.fitHeading}
+              </h3>
+              {copy.fitIntro && (
+                <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
+                  {copy.fitIntro}
+                </p>
+              )}
+            </div>
+          )}
+          {(copy?.fitItems ?? service.bestFor).map((item) => (
             <div key={item} className="border-b border-line/60 p-5">
               <CheckCircle2 aria-hidden="true" className="h-5 w-5 text-brand" />
               <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
@@ -161,13 +193,20 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               </p>
             </div>
           ))}
-          <div className="p-5">
-            <ShieldCheck aria-hidden="true" className="h-5 w-5 text-brand" />
-            <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
-              If the project is not a good fit, the recommendation will be a
-              smaller scope, a different specialist, or no build yet.
+          {copy?.fitNote && (
+            <p className={`p-5 text-sm leading-7 md:col-span-2 ${seoMutedTextClass}`}>
+              {copy.fitNote}
             </p>
-          </div>
+          )}
+          {!copy && (
+            <div className="p-5">
+              <ShieldCheck aria-hidden="true" className="h-5 w-5 text-brand" />
+              <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
+                If the project is not a good fit, the recommendation will be a
+                smaller scope, a different specialist, or no build yet.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 
@@ -177,12 +216,10 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             Transparent starting points
           </p>
           <h2 className="mt-3 font-grotesk text-4xl font-semibold text-ink">
-            Choose the level that matches the risk you are trying to remove.
+            {copy?.pricingHeading ?? "Choose the level that matches the risk you are trying to remove."}
           </h2>
           <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
-            These are realistic starting prices, not fixed quotes. The final
-            scope depends on content readiness, integrations, states, timeline,
-            and the quality bar required.
+            {copy?.pricingDescription ?? "These are realistic starting prices, not fixed quotes. The final scope depends on content readiness, integrations, states, timeline, and the quality bar required."}
           </p>
         </div>
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -240,7 +277,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
         <div className="glass-panel mt-5 grid gap-px overflow-hidden rounded-3xl md:grid-cols-3">
           <LiquidSurface />
-          {proposal.engagementNotes.map((note) => (
+          {(copy?.pricingNotes ?? proposal.engagementNotes).map((note) => (
             <p key={note} className="p-6 text-xs leading-6 text-subtle">
               {note}
             </p>
@@ -255,7 +292,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               How the work moves
             </p>
             <h2 className="mt-3 font-grotesk text-4xl font-semibold text-ink">
-              Clear decisions at every step.
+              {copy?.processHeading ?? "Clear decisions at every step."}
             </h2>
             <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
               You always know what is being decided, what is being built, and
@@ -295,7 +332,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             What can be included
           </p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold text-ink">
-            The scope is shaped around what moves the project forward.
+            {copy?.includesHeading ?? "The scope is shaped around what moves the project forward."}
           </h2>
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             {service.includes.map((item) => (
@@ -338,7 +375,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
               Relevant work
             </p>
             <h2 className="mt-3 font-grotesk text-4xl font-semibold text-ink">
-              Project experience and my contribution.
+              {copy?.workHeading ?? "Project experience and my contribution."}
             </h2>
           </div>
           <Link
@@ -373,10 +410,10 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
                   {project!.name}
                 </h3>
                 <p className={`mt-3 text-sm leading-6 ${seoMutedTextClass}`}>
-                  {project!.contributionSummary}
+                  {copy?.projects[project!.slug]?.description ?? project!.contributionSummary}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-ink">
-                  Read case study{" "}
+                  {copy?.projects[project!.slug]?.linkText ?? "Read case study"}{" "}
                   <ArrowRight
                     aria-hidden="true"
                     className="h-4 w-4 transition group-hover:translate-x-1"
@@ -394,23 +431,40 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             Common questions
           </p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold text-ink">
-            Useful answers before you spend time on a call.
+            {copy?.faqHeading ?? "Useful answers before you spend time on a call."}
           </h2>
         </div>
         <div>
-          {service.faqs.map((faq) => (
-            <article
-              key={faq.question}
-              className="border-b border-line py-6 first:pt-0"
-            >
-              <h3 className="font-grotesk text-xl font-semibold text-ink">
-                {faq.question}
-              </h3>
-              <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
-                {faq.answer}
-              </p>
-            </article>
-          ))}
+          {service.faqs.map((faq) => {
+            const [answerBeforeLink, answerAfterLink] = faq.link
+              ? faq.answer.split(faq.link.text)
+              : [faq.answer];
+
+            return (
+              <article
+                key={faq.question}
+                className="border-b border-line py-6 first:pt-0"
+              >
+                <h3 className="font-grotesk text-xl font-semibold text-ink">
+                  {faq.question}
+                </h3>
+                <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
+                  {answerBeforeLink}
+                  {faq.link && (
+                    <>
+                      <Link
+                        href={faq.link.href}
+                        className="text-brand underline underline-offset-4"
+                      >
+                        {faq.link.text}
+                      </Link>
+                      {answerAfterLink}
+                    </>
+                  )}
+                </p>
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -423,11 +477,10 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
                 Project brief
               </p>
               <h2 className="mt-3 font-grotesk text-3xl font-semibold text-ink">
-                Tell me what success needs to look like.
+                {copy?.proposalHeading ?? "Tell me what success needs to look like."}
               </h2>
               <p className={`mt-4 text-sm leading-7 ${seoMutedTextClass}`}>
-                The form is detailed enough to create a useful first response
-                without forcing you through a sales call.
+                {copy?.proposalDescription ?? "The form is detailed enough to create a useful first response without forcing you through a sales call."}
               </p>
               <ol className="mt-8 space-y-5">
                 {[
@@ -456,7 +509,7 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
             </div>
           </div>
           <div className="border-t border-line pt-7 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <ServiceProposalForm service={service} proposal={proposal} />
+            <ServiceProposalForm service={service} proposal={proposal} submitLabel={copy?.submitLabel} />
           </div>
         </div>
       </section>
@@ -480,16 +533,16 @@ export default function ServiceDetailPage({ params }: ServicePageProps) {
         </div>
         <div>
           <h2 className="font-grotesk text-2xl font-semibold text-ink">
-            Helpful reading
+            {copy ? "Related reading" : "Helpful reading"}
           </h2>
           <div className="mt-5 grid gap-3">
-            {relatedPosts.map((post) => (
+            {relatedReading.map((reading) => (
               <Link
-                key={post!.slug}
-                href={`/blog/${post!.slug}`}
+                key={reading.href}
+                href={reading.href}
                 className="group flex items-center justify-between gap-4 border-b border-line pb-3 text-sm font-semibold text-subtle transition hover:text-ink"
               >
-                <span>{post!.title}</span>
+                <span>{reading.text}</span>
                 <ArrowRight
                   aria-hidden="true"
                   className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"

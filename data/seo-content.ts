@@ -6,6 +6,37 @@ import { serviceProposals } from "@/data/service-proposals";
 export type SeoFaq = {
   question: string;
   answer: string;
+  link?: { text: string; href: string };
+};
+
+type ServiceDetailCopy = {
+  engagementHeading: string;
+  engagementDescription: string;
+  primaryCta: string;
+  secondaryCta: string;
+  typicalTimeline: string;
+  idealFor: string;
+  overview: {
+    heading: string;
+    paragraphs: string[];
+    link?: { text: string; href: string };
+  };
+  fitHeading: string;
+  fitIntro?: string;
+  fitItems: string[];
+  fitNote?: string;
+  pricingHeading: string;
+  pricingDescription: string;
+  pricingNotes: string[];
+  processHeading: string;
+  includesHeading: string;
+  workHeading: string;
+  projects: Record<string, { description: string; linkText: string }>;
+  faqHeading: string;
+  proposalHeading: string;
+  proposalDescription: string;
+  submitLabel: string;
+  relatedReading: { text: string; href: string }[];
 };
 
 export type SeoServicePage = {
@@ -26,6 +57,7 @@ export type SeoServicePage = {
   relatedServiceSlugs: string[];
   relatedBlogSlugs: string[];
   relatedWorkSlugs?: string[];
+  detailCopy?: ServiceDetailCopy;
 };
 
 export type BlogSection = {
@@ -118,124 +150,267 @@ export const seoServicePages: SeoServicePage[] = [
   {
     slug: "frontend-development",
     navLabel: "Frontend Development",
-    metaTitle: "Frontend Developer and Next.js Freelancer",
+    metaTitle: "React Dashboard Development Services | Arun Acharya",
     metaDescription:
-      "Hire Arun Acharya for React and Next.js frontend development, responsive interfaces, dashboards, API integrations, performance, and SEO-ready builds.",
-    heroEyebrow: "Frontend developer portfolio",
-    heroTitle: "Frontend development for polished products, dashboards, and SEO-ready websites.",
+      "Hire Arun Acharya, a React and Next.js dashboard developer in India, for SaaS interfaces, API integration and responsive frontend builds worldwide.",
+    heroEyebrow: "Freelance frontend developer · React · Next.js · TypeScript",
+    heroTitle: "React dashboard development services for SaaS teams",
     heroDescription:
-      "Arun Acharya builds production frontend surfaces with React, Next.js, TypeScript, Tailwind CSS, responsive UI systems, performance awareness, and product judgment. This service is for teams that need code quality and interface quality to move together.",
-    primaryIntent: "frontend developer portfolio",
+      "I’m a freelance React dashboard developer based in India, working with teams worldwide. I turn product designs and backend APIs into responsive React and Next.js interfaces, with reusable components and clear loading, empty and error states. Whether you need one workflow or a larger product frontend, we’ll define the screens, interactions and integration requirements before development begins.",
+    primaryIntent: "React dashboard development services",
     secondaryIntents: [
-      "Next.js freelancer",
-      "frontend developer India",
-      "React frontend developer",
-      "hire frontend developer",
+      "React dashboard developer India",
+      "hire React dashboard developer",
+      "React dashboard development services India",
+      "Next.js dashboard developer",
+      "SaaS frontend developer",
+      "freelance React dashboard developer",
     ],
     bestFor: [
-      "Founders and teams that need a production-ready frontend rather than static mockups.",
-      "SaaS dashboards, marketplaces, product pages, creator platforms, healthcare flows, and client websites.",
-      "Projects where UI/UX, API integration, responsiveness, and performance all affect launch quality.",
+      "SaaS teams with designs, APIs or an existing product.",
+      "Teams building dashboards for customers, internal users or administrators.",
+      "Product teams needing a defined frontend build or ongoing delivery.",
     ],
     outcomes: [
-      "Clean React or Next.js component architecture tied to real product workflows.",
-      "Responsive screens that hold up across mobile, tablet, desktop, and narrow content panes.",
-      "Performance-conscious images, lazy loading, semantic HTML, and SEO-safe route structure.",
-      "Clear handover notes describing component responsibilities, API dependencies, and the workflows delivered.",
+      "The aim is a frontend that users can navigate and your team can continue developing, with clear boundaries between interface work and backend responsibilities.",
     ],
     includes: [
-      "React and Next.js frontend development",
-      "TypeScript component systems",
-      "Dashboard and workflow UI",
-      "API integration states",
-      "Responsive implementation",
-      "Performance, accessibility, and SEO checks",
+      "React, Next.js and TypeScript development.",
+      "Reusable components and consistent interface patterns.",
+      "Dashboard screens, tables, forms and navigation.",
+      "API integration and frontend state management.",
+      "Loading, empty, validation and error states.",
+      "Responsive layouts and agreed accessibility checks.",
+      "Performance review, deployment support and handover.",
     ],
     process: [
-      "Map the product screens, routes, states, data boundaries, and conversion or workflow goals.",
-      "Build reusable frontend patterns that match the design direction and product behavior.",
-      "Verify responsive behavior, metadata, schema, image loading, and deployment readiness before launch.",
+      "We map the screens, user roles, interactions and API dependencies. We also identify missing designs or decisions that could affect delivery.",
+      "I implement reusable components and connect the agreed workflows to your APIs, including the interface states needed for everyday use.",
+      "I check responsive behaviour, interactions and the agreed accessibility and performance requirements, then support deployment and handover.",
     ],
     faqs: [
       {
-        question: "Is Arun a Next.js freelancer or only a UI designer?",
+        question: "Can I hire you as a React dashboard developer for an existing product?",
         answer:
-          "Arun works across frontend development and UI/UX. He builds React and Next.js interfaces, product workflows, landing pages, dashboards, and SEO-ready website routes.",
+          "Yes. I can work on a defined dashboard, workflow or product area within an existing React or Next.js application. I’ll review the codebase and requirements before confirming the scope.",
       },
       {
-        question: "Can Arun work with existing backend APIs?",
+        question: "Do you work from Figma designs?",
         answer:
-          "Yes. Frontend development can include API integration, loading states, error states, role-aware views, forms, dashboards, and product workflows while preserving existing backend contracts.",
+          "Yes. I can implement supplied designs and clarify responsive behaviour, interactions and missing interface states before building. If substantial design work is needed, we’ll include it explicitly in the scope.",
       },
       {
-        question: "Which projects prove frontend development experience?",
+        question: "Does frontend development include the backend?",
         answer:
-          "ChainReach.ai, Sound Of Meme, NursePhysioWala, HeyClo / CLO AI, and Samriddhi Interiors show frontend work across SaaS, AI music, healthcare, animated landing pages, and client websites.",
+          "This service covers the interface and agreed API integration. Backend services, database design and server-side permission enforcement require their own scope. If you need the complete application, see my Web Apps & SaaS service.",
+        link: { text: "Web Apps & SaaS service", href: "/services/web-apps-saas" },
+      },
+      {
+        question: "Can work start before our APIs are ready?",
+        answer:
+          "Often, yes. We can agree on API contracts and use mock data for the relevant screens. Live integration and final verification still depend on the backend being available.",
+      },
+      {
+        question: "Can you work as a SaaS frontend developer alongside our team?",
+        answer:
+          "Yes. I can collaborate with your designers and backend developers on a defined project or through ongoing delivery. We’ll agree on communication, review points and responsibilities before work starts.",
+      },
+      {
+        question: "Do you work with international clients?",
+        answer:
+          "Yes. I’m based in India and work remotely with clients worldwide. We can agree on time-zone overlap, written updates and review sessions that fit the project.",
       },
     ],
     relatedServiceSlugs: ["ui-ux-design", "landing-pages", "web-apps-saas"],
-    relatedBlogSlugs: ["frontend-revamp-checklist", "api-development-for-startup-web-apps"],
+    relatedBlogSlugs: ["saas-dashboard-development-scope"],
     relatedWorkSlugs: ["chainreach-ai", "sound-of-meme", "nursephysiowala"],
+    detailCopy: {
+      engagementHeading: "A frontend scope your team can plan around.",
+      engagementDescription: "Bring your designs, existing product or API documentation. I’ll help turn them into a defined build with clear deliverables, milestones and responsibilities.",
+      primaryCta: "Discuss your frontend",
+      secondaryCta: "View packages",
+      typicalTimeline: "Typically 2–5 weeks for a defined project",
+      idealFor: "SaaS teams with designs, APIs or an existing product",
+      overview: {
+        heading: "Dashboards built around the work people need to do",
+        paragraphs: [
+          "A dashboard needs to support real tasks: reviewing information, submitting forms, managing records and moving a workflow forward.",
+          "I build the screens and interactions around those tasks, including tables, filters, forms, navigation and role-specific views where required. The scope also covers what users see while data loads, when a result is empty and when a request fails.",
+        ],
+      },
+      fitHeading: "Where I can help",
+      fitItems: [
+        "A new product frontend: Turn agreed designs and API contracts into a working React or Next.js interface.",
+        "A dashboard or product area: Build a defined set of screens for customers, internal teams or administrators.",
+        "An existing SaaS product: Add workflows and reusable components that fit the current application.",
+        "Ongoing frontend delivery: Work alongside your design and backend teams through planned delivery cycles.",
+      ],
+      pricingHeading: "Frontend development packages",
+      pricingDescription: "Starting prices depend on the number of screens, workflow complexity, design readiness and API requirements. Your proposal will confirm the delivery scope and dependencies.",
+      pricingNotes: [
+        "Every engagement begins with a written scope and milestone plan.",
+        "Responsive build, launch checks, and clear handover included",
+        "Third-party subscriptions, paid assets and additional work outside the agreed scope are quoted separately.",
+      ],
+      processHeading: "From product brief to working frontend",
+      includesHeading: "What your frontend scope can include",
+      workHeading: "Relevant frontend experience",
+      projects: {
+        "chainreach-ai": {
+          description: "I built frontend dashboards for brands, creators and administrators, including campaign creation, acceptance and negotiation workflows. I also implemented interfaces for AI-assisted campaign generation and chat, connecting the frontend to backend APIs.",
+          linkText: "Explore the ChainReach.ai case study",
+        },
+        "sound-of-meme": {
+          description: "As lead frontend developer, I worked on the React and Redux application, including the player and song-generation experience, SEO architecture and bundle optimisation.",
+          linkText: "Explore the Sound Of Meme case study",
+        },
+        nursephysiowala: {
+          description: "As founder and frontend developer, I worked on patient, practitioner and administrator booking workflows, including allocation controls, service pages and deployment.",
+          linkText: "Explore the NursePhysioWala case study",
+        },
+      },
+      faqHeading: "Questions before we start",
+      proposalHeading: "Tell me what your dashboard needs to do",
+      proposalDescription: "Share your designs, existing application or a short list of the workflows you need. Include the status of your APIs and your preferred timeline. I’ll outline the frontend scope, dependencies and a practical starting budget.",
+      submitLabel: "Request a frontend proposal",
+      relatedReading: [
+        { text: "What to scope before hiring a React dashboard developer", href: "/blog/saas-dashboard-development-scope" },
+        { text: "Compare service pricing and engagement options", href: "/pricing" },
+      ],
+    },
   },
   {
     slug: "small-business-websites",
     navLabel: "Small Business Websites",
-    metaTitle: "Small Business Website Developer",
+    metaTitle: "Clinic & Small Business Website Design | Arun Acharya",
     metaDescription:
-      "Hire Arun Acharya to design and build fast, modern small business websites with clear pages, conversion-focused UI, SEO structure, and launch support.",
-    heroEyebrow: "Small website to medium website builds",
-    heroTitle: "Small business websites built to look premium, load fast, and convert visitors.",
+      "Clinic and small business website design by Arun Acharya. Based in India, serving clients worldwide with clear service pages and enquiry forms.",
+    heroEyebrow: "Independent website developer · Based in India · Working worldwide",
+    heroTitle: "Clinic and small business website design",
     heroDescription:
-      "For founders, local businesses, service providers, and growing teams that need a polished website without agency drag. Arun handles structure, UI/UX, frontend development, SEO basics, and launch.",
-    primaryIntent: "small business website developer",
+      "I build websites that help people understand your services, trust your business and take the next step. From physiotherapy clinics to local service businesses, I bring your services, team and enquiry process together in a clear, mobile-friendly website. Work directly with me from the first brief through design, development and launch.",
+    primaryIntent: "clinic website design India",
     secondaryIntents: [
-      "small website developer",
-      "medium business website development",
-      "freelance website developer",
-      "business website redesign",
+      "clinic website development India",
+      "physiotherapy website design India",
+      "physiotherapy website design services",
+      "website design for physiotherapists",
+      "physiotherapy web design",
+      "physical therapy website design",
+      "physical therapy web design services",
+      "website designer for physical therapists",
+      "small business website design",
     ],
     bestFor: [
-      "New service businesses that need a credible first website.",
-      "Existing sites that look dated or fail to explain the offer clearly.",
-      "Founders who need a lean website before moving into a bigger product build.",
+      "Clinics and physiotherapists in India and international markets.",
+      "Local service businesses that need clear services and enquiry paths.",
+      "Interior design firms, consultants and other service providers.",
     ],
     outcomes: [
-      "Clear page architecture for Home, Services, About, Proof, and Contact.",
-      "Responsive UI that works across mobile, tablet, and desktop.",
-      "Technical SEO setup with metadata, sitemap, schema, and internal links.",
-      "Fast launch path with clean handoff and deployment support.",
+      "The aim is to make your business easier to understand and contact, with a sound foundation for future search and content work.",
     ],
     includes: [
-      "Website strategy and content structure",
-      "UI direction and responsive design system",
-      "Next.js or React implementation",
-      "Contact CTA and inquiry flow",
-      "Performance and accessibility pass",
-      "Launch support and post-launch fixes",
+      "Page planning and content structure.",
+      "Responsive design and React or Next.js development.",
+      "Service pages, team profiles and relevant proof of your work.",
+      "Contact forms and enquiry flows.",
+      "Booking links or integrations agreed in the scope.",
+      "Technical SEO setup and performance checks.",
+      "CMS integration where included in your package.",
+      "Launch support and handover.",
     ],
     process: [
-      "Clarify business goal, audience, pages, and conversion path.",
-      "Design a focused interface that supports trust and action.",
-      "Build, optimize, connect forms, deploy, and verify indexing basics.",
+      "We identify your customers, priority services and main enquiry path. Then we agree on the pages, content, features and launch requirements.",
+      "I design and develop the agreed website, bringing your services, business information and supporting material into a consistent experience across screen sizes.",
+      "I check forms, navigation, responsive layouts and the agreed technical SEO setup, then support deployment and provide a clear handover.",
     ],
     faqs: [
       {
-        question: "Can you build a small website that can grow later?",
+        question: "Do you offer clinic website design across India?",
         answer:
-          "Yes. The structure can start lean and still leave room for service pages, blog posts, pricing pages, integrations, and future product flows.",
+          "Yes. I work remotely with clinics and service businesses across India. The scope can include service pages, practitioner profiles, location information and enquiry flows tailored to your business.",
       },
       {
-        question: "Do you only design or also build the website?",
+        question: "Do you build websites for physiotherapy and physical therapy practices outside India?",
         answer:
-          "Arun can handle both UI/UX and implementation, including React, Next.js, responsive frontend work, forms, deployment, and SEO setup.",
+          "Yes. I work with international clients remotely. The website’s language, service descriptions and contact or booking process can be adapted to your practice and audience, including the terminology your customers use.",
+      },
+      {
+        question: "Can you add appointment booking?",
+        answer:
+          "I can link to your existing booking service or scope an integration. A custom booking system with patient, practitioner or administrator accounts requires a separate application scope.",
+      },
+      {
+        question: "Will the website help us appear on Google?",
+        answer:
+          "The work includes the technical SEO setup agreed in your package. Clear service pages and useful business information give search engines a stronger foundation to understand your website. Rankings and enquiries also depend on competition, content, reputation and ongoing work; they are not guaranteed.",
+      },
+      {
+        question: "Do you work with businesses other than clinics?",
+        answer:
+          "Yes. I also build websites for businesses such as interior design firms, consultants and other service providers. The structure is planned around your customers and the services you want to grow.",
       },
     ],
     relatedServiceSlugs: ["frontend-revamp", "ui-ux-design", "web-apps-saas"],
     relatedBlogSlugs: [
+      "physiotherapy-website-booking-brief",
       "small-business-website-cost-and-scope",
-      "landing-page-vs-website-vs-web-app",
     ],
     relatedWorkSlugs: ["pivotal-physiocare", "samriddhi-interiors"],
+    detailCopy: {
+      engagementHeading: "A clear scope, a practical budget and a website built around your business.",
+      engagementDescription: "Start with the pages and features your customers actually need. Before development begins, you’ll receive a written scope covering the work, timeline, price and what I need from you.",
+      primaryCta: "Discuss your website",
+      secondaryCta: "View packages",
+      typicalTimeline: "2–3 weeks for an Essential Website; larger packages below",
+      idealFor: "Clinics, physiotherapists and businesses that sell services",
+      overview: {
+        heading: "Physiotherapy website design that makes the next step clear",
+        paragraphs: [
+          "Someone visiting a clinic website needs to understand what care is available, who provides it, where the clinic operates and how to enquire.",
+          "I organise that information into clear service pages, practitioner profiles, location details and contact paths. Where needed, the website can also explain home visits and connect visitors to your existing appointment-booking process.",
+          "My work on Pivotal Physiocare includes a responsive clinic website with care information, practitioner profiles, service coverage and home-visit enquiry paths.",
+        ],
+        link: { text: "Explore the Pivotal Physiocare website project", href: "/work/pivotal-physiocare" },
+      },
+      fitHeading: "Built around the questions your customers ask",
+      fitIntro: "Your website should make it easy to answer:",
+      fitItems: [
+        "Is this the right business for me? Clear descriptions of your services and who they are for.",
+        "Can I trust them? Team profiles, relevant project examples and testimonials you can substantiate.",
+        "Do they serve my location? Accurate clinic, office or service-area information.",
+        "What should I do next? Visible enquiry forms, contact details or booking links.",
+      ],
+      fitNote: "The same approach works for clinics, interior design businesses, consultants and other service providers.",
+      pricingHeading: "Website packages and starting prices",
+      pricingDescription: "These are starting prices for defined scopes. Your final proposal will confirm the pages, functionality, content responsibilities and delivery schedule.",
+      pricingNotes: [
+        "Every engagement starts with a written scope and milestone plan.",
+        "Responsive build, launch checks, and clear handover included",
+        "Third-party subscriptions, paid assets and content production are quoted separately.",
+      ],
+      processHeading: "From first brief to launch",
+      includesHeading: "What your website can include",
+      workHeading: "Relevant website projects",
+      projects: {
+        "pivotal-physiocare": {
+          description: "A responsive physiotherapy website covering care information, practitioner profiles, service coverage, galleries and home-visit enquiries. My contribution covered the website implementation.",
+          linkText: "View the Pivotal Physiocare case study",
+        },
+        "samriddhi-interiors": {
+          description: "A business website that brings together services, project photography, the company story and consultation enquiries. I developed the frontend using Next.js, TypeScript and Framer Motion.",
+          linkText: "View the Samriddhi Interiors case study",
+        },
+      },
+      faqHeading: "Questions before we start",
+      proposalHeading: "Tell me about your business and the website you need",
+      proposalDescription: "Share your current website, priority services, target locations and preferred launch date. I’ll review the brief and outline a suitable scope, starting budget and next steps.",
+      submitLabel: "Request a website proposal",
+      relatedReading: [
+        { text: "Planning a physiotherapy website and its booking enquiries", href: "/blog/physiotherapy-website-booking-brief" },
+        { text: "Understanding small business website cost and scope", href: "/blog/small-business-website-cost-and-scope" },
+      ],
+    },
   },
   {
     slug: "frontend-revamp",

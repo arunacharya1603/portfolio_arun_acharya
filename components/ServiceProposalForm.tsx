@@ -46,9 +46,11 @@ function Field({
 export function ServiceProposalForm({
   service,
   proposal,
+  submitLabel = "Request a scoped proposal",
 }: {
   service: SeoServicePage;
   proposal: ServiceProposal;
+  submitLabel?: string;
 }) {
   const [selectedPackage, setSelectedPackage] = useState(
     proposal.packages.find((item) => item.recommended)?.name ??
@@ -301,7 +303,7 @@ export function ServiceProposalForm({
         >
           {submitStatus === "submitting"
             ? "Sending..."
-            : "Request a scoped proposal"}
+            : submitLabel}
           <Send aria-hidden="true" className="h-4 w-4" />
         </Button>
       </div>
