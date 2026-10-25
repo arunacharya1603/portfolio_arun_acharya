@@ -123,6 +123,7 @@ export default function AboutPage() {
               ["Frontend service", "/services/frontend-development"],
               ["Blog author page", "/blog/author/arun-acharya"],
               ["Professional experience", "/experience"],
+              ["seo-engineering: my public SEO skill project", "/packages/seo-engineering"],
             ].map(([label, href]) => (
               <Link
                 key={label}

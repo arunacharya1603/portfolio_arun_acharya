@@ -18,6 +18,38 @@ The Google script loads only after analytics consent and only on the canonical p
 
 First-touch referral and campaign details in inquiry emails are handled separately by `lib/inquiry-attribution.ts`. They are not GA event parameters. Conversion counts cover consenting visitors whose browsers allow Analytics, so they can be lower than the number of delivered emails.
 
+## Click tracking — 25 October 2026
+
+The website changes below are prepared locally and are not deployed. The three event-scoped custom dimensions are already registered in property `522258245` so reporting is ready when the code is released.
+
+| Control | Event | Meaning |
+|---|---|---|
+| Copy install command | `install_command_copy_click` | One event after each copy attempt resolves; `copy_result` is `success` or `error`. This is not an installation count. |
+| View on npm | `npm_link_click` | Activation of the package's npm link. |
+| View on GitHub | `github_link_click` | Activation of the package's repository link, not general footer social links. |
+| Start Project | `start_project_click` | Activation of the shared contact CTA, including header/mobile-menu versions. |
+| Book a call | `book_call_click` | Activation of the shared Calendly CTA, including header/mobile-menu/footer versions. This is not a completed booking. |
+
+Each event includes a sanitized page location/path and `ui_location`. On `/packages/seo-engineering`, it also includes `package_name: seo-engineering`. Registered dimensions:
+
+- **Button placement** → `ui_location`: `package_hero`, `package_overview`, `page_cta`, `header`, `mobile_menu`, or `footer`.
+- **Package name** → `package_name`.
+- **Copy result** → `copy_result`.
+
+The package index and detail page are now recognized by the analytics page allowlist instead of being reported as `/not-found`. Click events use the same consent and canonical-host gate as page views and leads. They send no form values, arbitrary link URLs or clipboard contents. Primary clicks, keyboard activation and middle-click navigation are supported; analytics failures cannot block the action. No derived GA4 custom-event rules were created, and these click events were not marked as key events. `generate_lead` remains a separate successful-inquiry event.
+
+### Account verification
+
+On 25 October, the authenticated Google Analytics UI confirmed property **portfolio-aea53**, stream **Arun Acharya Portfolio** (`16112961650`), measurement ID **G-J713ZJ8TRT**, and active collection in the past 48 hours. Enhanced measurement remains disabled. The stream's display URL still uses www; the current site's canonical-host gate uses the apex domain. These observations confirm the existing connection, not delivery of the new click events.
+
+The three dimensions above were saved and verified in Admin → Data display → Custom definitions. The optional GSC Wizard connector was subscription-blocked; Google Analytics was used directly. No production website deployment or test lead was performed.
+
+### Reading the counts after deployment
+
+Use the **Events** report with **Event name** and **Event count** for the five names above. For package-specific analysis, create an Explore free-form table with Event name as rows, Event count as values, and Page path and screen class filtered to `/packages/seo-engineering`. Add Button placement, Package name or Copy result as needed. Use Total users to distinguish people from repeat clicks. Filter Copy result to `success` when counting successful copies.
+
+After the authorized deployment, verify a consented interaction in Realtime (or DebugView with debug mode enabled for the test session). Check each expected event once and verify its source page, placement and copy outcome. Localhost and previews intentionally send no production events. Registration/report processing can take up to 48 hours; these fields will not reconstruct clicks from before the implementation. Counts include only consenting visitors whose browsers allow Analytics. See [Google's event parameter guidance](https://developers.google.com/analytics/devguides/collection/ga4/event-parameters).
+
 ## Validation
 
 ```sh
@@ -27,7 +59,7 @@ npm run start -- --port 3005
 node scripts/check-seo.cjs http://localhost:3005
 ```
 
-The analytics check uses isolated browser and fetch stubs. It sends no Google events or inquiry emails. It covers consent, expiry, revocation, sanitized payloads, navigation deduplication, production-only loading, and failed/honeypot submissions.
+The analytics check uses isolated browser and fetch stubs. It sends no Google events or inquiry emails. It covers consent, expiry, revocation, sanitized payloads, navigation deduplication, production-only loading, package paths, click handlers, successful/failed copying, cancelled navigation, and failed/honeypot submissions.
 
 ### Completed release checks — 24 October 2026
 

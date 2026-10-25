@@ -79,8 +79,8 @@ export function AnalyticsConsent() {
           A small choice about analytics
         </h2>
         <p className="mt-2 text-xs leading-6 text-subtle">
-          With your permission, Google Analytics measures page visits and successful
-          inquiries. Your form details stay out of analytics. You can change this
+          With your permission, Google Analytics measures page visits, button clicks
+          and successful inquiries. Your form details stay out of analytics. You can change this
           choice in the footer. <Link href="/privacy" className="font-semibold text-brand underline underline-offset-4">Privacy details</Link>
         </p>
       </div>

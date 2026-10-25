@@ -8,6 +8,7 @@ import { Container } from "./Section";
 
 const footerLinks = [
   ["Work", "/work"],
+  ["Packages", "/packages"],
   ["About", "/about"],
   ["Experience", "/experience"],
   ["Services", "/services"],
@@ -49,6 +50,8 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
+              analyticsEvent="book_call_click"
+              analyticsLocation="footer"
               className="mt-5"
             >
               <CalendarDays aria-hidden="true" className="h-4 w-4" />

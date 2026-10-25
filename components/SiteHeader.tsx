@@ -12,9 +12,11 @@ import { cn } from "@/lib/utils";
 import { cardGlass } from "@/lib/glass";
 import { siteConfig } from "@/lib/site";
 import { textLinkStyles } from "@/components/ui/control-styles";
+import { trackClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Work", href: "/work" },
+  { name: "Packages", href: "/packages" },
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Pricing", href: "/pricing" },
@@ -126,7 +128,14 @@ export function SiteHeader() {
             {navigation.map((item) => navLink(item))}
           </div>
           <div className="flex items-center gap-3">
-            <Link href="/contact" className={textLinkStyles("hidden xl:inline-flex")}>
+            <Link
+              href="/contact"
+              className={textLinkStyles("hidden xl:inline-flex")}
+              onClick={() => trackClick("start_project_click", "header")}
+              onAuxClick={(event) => {
+                if (event.button === 1) trackClick("start_project_click", "header");
+              }}
+            >
               Start Project
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </Link>
@@ -136,6 +145,8 @@ export function SiteHeader() {
               rel="noopener noreferrer"
               variant={"primary"}
               className={"hidden shrink-0 sm:inline-flex"}
+              analyticsEvent="book_call_click"
+              analyticsLocation="header"
             >
               <CalendarDays aria-hidden="true" className="h-4 w-4" />
               Book a call
@@ -176,6 +187,8 @@ export function SiteHeader() {
                 href="/contact"
                 onClick={() => setOpen(false)}
                 className="mt-3 sm:col-start-1"
+                analyticsEvent="start_project_click"
+                analyticsLocation="mobile_menu"
               >
                 Start Project
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
@@ -187,6 +200,8 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
                 variant="primary"
                 className="mt-2 sm:mt-3"
+                analyticsEvent="book_call_click"
+                analyticsLocation="mobile_menu"
               >
                 <CalendarDays aria-hidden="true" className="h-4 w-4" />
                 Book a call

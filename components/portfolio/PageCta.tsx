@@ -19,7 +19,7 @@ export function PageCta() {
           </div>
           <div className="mt-7 shrink-0 lg:mt-0">
             <div className="flex flex-col gap-3 sm:flex-row">
-              <GlassLink href="/contact">
+              <GlassLink href="/contact" analyticsEvent="start_project_click" analyticsLocation="page_cta">
                 Start Project
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </GlassLink>
@@ -28,6 +28,8 @@ export function PageCta() {
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
+                analyticsEvent="book_call_click"
+                analyticsLocation="page_cta"
               >
                 <CalendarDays aria-hidden="true" className="h-4 w-4" />
                 Book a call

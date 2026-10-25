@@ -11,12 +11,16 @@ export function SeoPageShell({
   eyebrow,
   title,
   description,
+  breadcrumbs,
+  heroContent,
   children,
   showFooterCta = true,
 }: {
   eyebrow: string;
   title: string;
   description: string;
+  breadcrumbs?: ReactNode;
+  heroContent?: ReactNode;
   children: ReactNode;
   showFooterCta?: boolean;
 }) {
@@ -25,7 +29,8 @@ export function SeoPageShell({
       <SiteHeader />
       <main id="main-content" className="min-h-[60vh] pb-16">
         <Container>
-          <section className="border-b border-line py-12 sm:py-16 lg:py-20">
+          {breadcrumbs && <div className="pt-5 sm:pt-6">{breadcrumbs}</div>}
+          <section className={`border-b border-line pb-12 sm:pb-16 lg:pb-20 ${breadcrumbs ? "pt-8 sm:pt-10 lg:pt-12" : "pt-12 sm:pt-16 lg:pt-20"}`}>
             <p className="mb-5 text-xs font-bold uppercase tracking-widest text-brand">
               {eyebrow}
             </p>
@@ -33,6 +38,7 @@ export function SeoPageShell({
             <p className="mt-6 max-w-3xl text-base leading-8 text-subtle sm:text-lg">
               {description}
             </p>
+            {heroContent && <div className="mt-8 sm:mt-10">{heroContent}</div>}
           </section>
           <div className="min-w-0 pt-10 sm:pt-14">{children}</div>
         </Container>

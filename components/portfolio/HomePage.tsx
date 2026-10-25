@@ -12,6 +12,7 @@ import {
   PenTool,
 } from "lucide-react";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SeoEngineeringCard } from "@/components/SeoEngineeringCard";
 import { textLinkStyles } from "@/components/ui/control-styles";
 import { GlassLink } from "@/components/ui/glass-link";
 import { homeWorkProjects, workProjects } from "@/data/work-projects";
@@ -173,6 +174,24 @@ export default function HomePage() {
               View all projects
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </GlassLink>
+          </Container>
+        </section>
+
+        <section aria-labelledby="public-projects-heading" className="pb-16 sm:pb-24">
+          <Container className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
+            <div>
+              <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-brand">Packages</p>
+              <h2 id="public-projects-heading" className="text-section">Tools I build and publish.</h2>
+              <p className="mt-5 text-base leading-8 text-subtle">
+                Explore my npm packages, starting with a skill that helps AI
+                coding agents approach SEO with your product and audience in mind.
+              </p>
+              <Link href="/packages" className={textLinkStyles("mt-5")}>
+                Browse packages
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+            </div>
+            <SeoEngineeringCard headingLevel="h3" />
           </Container>
         </section>
 

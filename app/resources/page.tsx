@@ -53,6 +53,18 @@ export default function ResourcesPage() {
           Open the cost & scope planner →
         </GlassLink>
       </section>
+      <section className="mt-14 border-y border-line py-8">
+        <h2 className="font-grotesk text-3xl font-semibold">Working with an AI coding agent?</h2>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-subtle">
+          My public project, seo-engineering, gives your agent a workflow for
+          understanding your product, auditing the website and prioritizing SEO
+          changes. Explore the{" "}
+          <Link href="/packages/seo-engineering" className="font-medium text-brand underline underline-offset-4">
+            seo-engineering setup and usage guide
+          </Link>{" "}
+          to see its capabilities and requirements.
+        </p>
+      </section>
       <section className="mt-14">
         <h2 className="font-grotesk text-3xl font-semibold">
           Decisions to make before you hire

@@ -5,6 +5,8 @@ export const analyticsConsentKey = "portfolio-analytics-consent-v1";
 export const analyticsPreferencesEvent = "portfolio:analytics-preferences";
 
 type Consent = "granted" | "denied";
+export type LinkClickEvent = "npm_link_click" | "github_link_click" | "start_project_click" | "book_call_click";
+export type ClickLocation = "package_hero" | "package_overview" | "page_cta" | "header" | "mobile_menu" | "footer";
 const consentLifetime = 180 * 24 * 60 * 60 * 1000;
 const productionHost = siteConfig.host;
 let consent: Consent | null = null;
@@ -70,7 +72,8 @@ function pageContext(pathname: string) {
   const path = pathname.split(/[?#]/)[0];
   const knownPage = /^\/(?:about|work|experience|services|process|pricing|faq|blog|locations|resources|contact|privacy)?\/?$/.test(path) ||
     /^\/(?:work|services|blog)\/[a-z0-9-]+$/.test(path) ||
-    path === "/blog/author/arun-acharya" || path === "/tools/website-cost-planner";
+    path === "/blog/author/arun-acharya" || path === "/tools/website-cost-planner" ||
+    path === "/packages" || path === "/packages/seo-engineering";
   let referrer = "";
   try {
     referrer = new URL(document.referrer).origin;
@@ -144,5 +147,25 @@ export function trackSuccessfulInquiry(source: string) {
     });
   } catch {
     // Measurement must never turn a delivered inquiry into a failed submission.
+  }
+}
+
+export function trackClick(
+  eventName: LinkClickEvent | "install_command_copy_click",
+  uiLocation: ClickLocation,
+  copyResult?: "success" | "error",
+) {
+  if (!canMeasure()) return;
+  try {
+    initializeAnalytics(location.pathname);
+    const context = pageContext(location.pathname);
+    window.gtag?.("event", eventName, {
+      ...context,
+      ui_location: uiLocation,
+      ...(context.page_path === "/packages/seo-engineering" ? { package_name: "seo-engineering" } : {}),
+      ...(eventName === "install_command_copy_click" && copyResult ? { copy_result: copyResult } : {}),
+    });
+  } catch {
+    // A blocked analytics tag must never interrupt copying or navigation.
   }
 }
