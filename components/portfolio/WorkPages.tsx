@@ -9,6 +9,7 @@ import { getWorkProjectBySlug, workProjects, type WorkProject } from "@/data/wor
 import type { ProjectCaseStudy } from "@/data/case-studies";
 import { getSeoServicePage, seoBlogPosts } from "@/data/seo-content";
 import { ProjectCard } from "./ProjectCard";
+import { CaseStudyContents } from "./CaseStudyContents";
 
 export function WorkPageContent() {
   return (
@@ -26,34 +27,7 @@ export function WorkPageContent() {
   );
 }
 
-const contents = [
-  ["contribution", "Brief & contribution"],
-  ["goals", "Goals & constraints"],
-  ["architecture", "How it works"],
-  ["decisions", "Technical decisions"],
-  ["challenges", "Challenges & solutions"],
-  ["outcomes", "Outcomes"],
-  ["reflection", "Lessons & next steps"],
-  ["questions", "Project questions"],
-  ["evidence", "Evidence & links"],
-] as const;
-
 const bodyText = "text-base leading-8 text-subtle";
-
-function ContentsLinks() {
-  return (
-    <ol className="space-y-1">
-      {contents.map(([id, label], index) => (
-        <li key={id}>
-          <a href={`#${id}`} className="group flex min-h-10 items-center gap-3 rounded-md py-2 text-sm text-subtle transition-colors hover:text-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand">
-            <span aria-hidden="true" className="text-[11px] tabular-nums text-brand">{String(index + 1).padStart(2, "0")}</span>
-            {label}
-          </a>
-        </li>
-      ))}
-    </ol>
-  );
-}
 
 function StorySection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
@@ -153,16 +127,7 @@ export function WorkProjectPageContent({ project }: { project: WorkProject }) {
       }
     >
       <div className="grid items-start gap-10 lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-14 xl:gap-20">
-        <aside className="min-w-0 lg:sticky lg:top-28">
-          <nav aria-label="Case study contents" className="hidden lg:block">
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest">Inside this project</p>
-            <ContentsLinks />
-          </nav>
-          <details className="rounded-lg border border-line bg-surface/60 px-5 lg:hidden">
-            <summary className="cursor-pointer py-4 text-sm font-semibold">Inside this project</summary>
-            <nav aria-label="Case study contents" className="pb-4"><ContentsLinks /></nav>
-          </details>
-        </aside>
+        <CaseStudyContents key={project.slug} />
         <article id="case-study" aria-label={`${project.shortName} case study`} className="min-w-0 max-w-3xl scroll-mt-28 space-y-14 sm:space-y-20">
           <StorySection id="contribution" title="The brief and my contribution">
             <p className={bodyText}>{project.problem}</p>
