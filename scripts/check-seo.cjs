@@ -52,6 +52,21 @@ async function main() {
         assert.equal(work.author["@id"], `${canonicalOrigin}#person`);
         assert.ok(work.creditText && work.about?.name, `Missing project scope: ${url}`);
         assert.ok(!schemas.some((schema) => schema["@type"] === "SoftwareApplication"));
+        const decode = (text) => text.replace(/&amp;/g, "&").replace(/&#x27;|&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+        assert.equal(decode(/<h1[^>]*>(.*?)<\/h1>/s.exec(document)?.[1] || ""), work.headline, `Visible heading must match schema: ${url}`);
+        assert.ok(decode(document).includes(work.abstract), `Visible summary must match schema: ${url}`);
+        assert.ok(schemas.some((schema) => schema["@type"] === "BreadcrumbList"));
+        assert.match(document, /aria-label="Breadcrumb"/);
+        const ids = [...document.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
+        assert.equal(ids.length, new Set(ids).size, `Duplicate HTML IDs: ${url}`);
+        for (const link of document.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(link[1]), `Broken contents link #${link[1]}: ${url}`);
+        for (const section of ["contribution", "goals", "architecture", "decisions", "challenges", "outcomes", "reflection", "questions", "evidence"]) {
+          assert.ok(ids.includes(section), `Missing case-study section ${section}: ${url}`);
+        }
+        const mainContent = document.split(/<main\b/)[1]?.split("</main>")[0] || "";
+        for (const image of mainContent.matchAll(/<img\b[^>]+>/g)) {
+          assert.match(image[0], /\balt="[^"]+"/, `Missing descriptive image alt: ${url}`);
+        }
         assert.match(document, /property="og:image:width" content="\d+"/);
         assert.match(document, /property="og:image:height" content="\d+"/);
       }

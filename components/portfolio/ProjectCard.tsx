@@ -85,7 +85,7 @@ export function ProjectCard({
             </p>
             {isRow && (
               <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand">
-                {project.challenges.length ? "View case study" : "Explore project"}
+                View case study
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </span>
             )}

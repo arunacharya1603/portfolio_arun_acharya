@@ -37,18 +37,7 @@ export function generateMetadata({ params }: WorkProjectPageProps): Metadata {
     image: project.image,
     imageSize: project.imageSize,
     type: "article",
-    keywords: [
-      project.name,
-      project.shortName,
-      `${project.shortName} developer`,
-      `${project.shortName} ${project.role}`,
-      `${project.shortName} case study`,
-      `Arun Acharya ${project.shortName}`,
-      `Arun Acharya ${project.role}`,
-      "Arun Acharya project",
-      ...project.stack,
-      ...project.features,
-    ],
+    keywords: project.caseStudy.topics,
   });
 }
 
@@ -74,7 +63,7 @@ export default function WorkProjectPage({ params }: WorkProjectPageProps) {
         <script
           key={`work-project-schema-${index}`}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
         />
       ))}
       <WorkProjectPageContent project={project} />

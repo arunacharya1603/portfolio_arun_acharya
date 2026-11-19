@@ -70,7 +70,7 @@ const workflow = [
 
 const portfolioCounts = [
   { value: workProjects.length, label: "Projects in this portfolio" },
-  { value: workProjects.filter((project) => project.challenges.length > 0).length, label: "Detailed case studies" },
+  { value: workProjects.filter((project) => project.caseStudy.challenges.length > 0).length, label: "Detailed case studies" },
   { value: workProjects.filter((project) => project.status.includes("Demo")).length, label: "Interface demos" },
 ];
 

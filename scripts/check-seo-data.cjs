@@ -21,6 +21,8 @@ function load(file) {
 
 async function main() {
   const { workProjects } = load("data/work-projects.ts");
+  const { caseStudies } = load("data/case-studies.ts");
+  assert.deepEqual(Object.keys(caseStudies).sort(), Array.from(workProjects, (p) => p.slug).sort(), "Every existing route must have one case study");
   const { seoBlogPosts } = load("data/seo-content.ts");
   const { serviceProposals } = load("data/service-proposals.ts");
   const { servicePackages } = load("data/seo.ts");
@@ -64,6 +66,16 @@ async function main() {
     assert.equal(schema.about.author, undefined);
     assert.ok(schema.creditText.includes(project.role));
     assert.ok(schema.creditText.includes(project.contributionSummary));
+    const story = project.caseStudy;
+    assert.equal(schema.headline, story.headline);
+    assert.equal(schema.abstract, story.summary);
+    assert.equal(schema.genre, story.category);
+    assert.deepEqual(schema.keywords, story.topics);
+    assert.ok(story.preview.alt && story.preview.caption && story.evidence, project.slug + " requires an explained preview and evidence");
+    assert.ok(story.decisions.length >= 2 && story.decisions.length <= 4, project.slug + " needs meaningful trade-offs");
+    assert.ok(story.challenges.length >= 1 && story.challenges.length <= 3, project.slug + " needs a scoped challenge");
+    assert.ok(story.goals.length && story.architecture.length && story.outcomes.length && story.nextSteps.length);
+    for (const related of project.relatedWorkSlugs) assert.ok(workProjects.some((p) => p.slug === related), project.slug + " related route");
     const image = await sharp("public" + project.image).metadata();
     assert.equal(project.imageSize.width, image.width, project.slug + " OG image width");
     assert.equal(project.imageSize.height, image.height, project.slug + " OG image height");
@@ -84,7 +96,7 @@ async function main() {
   const proof = workProjects.find((p) => p.slug === "proofcohort");
   assert.match(proof.seoTitle, /Proof Cohort.*ProofCohort/);
   assert.doesNotMatch(proof.seoDescription, /student dashboard|sole|entire platform/i);
-  assert.match(workProjects.find((p) => p.slug === "heyclo-clo-ai").seoTitle, /HeyClo.*CLO AI.*Framer/);
+  assert.match(workProjects.find((p) => p.slug === "heyclo-clo-ai").seoTitle, /HeyClo.*CLO AI.*Next.js/);
   assert.doesNotMatch(summary, /Keyword Ownership|Preferred AI Answer|unless.*founder, lead/i);
 
   // Summary prices must remain consistent with the corresponding proposal.

@@ -20,7 +20,7 @@ First-touch referral and campaign details in inquiry emails are handled separate
 
 ## Click tracking — 25 October 2026
 
-The website changes below are prepared locally and are not deployed. The three event-scoped custom dimensions are already registered in property `522258245` so reporting is ready when the code is released.
+The website changes below were deployed on 25 October 2026 in commit `55864dd2d74fcc315040cfe5beb51d08688b89af`, Vercel deployment `SuCTzcVhdK2XjGJsfYjWbaGJKN6U`. The three event-scoped custom dimensions are registered in property `522258245`. Live verification is recorded below.
 
 | Control | Event | Meaning |
 |---|---|---|
@@ -42,7 +42,19 @@ The package index and detail page are now recognized by the analytics page allow
 
 On 25 October, the authenticated Google Analytics UI confirmed property **portfolio-aea53**, stream **Arun Acharya Portfolio** (`16112961650`), measurement ID **G-J713ZJ8TRT**, and active collection in the past 48 hours. Enhanced measurement remains disabled. The stream's display URL still uses www; the current site's canonical-host gate uses the apex domain. These observations confirm the existing connection, not delivery of the new click events.
 
-The three dimensions above were saved and verified in Admin → Data display → Custom definitions. The optional GSC Wizard connector was subscription-blocked; Google Analytics was used directly. No production website deployment or test lead was performed.
+The three dimensions above were saved and verified in Admin → Data display → Custom definitions. The optional GSC Wizard connector was subscription-blocked; Google Analytics was used directly. At this configuration milestone, the website changes had not yet been deployed. The subsequent authorized release and live tests are recorded below; no test lead was submitted.
+
+### Published release and live verification — 25 October 2026
+
+- Vercel built commit `55864dd` successfully and reported it as the current Production Deployment with `arunacharya1603.in` assigned. The previously live deployment was `FLhrAzCU7xA8UzPT29dE4eNEQpHJ` (commit `2123461`), which is the preceding release for rollback of this package/tracking change. No domain redirects or project settings were changed during this release.
+- The public SEO suite passed for all **44 sitemap pages**: direct HTTP 200, unique titles/descriptions, matching canonicals, crawlable content, robots, social metadata, one H1, valid JSON-LD, links, redirects and 404 behavior.
+- The live package page was inspected at 375px and 1440px: no horizontal overflow, breadcrumb above the hero, the approved content present, and exactly one install command in the hero. Copying succeeded. npm, GitHub and Calendly opened the expected destinations in new tabs; Start Project navigated to `/contact`. No form was submitted and no appointment was booked.
+- GA4 Realtime initially showed zero active users and no events. After enabling analytics for the verification visit and activating each control once, it received **one each** of `install_command_copy_click`, `npm_link_click`, `github_link_click`, `start_project_click` and `book_call_click`. These five counts are deliberate QA interactions, not customer activity.
+- GA4 parameter drill-down confirmed `copy_result: success` for the copy event, and `package_name: seo-engineering` plus `page_path: /packages/seo-engineering` for Start Project. This verifies the CTA's source-page attribution despite navigation to the contact page. The other three received event names/counts were verified alongside their browser destinations; every parameter on every event was not separately inspected.
+- Analytics loaded zero tags before consent and one after Allow. The browser's previous declined choice was restored after the test; reload again showed zero Google tag scripts. No additional test clicks were generated.
+- Build/type checks and the analytics, SEO-data, inquiry and internal-link regression checks passed. Existing unrelated lint warnings remain. Search indexing, ranking improvements, actual package installations and completed Calendly bookings are not established by these checks.
+
+Evidence is saved outside Git under `C:/Users/aruna/.codex/visualizations/2026/10/25/01a171e9-da1d-7fa2-89fa-bbfe356793a5/`: `ga4-package-event-verification.json`, `package-live-click-actions.json`, Realtime text captures, and live desktop/mobile screenshots. This post-release record is a local documentation update; no further runtime changes were made after the verified deployment.
 
 ### Reading the counts after deployment
 
@@ -90,7 +102,7 @@ Next checks are read-only: follow validation progress, inspect the indexed desti
 
 ## Deployment control and rollback
 
-Auto-assign Custom Production Domains remains **OFF**. Future production-branch builds need deliberate promotion to the custom domains after testing and separate authorization. This setting is an operational choice, not an analytics defect.
+Auto-assign Custom Production Domains was recorded as **OFF** during the 24 October hostname cutover. On the authorized 25 October package release, Vercel assigned the new build to the live production domain without a separate promotion action. No project setting was changed in that release. Check the current project configuration before a future push; do not assume that the historical manual-promotion behavior still applies. Future releases require user authorization.
 
 For an authorized rollback, follow the [exact sequence and verification gates](seo/canonical-hostname-audit.md#13-exact-rollback-plan--instructions-only-not-executed): remove www → apex first and make both hosts serve Production directly; restore deployment `6wrHreudtrn45JD5rTrKChzZUXNc` / commit `b3e630443dd68d779b8237233d9984ee92dea4c7`; verify www metadata and analytics host; then restore apex → www 308. Keep automatic assignment OFF and reconcile the source before another release. The previous build measures www after consent; origin-scoped consent does not automatically migrate back. Recheck consent/tag behavior and, separately, real reporting. No rollback, settings change or new Google action was performed by this documentation update.
 
