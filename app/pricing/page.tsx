@@ -9,7 +9,7 @@ export function generateMetadata() {
     description:
       "Compare Arun Acharya's starting prices for landing pages, business websites, UI/UX, Next.js frontend work, and custom full-stack web apps.",
     path: "/pricing",
-    keywords: ["landing page pricing", "Next.js freelancer pricing", "frontend developer pricing"],
+    keywords: ["landing page pricing", "application development pricing", "software development pricing"],
   });
 }
 

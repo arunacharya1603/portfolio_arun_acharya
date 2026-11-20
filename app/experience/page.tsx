@@ -3,11 +3,11 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya: Frontend Engineering Experience",
+    title: "Software & Product Engineering Experience | Arun Acharya",
     description:
-      "Arun Acharya's frontend engineering experience across React, Next.js, product dashboards, APIs, performance, motion, and responsive UI.",
+      "Explore Arun Acharya's project experience across websites, applications, dashboards, APIs, and product interfaces, with specific roles and contributions.",
     path: "/experience",
-    keywords: ["Arun Acharya experience", "frontend engineer experience", "React Next.js developer"],
+    keywords: ["Arun Acharya experience", "software engineering experience", "product development portfolio"],
   });
 }
 

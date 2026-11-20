@@ -14,6 +14,7 @@ import {
   seoBlogPosts,
 } from "@/data/seo-content";
 import { workProjects } from "@/data/work-projects";
+import { siteConfig } from "@/lib/site";
 import {
   articleJsonLd,
   breadcrumbJsonLd,
@@ -177,9 +178,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Arun Acharya
             </h2>
             <p className={`mt-3 text-sm leading-7 ${seoMutedTextClass}`}>
-              Freelance frontend developer, UI/UX developer, and Next.js
-              freelancer building landing pages, web apps, dashboards, APIs, and
-              product experiences.
+              {siteConfig.profileDescription}
             </p>
             <Link
               href="/blog/author/arun-acharya"

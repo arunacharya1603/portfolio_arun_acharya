@@ -12,14 +12,14 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Web Design, Frontend, UI/UX, and Next.js Blog",
+    title: "Software & Product Engineering Blog | Arun Acharya",
     description:
-      "Articles by Arun Acharya about landing pages, frontend development, UI/UX, Next.js, API planning, SaaS builds, SEO structure, and product scoping.",
+      "Practical guides by Arun Acharya on websites, applications, UI/UX, API planning, SaaS development, technical SEO, and product scoping.",
     path: "/blog",
     keywords: [
       "Arun Acharya blog",
-      "frontend development blog",
-      "Next.js freelancer blog",
+      "software engineering blog",
+      "product development guides",
     ],
   });
 }
@@ -29,7 +29,7 @@ export default function BlogPage() {
     "@context": "https://schema.org",
     "@type": "Blog",
     "@id": `${siteConfig.url}/blog#blog`,
-    name: "Arun Acharya Web Design and Development Blog",
+    name: "Arun Acharya Software & Product Engineering Blog",
     url: `${siteConfig.url}/blog`,
     description:
       "Practical articles about small business websites, frontend revamps, UI/UX, API development, SaaS builds, and project scoping by Arun Acharya.",
@@ -75,9 +75,8 @@ export default function BlogPage() {
           >
             Arun Acharya
           </Link>
-          , a frontend developer, UI/UX developer, and Next.js freelancer
-          building landing pages, dashboards, SaaS products, and SEO-ready
-          websites.
+          , a software and product engineer building websites, applications,
+          and custom software.
         </p>
       </section>
 

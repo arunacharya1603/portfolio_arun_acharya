@@ -20,9 +20,11 @@ export function GET() {
   ];
 
   const body = [
-    "# Arun Acharya — portfolio and project index",
+    `# ${siteConfig.name} — ${siteConfig.jobTitle}`,
     "",
-    `${siteConfig.name} is a frontend developer and Next.js freelancer based in India, working remotely on websites, product interfaces and dashboards.`,
+    siteConfig.profileDescription,
+    "",
+    "Based in India and working remotely with founders, teams, and businesses. The services below cover product development, websites, applications, APIs, UI/UX, and custom software.",
     "",
     "This is a self-authored portfolio summary. Project features are not claims of sole authorship. Each case study documents the role, contribution and available evidence; founder or lead titles alone do not establish sole ownership of a product.",
     "",

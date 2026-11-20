@@ -13,15 +13,15 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya: Frontend and Next.js Articles",
+    title: "Arun Acharya | Software & Product Engineering Author",
     description:
-      "Articles by Arun Acharya on landing pages, frontend revamps, UI/UX, Next.js, APIs, SaaS products, performance, and website strategy.",
+      "Meet software and product engineer Arun Acharya, author of practical guides on websites, applications, UI/UX, APIs, SaaS, and project planning.",
     path: "/blog/author/arun-acharya",
     keywords: [
       "Arun Acharya author",
       "Arun Acharya blog",
-      "frontend developer author",
-      "Next.js freelancer articles",
+      "software engineer author",
+      "product development articles",
     ],
   });
 }
@@ -32,12 +32,13 @@ const authorPageJsonLd = {
   "@id": `${siteConfig.url}/blog/author/arun-acharya#profile`,
   url: `${siteConfig.url}/blog/author/arun-acharya`,
   name: "Arun Acharya author profile",
+  description: siteConfig.profileDescription,
   mainEntity: { "@id": siteConfig.personId },
 };
 
 export default function AuthorPage() {
   const featuredServices = seoServicePages.filter((service) =>
-    ["landing-pages", "frontend-development", "ui-ux-design"].includes(
+    ["web-apps-saas", "api-development", "ui-ux-design"].includes(
       service.slug,
     ),
   );
@@ -53,8 +54,8 @@ export default function AuthorPage() {
   return (
     <SeoPageShell
       eyebrow="Author"
-      title="Arun Acharya — frontend developer and guide author"
-      description="Practical notes on scoping websites, building product interfaces and reviewing performance, grounded in my documented frontend work."
+      title={`${siteConfig.name} — ${siteConfig.jobTitle}`}
+      description="Practical guides to planning websites and applications, designing product experiences, integrating APIs, and reviewing performance, grounded in my project work."
     >
       {schemas.map((schema, index) => (
         <script
@@ -72,10 +73,10 @@ export default function AuthorPage() {
             Arun Acharya
           </h2>
           <p className={`mt-4 text-base leading-8 ${seoMutedTextClass}`}>
-            Arun is a frontend developer, UI/UX developer, and Next.js
-            freelancer who writes from hands-on project experience across
-            ChainReach.ai, Sound Of Meme, NursePhysioWala, HeyClo / CLO AI, and
-            client websites.
+            {siteConfig.profileDescription} His guides draw on project work
+            across ChainReach.ai, Sound Of Meme, NursePhysioWala, HeyClo / CLO
+            AI, and client websites, with specific contributions documented in
+            the case studies.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <Link
@@ -91,10 +92,10 @@ export default function AuthorPage() {
               Selected work
             </Link>
             <Link
-              href="/services/frontend-development"
+              href="/services"
               className="rounded-full border border-line bg-surface px-3 py-2 text-xs font-semibold text-subtle"
             >
-              Frontend service
+              Development services
             </Link>
           </div>
         </article>

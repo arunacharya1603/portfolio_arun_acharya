@@ -67,7 +67,7 @@ export function createPageMetadata({
         {
           url: imageUrl,
           ...(imageSize ?? (image === siteConfig.socialImage ? { width: 1200, height: 630 } : {})),
-          alt: title,
+          alt: image === siteConfig.socialImage ? siteConfig.socialImageAlt : title,
         },
       ],
       ...(type === "article"
@@ -96,19 +96,23 @@ export function personJsonLd() {
     name: siteConfig.name,
     url: siteConfig.url,
     jobTitle: siteConfig.jobTitle,
-    description:
-      "Arun Acharya is a frontend developer, UI/UX developer, Next.js freelancer, and full-stack product builder for landing pages, web apps, dashboards, SaaS products, and SEO-ready websites.",
+    description: siteConfig.profileDescription,
     image: absoluteUrl(siteConfig.socialImage),
     email: siteConfig.email,
     sameAs: personSameAsLinks,
     worksFor: {
       "@type": "Organization",
       "@id": `${siteConfig.url}#studio`,
-      name: "Arun Acharya Freelance Web Development",
+      name: siteConfig.serviceBrandName,
       url: siteConfig.url,
       logo: absoluteUrl(siteConfig.brandLogo),
     },
     knowsAbout: [
+      "Software Engineering",
+      "Product Development",
+      "Application Development",
+      "Custom Software Development",
+      "API Development",
       "Frontend Development",
       "UI/UX Design",
       "Next.js Development",
@@ -131,6 +135,7 @@ export function websiteJsonLd() {
     "@id": siteConfig.websiteId,
     name: siteConfig.siteName,
     url: siteConfig.url,
+    description: siteConfig.description,
     inLanguage: "en",
     publisher: { "@id": siteConfig.personId },
   };
@@ -141,12 +146,11 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${siteConfig.url}#studio`,
-    name: "Arun Acharya Freelance Web Development",
+    name: siteConfig.serviceBrandName,
     url: siteConfig.url,
     logo: absoluteUrl(siteConfig.brandLogo),
     image: absoluteUrl(siteConfig.socialImage),
-    description:
-      "Frontend development, UI/UX design, Next.js development, landing page design, dashboard development, and full-stack product build services by Arun Acharya.",
+    description: siteConfig.serviceDescription,
     founder: { "@id": siteConfig.personId },
     areaServed: [
       "India",
@@ -165,7 +169,7 @@ export function professionalServiceJsonLd(services: SeoServicePage[]) {
     priceRange: "$250+",
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Freelance Web Development Services",
+      name: "Software and Product Development Services",
       itemListElement: services.map((service) => ({
         "@type": "Offer",
         url: absoluteUrl(`/services/${service.slug}`),

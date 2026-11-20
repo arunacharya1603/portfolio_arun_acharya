@@ -5,16 +5,15 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Frontend, UI/UX, Next.js, and Landing Page Services",
-    description:
-      "Hire Arun Acharya for landing pages, UI/UX, React and Next.js frontend development, business websites, APIs, dashboards, MVPs, and SaaS products.",
+    title: "Software & Product Development Services | Arun Acharya",
+    description: siteConfig.serviceDescription,
     path: "/services",
     keywords: [
-      "landing page developer",
-      "UI UX developer India",
-      "Next.js freelancer",
-      "frontend development services",
-      "landing page design services",
+      "software development services",
+      "product development services",
+      "website and application development",
+      "custom software development",
+      "API development",
     ],
   });
 }
@@ -23,7 +22,7 @@ const servicesItemListJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "@id": `${siteConfig.url}/services#itemlist`,
-  name: "Arun Acharya freelance services",
+  name: "Arun Acharya software and product development services",
   itemListElement: seoServicePages.map((service, index) => ({
     "@type": "ListItem",
     position: index + 1,

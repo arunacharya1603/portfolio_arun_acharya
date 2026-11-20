@@ -26,7 +26,7 @@ async function main() {
   const { seoBlogPosts } = load("data/seo-content.ts");
   const { serviceProposals } = load("data/service-proposals.ts");
   const { servicePackages } = load("data/seo.ts");
-  const { createPageMetadata, caseStudyJsonLd } = load("lib/seo.ts");
+  const { createPageMetadata, caseStudyJsonLd, personJsonLd, professionalServiceJsonLd } = load("lib/seo.ts");
   const { siteConfig } = load("lib/site.ts");
   assert.equal(siteConfig.url, "https://arunacharya1603.in");
   assert.equal(siteConfig.host, new URL(siteConfig.url).hostname);
@@ -43,6 +43,14 @@ async function main() {
   const metadata = createPageMetadata({ title: "Test", description: "Test page", path: "/test" });
   assert.equal(metadata.alternates.canonical, `${siteConfig.url}/test`);
   assert.equal(metadata.openGraph.url, metadata.alternates.canonical);
+  const sharedImage = await sharp("public" + siteConfig.socialImage).metadata();
+  assert.equal(metadata.openGraph.images[0].width, sharedImage.width, "Shared social image width must match the delivered asset");
+  assert.equal(metadata.openGraph.images[0].height, sharedImage.height, "Shared social image height must match the delivered asset");
+  assert.equal(metadata.openGraph.images[0].alt, siteConfig.socialImageAlt);
+  assert.equal(metadata.twitter.images[0], metadata.openGraph.images[0].url);
+  assert.equal(personJsonLd().jobTitle, siteConfig.jobTitle);
+  assert.equal(personJsonLd().description, siteConfig.profileDescription);
+  assert.equal(personJsonLd().worksFor.name, professionalServiceJsonLd([]).name, "Organization identity must agree across schemas");
   assert.equal(Object.hasOwn(metadata, "robots"), false, "Public pages must inherit root robots directives");
   const excluded = createPageMetadata({ title: "Test", description: "Test", noIndex: true });
   assert.equal(excluded.robots.index, false);
@@ -53,6 +61,9 @@ async function main() {
   const summaryResponse = load("app/llms.txt/route.ts").GET();
   assert.equal(summaryResponse.headers.get("content-type"), "text/plain; charset=utf-8");
   const summary = await summaryResponse.text();
+  assert.ok(summary.includes(siteConfig.jobTitle));
+  assert.ok(summary.includes(siteConfig.profileDescription));
+  assert.equal(load("data/seo.ts").seoFaqs.find((faq) => faq.question === "Who is Arun Acharya?").answer, personJsonLd().description);
   assert.ok(!summary.includes("https://www.arunacharya1603.in"));
 
   for (const project of workProjects) {

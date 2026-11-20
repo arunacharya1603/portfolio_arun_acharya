@@ -10,14 +10,14 @@ import { locationMarkets } from "@/data/seo";
 import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Remote Web Developer for India & Global Clients",
+  title: "Remote Software & Product Engineer | Arun Acharya",
   description:
-    "Hire India-based developer Arun Acharya for remote Next.js, React, UI/UX, website, dashboard, and web app projects with clear milestones and handover.",
+    "Work remotely with Arun Acharya, an India-based software and product engineer, on websites, applications, and custom software with clear milestones.",
   path: "/locations",
   keywords: [
-    "remote web developer India",
-    "hire Next.js freelancer",
-    "freelance React developer India",
+    "remote software engineer India",
+    "freelance product engineer",
+    "remote application development",
   ],
 });
 
@@ -30,8 +30,8 @@ export default function LocationsPage() {
   return (
     <SeoPageShell
       eyebrow="Remote collaboration"
-      title="India-based web developer for clients worldwide"
-      description="Work directly with Arun on a landing page, business website, React or Next.js frontend, dashboard, MVP, or full-stack web app. Projects run remotely with written scope, clear milestones, timezone-friendly updates, and documented handover."
+      title="India-based software and product engineer for clients worldwide"
+      description="Work directly with Arun on websites, applications, MVPs, APIs, and custom software. Projects run remotely with written scope, clear milestones, timezone-friendly updates, and documented handover."
     >
       <script
         type="application/ld+json"

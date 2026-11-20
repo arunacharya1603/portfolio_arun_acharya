@@ -7,9 +7,9 @@ import { SeoPageShell } from "@/components/SeoPageShell";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Discuss a Website or Next.js Project with Arun Acharya",
+  title: "Discuss Your Software or Product Project | Arun Acharya",
   description:
-    "Contact Arun Acharya about a website, React or Next.js frontend, dashboard, or MVP. Share your goal and get a practical next step.",
+    "Discuss your website, application, MVP, or custom software project with Arun Acharya. Share your goals, scope, and timeline to plan the next step.",
   path: "/contact",
 });
 

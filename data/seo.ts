@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site";
+
 export type ServicePackage = {
   slug: string;
   name: string;
@@ -126,16 +128,15 @@ export const locationMarkets: LocationMarket[] = [
 export const seoFaqs = [
   {
     question: "Who is Arun Acharya?",
-    answer:
-      "Arun Acharya is a frontend and full-stack product engineer focused on React, Next.js, TypeScript, UI/UX, landing pages, dashboards, SaaS products, and performance-conscious websites.",
+    answer: siteConfig.profileDescription,
   },
   {
     question: "What services does Arun Acharya offer?",
     answer:
-      "Arun offers landing page development, small business websites, UI/UX design, frontend development and revamps, API development, web apps, SaaS dashboards, MVP development, and performance optimization.",
+      "Arun offers software and product development for websites, applications, SaaS products, MVPs, and custom business tools. Services include UI/UX design, frontend and full-stack development, APIs, integrations, and performance optimization.",
   },
   {
-    question: "Is Arun Acharya available as a Next.js freelancer?",
+    question: "Can Arun build React and Next.js applications?",
     answer:
       "Yes. Arun accepts selected freelance projects involving Next.js, React, TypeScript, responsive frontend systems, API-backed interfaces, technical SEO, and production deployment.",
   },

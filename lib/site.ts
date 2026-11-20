@@ -1,13 +1,20 @@
 export const siteConfig = {
   name: "Arun Acharya",
-  siteName: "Arun Acharya Portfolio",
-  defaultTitle: "Arun Acharya | Frontend & Next.js Developer",
+  siteName: "Arun Acharya — Software & Product Engineer",
+  defaultTitle: "Arun Acharya | Software & Product Engineer",
   description:
-    "Arun Acharya's portfolio: frontend, UI/UX, Next.js, dashboards, landing pages, and credited product work including ChainReach.ai.",
+    "I turn ideas into useful digital products, combining thoughtful design with practical engineering across websites, applications, and custom software.",
+  profileDescription:
+    "Arun Acharya is a software and product engineer building websites, applications, and custom software with thoughtful design and practical engineering.",
+  serviceBrandName: "Arun Acharya Software & Product Development",
+  serviceDescription:
+    "Software and product development by Arun Acharya, covering websites, applications, APIs, UI/UX, SaaS products, and custom business software.",
+  tagline: "Software Engineering · Product Development",
   host: "arunacharya1603.in",
   url: "https://arunacharya1603.in",
   brandLogo: "/brand/arun-graphic-logo-v2-transparent.png",
-  socialImage: "/og-image-light-v2.jpg",
+  socialImage: "/og-software-product-engineer-v3.jpg",
+  socialImageAlt: "Arun Acharya — Software & Product Engineer. Software Engineering · Product Development.",
   email: "arunacharya1603@gmail.com",
   bookingUrl: "https://calendly.com/arunacharya1603/30min",
   corpvance: "https://www.corpvance.com/team/arun-acharya",
@@ -16,7 +23,7 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/arunacharya1603/",
   locale: "en_US",
   countryCode: "IN",
-  jobTitle: "Frontend Developer, UI/UX Developer, and Next.js Freelancer",
+  jobTitle: "Software & Product Engineer",
   personId: "https://arunacharya1603.in#person",
   websiteId: "https://arunacharya1603.in#website",
 };
@@ -30,8 +37,14 @@ export const personSameAsLinks = [
 
 export const topSeoKeywords = [
   "Arun Acharya",
-  "Arun Acharya developer",
+  "Arun Acharya software engineer",
+  "Arun Acharya product engineer",
   "Arun Acharya portfolio",
+  "software development",
+  "product development",
+  "application development",
+  "custom software development",
+  "Arun Acharya developer",
   "chainreach.ai frontend developer",
   "Arun Acharya ChainReach.ai frontend developer",
   "freelance web developer",

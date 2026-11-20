@@ -13,7 +13,7 @@ export function generateMetadata() {
       "Arun Acharya work",
       "Arun Acharya projects",
       "chainreach.ai developer",
-      "frontend developer portfolio",
+      "software and product engineering portfolio",
     ],
   });
 }

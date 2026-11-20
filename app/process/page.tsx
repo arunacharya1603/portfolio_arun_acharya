@@ -3,11 +3,11 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "Arun Acharya's Web Development Process",
+    title: "Software & Product Development Process | Arun Acharya",
     description:
-      "How Arun Acharya works across strategy, UI/UX design, frontend development, Next.js engineering, launch checks, SEO structure, and performance optimization.",
+      "How Arun Acharya takes websites, applications, and custom software from discovery and UI/UX through development, testing, deployment, and handover.",
     path: "/process",
-    keywords: ["frontend development process", "UI UX process", "Next.js development process"],
+    keywords: ["software development process", "product development process", "application development workflow"],
   });
 }
 

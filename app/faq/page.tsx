@@ -7,19 +7,20 @@ import {
   seoMutedTextClass,
 } from "@/components/SeoPageShell";
 import { seoFaqs } from "@/data/seo";
+import { siteConfig } from "@/lib/site";
 import { breadcrumbJsonLd, createPageMetadata, faqJsonLd } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
     title: "Arun Acharya: Services, Pricing, and Project FAQ",
     description:
-      "Direct answers about Arun Acharya's frontend, Next.js, UI/UX, website, SaaS, pricing, timeline, remote work, and project experience.",
+      "Answers about working with Arun Acharya on websites, applications, and custom software: services, pricing, timelines, remote work, and experience.",
     path: "/faq",
     keywords: [
       "Arun Acharya FAQ",
       "hire Arun Acharya",
-      "Next.js freelancer pricing",
-      "frontend developer services",
+      "software development pricing",
+      "product engineering services",
     ],
   });
 }
@@ -37,7 +38,7 @@ export default function FaqPage() {
     <SeoPageShell
       eyebrow="Frequently asked questions"
       title="Direct answers about hiring Arun Acharya"
-      description="Arun is a frontend and full-stack product engineer available for selected React, Next.js, UI/UX, website, dashboard, SaaS, and performance projects."
+      description={siteConfig.profileDescription}
     >
       {schemas.map((schema, index) => (
         <script

@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         url: `${siteConfig.url}${siteConfig.socialImage}`,
         width: 1200,
         height: 630,
-        alt: "Arun Acharya developer portfolio",
+        alt: siteConfig.socialImageAlt,
       },
     ],
   },

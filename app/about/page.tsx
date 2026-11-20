@@ -13,17 +13,16 @@ import { absoluteUrl, breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 
 export function generateMetadata() {
   return createPageMetadata({
-    title: "About Arun Acharya: Frontend & Next.js Developer",
-    description:
-      "Meet Arun Acharya, a frontend and Next.js developer whose portfolio covers UI/UX, dashboards, landing pages, and credited product work.",
+    title: `About Arun Acharya | ${siteConfig.jobTitle}`,
+    description: siteConfig.profileDescription,
     path: "/about",
     keywords: [
       "Arun Acharya",
       "Arun Acharya developer",
       "Arun Acharya portfolio",
-      "UI UX developer India",
-      "Next.js freelancer",
-      "frontend developer portfolio",
+      "software and product engineer",
+      "software engineering portfolio",
+      "custom software development",
     ],
   });
 }
@@ -36,6 +35,7 @@ const aboutPageJsonLd = {
   "@id": `${siteConfig.url}/about#aboutpage`,
   url: `${siteConfig.url}/about`,
   name: "About Arun Acharya",
+  description: siteConfig.profileDescription,
   mainEntity: { "@id": siteConfig.personId },
   mentions: featuredWork.map((project) => ({
     "@type": "CreativeWork",
@@ -47,7 +47,7 @@ const aboutPageJsonLd = {
 
 export default function AboutPage() {
   const featuredServices = seoServicePages.filter((service) =>
-    ["landing-pages", "frontend-development", "ui-ux-design"].includes(
+    ["web-apps-saas", "product-mvp-development", "api-development"].includes(
       service.slug,
     ),
   );
@@ -62,8 +62,8 @@ export default function AboutPage() {
   return (
     <SeoPageShell
       eyebrow="About Arun Acharya"
-      title="Arun Acharya is a full-stack product engineer focused on frontend systems, UI/UX, and Next.js delivery."
-      description="Meet the developer behind the work. Explore my role in shipped products, the problems I work on, and how I can help with your next build."
+      title={`${siteConfig.name} — ${siteConfig.jobTitle}`}
+      description={siteConfig.description}
     >
       {schemas.map((schema, index) => (
         <script
@@ -78,22 +78,22 @@ export default function AboutPage() {
           <LiquidSurface radius={16} />
           <p className="text-sm font-bold text-brand">What I do</p>
           <h2 className="mt-3 font-grotesk text-3xl font-semibold">
-            From product idea to a usable interface
+            From an idea to a useful product
           </h2>
           <p className={`mt-4 text-base leading-8 ${seoMutedTextClass}`}>
-            Arun Acharya builds frontend systems, UI/UX flows, landing pages,
-            dashboards, SaaS interfaces, and full-stack product surfaces. His
-            case studies describe his specific role and contribution to
-            ChainReach.ai and the other showcased projects.
+            {siteConfig.profileDescription} The work spans product planning,
+            UI/UX, application interfaces, APIs, and full-stack development.
+            Each case study explains Arun’s role, the implementation decisions,
+            and his contribution to that project.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {[
-              "Frontend development",
+              "Software engineering",
+              "Product development",
               "UI/UX design",
-              "Next.js freelancer",
-              "Landing pages",
-              "SaaS dashboards",
-              "Product interfaces",
+              "Websites & applications",
+              "APIs & integrations",
+              "Custom software",
             ].map((item) => (
               <span
                 key={item}
@@ -120,7 +120,7 @@ export default function AboutPage() {
               ["Frontend engineer profile at Corpvance", siteConfig.corpvance],
               ["Twitter/X", siteConfig.x],
               ["ChainReach.ai case study", "/work/chainreach-ai"],
-              ["Frontend service", "/services/frontend-development"],
+              ["Software and product development services", "/services"],
               ["Blog author page", "/blog/author/arun-acharya"],
               ["Professional experience", "/experience"],
               ["seo-engineering: my public SEO skill project", "/packages/seo-engineering"],

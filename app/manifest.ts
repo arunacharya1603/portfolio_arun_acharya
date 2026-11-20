@@ -5,8 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteConfig.siteName,
     short_name: "Arun Portfolio",
-    description:
-      "Freelance web developer portfolio for frontend, full-stack, and UI/UX projects.",
+    description: siteConfig.profileDescription,
     start_url: "/",
     display: "standalone",
     background_color: "#F7F9FC",

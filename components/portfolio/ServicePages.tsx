@@ -14,7 +14,7 @@ export function ServicesPageContent() {
     <SeoPageShell
       eyebrow="Services"
       title="The right expertise for your next step."
-      description="A new website, a clearer interface, or a product ready to launch. Every engagement starts with your goals and a practical scope."
+      description="Websites, applications, and custom software built around your goals. From product planning and UI/UX to development and launch, every engagement starts with a practical scope."
     >
       <div className="grid gap-6 md:grid-cols-2">
         {services.map((service) => {

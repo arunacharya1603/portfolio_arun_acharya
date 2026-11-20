@@ -42,8 +42,10 @@ export function SiteFooter() {
               </span>
             </Link>
             <p className="mt-3 text-sm leading-7 text-subtle">
-              Thoughtful websites and products. Designed with care, built to
-              work.
+              {siteConfig.jobTitle}
+              <br />
+              Websites, applications, and custom software. Designed with care,
+              built to work.
             </p>
             <GlassLink
               href={siteConfig.bookingUrl}

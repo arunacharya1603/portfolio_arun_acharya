@@ -84,7 +84,7 @@ export default function HomePage() {
             <div className="grid items-center gap-8 lg:min-h-[520px] lg:grid-cols-[1.05fr_1fr] lg:gap-8">
               <div>
                 <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-brand">
-                  Independent developer. Product-minded partner.
+                  {siteConfig.jobTitle}
                 </p>
                 <h1 className="text-display">
                   I build products
@@ -92,9 +92,7 @@ export default function HomePage() {
                   <span className="text-brand">remember.</span>
                 </h1>
                 <p className="mt-7 max-w-lg text-lg leading-8 text-subtle">
-                  I’m Arun Acharya, a freelance frontend and Next.js developer.
-                  I build websites and product interfaces for founders and
-                  businesses, with clear scope and direct collaboration.
+                  I’m {siteConfig.name}. {siteConfig.description}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <GlassLink href="/contact">
